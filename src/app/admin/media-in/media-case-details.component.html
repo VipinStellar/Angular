@@ -1,0 +1,927 @@
+<div class="content-wrapper">
+  <div class="content-header" style="margin-top: 57px;">
+    <div class="container-fluid">
+      <nav mat-tab-nav-bar *ngIf="isLoading">
+        <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"
+          [active]="activeLink == tabItem">
+          {{(mediaDetails!= null && (mediaDetails['stage'] == 1 || mediaDetails['stage'] == 2) && tabItem ==
+          'Inspection')?'':tabItem}}
+        </a>
+      </nav><br>
+      <mat-progress-bar mode="indeterminate" [hidden]="isLoading"></mat-progress-bar>
+      <div class="row mb-2" *ngIf="isLoading">
+        <div class="col-xl-9 col-sm-9">
+          <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['zoho_id']}} &nbsp;&nbsp;&nbsp;<span
+              *ngIf="mediaDetails['job_id'] !=null">Job Id : {{mediaDetails['job_id']}}</span></h2>
+        </div>
+        <div class="col-xl-3 col-sm-3 text-right">
+          <button *ngIf="mediaDetails['transferMedia'] != null && mediaDetails['transferMedia']['media_in_status'] ==0"
+            class="btn btn-primary btn-sm"
+            (click)="generateCode( mediaDetails['transferMedia']['id'])">{{(mediaDetails['transferMedia']['new_branch_id']
+            == "23")?"Media In At Head Office":"Media In"}}</button>
+          <h2 class="m-0 text-dark"
+            *ngIf="mediaDetails['transferMedia'] != null && mediaDetails['transferMedia']['media_in_status'] != 0  && mediaDetails['transferMedia']['new_branch_id'] == '23'">
+            Head Office Job Id : {{mediaDetails['transferMedia']['transfer_code']}}</h2>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="content mb-3">
+    <div class="container-fluid border p-4">
+      <div class="row" *ngIf="isLoading">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Client Name : </label>
+          <span class="ml-2">{{mediaDetails['customer_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Zoho Record Id : </label>
+          <span class="ml-2">{{mediaDetails['zoho_id']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Branch Name : </label>
+          <span class="ml-2">{{mediaDetails['branch_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Media Type : </label>
+          <span class="ml-2">{{mediaDetails['media_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
+          <label class="control-label">Media Make : </label>
+          <span class="ml-2">{{mediaDetails['media_make']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
+          <label class="control-label">Media Model : </label>
+          <span class="ml-2">{{mediaDetails['media_model']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
+          <label class="control-label">Media Serial : </label>
+          <span class="ml-2">{{mediaDetails['media_serial']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Media Capacity : </label>
+          <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
+          <label class="control-label">Media Condition : </label>
+          <span class="ml-2">{{mediaDetails['media_condition']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Tampered Status : </label>
+          <span class="ml-2">{{mediaDetails['tampered_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Mode Of Service : </label>
+          <span class="ml-2">{{mediaDetails['service_mode']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Type of Service : </label>
+          <span class="ml-2">{{mediaDetails['service_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Media received : </label>
+          <span class="ml-2">{{mediaDetails['media_casing']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Important Data : </label>
+          <span class="ml-2">{{mediaDetails['important_data']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
+          <label class="control-label">Peripherals Details : </label>
+          <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] == 'RAID'">
+          <label class="control-label">Type of Interface : </label>
+          <span class="ml-2">{{mediaDetails['media_interface']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] == 'RAID'">
+          <label class="control-label">No. of Media received : </label>
+          <span class="ml-2">{{mediaDetails['drive_count']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Added By : </label>
+          <span class="ml-2">{{mediaDetails['zoho_user']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Added On : </label>
+          <span class="ml-2">{{mediaDetails['created_on'] | date:'medium'}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['preHis'] !=null">
+          <label class="control-label">Pre Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['preHis'][0]['user_name'] ==
+            null)?'':mediaDetails['preHis'][0]['user_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['preHis'] !=null">
+          <label class="control-label">Pre Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['preHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['preHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['transferMedia'] != null">
+          <label class="control-label">Media Transfer Reason : </label>
+          <span class="ml-2">{{mediaDetails['transferMedia']['reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['transferMedia'] != null">
+          <label class="control-label">Media Transfer On : </label>
+          <span class="ml-2">{{mediaDetails['transferMedia']['created_on']| date:'medium'}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['preHis'] != null">{{mediaDetails['preHis'][0]['stage_name']}}</span>
+        </div>
+
+      </div>
+    </div>
+  </section>
+  <section class="content mb-3" *ngIf="mediaDetails['job_id'] != null">
+    <div class="container-fluid border p-4">
+      <div class="row">
+        <div class="col-lg-12 col-md-12">
+          <h2>Inspection Details</h2>
+        </div>
+      </div>
+      <!--  RAID Media Start Html  -->
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'RAID'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Internal condition of platters : </label>
+          <span class="ml-2">{{mediaDetails['platters_condition']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media OS : </label>
+          <span class="ml-2">{{mediaDetails['media_os']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Data Status identified : </label>
+          <span class="ml-2">{{mediaDetails['compression_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+
+      </div>
+      <!--  RAID Media End Html  -->
+      <!--  Floppy Disk  Start Html  -->
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'Floppy Disk'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media reading process : </label>
+          <span class="ml-2">{{mediaDetails['reading_process']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media surface state identified : </label>
+          <span class="ml-2">{{mediaDetails['state_identified']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media OS : </label>
+          <span class="ml-2">{{mediaDetails['media_os']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Data Status identified : </label>
+          <span class="ml-2">{{mediaDetails['compression_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+      </div>
+      <!--  Floppy Disk  End Html  -->
+
+      <!--  CD/DVD Media Starts Html  -->
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'CD/DVD'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Types of Optical disk Media : </label>
+          <span class="ml-2">{{mediaDetails['disk_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media reading process : </label>
+          <span class="ml-2">{{mediaDetails['reading_process']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media surface state identified : </label>
+          <span class="ml-2">{{mediaDetails['state_identified']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media OS : </label>
+          <span class="ml-2">{{mediaDetails['media_os']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Data Status identified : </label>
+          <span class="ml-2">{{mediaDetails['compression_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+
+      </div>
+      <!--  CD/DVD Media End Html  -->
+      <!--  DVR Media Starts Html  -->
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'DVR Media'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Type of Interface : </label>
+          <span class="ml-2">{{mediaDetails['media_interface']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Total no. of Media received : </label>
+          <span class="ml-2">{{mediaDetails['drive_count']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media `s caisng /equipment condition wrt any apparent external physical damage to
+            it : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media Condition : </label>
+          <span class="ml-2">{{mediaDetails['media_condition']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media OS : </label>
+          <span class="ml-2">{{mediaDetails['media_os']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Type of noise identified while the drive is powered-on : </label>
+          <span class="ml-2">{{mediaDetails['noise_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Drive electronics & control systems : </label>
+          <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Rotatory function : </label>
+          <span class="ml-2">{{mediaDetails['rotary_function']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Internal condition of platters : </label>
+          <span class="ml-2">{{mediaDetails['platters_condition']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Data Status identified : </label>
+          <span class="ml-2">{{mediaDetails['compression_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+
+      </div>
+      <!--  DVR Media End Html  -->
+
+      <!--  Flash  Media Start Html  -->
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'Flash Media'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media `s laptop/macbook condition wrt any apparent external physical damage to it
+            : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Types of FLASH Media : </label>
+          <span class="ml-2">{{mediaDetails['media_model']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media OS : </label>
+          <span class="ml-2">{{mediaDetails['media_os']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Drive electronics & control systems : </label>
+          <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">File system consistency check for Required data : </label>
+          <span class="ml-2">{{mediaDetails['file_system_info']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Cause of data loss : </label>
+          <span class="ml-2">{{mediaDetails['data_loss_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+
+      </div>
+      <!--  Flash  Media End Html  -->
+      <!--  Tape  Media End Html  -->
+
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'Tape Media'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Types of Tape Media : </label>
+          <span class="ml-2">{{mediaDetails['media_model']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Total no. of tape received : </label>
+          <span class="ml-2">{{mediaDetails['drive_count']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Any apparent external physical damage to the tape drive : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Drive electronics & control systems : </label>
+          <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Rotatory function : </label>
+          <span class="ml-2">{{mediaDetails['rotary_function']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+
+      </div>
+      <!--  Tape  Media End Html  -->
+
+      <!--  SSD  Media End Html  -->
+
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'SSD'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Types of SSD Media : </label>
+          <span class="ml-2">{{mediaDetails['media_model']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media `s laptop/macbook condition wrt any apparent external physical damage to it
+            : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media OS : </label>
+          <span class="ml-2">{{mediaDetails['media_os']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Drive electronics & control systems : </label>
+          <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Data Status identified : </label>
+          <span class="ml-2">{{mediaDetails['compression_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+
+      </div>
+      <!--  SSD  Media End Html  -->
+
+      <!--  Other  Media End Html  -->
+      <div class="row" *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'SSD' && mediaDetails['media_type'] != 'Flash Media'">
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Case Type : </label>
+          <span class="ml-2">{{mediaDetails['case_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Recovery Possibility : </label>
+          <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+        </div>
+		 <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+            <label class="control-label">Type of Interface : </label>
+            <span class="ml-2">{{mediaDetails['media_interface']}}</span>
+          </div> 
+		 
+		  
+		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media found encrypted : </label>
+          <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Encryption level identified on the media : </label>
+          <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Details provided for decryption are up to mark : </label>
+          <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+        </div>
+		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+            <label class="control-label">Media condition wrt any apparent external physical damage to it : </label>
+            <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+          </div> 
+		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">DType of noise identified while the drive is powered-on : </label>
+          <span class="ml-2">{{mediaDetails['noise_type']}}</span>
+        </div>
+		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Drive electronics & control systems : </label>
+          <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
+        </div>
+		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Rotatory function : </label>
+          <span class="ml-2">{{mediaDetails['rotary_function']}}</span>
+        </div>
+		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Internal condition of platters : </label>
+          <span class="ml-2">{{mediaDetails['platters_condition']}}</span>
+        </div>
+		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Tampering Required : </label>
+          <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+        </div>
+		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Further use of Media : </label>
+          <span class="ml-2">{{mediaDetails['further_use']}}</span>
+        </div>
+		     
+		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovered data files and folder’s structure : </label>
+          <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+        </div>
+		
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Recovery Percentage : </label>
+          <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Required Days : </label>
+          <span class="ml-2">{{mediaDetails['required_days']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required : </label>
+          <span class="ml-2">{{mediaDetails['extension_required']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Extension Required Days : </label>
+          <span class="ml-2">{{mediaDetails['extension_day']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Inspection Due Reason : </label>
+          <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+        </div>
+
+        <div class="col-lg-6 col-md-6">
+          <label class="control-label">Inspection Status : </label>
+          <span class="ml-2" *ngIf="mediaDetails['assHis'] != null">{{mediaDetails['assHis'][0]['stage_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection On : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] == null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
+          <label class="control-label">Inspection By : </label>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] == null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+        </div>
+        
+    </div>
+      <!--  Other  Media End Html  -->
+    </div>
+  </section>
+</div>

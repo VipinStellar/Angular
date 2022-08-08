@@ -1,0 +1,74 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+                </div>
+              
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="roleForm">
+                        <div class="col-sm-12">
+                            <input type="text" formControlName="role_name" [ngClass]="{ 'is-invalid': submitted && f['role_name'].errors }"
+                                 class="form-control" placeholder="Role Name">
+                            <div *ngIf="submitted && f['role_name'].errors" class="invalid-feedback">
+                                <div *ngIf="f['role_name'].errors['required']">Name is required</div>
+                                <small class="p-error" *ngIf="f['role_name'].errors['message']">{{f['role_name'].errors['message']}}</small>
+                            </div>
+                        </div><br>
+                        <div class="col-sm-12">
+                            <mat-label>Select Access</mat-label>
+                            <mat-select multiple formControlName="access" [ngClass]="{ 'is-invalid': submitted && f['access'].errors }"
+                                class="form-control">
+                                <mat-option *ngFor="let bran of moduleList" [value]="bran['slug']">{{bran['name']}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && f['access'].errors" class="invalid-feedback">
+                                <div *ngIf="f['access'].errors['required']">Access is required</div>
+                            </div>
+                        </div><br>
+                        <div class="col-sm-12">
+                            <mat-label>Select Modify</mat-label>
+                            <mat-select multiple formControlName="modify" [ngClass]="{ 'is-invalid': submitted && f['modify'].errors }"
+                                class="form-control">
+                                <mat-option *ngFor="let bran of moduleList" [value]="bran['slug']">{{bran['name']}}
+                                </mat-option>
+                            </mat-select>
+                        </div><br>
+                        <div class="col-sm-12">
+                            <mat-label>Select Delete</mat-label>
+                            <mat-select multiple formControlName="delete" [ngClass]="{ 'is-invalid': submitted && f['delete'].errors }"
+                                class="form-control">
+                                <mat-option *ngFor="let bran of moduleList" [value]="bran['slug']">{{bran['name']}}
+                                </mat-option>
+                            </mat-select>
+                        </div><br>
+                        <div class="col-sm-12">
+                            <mat-label>Select Supervisor Role</mat-label>
+                            <mat-select formControlName="parent_id" [ngClass]="{ 'is-invalid': submitted && f['parent_id'].errors }"
+                                class="form-control">
+                                <mat-option *ngFor="let rol of roleList" [value]="rol['id']">{{rol['role_name']}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && f['parent_id'].errors" class="invalid-feedback">
+                                <div *ngIf="f['parent_id'].errors['required']">Supervisor is required</div>
+                            </div>
+                        </div><br>
+                        <div class="col-12 text-right">
+                            <button class="btn btn-default" (click)="cancel();">Close</button>&nbsp;
+                            <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span *ngIf="loading"
+                                class="spinner-border spinner-border-sm mr-1"></span></button>
+                        </div>
+                    </form>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

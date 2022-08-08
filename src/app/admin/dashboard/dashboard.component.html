@@ -1,0 +1,254 @@
+<div class="content-wrapper">
+  <div class="content-header" style="margin-top: 57px;">
+    <div class="container-fluid">
+      <div class="row mb-2">
+        <div class="col-xl-4 col-sm-4">
+          <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row" >
+        <!--Pre Ana Start-->
+        <div class="col-md-6">
+          <div class="card">
+            <div class="card-header border-0">
+            <h3 class="card-title"><strong>Pre Inspection Pending</strong></h3>
+            <div class="spinner-border tableLoader" role="status"*ngIf="preloader"></div>
+            <table class="table  table-valign-middle" *ngIf="resultPre != undefined">              
+              <thead>
+                
+              <tr>
+                <th></th>
+              <th>Total</th>
+              <th>Assigned</th>
+              <th>Unassigned</th>
+              <th>My assigned</th>
+              </tr>
+              </thead>
+              <tbody>        
+                <tr *ngFor="let key of Object.keys(resultPre)">
+                  <td>{{key}}</td>
+                  <td><a href="javascript:void(0)" (click)="viewResult(resultPre[key],'total')" >{{resultPre[key]['total']}}</a></td>
+                  <td><a href="javascript:void(0)" (click)="viewResult(resultPre[key],'assigned')" >{{resultPre[key]['assigned']}}</a></td>
+                  <td><a href="javascript:void(0)" (click)="viewResult(resultPre[key],'unasigned')" >{{resultPre[key]['unasigned']}}</a></td>
+                  <td><a href="javascript:void(0)" (click)="viewResult(resultPre[key],'my_assigned')" >{{resultPre[key]['my_assigned']}}</a></td>
+                </tr>
+              </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+     <!--End-->
+  <!--Pre Ana Done Start-->
+  <div class="col-md-6">
+    <div class="card">
+      <div class="card-header border-0">
+      <h3 class="card-title"><strong>Pre Inspection Done</strong></h3>
+      <div class="spinner-border tableLoader" role="status"*ngIf="preInloader"></div>
+      <table class="table table-valign-middle" *ngIf="resultPreDone != undefined">
+        <thead>
+        <tr>
+          <th></th>
+        <th>Total</th>
+        <th>My assigned</th>
+        </tr>
+        </thead>
+        <tbody>        
+          <tr *ngFor="let key of Object.keys(resultPreDone)">
+            <td>{{key}}</td>
+            <td><a href="javascript:void(0)" (click)="viewResult(resultPreDone[key],'total')" >{{resultPreDone[key]['total']}}</a></td>
+            <td><a href="javascript:void(0)" (click)="viewResult(resultPreDone[key],'my_assigned')" >{{resultPreDone[key]['my_assigned']}}</a></td>
+          </tr>
+        </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+     
+<!--End-->
+
+<!--Media In Done Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Media In</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="MedInloader"></div>
+    <table class="table table-valign-middle" *ngIf="resultMediaIn != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th>Assigned</th>
+        <th>Unassigned</th>
+        <th>My assigned</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultMediaIn)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultMediaIn[key],'total')" >{{resultMediaIn[key]['total']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultMediaIn[key],'assigned')" >{{resultMediaIn[key]['assigned']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultMediaIn[key],'unasigned')" >{{resultMediaIn[key]['unasigned']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultMediaIn[key],'my_assigned')" >{{resultMediaIn[key]['my_assigned']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+
+<!--Pre Ass Precess Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Inspection In Process</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="inPreloader"></div>
+    <table class="table table-valign-middle" *ngIf="resultAssProcess != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th>My assigned</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultAssProcess)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultAssProcess[key],'total')" >{{resultAssProcess[key]['total']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultAssProcess[key],'my_assigned')" >{{resultAssProcess[key]['my_assigned']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+
+
+<!--Pre Ass Done Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Inspection Done</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="inDoneloader"></div>
+    <table class="table  table-valign-middle" *ngIf="resultAssDone != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th>My assigned</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultAssDone)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultAssDone[key],'total')" >{{resultAssDone[key]['total']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultAssDone[key],'my_assigned')" >{{resultAssDone[key]['my_assigned']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+
+<!--Case Possible Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Case Possible</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="casePoloader"></div>
+    <table class="table  table-valign-middle" *ngIf="resultCasePossible != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th>My assigned</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultCasePossible)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultCasePossible[key],'total')" >{{resultCasePossible[key]['total']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultCasePossible[key],'my_assigned')" >{{resultCasePossible[key]['my_assigned']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+
+<!--Case not Possible Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Case Not Possible</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="caseNoloader"></div>
+    <table class="table  table-valign-middle" *ngIf="resultCaseNotPossible != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+        <th>My assigned</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultCaseNotPossible)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultCaseNotPossible[key],'total')" >{{resultCaseNotPossible[key]['total']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultCaseNotPossible[key],'my_assigned')" >{{resultCaseNotPossible[key]['my_assigned']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+
+
+        
+        
+      </div>
+      <!-- <button
+  style="margin: 50px; padding: 10px"
+  type="button"
+  class="btn btn-primary"
+  (click)="openPopup()">Show Data
+</button> -->
+    </div>
+  </section>
+</div>
+<!-- <div
+  class="modal"
+  tabindex="-1"
+  role="dialog"
+  [ngStyle]="{'display':displayStyle}">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">GeeksForGeeks</h4>
+      </div>
+      <div class="modal-body">
+        <p>One Stop Solution for all CS problems</p>
+  
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-danger" 
+                (click)="closePopup()">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+</div> -->
+

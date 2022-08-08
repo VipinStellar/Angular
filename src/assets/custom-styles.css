@@ -1,0 +1,56 @@
+/* .stage:before {
+    content: "";
+    position: absolute;
+    width: 5px;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+.stage.green-stage:before {
+    background-color: #28a745;
+}
+.stage.orange-stage:before {
+    background-color: #ffc107;
+}
+td.mat-cell:first-of-type{
+    position: relative;
+    overflow: hidden;
+} */
+
+fieldset.scheduler-border {
+    border: 1px groove #ddd !important;
+    padding: 0 1.4em .7em 1.4em !important;
+    margin: 0 0 1.5em 0 !important;
+    -webkit-box-shadow:  0px 0px 0px 0px #000;
+            box-shadow:  0px 0px 0px 0px #000;
+}
+ legend.scheduler-border {
+        font-size: 1.2em !important;
+        font-weight: bold !important;
+        text-align: left !important;
+        width:auto;
+        padding:0 10px;
+        border-bottom:none;
+    }
+
+    .widget-user-2 .widget-user-username, .widget-user-2 .widget-user-desc {
+        margin-left: 0px !important;
+    }
+
+    .mat-dialog-title {
+        margin: -24px -24px 10px !important;
+        display: block !important;
+        padding: 7px 24px;
+        background:#ddd;
+    }
+
+
+    .tableLoader
+    {
+        position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    }

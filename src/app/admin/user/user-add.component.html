@@ -1,0 +1,90 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<form [formGroup]="userForm">
+    <div mat-dialog-content>
+        <div class="col-sm-12">
+            <input type="text" formControlName="name"
+                [ngClass]="{ 'is-invalid': submitted && f['name'].errors }" class="form-control"
+                placeholder="User Name">
+            <div *ngIf="submitted && f['name'].errors" class="invalid-feedback">
+                <div *ngIf="f['name'].errors['required']">User name is required</div>
+                <small class="p-error"
+                    *ngIf="f['name'].errors['message']">{{f['name'].errors['message']}}</small>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <input type="text" formControlName="emp_code"
+                [ngClass]="{ 'is-invalid': submitted && f['emp_code'].errors }" class="form-control"
+                placeholder="Emp Id">
+            <div *ngIf="submitted && f['emp_code'].errors" class="invalid-feedback">
+                <div *ngIf="f['emp_code'].errors['required']">Emp id is required</div>
+                <small class="p-error"
+                    *ngIf="f['emp_code'].errors['message']">{{f['emp_code'].errors['message']}}</small>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <input type="email" formControlName="email"
+                [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" class="form-control"
+                placeholder="Email">
+            <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                <div *ngIf="f['email'].errors['required']">Email is required</div>
+                <small class="p-error p-align-left" *ngIf="f['email'].errors['pattern']">Email is not valid.</small>
+                <small class="p-error"
+                    *ngIf="f['email'].errors['message']">{{f['email'].errors['message']}}</small>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <mat-label>Select Role</mat-label>
+            <mat-select (selectionChange)="OnChangeDropdown();" formControlName="role_id" [ngClass]="{ 'is-invalid': submitted && f['role_id'].errors }"
+                class="form-control">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let rol of roleList" [value]="rol['id']">{{rol['role_name']}}
+                </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && f['role_id'].errors" class="invalid-feedback">
+                <div *ngIf="f['role_id'].errors['required']">Role is required</div>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <mat-label>Select Branch</mat-label>
+            <mat-select (selectionChange)="OnChangeDropdown();" multiple formControlName="branch_id" [ngClass]="{ 'is-invalid': submitted && f['branch_id'].errors }"
+                class="form-control">
+                 <mat-option *ngFor="let bran of barnchList" [value]="bran['id']">{{bran['branch_name']}}
+                </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && f['branch_id'].errors" class="invalid-feedback">
+                <div *ngIf="f['branch_id'].errors['required']">Branch is required</div>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <mat-label>Select Supervisor </mat-label>
+            <mat-select  formControlName="supervisor_id" [ngClass]="{ 'is-invalid': submitted && f['supervisor_id'].errors }"
+                class="form-control">
+                <mat-option value="0">Admin</mat-option>
+                <mat-option *ngFor="let sup of supervisorList" [value]="sup['id']">{{sup['name']+" ("+sup['emp_code']+")"}}
+                </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && f['supervisor_id'].errors" class="invalid-feedback">
+                <div *ngIf="f['supervisor_id'].errors['required']">Supervisor is required</div>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <mat-label>Select Team</mat-label>
+            <mat-select  formControlName="team_id" [ngClass]="{ 'is-invalid': submitted && f['team_id'].errors }"
+                class="form-control">
+                <mat-option>None</mat-option>
+                <mat-option *ngFor="let team of teamList" [value]="team['id']">{{team['team_name']}}
+                </mat-option>
+            </mat-select>
+            <div *ngIf="submitted && f['team_id'].errors" class="invalid-feedback">
+                <div *ngIf="f['team_id'].errors['required']">team is required</div>
+            </div>
+        </div><br>
+       
+
+    </div>
+</form><br>
+<div class="row" style="float: right;">
+    <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+    <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"></span></button>
+</div>

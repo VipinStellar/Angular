@@ -1,0 +1,70 @@
+<body class="hold-transition login-page">
+
+    <div class="login-box">
+
+        <div class="card card-outline card-primary">
+            <div class="card-header text-center">
+                <img src="assets/logo.png" class="brand-image" />
+            </div>
+            <div class="card-body">
+                <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                    <div class="input-group mb-3">
+                        <input type="email" formControlName="email"
+                            [ngClass]="{ 'is-invalid': submitted && f['email'].errors }" class="form-control"
+                            placeholder="Email/Emp Code">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-envelope"></span>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f['email'].errors" class="invalid-feedback">
+                            <div *ngIf="f['email'].errors['required']">Email/Emp Code is required</div>
+                            <div *ngIf="f['email'].errors['email']">Email must be a valid email address</div>
+                            <small class="p-error"
+                                *ngIf="f['email'].errors['message']">{{f['email'].errors['message']}}</small>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" formControlName="password"
+                            [ngClass]="{ 'is-invalid': submitted && f['password'].errors }" placeholder="Password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                        <div *ngIf="submitted && f['password'].errors" class="invalid-feedback">
+                            <div *ngIf="f['password'].errors['required']">Password is required</div>
+                            <small class="p-error"
+                                *ngIf="f['password'].errors['message']">{{f['password'].errors['message']}}</small>
+                        </div>
+
+                    </div>
+                    <div class="row">
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <a routerLink="/forgot-password"><b>I forgot my password</b></a>
+                                
+                            </div>
+                        </div>
+
+                        <div class="col-4">
+                            <button [disabled]="loading" class="btn btn-primary btn-block">
+                                Sign In<span *ngIf="loading"
+                                    class="spinner-border spinner-border-sm mr-1"></span></button>
+                        </div>
+
+                    </div>
+                </form>
+
+                <!-- <p class="mb-1">
+                    <a routerLink="/forgot-password">I forgot my password</a>
+                </p> -->
+                <!--   <p class="mb-0">
+                    <a href="#" class="text-center">Register a new membership</a>
+                </p> -->
+            </div>
+
+        </div>
+
+    </div>
+</body>

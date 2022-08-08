@@ -1,0 +1,60 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<form [formGroup]="branchForm">
+    <div mat-dialog-content>
+        <div class="col-sm-12">
+            <input type="text" formControlName="branch_name"
+                [ngClass]="{ 'is-invalid': submitted && f['branch_name'].errors }" class="form-control"
+                placeholder="Branch Name">
+            <div *ngIf="submitted && f['branch_name'].errors" class="invalid-feedback">
+                <div *ngIf="f['branch_name'].errors['required']">Name is required</div>
+                <small class="p-error"
+                    *ngIf="f['branch_name'].errors['message']">{{f['branch_name'].errors['message']}}</small>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+            <mat-label>Select Country</mat-label>
+            <mat-select formControlName="country_id" [ngClass]="{ 'is-invalid': submitted && f['country_id'].errors }"
+                class="form-control">
+                <mat-select-filter [placeholder]="'Filter'" [displayMember]="'country_name'" [array]="countryList" (filteredReturn)="countryFilter =$event"></mat-select-filter>
+                <mat-option *ngFor="let cnt of countryFilter" [value]="cnt['country_id']">
+                    {{cnt['country_name']}}
+                </mat-option>
+                <!-- <mat-option *ngFor="let cnt of countryList" [value]="cnt['country_id']">{{cnt['country_name']}}
+                </mat-option> -->
+            </mat-select>
+            <div *ngIf="submitted && f['country_id'].errors" class="invalid-feedback">
+                <div *ngIf="f['country_id'].errors['required']">Country is required</div>
+            </div>
+        </div>
+        <br>
+        <div class="col-sm-12" >
+            <mat-label *ngIf="f['country_id'].value ==99">Select State</mat-label>
+            <mat-select *ngIf="f['country_id'].value ==99" formControlName="state_name" [ngClass]="{ 'is-invalid': submitted && f['state_name'].errors }"
+                class="form-control">
+                <!-- <mat-option *ngFor="let cnt of stateList" [value]="cnt['state_name']">{{cnt['state_name']}}
+                </mat-option> -->
+                <mat-select-filter [placeholder]="'Filter'" [displayMember]="'state_name'" [array]="stateList" (filteredReturn)="StateFilter =$event"></mat-select-filter>
+                <mat-option *ngFor="let cnt of StateFilter" [value]="cnt['state_name']">
+                    {{cnt['state_name']}}
+                </mat-option>
+            </mat-select>
+            <input *ngIf="f['country_id'].value !=99" type="text" formControlName="state_name" [ngClass]="{ 'is-invalid': submitted && f['state_name'].errors }" class="form-control"  placeholder="State Name">
+            <div *ngIf="submitted && f['state_name'].errors" class="invalid-feedback">
+                <div *ngIf="f['state_name'].errors['required']">State is required</div>
+            </div>
+        </div><br>
+        <div class="col-sm-12">
+                <textarea formControlName="address"  [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
+                class="form-control"  placeholder="Address..."></textarea>
+                <div *ngIf="submitted && f['address'].errors" class="invalid-feedback">
+                    <div *ngIf="f['address'].errors['required']">Address is required</div>
+                </div>
+        </div>
+
+    </div>
+</form><br>
+<div class="row" style="float: right;">
+    <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+    <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span *ngIf="loading"
+            class="spinner-border spinner-border-sm mr-1"></span></button>
+</div>

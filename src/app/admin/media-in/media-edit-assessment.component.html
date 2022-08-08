@@ -1,0 +1,2748 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<div mat-dialog-content>
+  <form [formGroup]="mediaEdit">
+    <div class="container mt-2 p-4 border" id="pre-inspect-edit">
+      <div class="row bg-color mb-3">
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Client Name : </label>
+          <span class="ml-2" id="cl_name">{{data['customer_name']}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Job id : </label>
+          <span class="ml-2" id="zoho_id">{{data['job_id']}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Media Type : </label>
+          <span class="ml-2" id="zoho_id">{{data['media_type']}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Media Capacity : </label>
+          <span class="ml-2" id="zoho_id">{{data['media_capacity']}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Mode Of Service : </label>
+          <span class="ml-2" id="zoho_id">{{data['service_mode']}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Type of Service : </label>
+          <span class="ml-2" id="zoho_id">{{data['service_type']}}</span>
+        </div>
+        <div class="col-lg-4 col-md-4">
+          <label class="control-label">Tampered Status : </label>
+          <span class="ml-2" id="zoho_id">{{data['tampered_status']}}</span>
+        </div>
+      </div>
+      <!--  RAID Media Start Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'RAID'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Internal condition of platters:</label><br>
+          <select class="form-control form-control-sm" formControlName="platters_condition">
+            <option value="">Select</option>
+            <option value="Heavy">Heavy</option>
+            <option value="Light scratches on upper side of the platter">Light scratches on upper side of the platter
+            </option>
+            <option value="Light scratches on lower side of the platter">Light scratches on lower side of the platter
+            </option>
+            <option value="Normal">Normal</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+        *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Tampering Required:</label><br>
+        <select class="form-control form-control-sm" formControlName="tampering_required"
+          [attr.disabled]="mediaDetails['tampered_status'] == 'Tampered Media' ? 'disabled' : null">
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Already Tampered">Already Tampered</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Media found encrypted:</label><br>
+        <select class="form-control form-control-sm" formControlName="encryption_status">
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Not determined at present stage">Not determined at present stage</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Encryption level identified on the media:</label><br>
+        <select class="form-control form-control-sm" formControlName="encryption_type">
+          <option value="">Select</option>
+          <option value="Hardware">Hardware</option>
+          <option value="Software">Software</option>
+          <option value="Not determined at present stage">Not determined at present stage</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Details provided for decryption are up to mark:</label><br>
+        <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+          <option value="">Select</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+          <option value="Not aplicable">Not aplicable</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Media OS:</label><br>
+        <select class="form-control form-control-sm" formControlName="media_os">
+          <option value="">Select</option>
+          <option value="Windows">Windows</option>
+          <option value="Mac OS">Mac OS</option>
+          <option value="LINUX">LINUX</option>
+          <option value="UNIX">UNIX</option>
+          <option value="HP Unix">HP Unix</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Data Status identified:</label><br>
+        <select class="form-control form-control-sm" formControlName="compression_status">
+          <option value="">Select</option>
+          <option value="Compressed">Compressed</option>
+          <option value="Un-compressed">Un-compressed</option>
+          <option value="Not applicable">Not applicable</option>
+        </select>
+      </div>
+      <div class="col-lg-4 col-md-4 mb-3"
+      *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+      <label class="control-label">Further use of Media:</label><br>
+      <select class="form-control form-control-sm" formControlName="further_use">
+        <option value="">Select</option>
+        <option value="Not Possible">Not Possible</option>
+        <option value="Possible">Possible</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+      <label class="control-label">Recovered data files and folder’s structure:</label><br>
+      <select class="form-control form-control-sm" formControlName="recoverable_data">
+        <option value="">Select</option>
+        <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+        </option>
+        <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+          Raw form (without files & folders name)</option>
+        <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+          names only but without folder names</option>
+        <option
+          value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+          Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+        <option value="Not determined at present stage">Not determined at present stage</option>
+        <option value="Not applicable">Not applicable</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Cause of data loss:</label><br>
+          <select class="form-control form-control-sm" formControlName="data_loss_reason">
+            <option value="">Select</option>
+            <option value="Reinstalled Operating system">Reinstalled Operating system</option>
+            <option value="Deleted data">Deleted data</option>
+            <option value="Formatted data">Formatted data</option>
+            <option value="Overwritten data">Overwritten data</option>
+            <option value="Over encryption">Over encryption</option>
+            <option value="Virus Attack">Virus Attack</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">File system consistency check for Required data:</label><br>
+          <select class="form-control form-control-sm" formControlName="file_system_info">
+            <option value="">Select</option>
+            <option value="File system information missing">File system information missing</option>
+            <option value="File system information found inconsistent">File system information found inconsistent
+            </option>
+            <option value="File system information found corrupted">File system information found corrupted</option>
+            <option value="File system information found in ok state">File system information found in ok state</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+        *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+        <label class="control-label">Type of raid configuration identified:</label><br>
+        <select class="form-control form-control-sm" formControlName="server_type">
+          <option value="">Select</option>
+          <option value="JBOD">JBOD</option>
+          <option value="Raid0">Raid0</option>
+          <option value="Raid1">Raid1</option>
+          <option value="Raid10">Raid10</option>
+          <option value="Raid5">Raid5</option>
+          <option value="Raid50">Raid50</option>
+          <option value="Raid6">Raid6</option>
+          <option value="Raid60">Raid60</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+    <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+      <label class="control-label">Recovery Percentage:</label><br>
+      <select class="form-control form-control-sm" formControlName="recovery_percentage">
+        <option value="">Select</option>
+        <option value="30%">30%</option>
+        <option value="40%">40%</option>
+        <option value="50%">50%</option>
+        <option value="60%">60%</option>
+        <option value="70%">70%</option>
+        <option value="80%">80%</option>
+        <option value="90%">90%</option>
+        <option value="100%">100%</option>
+        <option value="Undetermined">Undetermined</option>
+        <option value="Recovery without File Name">Recovery without File Name</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+      <label class="control-label">Required Days:</label><br>
+      <select class="form-control form-control-sm" formControlName="required_days">
+        <option value="">Select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3">
+      <label class="control-label">Inspection Status:</label><br>
+      <select class="form-control form-control-sm" formControlName="stage">
+        <option value="">Select</option>
+        <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+      <label class="control-label">Inspection Due Reason:</label><br>
+      <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+        <option value="">Select</option>
+        <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+        <option value="Client not Picking Call">Client not Picking Call</option>
+        <option value="Client Laptop Required">Client Laptop Required</option>
+        <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+        </option>
+        <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+        <option value="Client Application/Software Required">Client Application/Software Required</option>
+        <option value="Sample Data Required">Sample Data Required</option>
+        <option value="Spare required">Spare required</option>
+        <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+        <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+        <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+        <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+        </option>
+        <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+        </option>
+        <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+          Corruption In Service Area Modules , Case Escalated To Research Team</option>
+        <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+          CHIP/BIOS, Case Escalated To Research Team</option>
+        <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+          Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+        <option
+          value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+          Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+        <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+          But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+        <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+          Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+        <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+        <option value="Other">Other</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3"
+      *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+      <label class="control-label">Other Reason:</label><br>
+      <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+        placeholder="" maxlength="100">
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+      <label class="control-label">Extension Required:</label><br>
+      <select class="form-control form-control-sm" formControlName="extension_required">
+        <option value="">Select</option>
+        <option value="Yes">Yes</option>
+        <option value="No">No</option>
+      </select>
+    </div>
+    <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+      <label class="control-label">Extension Required Days:</label><br>
+      <select class="form-control form-control-sm" formControlName="extension_day">
+        <option value="">Select</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+        <option value="5">5</option>
+        <option value="6">6</option>
+        <option value="7">7</option>
+        <option value="8">8</option>
+        <option value="9">9</option>
+        <option value="10">10</option>
+        <option value="11">11</option>
+        <option value="12">12</option>
+        <option value="13">13</option>
+        <option value="14">14</option>
+        <option value="15">15</option>
+        <option value="16">16</option>
+        <option value="17">17</option>
+        <option value="18">18</option>
+        <option value="19">19</option>
+        <option value="20">20</option>
+        <option value="21">21</option>
+        <option value="22">22</option>
+        <option value="23">23</option>
+        <option value="24">24</option>
+        <option value="25">25</option>
+        <option value="26">26</option>
+        <option value="27">27</option>
+        <option value="28">28</option>
+        <option value="29">29</option>
+        <option value="30">30</option>
+      </select>
+    </div>
+    <div class="col-lg-12 col-md-12 mb-3">
+      <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+      <textarea class="form-control form-control-sm" formControlName="remarks"
+        [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+      <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+        <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+      </div>
+    </div>
+        </div>
+      <!--  Raid Media End Html  -->
+
+      <!--  Floppy Disk Media Starts Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'Floppy Disk'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media Condition:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_condition">
+            <option value="">Select</option>
+            <option value="Entangled">Entangled</option>
+            <option value="Folded tape Ribbon">Folded tape Ribbon</option>
+            <option value="Failed tape libraries">Failed tape libraries</option>
+            <option value="Internal cartridge mechanism failure">Internal cartridge mechanism failure</option>
+            <option value="Broken">Broken</option>
+            <option value="Brunt">Brunt</option>
+            <option value="Flooded">Flooded</option>
+            <option value="Tampered tape">Tampered tape</option>
+            <option value="Dust">Dust</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media reading process: </label>
+          <select class="form-control form-control-sm" formControlName="reading_process">
+            <option value="">Select</option>
+            <option value="Buffering">Buffering</option>
+            <option value="Stuck">Stuck</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media surface state identified: </label>
+          <select class="form-control form-control-sm" formControlName="state_identified">
+            <option value="">Select</option>
+            <option value="light scratches on disk surface">light scratches on disk surface</option>
+            <option value="Heavy scraches on disk surface">Heavy scraches on disk surface</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Normal">Normal</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Further use of Media:</label><br>
+          <select class="form-control form-control-sm" formControlName="further_use">
+            <option value="">Select</option>
+            <option value="Not Possible">Not Possible</option>
+            <option value="Possible">Possible</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media found encrypted:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_status">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media OS:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_os">
+            <option value="">Select</option>
+            <option value="Windows">Windows</option>
+            <option value="Mac OS">Mac OS</option>
+            <option value="LINUX">LINUX</option>
+            <option value="UNIX">UNIX</option>
+            <option value="HP Unix">HP Unix</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+
+      </div>
+      <!--  Floppy Disk Media Starts Html  -->
+
+      <!--  CD/DVD Media Starts Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'CD/DVD'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Types of Optical disk Media: </label>
+          <select class="form-control form-control-sm" formControlName="disk_type">
+            <option value="">Select</option>
+            <option value="CD">CD</option>
+            <option value="DVD">DVD</option>
+            <option value="Blu-ray disc">Blu-ray disc</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media Condition:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_condition">
+            <option value="">Select</option>
+            <option value="Entangled">Entangled</option>
+            <option value="Folded tape Ribbon">Folded tape Ribbon</option>
+            <option value="Failed tape libraries">Failed tape libraries</option>
+            <option value="Internal cartridge mechanism failure">Internal cartridge mechanism failure</option>
+            <option value="Broken">Broken</option>
+            <option value="Brunt">Brunt</option>
+            <option value="Flooded">Flooded</option>
+            <option value="Tampered tape">Tampered tape</option>
+            <option value="Dust">Dust</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media reading process: </label>
+          <select class="form-control form-control-sm" formControlName="reading_process">
+            <option value="">Select</option>
+            <option value="Buffering">Buffering</option>
+            <option value="Stuck">Stuck</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media surface state identified: </label>
+          <select class="form-control form-control-sm" formControlName="state_identified">
+            <option value="">Select</option>
+            <option value="light scratches on disk surface">light scratches on disk surface</option>
+            <option value="Heavy scraches on disk surface">Heavy scraches on disk surface</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Normal">Normal</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Further use of Media:</label><br>
+          <select class="form-control form-control-sm" formControlName="further_use">
+            <option value="">Select</option>
+            <option value="Not Possible">Not Possible</option>
+            <option value="Possible">Possible</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media found encrypted:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_status">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media OS:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_os">
+            <option value="">Select</option>
+            <option value="Windows">Windows</option>
+            <option value="Mac OS">Mac OS</option>
+            <option value="LINUX">LINUX</option>
+            <option value="UNIX">UNIX</option>
+            <option value="HP Unix">HP Unix</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+      </div>
+      <!--  CD/DVD Media Starts Html  -->
+
+      <!--  DVR Media Starts Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'DVR Media'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Type of Interface: </label>
+          <select class="form-control form-control-sm" formControlName="media_interface">
+            <option value="">Select</option>
+            <option value="PATA">PATA</option>
+            <option value="SATA">SATA</option>
+            <option value="SAS">SAS</option>
+            <option value="SCSI">SCSI</option>
+            <option value="FC">FC</option>
+            <option value="USB">USB</option>
+            <option value="M.2">M.2</option>
+            <option value="PCIe">PCIe</option>
+            <option value="NVMe">NVMe</option>
+            <option value="mSata">mSata</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Total no. of Media received: </label>
+          <input type="text" class="form-control form-control-sm" formControlName="drive_count" placeholder=""
+            maxlength="50">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media `s caisng /equipment condition wrt any apparent external physical damage to
+            it</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media Condition:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_condition">
+            <option value="">Select</option>
+            <option value="Entangled">Entangled</option>
+            <option value="Folded tape Ribbon">Folded tape Ribbon</option>
+            <option value="Failed tape libraries">Failed tape libraries</option>
+            <option value="Internal cartridge mechanism failure">Internal cartridge mechanism failure</option>
+            <option value="Broken">Broken</option>
+            <option value="Brunt">Brunt</option>
+            <option value="Flooded">Flooded</option>
+            <option value="Tampered tape">Tampered tape</option>
+            <option value="Dust">Dust</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media OS:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_os">
+            <option value="">Select</option>
+            <option value="Windows">Windows</option>
+            <option value="Mac OS">Mac OS</option>
+            <option value="LINUX">LINUX</option>
+            <option value="UNIX">UNIX</option>
+            <option value="HP Unix">HP Unix</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Cause of data loss:</label><br>
+          <select class="form-control form-control-sm" formControlName="data_loss_reason">
+            <option value="">Select</option>
+            <option value="Reinstalled Operating system">Reinstalled Operating system</option>
+            <option value="Deleted data">Deleted data</option>
+            <option value="Formatted data">Formatted data</option>
+            <option value="Overwritten data">Overwritten data</option>
+            <option value="Over encryption">Over encryption</option>
+            <option value="Virus Attack">Virus Attack</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">File system consistency check for Required data:</label><br>
+          <select class="form-control form-control-sm" formControlName="file_system_info">
+            <option value="">Select</option>
+            <option value="File system information missing">File system information missing</option>
+            <option value="File system information found inconsistent">File system information found inconsistent
+            </option>
+            <option value="File system information found corrupted">File system information found corrupted</option>
+            <option value="File system information found in ok state">File system information found in ok state</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Type of noise identified while the drive is powered-on:</label><br>
+          <select class="form-control form-control-sm" formControlName="noise_type">
+            <option value="">Select</option>
+            <option value="Light scratching noise">Light scratching noise</option>
+            <option value="Heavy scratching noise">Heavy scratching noise </option>
+            <option value="No movement">No movement</option>
+            <option value="No noise observed">No noise observed</option>
+            <option value="Normal noise">Normal noise</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Drive electronics & control systems:</label><br>
+          <select class="form-control form-control-sm" formControlName="drive_electronics">
+            <option value="">Select</option>
+            <option value="Functional">Functional</option>
+            <option value="Not functional">Not functional</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Rotatory function:</label><br>
+          <select class="form-control form-control-sm" formControlName="rotary_function">
+            <option value="">Select</option>
+            <option value="Normal">Normal</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Internal condition of platters:</label><br>
+          <select class="form-control form-control-sm" formControlName="platters_condition">
+            <option value="">Select</option>
+            <option value="Heavy">Heavy</option>
+            <option value="Light scratches on upper side of the platter">Light scratches on upper side of the platter
+            </option>
+            <option value="Light scratches on lower side of the platter">Light scratches on lower side of the platter
+            </option>
+            <option value="Normal">Normal</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Tampering Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="tampering_required"
+            [attr.disabled]="mediaDetails['tampered_status'] == 'Tampered Media' ? 'disabled' : null">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Already Tampered">Already Tampered</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Further use of Media:</label><br>
+          <select class="form-control form-control-sm" formControlName="further_use">
+            <option value="">Select</option>
+            <option value="Not Possible">Not Possible</option>
+            <option value="Possible">Possible</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media found encrypted:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_status">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+
+      </div>
+      <!--  DVR Media End Html  -->
+
+      <!--  Flash Media Starts Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'Flash Media'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media `s laptop/macbook condition wrt any apparent external physical damage to
+            it:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media found encrypted:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_status">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Tampering Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="tampering_required"
+            [attr.disabled]="mediaDetails['tampered_status'] == 'Tampered Media' ? 'disabled' : null">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Already Tampered">Already Tampered</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Types of FLASH Media: </label>
+          <select class="form-control form-control-sm" formControlName="media_model">
+            <option value="">Select</option>
+            <option value="SD card">SD card</option>
+            <option value="Msd card">Msd card</option>
+            <option value="CF card">CF card</option>
+            <option value="Pendrive">Pendrive</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media OS:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_os">
+            <option value="">Select</option>
+            <option value="Windows">Windows</option>
+            <option value="Mac OS">Mac OS</option>
+            <option value="LINUX">LINUX</option>
+            <option value="UNIX">UNIX</option>
+            <option value="HP Unix">HP Unix</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Drive electronics & control systems:</label><br>
+          <select class="form-control form-control-sm" formControlName="drive_electronics">
+            <option value="">Select</option>
+            <option value="Functional">Functional</option>
+            <option value="Not functional">Not functional</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">File system consistency check for Required data:</label><br>
+          <select class="form-control form-control-sm" formControlName="file_system_info">
+            <option value="">Select</option>
+            <option value="File system information missing">File system information missing</option>
+            <option value="File system information found inconsistent">File system information found inconsistent
+            </option>
+            <option value="File system information found corrupted">File system information found corrupted</option>
+            <option value="File system information found in ok state">File system information found in ok state</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Cause of data loss:</label><br>
+          <select class="form-control form-control-sm" formControlName="data_loss_reason">
+            <option value="">Select</option>
+            <option value="Reinstalled Operating system">Reinstalled Operating system</option>
+            <option value="Deleted data">Deleted data</option>
+            <option value="Formatted">Formatted</option>
+            <option value="Overwritten data">Overwritten data</option>
+            <option value="Over encryption">Over encryption</option>
+            <option value="Virus Attack">Virus Attack</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+      </div>
+      <!--  Flash  Media End Html  -->
+
+      <!--  Tape Media Starts Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'Tape Media'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Types of Tape Media: </label>
+          <select class="form-control form-control-sm" formControlName="media_model">
+            <option value="">Select</option>
+            <option value="DAT">DAT</option>
+            <option value="LTO">LTO</option>
+            <option value="DDS">DDS</option>
+            <option value="DLT">DLT</option>
+            <option value="AIT">AIT</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Total no. of tape received: </label>
+          <input type="text" class="form-control form-control-sm" formControlName="drive_count" placeholder=""
+            maxlength="50">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Any apparent external physical damage to the tape drive:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Tampering Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="tampering_required"
+            [attr.disabled]="mediaDetails['tampered_status'] == 'Tampered Media' ? 'disabled' : null">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Already Tampered">Already Tampered</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media Condition:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_condition">
+            <option value="">Select</option>
+            <option value="Entangled">Entangled</option>
+            <option value="Folded tape Ribbon">Folded tape Ribbon</option>
+            <option value="Failed tape libraries">Failed tape libraries</option>
+            <option value="Internal cartridge mechanism failure">Internal cartridge mechanism failure</option>
+            <option value="Broken">Broken</option>
+            <option value="Brunt">Brunt</option>
+            <option value="Flooded">Flooded</option>
+            <option value="Tampered tape">Tampered tape</option>
+            <option value="Dust">Dust</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Drive electronics & control systems:</label><br>
+          <select class="form-control form-control-sm" formControlName="drive_electronics">
+            <option value="">Select</option>
+            <option value="Functional">Functional</option>
+            <option value="Not functional">Not functional</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Rotatory function:</label><br>
+          <select class="form-control form-control-sm" formControlName="rotary_function">
+            <option value="">Select</option>
+            <option value="Normal">Normal</option>
+            <option value="Undetermined">Undetermined</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' || f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Tape media unique block identifier Identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_ubi">
+            <option value="">Select</option>
+            <option value="Readable">Readable</option>
+            <option value="Not readable">Not readable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' || f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Software used to backup data on Tape:</label><br>
+          <select class="form-control form-control-sm" formControlName="backup_software">
+            <option value="">Select</option>
+            <option value="Veeam">Veeam</option>
+            <option value="Veritas">veritas</option>
+            <option value="Tivoli (TSM)">Tivoli (TSM)</option>
+            <option value="Dell EMC Networker">Dell EMC Networker</option>
+            <option value="Windows backup">Windows backup</option>
+            <option value="Not applicable">Not applicable</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Cause of data loss:</label><br>
+          <select class="form-control form-control-sm" formControlName="data_loss_reason">
+            <option value="">Select</option>
+            <option value="Tape media is write -protected">Tape media is write -protected</option>
+            <option value="Locked">Locked</option>
+            <option value="Corrupted data on tape">Corrupted data on tape</option>
+            <option value="Software incompatibility">Software incompatibility</option>
+            <option value=" Block '0' information resetted to 0, hence tape is not readable further"> Block '0'
+              information resetted to 0, hence tape is not readable further</option>
+            <option value="Files are only partially readable">Files are only partially readable</option>
+            <option value="Catalog files missing">Catalog files missing</option>
+            <option value="Missing restoration environment">Missing restoration environment</option>
+            <option value="Virus Attack">Virus Attack</option>
+            <option value="Tape not readable due to physical damage">Tape not readable due to physical damage</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Possibility of Block by block reading /cloning of tape:</label><br>
+          <select class="form-control form-control-sm" formControlName="cloning_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at this stage">Not determined at this stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' || f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Further use of Media:</label><br>
+          <select class="form-control form-control-sm" formControlName="further_use">
+            <option value="">Select</option>
+            <option value="Not Possible">Not Possible</option>
+            <option value="Possible">Possible</option>
+          </select>
+        </div>
+        
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+      </div>
+      <!--  Tape Media End Html  -->
+
+      <!--  SSD Media Start Html  -->
+      <div class="row" *ngIf="data['media_type'] == 'SSD'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Types of SSD Media: </label>
+          <select class="form-control form-control-sm" formControlName="media_model">
+            <option value="">Select</option>
+            <option value="SATA">SATA</option>
+            <option value="m SATA">m SATA</option>
+            <option value="M2">M2</option>
+            <option value="PCIe">PCIe</option>
+            <option value="NVMe">NVMe</option>
+            <option value="ZiF">ZiF</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media `s laptop/macbook condition wrt any apparent external physical damage to
+            it:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media found encrypted:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_status">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media OS:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_os">
+            <option value="">Select</option>
+            <option value="Windows">Windows</option>
+            <option value="Mac OS">Mac OS</option>
+            <option value="LINUX">LINUX</option>
+            <option value="UNIX">UNIX</option>
+            <option value="HP Unix">HP Unix</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' || f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">File system consistency check for Required data:</label><br>
+          <select class="form-control form-control-sm" formControlName="file_system_info">
+            <option value="">Select</option>
+            <option value="File system information missing">File system information missing</option>
+            <option value="File system information found inconsistent">File system information found inconsistent
+            </option>
+            <option value="File system information found corrupted">File system information found corrupted</option>
+            <option value="File system information found in ok state">File system information found in ok state</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' || f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Cause of data loss:</label><br>
+          <select class="form-control form-control-sm" formControlName="data_loss_reason">
+            <option value="">Select</option>
+            <option value="Reinstalled Operating system">Reinstalled Operating system</option>
+            <option value="Deleted data">Deleted data</option>
+            <option value="Formatted">Formatted</option>
+            <option value="Overwritten data">Overwritten data</option>
+            <option value="Over encryption">Over encryption</option>
+            <option value="Virus Attack">Virus Attack</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Drive electronics & control systems:</label><br>
+          <select class="form-control form-control-sm" formControlName="drive_electronics">
+            <option value="">Select</option>
+            <option value="Functional">Functional</option>
+            <option value="Not functional">Not functional</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Tampering Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="tampering_required"
+            [attr.disabled]="mediaDetails['tampered_status'] == 'Tampered Media' ? 'disabled' : null">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Already Tampered">Already Tampered</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Further use of Media:</label><br>
+          <select class="form-control form-control-sm" formControlName="further_use">
+            <option value="">Select</option>
+            <option value="Not Possible">Not Possible</option>
+            <option value="Possible">Possible</option>
+          </select>
+        </div>
+
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+
+      </div>
+      <!--  SSD Media End Html  -->
+
+      <!--  Other Media Starts Html  -->
+      <div class="row"
+        *ngIf="data['media_type'] !='RAID' && data['media_type'] != 'Floppy Disk' && data['media_type'] !='CD/DVD' &&  data['media_type'] != 'DVR Media' && data['media_type'] != 'Tape Media' && data['media_type'] != 'SSD' && data['media_type'] != 'Flash Media'">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Case Type:</label><br>
+          <select class="form-control form-control-sm" formControlName="case_type"
+            [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+            <option value="">Select</option>
+            <option value="Logical">Logical</option>
+            <option value="Logical Complex">Logical Complex</option>
+            <option value="Physical">Physical</option>
+            <option value="Physical Complex">Physical Complex</option>
+            <option value="Logical Cum Physical">Logical Cum Physical</option>
+          </select>
+          <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Recovery Possibility:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_possibility">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Type of Interface: </label>
+          <select class="form-control form-control-sm" formControlName="media_interface">
+            <option value="">Select</option>
+            <option value="PATA">PATA</option>
+            <option value="SATA">SATA</option>
+            <option value="SAS">SAS</option>
+            <option value="SCSI">SCSI</option>
+            <option value="FC">FC</option>
+            <option value="USB">USB</option>
+            <option value="M.2">M.2</option>
+            <option value="PCIe">PCIe</option>
+            <option value="NVMe">NVMe</option>
+            <option value="mSata">mSata</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media found encrypted:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_status">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Encryption level identified on the media:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_type">
+            <option value="">Select</option>
+            <option value="Hardware">Hardware</option>
+            <option value="Software">Software</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['encryption_status'].value == 'Yes' && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Details provided for decryption are up to mark:</label><br>
+          <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_damage">
+            <option value="">Select</option>
+            <option value="No external damage found">No external damage found</option>
+            <option value="Damage found">Damage found </option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Media OS:</label><br>
+          <select class="form-control form-control-sm" formControlName="media_os">
+            <option value="">Select</option>
+            <option value="Windows">Windows</option>
+            <option value="Mac OS">Mac OS</option>
+            <option value="LINUX">LINUX</option>
+            <option value="UNIX">UNIX</option>
+            <option value="HP Unix">HP Unix</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Data Status identified:</label><br>
+          <select class="form-control form-control-sm" formControlName="compression_status">
+            <option value="">Select</option>
+            <option value="Compressed">Compressed</option>
+            <option value="Un-compressed">Un-compressed</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">File system consistency check for Required data:</label><br>
+          <select class="form-control form-control-sm" formControlName="file_system_info">
+            <option value="">Select</option>
+            <option value="File system information missing">File system information missing</option>
+            <option value="File system information found inconsistent">File system information found inconsistent
+            </option>
+            <option value="File system information found corrupted">File system information found corrupted</option>
+            <option value="File system information found in ok state">File system information found in ok state</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value == 'Logical' ||  f['case_type'].value == 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Cause of data loss:</label><br>
+          <select class="form-control form-control-sm" formControlName="data_loss_reason">
+            <option value="">Select</option>
+            <option value="Reinstalled Operating system">Reinstalled Operating system</option>
+            <option value="Deleted data">Deleted data</option>
+            <option value="Formatted">Formatted</option>
+            <option value="Overwritten data">Overwritten data</option>
+            <option value="Over encryption">Over encryption</option>
+            <option value="Virus Attack">Virus Attack</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Type of noise identified while the drive is powered-on:</label><br>
+          <select class="form-control form-control-sm" formControlName="noise_type">
+            <option value="">Select</option>
+            <option value="Light scratching noise">Light scratching noise</option>
+            <option value="Heavy scratching noise">Heavy scratching noise </option>
+            <option value="No movement">No movement</option>
+            <option value="No noise observed">No noise observed</option>
+            <option value="Normal noise">Normal noise</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Drive electronics & control systems:</label><br>
+          <select class="form-control form-control-sm" formControlName="drive_electronics">
+            <option value="">Select</option>
+            <option value="Functional">Functional</option>
+            <option value="Not functional">Not functional</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Rotatory function:</label><br>
+          <select class="form-control form-control-sm" formControlName="rotary_function">
+            <option value="">Select</option>
+            <option value="Normal">Normal</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Internal condition of platters:</label><br>
+          <select class="form-control form-control-sm" formControlName="platters_condition">
+            <option value="">Select</option>
+            <option value="Heavy">Heavy</option>
+            <option value="Light scratches on upper side of the platter">Light scratches on upper side of the platter
+            </option>
+            <option value="Light scratches on lower side of the platter">Light scratches on lower side of the platter
+            </option>
+            <option value="Normal">Normal</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Tampering Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="tampering_required"
+            [attr.disabled]="mediaDetails['tampered_status'] == 'Tampered Media' ? 'disabled' : null">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+            <option value="Already Tampered">Already Tampered</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['case_type'].value != 'Logical' && f['case_type'].value != 'Logical Complex') && f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Further use of Media:</label><br>
+          <select class="form-control form-control-sm" formControlName="further_use">
+            <option value="">Select</option>
+            <option value="Not Possible">Not Possible</option>
+            <option value="Possible">Possible</option>
+          </select>
+        </div>
+       
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovered data files and folder’s structure:</label><br>
+          <select class="form-control form-control-sm" formControlName="recoverable_data">
+            <option value="">Select</option>
+            <option value="Same as original files and folder`s structure">Same as original files and folder`s structure
+            </option>
+            <option value="Data recoverable only in Raw form (without files & folders name)">Data recoverable only in
+              Raw form (without files & folders name)</option>
+            <option value="Data recoverable with file names only but without folder names">Data recoverable with file
+              names only but without folder names</option>
+            <option
+              value="Partial data recoverable with file names and some data in Raw form (without files & folders name)">
+              Partial data recoverable with file names and some data in Raw form (without files & folders name)</option>
+            <option value="Not determined at present stage">Not determined at present stage</option>
+            <option value="Not applicable">Not applicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Recovery Percentage:</label><br>
+          <select class="form-control form-control-sm" formControlName="recovery_percentage">
+            <option value="">Select</option>
+            <option value="30%">30%</option>
+            <option value="40%">40%</option>
+            <option value="50%">50%</option>
+            <option value="60%">60%</option>
+            <option value="70%">70%</option>
+            <option value="80%">80%</option>
+            <option value="90%">90%</option>
+            <option value="100%">100%</option>
+            <option value="Undetermined">Undetermined</option>
+            <option value="Recovery without File Name">Recovery without File Name</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="f['recovery_possibility'].value != 'No'">
+          <label class="control-label">Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="required_days">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" >
+          <label class="control-label">Inspection Status:</label><br>
+          <select class="form-control form-control-sm" formControlName="stage">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Inspection Due Reason:</label><br>
+          <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+            <option value="">Select</option>
+            <option value="Waiting for Decryption Details">Waiting for Decryption Details</option>
+            <option value="Client not Picking Call">Client not Picking Call</option>
+            <option value="Client Laptop Required">Client Laptop Required</option>
+            <option value="Waiting Tampering Permission for USB Casing">Waiting Tampering Permission for USB Casing
+            </option>
+            <option value="Clone Required for Assessment">Clone Required for Assessment</option>
+            <option value="Client Application/Software Required">Client Application/Software Required</option>
+            <option value="Sample Data Required">Sample Data Required</option>
+            <option value="Spare required">Spare required</option>
+            <option value="Waiting  For Tempering Permission">Waiting For Tempering Permission</option>
+            <option value="Waiting For Original P.C.B.">Waiting For Original P.C.B.</option>
+            <option value="Waiting For Similar Spare">Waiting For Similar Spare</option>
+            <option value="Waiting For Original P.C.B./ Specific Chip">Waiting For Original P.C.B./ Specific Chip
+            </option>
+            <option value="Water Logged HDD, Platter Cleaning In Process">Water Logged HDD, Platter Cleaning In Process
+            </option>
+            <option value="Severe Corruption In Service Area Modules , Case Escalated To Research Team">Severe
+              Corruption In Service Area Modules , Case Escalated To Research Team</option>
+            <option value="Corruption In Specific CHIP/BIOS, Case Escalated To Research Team">Corruption In Specific
+              CHIP/BIOS, Case Escalated To Research Team</option>
+            <option value="Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process">Heads Found
+              Broken, Spots & Scratches On Platter, Platter Cleaning In Process</option>
+            <option
+              value="Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process">Head
+              Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process</option>
+            <option value="Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter">Access Received,
+              But Very-2 Slow Access Due To Spots & Scratches On Platter</option>
+            <option value="Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface">
+              Heavy-2 Scratches On Platter/surface, Trying To Get Access From Good Platter/surface</option>
+            <option value="Burnt Hdd, Platter Cleaning In Process">Burnt Hdd, Platter Cleaning In Process</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3"
+          *ngIf="(f['stage'].value == '4' && f['assessment_due_reason'].value == 'Other')">
+          <label class="control-label">Other Reason:</label><br>
+          <input type="text" class="form-control form-control-sm" formControlName="assessment_due_other_reason"
+            placeholder="" maxlength="100">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4')">
+          <label class="control-label">Extension Required:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_required">
+            <option value="">Select</option>
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+          <label class="control-label">Extension Required Days:</label><br>
+          <select class="form-control form-control-sm" formControlName="extension_day">
+            <option value="">Select</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+            <option value="6">6</option>
+            <option value="7">7</option>
+            <option value="8">8</option>
+            <option value="9">9</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+            <option value="24">24</option>
+            <option value="25">25</option>
+            <option value="26">26</option>
+            <option value="27">27</option>
+            <option value="28">28</option>
+            <option value="29">29</option>
+            <option value="30">30</option>
+          </select>
+        </div>
+        <div class="col-lg-12 col-md-12 mb-3">
+          <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+      </div>
+      <!--  Other Media End Html  -->
+    </div>
+  </form>
+
+</div>
+<div class="row" style="float: right;">
+  <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+  <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span *ngIf="loading"
+      class="spinner-border spinner-border-sm mr-1"></span></button>
+</div>

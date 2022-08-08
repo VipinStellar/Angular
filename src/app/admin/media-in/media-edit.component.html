@@ -1,0 +1,224 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<div mat-dialog-content>
+  <form [formGroup]="mediaEdit">
+    <div class="container mt-2 p-4 border" id="pre-inspect-edit">
+      <div class="row bg-color mb-3">
+        <div class="col-lg-6 col-md-6 pt-2">
+          <label class="control-label">Client Name : </label>
+          <span class="ml-2" id="cl_name">{{data['customer_name']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 pt-2">
+          <label class="control-label">Zoho Record Id : </label>
+          <span class="ml-2" id="zoho_id">{{data['zoho_id']}}</span>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Media Type : </label>
+          <select class="form-control form-control-sm" formControlName="media_type">
+            <option value="Hard drive">Hard drive</option>
+            <option value="SSD">SSD</option>
+            <option value="Flash Media">Flash Media</option>
+            <option value="Laptop Hard Drive">Laptop Hard drive</option>
+            <option value="Desktop Hard Drive">Desktop Hard Drive</option>
+            <option value="External 2.5' Hard Drive">External 2.5" Hard Drive</option>
+            <option value="External 3.5' Hard Drive">External 3.5" Hard Drive</option>
+            <option value="Tape Media">Tape Media</option>
+            <option value="DVR Media">DVR Media</option>
+            <option value="NVR Media">NVR Media</option>
+            <option value="CD/DVD">CD/DVD</option>
+            <option value="RAID">RAID</option>
+            <option value="Floppy Disc">Floppy Disc</option>
+            <option value="On-board Flash Memory">On-board Flash Memory</option>
+            <option value="Drive attached to specialised machines">Drive attached to specialised machines</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['media_type'].value != 'RAID' )">
+          <label class="control-label">Media Make : </label>
+          <input type="text" class="form-control form-control-sm" formControlName="media_make" placeholder=""
+            maxlength="50">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['media_type'].value != 'RAID' )">
+          <label class="control-label">Media Model : </label>
+          <input type="text" class="form-control form-control-sm" formControlName="media_model" placeholder=""
+            maxlength="50">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['media_type'].value != 'RAID' )">
+          <label class="control-label">Media Serial : </label>
+          <input type="text" class="form-control form-control-sm" formControlName="media_serial" placeholder=""
+            maxlength="50">
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Media Capacity : </label>
+          <select class="form-control form-control-sm" formControlName="media_capacity">
+            <option value="">Select</option>
+            <option value="less than 1 GB">less than 1 GB</option>
+            <option value="1 GB">1 GB</option>
+            <option value="2 GB">2 GB</option>
+            <option value="4 GB">4 GB</option>
+            <option value="8 GB">8 GB</option>
+            <option value="16 GB">16 GB</option>
+            <option value="32 GB">32 GB</option>
+            <option value="64 GB">64 GB</option>
+            <option value="Less than 80 GB">Less than 80 GB</option>
+            <option value="80 GB">80 GB</option>
+            <option value="128 GB">128 GB</option>
+            <option value="160 GB">160 GB</option>
+            <option value="240 GB">240 GB</option>
+            <option value="256 GB">256 GB</option>
+            <option value="320 GB">320 GB</option>
+            <option value="480 GB">480 GB</option>
+            <option value="500 GB">500 GB</option>
+            <option value="512 GB">512 GB</option>
+            <option value="720 GB">720 GB</option>
+            <option value="750 GB">750 GB</option>
+            <option value="1 TB">1 TB</option>
+            <option value="1.5 TB">1.5 TB</option>
+            <option value="2 TB">2 TB</option>
+            <option value="2 TB +">2 TB +</option>
+            <option value="3 TB">3 TB</option>
+            <option value="4 TB">4 TB</option>
+            <option value="10 TB">10 TB</option>
+            <option value="12 TB">12 TB</option>
+            <option value="14 TB">14 TB</option>
+            <option value="16 TB">16 TB</option>
+            <option value="18 TB">18 TB</option>
+            <option value="20 TB">20 TB</option>
+            <option value="20 TB+">20 TB+</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Media Condition : </label>
+          <select class="form-control form-control-sm" formControlName="media_condition"
+            [ngClass]="{ 'is-invalid': submitted && f['media_condition'].errors }">
+            <option value="">Select</option>
+            <option value="Non Tampered">Non Tampered</option>
+            <option value="Broken">Broken</option>
+            <option value="Tampered">Tampered</option>
+            <option value="Burnt">Burnt</option>
+            <option value="Flooded">Flooded</option>
+            <option value="PCB Burnt">PCB Burnt</option>
+            <option value="Burnt &amp; Tampered">Burnt &amp; Tampered</option>
+            <option value="Flooded &amp; Tampered">Flooded &amp; Tampered</option>
+            <option value="PCB Tampered">PCB Tampered</option>
+            <option value="Working">Working</option>
+            <option value="Non working">Non working</option>
+            <option value="Others">Others</option>
+          </select>
+          <div *ngIf="submitted && f['media_condition'].errors" class="invalid-feedback">
+            <div *ngIf="f['media_condition'].errors['required']">Media Condition is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Tampered Status <sup class="text-danger">*</sup> : </label>
+          <select class="form-control form-control-sm" formControlName="tampered_status"
+            [ngClass]="{ 'is-invalid': submitted && f['tampered_status'].errors }">
+            <option value="">Select</option>
+            <option value="Not Tampered">Not Tampered</option>
+            <option value="Tampered Media">Tampered Media</option>
+            <option value="Do Not Know">Do Not Know</option>
+          </select>
+          <div *ngIf="submitted && f['tampered_status'].errors" class="invalid-feedback">
+            <div *ngIf="f['tampered_status'].errors['required']">Tampered Status is required</div>
+          </div>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Mode Of Service: </label>
+          <select class="form-control form-control-sm" formControlName="service_mode">
+            <option value="">Select</option>
+            <option value="Onsite- Customer's Site">Onsite- Customer's Site</option>
+            <option value="Offsite-Stellar's Lab">Offsite-Stellar's Lab</option>
+            <option value="Remote-Online">Remote-Online</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Type of Service: </label>
+          <select class="form-control form-control-sm" formControlName="service_type">
+            <option value="">Select</option>
+            <option value="Data Recovery">Data Recovery</option>
+            <option value="Clonning">Clonning</option>
+            <option value="Degaussing">Degaussing</option>
+            <option value="Data erasing">Data erasing</option>
+            <option value="Data Wiping">Data Wiping</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Media received: </label>
+          <select class="form-control form-control-sm" formControlName="media_casing">
+            <option value="">Select</option>
+            <option value="With storage box">With storage box</option>
+            <option value="With casing">With casing</option>
+            <option value="Storage boxor without casing">Storage boxor without casing</option>
+            <option value="Storage box">Storage box</option>
+            <option value="Not aplicable">Not aplicable</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['media_type'].value == 'RAID' )">
+          <label class="control-label">Type of Interface: </label>
+          <select class="form-control form-control-sm" formControlName="media_interface">
+            <option value="">Select</option>
+            <option value="PATA">PATA</option>
+            <option value="SATA">SATA</option>
+            <option value="SAS">SAS</option>
+            <option value="SCSI">SCSI</option>
+            <option value="FC">FC</option>
+            <option value="USB">USB</option>
+            <option value="M.2">M.2</option>
+            <option value="PCIe">PCIe</option>
+            <option value="NVMe">NVMe</option>
+            <option value="mSata">mSata</option>
+            <option value="Others">Others</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['media_type'].value == 'RAID' )">
+          <label class="control-label">No. of Media received: </label>
+          <select class="form-control form-control-sm" formControlName="drive_count">
+            <option value="">Select</option>
+            <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
+          </select>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3" *ngIf="(f['media_type'].value != 'RAID' )">
+          <label class="control-label">Peripherals Details : </label>
+          <textarea class="form-control form-control-sm" formControlName="peripherals_details"
+            maxlength="500"></textarea>
+        </div>
+        <div class="col-lg-4 col-md-4 mb-3">
+          <label class="control-label">Status : </label>
+          <select class="form-control form-control-sm" formControlName="stage"
+            [ngClass]="{ 'is-invalid': submitted && f['stage'].errors }">
+            <option value="">Select</option>
+            <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+          </select>
+          <div *ngIf="submitted && f['stage'].errors" class="invalid-feedback">
+            <div *ngIf="f['stage'].errors['required']">Inspection Status is required</div>
+          </div>
+        </div>
+        <div class="col-lg-12 col-md-12">
+          <label class="control-label">Add Your Remarks<sup class="text-danger"> *</sup> : </label>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+            [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+          <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </form>
+
+</div>
+<div class="row float-right mt-4">
+  <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+  <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span *ngIf="loading"
+      class="spinner-border spinner-border-sm mr-1"></span></button>
+</div>
+<style>
+  #pre-inspect-edit>.row>.border {
+    padding: 0.75rem;
+  }
+
+  #pre-inspect-edit>.bg-color {
+    background-color: #0000000d;
+  }
+</style>
