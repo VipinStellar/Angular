@@ -3,7 +3,7 @@
     <div class="container-fluid">
       <nav mat-tab-nav-bar *ngIf="isLoading">
         <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"
-          [active]="activeLink == tabItem"> {{(mediaDetails!= null && (mediaDetails['stage'] == 1 || mediaDetails['stage'] == 2) && tabItem == 'Inspection')?'':tabItem}}  </a>
+          [active]="activeLink == tabItem"> {{(mediaDetails!= null && (mediaDetails['stage'] == 1 || mediaDetails['stage'] == 2 || mediaDetails['stage'] == 10) && tabItem == 'Inspection')?'':tabItem}}  </a>
       </nav><br>
       <mat-progress-bar mode="indeterminate" [hidden]="isLoading"></mat-progress-bar>
       <!-- <div class="row mb-2" *ngIf="isLoading">

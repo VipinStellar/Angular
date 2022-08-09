@@ -1,16 +1,19 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MediaInService } from './../../_services/mediaIn.service';
 import { ToastrService } from 'ngx-toastr';
 import {MediaIn} from './../../_models/mediaIn';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { AppUtil } from 'src/app/_helpers/app.util';
 @Component({
     selector: 'app-media-assessment',
     templateUrl: './media-edit-assessment.component.html',
 })
 export class MediaAssessmentEdit implements OnInit {
-
-    diaTitle: string;
+    assignedRole: [];
+    isAsscessDenied: boolean;
+    pageTitle: string;
     submitted: boolean;
     loading:boolean;
     mediaDetails:MediaIn[] = [];
@@ -18,16 +21,21 @@ export class MediaAssessmentEdit implements OnInit {
     public mediaEdit: FormGroup;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
-        private toastrService: ToastrService,
-        private dialogRef: MatDialogRef<MediaAssessmentEdit>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.diaTitle = "Media Inspection";
-          this.mediaInService.mediastatus('assessment').subscribe( data => {
-            this.stages = data as any;
-          });
-          this.mediaDetails = data;
+        private router: Router,
+        private _location: Location,
+        private route: ActivatedRoute,
+        private toastrService: ToastrService) {
+        this.pageTitle = "Media Inspection";
+     
     }
     ngOnInit(): void {
+        this.assignedRole = this.route.snapshot.data['profileResolver'];
+        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "media-assessment");
+        if (!this.isAsscessDenied)
+            this.router.navigate(['admin/access-denied']);
+        this.mediaInService.mediastatus('assessment').subscribe( data => {
+            this.stages = data as any;
+          });
         this.mediaEdit = this.formBuilder.group({
             id: [''],
             case_type: ['',[Validators.required]],
@@ -66,7 +74,12 @@ export class MediaAssessmentEdit implements OnInit {
             server_type:[],
             remarks:['',[Validators.required]],
            });
-           this.modeltoForm(this.data as any);
+
+           this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
+            this.mediaDetails = data as any;
+            this.modeltoForm(this.mediaDetails as any);
+          });
+           
     }
 
     modeltoForm(media)
@@ -126,7 +139,7 @@ export class MediaAssessmentEdit implements OnInit {
             data => {
                 this.hide();
                 this.toastrService.success('Details Save successfully!', 'Success!',{timeOut: 3000});
-               // this.toastrService.success('Email has been Send', 'Success!',{timeOut: 3000});
+                this.router.navigate(['admin/media-assessment/'+this.mediaDetails['id']]);
             },
             error=>{
                 console.log(error)
@@ -135,7 +148,7 @@ export class MediaAssessmentEdit implements OnInit {
     }
 
     hide() {
-        this.dialogRef.close();
+        this._location.back();
     }
 
     get f() { return this.mediaEdit.controls; }

@@ -19,6 +19,7 @@ import { MediaCaseDetail } from './media-in/media-case-details.component';
 import { MediaAssessmentView } from  './media-in/media-assessment-view.component';
 import{MediaPreComponent} from './media-in/media-pre.component';
 import { MediaEdit } from './media-in/media-edit.component';
+import { MediaAssessmentEdit } from './media-in/media-edit-assessment.component';
 const routes: Routes = [
   {
     path: '',
@@ -81,9 +82,13 @@ const routes: Routes = [
       { path: 'pre-analysis/edit/:id', component: MediaEdit,
         resolve:{
               profileResolver:ProfileResolver,
-              teamList:TeamResolver,
         }        
       },
+      { path: 'media-assessment/edit/:id', component: MediaAssessmentEdit,
+        resolve:{
+            profileResolver:ProfileResolver,
+         }        
+     },
       { path: 'transfer-media/:id', component: MediaPreComponent,
       resolve:{
             profileResolver:ProfileResolver,
