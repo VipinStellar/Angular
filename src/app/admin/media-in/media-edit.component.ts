@@ -1,33 +1,42 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MediaInService } from './../../_services/mediaIn.service';
 import { ToastrService } from 'ngx-toastr';
-
+import { MediaIn } from 'src/app/_models/mediaIn';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Location } from '@angular/common';
+import { AppUtil } from 'src/app/_helpers/app.util';
 @Component({
     selector: 'app-media-edit',
     templateUrl: './media-edit.component.html',
 })
 export class MediaEdit implements OnInit {
-    
-    diaTitle: string;
+    currentUrl: string;
+    assignedRole: [];
+    isAsscessDenied: boolean;
+    pageTitle: string;
     submitted: boolean;
     loading:boolean;
     stages:[];
+    mediaDetails: MediaIn[] = [];
     public mediaEdit: FormGroup;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
-        private toastrService: ToastrService,
-        private dialogRef: MatDialogRef<MediaEdit>,
-        @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.diaTitle = "Pre Inspection"; 
-          this.mediaInService.mediastatus('analysis').subscribe( data => {
-            this.stages = data as any;
-          }); 
+        private router: Router,
+        private _location: Location,
+        private toastrService: ToastrService,private route: ActivatedRoute,) {
 
     }
     ngOnInit(): void {
-        this.mediaEdit = this.formBuilder.group({
+        this.assignedRole = this.route.snapshot.data['profileResolver'];
+        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "pre-analysis");
+        if (!this.isAsscessDenied)
+            this.router.navigate(['admin/access-denied']);
+        this.pageTitle = "Pre Inspection";    
+          this.mediaInService.mediastatus('analysis').subscribe( data => {
+            this.stages = data as any;
+          });
+          this.mediaEdit = this.formBuilder.group({
             id: [''],
             media_make: [''],
             service_type:[''],
@@ -45,7 +54,12 @@ export class MediaEdit implements OnInit {
             stage: ['',[Validators.required]],
             remarks: ['',[Validators.required]],
            });
-           this.modeltoForm(this.data as any);
+           this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
+            this.mediaDetails = data as any;
+            this.modeltoForm(this.mediaDetails as any);
+          });
+           
+       
     }
 
     get f() { return this.mediaEdit.controls; }
@@ -62,7 +76,8 @@ export class MediaEdit implements OnInit {
             data => {
                 this.hide();
                 this.toastrService.success('Details Save successfully!', 'Success!',{timeOut: 3000});
-                //this.toastrService.success('Email has been Send', 'Success!',{timeOut: 3000});
+                this.router.navigate(['admin/pre-analysis/'+this.mediaDetails['id']]);
+
             },
             error=>{
                 console.log(error)
@@ -94,7 +109,7 @@ export class MediaEdit implements OnInit {
 
     hide() 
     {
-        this.dialogRef.close();
+        this._location.back();
     }
 
     counter(i: number) {

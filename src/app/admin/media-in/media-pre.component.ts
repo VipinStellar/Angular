@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaIn } from './../../_models/mediaIn';
 import { MatDialog } from '@angular/material/dialog';
 import { MediaAssignToAdd } from './media-assign-to-add.component';
-import { MediaEdit } from './media-edit.component';
 import { AccountService } from './../../_services/account.service';
 import { MediaTransfer } from './media-transfer.component';
 import { MediaTeam } from './media-team.component';
@@ -37,7 +36,7 @@ export class MediaPreComponent implements OnInit {
     this.assignedRole = this.route.snapshot.data['profileResolver'];
     this.teamList = this.route.snapshot.data['teamList'];
     this.currentUrl = this.router.url.split('/')[2];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', this.currentUrl);
+    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
     if (!this.isAsscessDenied)
       this.router.navigate(['admin/access-denied']);
       this.activelink();
@@ -182,17 +181,7 @@ export class MediaPreComponent implements OnInit {
   }
 
   editMediaInTo() {
-    const dialogRef = this.dialog.open(MediaEdit, {
-      data:this.mediaDetails,
-      disableClose: true,
-      autoFocus: false,
-      width: "74vw",
-
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.getMediaEditHistory();
-      this.getMediaDetails();
-    });
+    this.router.navigate(['admin/pre-analysis/edit/'+this.mediaDetails['id']]);
   }
 
   onchangetab(event)
