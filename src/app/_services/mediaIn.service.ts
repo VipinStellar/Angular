@@ -14,6 +14,10 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'media/medialist', searchParams);
     }
 
+    getJobList(searchParams: any) {
+        return this.http.post(environment.apiUrl + 'job/joblist', searchParams);
+    }
+
     getMedia(id)
     {
         return this.http.get(environment.apiUrl + 'media/getmedia/'+id);
@@ -57,6 +61,11 @@ export class MediaInService {
     saveMediatransfer(data)
     {
         return this.http.post(environment.apiUrl + 'media/sendMediatransfer', data);
+    }
+
+    changeJobStatus(data)
+    {
+        return this.http.post(environment.apiUrl + 'job/updateJobStatus', data);
     }
 
     updateMediaAssessment(data)

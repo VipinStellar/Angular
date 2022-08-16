@@ -20,6 +20,7 @@ import { MediaAssessmentView } from  './media-in/media-assessment-view.component
 import{MediaPreComponent} from './media-in/media-pre.component';
 import { MediaEdit } from './media-in/media-edit.component';
 import { MediaAssessmentEdit } from './media-in/media-edit-assessment.component';
+import { JobListComponent } from './media-in/job-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -65,8 +66,13 @@ const routes: Routes = [
           resolve:{
             profileResolver:ProfileResolver,
             
-          } 
-          
+          }           
+      },
+      { path: 'job-status', component: JobListComponent,
+      resolve:{
+        profileResolver:ProfileResolver,
+        
+        }       
       },
       { path: 'case-details/:id', component: MediaCaseDetail,
         resolve:{

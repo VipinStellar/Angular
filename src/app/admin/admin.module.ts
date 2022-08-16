@@ -40,6 +40,8 @@ import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
 import { MediaTransfer } from './media-in/media-transfer.component';
 import {MediaTeam } from './media-in/media-team.component';
+import { JobListComponent } from './media-in/job-list.component';
+import { JobStatus } from './media-in/job-status.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -64,7 +66,9 @@ import {MediaTeam } from './media-in/media-team.component';
     MediaAssessmentView,
     MediaAssessmentEdit,
     MediaTransfer,
-    MediaTeam
+    MediaTeam,
+    JobListComponent,
+    JobStatus
   ],
   imports: [
     CommonModule,
