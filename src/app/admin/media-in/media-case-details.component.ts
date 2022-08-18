@@ -18,6 +18,7 @@ export class MediaCaseDetail implements OnInit {
     mediaDetails : MediaIn[] = [];
     tabItems = AppUtil.getMediaTab();
     activeLink = this.tabItems[0];
+    mediaModel = "none";
     constructor( private mediaInService: MediaInService,
                  private router: Router, private route: ActivatedRoute,
                  private toastrService: ToastrService) {
@@ -70,6 +71,15 @@ export class MediaCaseDetail implements OnInit {
       
             }
           });
+    }
+
+    viewMediaDeails()
+    {
+      this.mediaModel = "block";
+    }
+    closeModel()
+    {
+      this.mediaModel = "none";
     }
 
 }

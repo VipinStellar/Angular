@@ -46,6 +46,10 @@
           <span class="ml-2">{{mediaDetails['media_type']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
+          <label class="control-label">Media Size : </label>
+          <span class="ml-2">{{mediaDetails['media_size']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
           <label class="control-label">Media Make : </label>
           <span class="ml-2">{{mediaDetails['media_make']}}</span>
         </div>
@@ -95,7 +99,7 @@
         </div>
         <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] == 'RAID'">
           <label class="control-label">No. of Media received : </label>
-          <span class="ml-2">{{mediaDetails['drive_count']}}</span>
+          <span class="ml-2"><a href="javascript:void(0)" (click)="viewMediaDeails()" >{{mediaDetails['drive_count']}}</a></span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Added By : </label>
@@ -925,3 +929,58 @@
     </div>
   </section>
 </div>
+
+<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':mediaModel}" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-autoheight" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4 class="modal-title">Media Details</h4>
+      </div>
+        <div class="modal-body">
+          <div class="row text-center">
+            <div class="form-group col-1">
+              <label>S.N</label>
+            </div>
+            <div class="form-group col-3">
+              <label>Model Number</label>
+            </div>
+            <div class="form-group col-4">
+              <label>Serial Number</label>
+            </div>
+            <div class="form-group col-4">
+              <label>Media Condition</label>
+            </div>
+          </div>
+          <div class="row text-center" *ngFor="let details of mediaDetails['total_drive']; let i = index">
+            <div class="form-group col-1">
+              {{i+1}}
+            </div>
+            <div class="form-group col-3">
+              {{details['model_number']}}
+            </div>
+            <div class="form-group col-4">
+              {{details['serial_number']}}
+            </div>
+            <div class="form-group col-4">
+              {{details['media_condition']}}
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+
+          <button type="button" class="btn btn-primary btn-sm" (click)="closeModel()">
+            Cancel
+          </button>
+        </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .modal-autoheight .modal-body {
+    position: relative;
+    overflow-y: auto;
+    min-height: 100px !important;
+    max-height: 600px !important;
+  }
+</style>

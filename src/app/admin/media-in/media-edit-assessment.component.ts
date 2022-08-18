@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { MediaInService } from './../../_services/mediaIn.service';
 import { ToastrService } from 'ngx-toastr';
 import {MediaIn} from './../../_models/mediaIn';
@@ -19,6 +19,9 @@ export class MediaAssessmentEdit implements OnInit {
     mediaDetails:MediaIn[] = [];
     stages:[];
     public mediaEdit: FormGroup;
+    dynamicForm: FormGroup;
+    mediaModel = "none";
+    modelValue = [];
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -36,6 +39,9 @@ export class MediaAssessmentEdit implements OnInit {
         this.mediaInService.mediastatus('assessment').subscribe( data => {
             this.stages = data as any;
           });
+          this.dynamicForm = this.formBuilder.group({
+            tatalDrive: new FormArray([])
+        });
         this.mediaEdit = this.formBuilder.group({
             id: [''],
             case_type: ['',[Validators.required]],
@@ -73,10 +79,12 @@ export class MediaAssessmentEdit implements OnInit {
             state_identified:[],
             server_type:[],
             remarks:['',[Validators.required]],
+            total_drive:[],
            });
 
            this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
+            this.modelValue = this.mediaDetails['total_drive'];
             this.modeltoForm(this.mediaDetails as any);
           });
            
@@ -120,7 +128,8 @@ export class MediaAssessmentEdit implements OnInit {
             state_identified:media.state_identified,
             cloning_possibility:media.cloning_possibility,
             server_type:media.server_type,
-            remarks:""
+            remarks:"",
+            total_drive:'',
         });
         if(media['tampered_status'] == "Tampered Media")
         this.f['tampering_required'].setValue('Already Tampered');
@@ -134,6 +143,7 @@ export class MediaAssessmentEdit implements OnInit {
         }
          this.loading = true;
          let apiToCall: any;
+         this.f['total_drive'].setValue(this.modelValue);
          apiToCall = this.mediaInService.updateMediaAssessment(this.mediaEdit.value);
         apiToCall.subscribe(
             data => {
@@ -152,4 +162,38 @@ export class MediaAssessmentEdit implements OnInit {
     }
 
     get f() { return this.mediaEdit.controls; }
+    get fd() { return this.dynamicForm.controls; }
+    get t() { return this.fd['tatalDrive'] as FormArray; }
+
+    counter(i: number) {
+        return new Array(i);
+    }
+
+    openPopup() { 
+      this.dynamicForm.reset();
+      this.t.clear();
+      this.addmoer();
+      this.mediaModel = "block";
+    }
+    addmoer() {
+        const numberOfTickets = this.f['drive_count'].value || 0;
+        if (this.t.length < numberOfTickets) {
+            for (let i = this.t.length; i < numberOfTickets; i++) {
+                this.t.push(this.formBuilder.group({
+                    model_number: [(this.modelValue !=null &&this.modelValue[i] !=undefined && this.modelValue[i]['model_number']!=null)?this.modelValue[i]['model_number']:''],
+                    serial_number: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['serial_number']!=null)?this.modelValue[i]['serial_number']:''],
+                    media_condition: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_condition']!=null)?this.modelValue[i]['media_condition']:'']
+                }));               
+        }      
+        } else {
+            for (let i = this.t.length; i >= numberOfTickets; i--) {
+                this.t.removeAt(i);
+            }
+        }
+    }
+
+    modelSave() {
+        this.modelValue = this.fd['tatalDrive'].value;
+        this.mediaModel = "none";
+    }
 }
