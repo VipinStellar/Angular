@@ -201,7 +201,7 @@
               <div class="col-4 p-3" *ngIf="(f['media_type'].value == 'RAID' )">
                 <label class="control-label">No. of Media received : <span
                     style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
-                      title="Preview" (click)="openPopup()"></i></span></label>
+                    matTooltip="View Media Detail" (click)="openPopup()"></i></span></label>
                 <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup()">
                   <option value="">Select</option>
                   <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
