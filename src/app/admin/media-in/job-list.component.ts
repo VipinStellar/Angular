@@ -7,7 +7,6 @@ import { MediaInService  } from './../../_services/mediaIn.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppUtil } from 'src/app/_helpers/app.util';
 import { MatDialog } from '@angular/material/dialog';
-import { JobStatus } from './job-status.component';
 
 @Component({
   selector: 'job-list',
@@ -112,15 +111,7 @@ constructor(private mediaInService: MediaInService, private route: ActivatedRout
 
   ChangeStatus(row)
   {
-    const dialogRef = this.dialog.open(JobStatus, {
-      data: [row,this.status],
-      disableClose: true,
-      autoFocus: true,
-      width: "500px"
-    });
-    dialogRef.afterClosed().subscribe(result => {
-      this.loadData();
-    });
+    this.router.navigate(['admin/job-status/'+row['id']]);
   }
 
 }

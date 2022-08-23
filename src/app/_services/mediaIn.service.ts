@@ -68,6 +68,11 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'job/updateJobStatus', data);
     }
 
+    getMediaJOb(id)
+    {
+        return this.http.get(environment.apiUrl + 'job/getmedia/'+id);
+    }
+
     updateMediaAssessment(data)
     {
         return this.http.post(environment.apiUrl + 'media/updateMediaAssessment', data);

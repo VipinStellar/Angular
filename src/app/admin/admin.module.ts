@@ -42,7 +42,7 @@ import {MatNativeDateModule} from '@angular/material/core';
 import { MediaTransfer } from './media-in/media-transfer.component';
 import {MediaTeam } from './media-in/media-team.component';
 import { JobListComponent } from './media-in/job-list.component';
-import { JobStatus } from './media-in/job-status.component';
+import { JobDetailStatusComponent } from './media-in/job-status-details.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -69,7 +69,7 @@ import { JobStatus } from './media-in/job-status.component';
     MediaTransfer,
     MediaTeam,
     JobListComponent,
-    JobStatus
+    JobDetailStatusComponent
   ],
   imports: [
     CommonModule,

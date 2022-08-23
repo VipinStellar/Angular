@@ -21,6 +21,7 @@ import{MediaPreComponent} from './media-in/media-pre.component';
 import { MediaEdit } from './media-in/media-edit.component';
 import { MediaAssessmentEdit } from './media-in/media-edit-assessment.component';
 import { JobListComponent } from './media-in/job-list.component';
+import { JobDetailStatusComponent } from './media-in/job-status-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -70,6 +71,12 @@ const routes: Routes = [
       },
       { path: 'job-status', component: JobListComponent,
       resolve:{
+        profileResolver:ProfileResolver,
+        
+        }       
+      },
+      { path: 'job-status/:id', component: JobDetailStatusComponent,
+         resolve:{
         profileResolver:ProfileResolver,
         
         }       
