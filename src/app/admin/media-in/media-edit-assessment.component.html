@@ -37,7 +37,7 @@
         <div class="col-12">
           <form [formGroup]="mediaEdit">
             <!--  RAID Media Start Html  -->
-            <div class="row" *ngIf="mediaDetails['media_type'] == 'RAID'">
+            <div class="row" *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] =='FUSION IO DRIVES' || mediaDetails['media_type'] =='FUSION DRIVES'">
               <div class="col-4 p-3">
                 <label class="control-label">Case Type:</label><br>
                 <select class="form-control form-control-sm" formControlName="case_type"
@@ -2398,7 +2398,7 @@
       <!--  SSD Media End Html  -->
        <!--  Other Media Starts Html  -->
        <div class="row"
-       *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'SSD' && mediaDetails['media_type'] != 'Flash Media'">
+       *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] !='FUSION IO DRIVES' && mediaDetails['media_type'] !='FUSION DRIVES'  && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'SSD' && mediaDetails['media_type'] != 'Flash Media'">
        <div class="col-lg-4 col-md-4 mb-3">
          <label class="control-label">Case Type:</label><br>
          <select class="form-control form-control-sm" formControlName="case_type"
