@@ -34,8 +34,8 @@ export class AppUtil {
         //         'Dead Android Phone','Working iPhone','Dead iPhone','Memory Card','DVR','Pen Drive','USB BOX',
         //         'NAS BOX','TAPE','CD/DVD','Floppy Drive','Flash Media','Other'];
         return ['Hard drive','SSD','Flash Media','Laptop Hard Drive','Desktop Hard Drive','External 2.5 Hard Drive','External 3.5 Hard Drive',
-                'Tape Media','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','On-board Flash Memory',
-                'Drive attached to specialised machines','Other'];
+                'Tape Media','DVR Media','NVR Media','CD/DVD','RAID','FUSION IO DRIVES','FUSION DRIVES','Floppy Disk','On-board Flash Memory',
+                'Drive attached to specialised machines','Mobile','Tablets','Other'];
     }
     
 

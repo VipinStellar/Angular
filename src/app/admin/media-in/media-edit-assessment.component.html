@@ -16,19 +16,19 @@
             <tr>
               <th>Client Name</th>
               <th>Job id</th>
-              <th>Media Type</th>
-              <th>Media Capacity</th>
-              <th>Mode Of Service</th>
               <th>Type of Service</th>
+              <th>Mode Of Service</th>
+              <th>Media Type</th>
+              <th>Media Capacity</th>    
               <th>Tampered Status</th>
             </tr>
             <tr>
               <td>{{mediaDetails['customer_name']}}</td>
               <td>{{mediaDetails['job_id']}}</td>
+              <td>{{mediaDetails['service_type']}}</td>
+              <td>{{mediaDetails['service_mode']}}</td>
               <td>{{mediaDetails['media_type']}}</td>
               <td>{{mediaDetails['media_capacity']}}</td>
-              <td>{{mediaDetails['service_mode']}}</td>
-              <td>{{mediaDetails['service_type']}}</td>
               <td>{{mediaDetails['tampered_status']}}</td>
             </tr>
           </table>

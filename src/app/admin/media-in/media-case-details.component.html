@@ -42,64 +42,64 @@
           <span class="ml-2">{{mediaDetails['branch_name']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Media Type : </label>
-          <span class="ml-2">{{mediaDetails['media_type']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
-          <label class="control-label">Media Size : </label>
-          <span class="ml-2">{{mediaDetails['media_size']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
-          <label class="control-label">Media Make : </label>
-          <span class="ml-2">{{mediaDetails['media_make']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
-          <label class="control-label">Media Model : </label>
-          <span class="ml-2">{{mediaDetails['media_model']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
-          <label class="control-label">Media Serial : </label>
-          <span class="ml-2">{{mediaDetails['media_serial']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Media Capacity : </label>
-          <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID'">
-          <label class="control-label">Media Condition : </label>
-          <span class="ml-2">{{mediaDetails['media_condition']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Tampered Status : </label>
-          <span class="ml-2">{{mediaDetails['tampered_status']}}</span>
+          <label class="control-label">Type of Service : </label>
+          <span class="ml-2">{{mediaDetails['service_type']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Mode Of Service : </label>
           <span class="ml-2">{{mediaDetails['service_mode']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Type of Service : </label>
-          <span class="ml-2">{{mediaDetails['service_type']}}</span>
+          <label class="control-label">Media Type : </label>
+          <span class="ml-2">{{mediaDetails['media_type']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Peripherals With Media : </label>
-          <span class="ml-2">{{mediaDetails['media_casing']}}</span>
+          <label class="control-label">Media Size : </label>
+          <span class="ml-2">{{mediaDetails['media_size']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Important Data : </label>
-          <span class="ml-2">{{mediaDetails['important_data']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
-          <label class="control-label">Peripherals Details : </label>
-          <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
-        </div>
-        <div class="col-lg-6 col-md-6 mb-3"*ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'FUSION DRIVES' || mediaDetails['media_type'] == 'FUSION IO DRIVES'">
           <label class="control-label">Type of Interface : </label>
           <span class="ml-2">{{mediaDetails['media_interface']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'FUSION DRIVES' || mediaDetails['media_type'] == 'FUSION IO DRIVES'">
           <label class="control-label">No. of Media received : </label>
           <span class="ml-2"><a href="javascript:void(0)" matTooltip="View Media Detail" (click)="viewMediaDeails()" >{{mediaDetails['drive_count']}}</a></span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          <label class="control-label">Media Make : </label>
+          <span class="ml-2">{{mediaDetails['media_make']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Media Capacity : </label>
+          <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          <label class="control-label">Media Model : </label>
+          <span class="ml-2">{{mediaDetails['media_model']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          <label class="control-label">Media Serial : </label>
+          <span class="ml-2">{{mediaDetails['media_serial']}}</span>
+        </div>        
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Media Condition : </label>
+          <span class="ml-2">{{mediaDetails['media_condition']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Tampered Status : </label>
+          <span class="ml-2">{{mediaDetails['tampered_status']}}</span>
+        </div>     
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Peripherals With Media : </label>
+          <span class="ml-2">{{mediaDetails['media_casing']}}</span>
+        </div>       
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          <label class="control-label">Peripherals Details : </label>
+          <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3">
+          <label class="control-label">Important Data : </label>
+          <span class="ml-2">{{mediaDetails['important_data']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Added By : </label>
