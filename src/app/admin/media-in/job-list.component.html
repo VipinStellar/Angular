@@ -11,23 +11,31 @@
     <section class="content">
         <div class="container-fluid">
           <div class="row">
-            <div class="col-sm-2 pb-2">          
-                <mat-select class="form-control" [(value)]="branchId"  placeholder="Select branch List" (selectionChange)="branchChange($event)">              
-                    <mat-option *ngFor="let search of branchList" [value]="search['id']">
-                      {{search['branch_name']}}
-                    </mat-option>
-                  </mat-select>
-                </div>
-                <div class="col-sm-2 pb-2">
-                    <mat-select class="form-control" [(value)]="statusId" placeholder="Select Job Status" (selectionChange)="statusChange($event)">              
-                      <mat-option *ngFor="let search of status" [value]="search['id']">
-                        {{search['stage_name']}}
+            <div class="col-12">
+              <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Search</legend>
+                <div class="row">
+                <div class="col-sm-2 pb-2">          
+                  <mat-select class="form-control form-control-sm" [(value)]="branchId"  placeholder="Select branch List" (selectionChange)="branchChange($event)">              
+                      <mat-option *ngFor="let search of branchList" [value]="search['id']">
+                        {{search['branch_name']}}
                       </mat-option>
                     </mat-select>
-                </div>
-                <div class="col-sm-2 pb-2">
-                    <button  class="btn btn-primary" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default" (click)="reset()">Reset</button>
                   </div>
+                  <div class="col-sm-2 pb-2">
+                      <mat-select class="form-control form-control-sm" [(value)]="statusId" placeholder="Select Job Status" (selectionChange)="statusChange($event)">              
+                        <mat-option *ngFor="let search of status" [value]="search['id']">
+                          {{search['stage_name']}}
+                        </mat-option>
+                      </mat-select>
+                  </div>
+                  <div class="col-sm-2 pb-2">
+                      <button  class="btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button>
+                    </div>
+                    </div>
+              </fieldset>
+            </div>
+            
             <div class="col-12">
                 <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
                 <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"

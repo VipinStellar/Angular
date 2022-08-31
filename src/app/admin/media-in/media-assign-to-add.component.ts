@@ -51,7 +51,7 @@ export class MediaAssignToAdd implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.hide();
-                this.toastrService.success('User Save successfully!', 'Success!',{timeOut: 3000});
+                this.toastrService.success('User Saved successfully!', 'Success!',{timeOut: 3000});
                 //this.toastrService.success('Email has been Send', 'Success!',{timeOut: 3000});
             }
         );
