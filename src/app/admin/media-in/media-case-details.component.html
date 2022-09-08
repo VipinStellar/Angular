@@ -951,58 +951,55 @@
 </div>
 
 <div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':mediaModel}" aria-hidden="true">
-  <div class="modal-dialog modal-lg modal-autoheight" role="document">
+  <div class="modal-dialog modal-xl modal-autoheight" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background: #ddd;">
         <h2 class="modal-title mb-0">Media Details</h2>
       </div>
       <div class="modal-body">
-        <div class="row text-center">
-          <div class="form-group col-1">
+        <div class="row border-bottom text-center">
+          <div class="my-1 col-1">
             <label>S.N</label>
           </div>
-          <div class="form-group col-2">
+          <div class="my-1 col-2">
             <label>Model Number</label>
           </div>
-          <div class="form-group col-2">
+          <div class="my-1 col-2">
             <label>Serial Number</label>
           </div>
-          <div class="form-group col-2">
+          <div class="my-1 col-2">
             <label>Media Capacity</label>
           </div>
-          <div class="form-group col-2">
+          <div class="my-1 col-2">
             <label>Media Status</label>
           </div>
-          <div class="form-group col-3">
+          <div class="my-1 col-3">
             <label>Media Condition</label>
           </div>
         </div>
-        <div class="row text-center" *ngFor="let details of mediaDetails['total_drive']; let i = index">
-          <div class="form-group col-1">
+        <div class="row border-top text-center" *ngFor="let details of mediaDetails['total_drive']; let i = index">
+          <div class="my-2 col-1">
             {{i+1}}
           </div>
-          <div class="form-group col-2">
+          <div class="my-2 col-2">
             {{details['model_number']}}
           </div>
-          <div class="form-group col-2">
+          <div class="my-2 col-2">
             {{details['serial_number']}}
           </div>
-          <div class="form-group col-2">
+          <div class="my-2 col-2">
             {{details['media_capacity']}}
           </div>
-          <div class="form-group col-2">
+          <div class="my-2 col-2">
             {{details['media_status']}}
           </div>
-          <div class="form-group col-3">
+          <div class="my-2 col-3">
             {{details['media_condition']}}
           </div>
         </div>
       </div>
       <div class="modal-footer">
-
-        <button type="button" class="btn btn-primary btn-sm" (click)="closeModel()">
-          Cancel
-        </button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="closeModel()">Close</button>
       </div>
     </div>
   </div>

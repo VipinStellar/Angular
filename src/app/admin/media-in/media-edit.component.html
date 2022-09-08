@@ -164,13 +164,12 @@
     </div>
   </section>
 </div>
-<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':mediaModel}" aria-hidden="true">
-  <div class="modal-dialog modal-xl modal-autoheight" role="document">
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':mediaModel}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background: #ddd;">
         <h2 class="modal-title mb-0">Media Details</h2>
       </div>
-      <form [formGroup]="dynamicForm">
         <div class="modal-body">
           <div class="row text-center">
             <div class="form-group col-1">
@@ -192,6 +191,7 @@
               <label>Media Condition</label>
             </div>
           </div>
+          <form [formGroup]="dynamicForm">
           <div *ngFor="let ticket of t.controls; let i = index">
             <div class="row text-center" [formGroup]="ticket">
               <div class="form-group col-1">
@@ -220,22 +220,11 @@
               </div>
             </div>
           </div>
-
+        </form>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-sm" (click)="modelSave()">
-            Ok
-          </button>
+          <button type="button" class="btn btn-primary btn-sm" (click)="modelSave()">Done</button>
         </div>
-      </form>
     </div>
   </div>
 </div>
-<style>
-  .modal-autoheight .modal-body {
-    position: relative;
-    overflow-y: auto;
-    min-height: 100px !important;
-    max-height: 600px !important;
-  }
-</style>
