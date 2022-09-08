@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
         private toastrService: ToastrService,
         private dialogRef: MatDialogRef<MediaTransfer>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-        this.diaTitle = "Transfer Media To Another Branch";
+        this.diaTitle = "Transfer media to other branch/HO";
         this.mediaInService.getAllBranch().subscribe( data => {
             this.branchList = data as any;
           });

@@ -23,6 +23,7 @@ export class MediaEdit implements OnInit {
     dynamicForm: FormGroup;
     mediaModel = "none";
     modelValue = [];
+    mediaObj: any= []
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -31,6 +32,7 @@ export class MediaEdit implements OnInit {
 
     }
     ngOnInit(): void {
+        this.mediaObj = AppUtil.getMediaDeatils() as any;
         this.assignedRole = this.route.snapshot.data['profileResolver'];
         this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "pre-analysis");
         if (!this.isAsscessDenied)
@@ -48,19 +50,22 @@ export class MediaEdit implements OnInit {
             service_type: [''],
             media_casing: [''],
             drive_count: [''],
+            tampered_status:[],
             service_mode: [''],
             media_interface: [''],
             media_type: [''],
             media_model: [''],
             media_serial: [''],
             media_capacity: [''],
-            tampered_status: [''],
             media_condition: [''],
             peripherals_details: [''],
             stage: ['', [Validators.required]],
             remarks: ['', [Validators.required]],
             total_drive:[''],
             media_size:[''],
+            media_status:[''],
+            media_make_other:[],
+            media_capacity_other:[],
         });
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
@@ -83,6 +88,27 @@ export class MediaEdit implements OnInit {
         this.loading = true;
         let apiToCall: any;
         this.f['total_drive'].setValue(this.modelValue);
+        if(this.f['media_make'].value == 'Others')
+        {
+            this.f['media_make'].setValue(this.f['media_make_other'].value)
+        }
+        if(this.f['media_capacity'].value == 'Others')
+        {
+            this.f['media_capacity'].setValue(this.f['media_capacity_other'].value)
+        }
+        if(this.f['media_status'].value == 'Working')
+            this.f['tampered_status'].setValue('Non Tampered');
+
+        if(this.f['media_status'].value == 'Non-working' && this.f['media_condition'].value =='Non Tampered')
+        {
+            this.f['tampered_status'].setValue('Non Tampered')
+        }
+
+        if(this.f['media_status'].value == 'Non-working' && this.f['media_condition'].value !='Non Tampered')
+        {
+            this.f['tampered_status'].setValue('Tampered')
+        }
+
         apiToCall = this.mediaInService.updatePreAnalysis(this.mediaEdit.value);
         apiToCall.subscribe(
             data => {
@@ -97,7 +123,19 @@ export class MediaEdit implements OnInit {
         );
     }
 
+    appendOption(val,key)
+    {
+        let list = this.mediaObj[key].find(x => x === val);
+        if(list == undefined)
+        {
+            if(val != null && val !='')
+            this.mediaObj[key].push(val);
+        }
+    }
+
     modeltoForm(media) {
+        this.appendOption(media.media_make,'media_make');
+        this.appendOption(media.media_capacity,'capacity');
         this.mediaEdit.setValue({
             id: media.id,
             media_type: media.media_type,
@@ -110,13 +148,16 @@ export class MediaEdit implements OnInit {
             media_model: media.media_model,
             media_serial: media.media_serial,
             media_capacity: media.media_capacity,
-            tampered_status: media.tampered_status,
             media_condition: media.media_condition,
             stage: media.stage,
+            tampered_status:null,
             remarks: "",
             peripherals_details: media.peripherals_details,
             total_drive:'',
-            media_size:media.media_size
+            media_size:media.media_size,
+            media_status:media.media_status,
+            media_make_other:'',
+            media_capacity_other:''
         });
     }
 
@@ -140,9 +181,12 @@ export class MediaEdit implements OnInit {
                 this.t.push(this.formBuilder.group({
                     model_number: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['model_number']!=null)?this.modelValue[i]['model_number']:''],
                     serial_number: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['serial_number']!=null)?this.modelValue[i]['serial_number']:''],
-                    media_condition: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_condition']!=null)?this.modelValue[i]['media_condition']:'']
-                }));               
-        }      
+                    media_condition: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_condition']!=null)?this.modelValue[i]['media_condition']:''],
+                    media_capacity: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_capacity']!=null)?this.modelValue[i]['media_capacity']:''],
+                    media_status: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_status']!=null)?this.modelValue[i]['media_status']:'']
+                })); 
+        } 
+          
         } else {
             for (let i = this.t.length; i >= numberOfTickets; i--) {
                 this.t.removeAt(i);
@@ -152,6 +196,14 @@ export class MediaEdit implements OnInit {
 
     modelSave() {
         this.modelValue = this.fd['tatalDrive'].value;
+        for (let i=0; i < this.modelValue.length; i++) {
+            if(this.modelValue[i]['media_condition'] == 'Non Tampered')
+            this.f['tampered_status'].setValue('Non Tampered')
+            else if(this.modelValue[i]['media_condition'] != 'Non Tampered')
+            this.f['tampered_status'].setValue('Tampered')
+            else
+            this.f['tampered_status'].setValue('Non Tampered')
+        }
         this.mediaModel = "none";
     }
 

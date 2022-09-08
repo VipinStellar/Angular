@@ -4,7 +4,8 @@
       <nav mat-tab-nav-bar *ngIf="isLoading">
         <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"
           [active]="activeLink == tabItem">
-          {{(mediaDetails!= null && (mediaDetails['stage'] == 1 || mediaDetails['stage'] == 2 || mediaDetails['stage'] == 10) && tabItem ==
+          {{(mediaDetails!= null && (mediaDetails['stage'] == 1 || mediaDetails['stage'] == 2 || mediaDetails['stage']
+          == 10) && tabItem ==
           'Inspection')?'':tabItem}}
         </a>
       </nav><br>
@@ -61,27 +62,39 @@
           <label class="control-label">Type of Interface : </label>
           <span class="ml-2">{{mediaDetails['media_interface']}}</span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'FUSION DRIVES' || mediaDetails['media_type'] == 'FUSION IO DRIVES'">
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'NVR Media' || mediaDetails['media_type'] == 'FUSION DRIVES' || mediaDetails['media_type'] == 'FUSION IO DRIVES'">
           <label class="control-label">No. of Media received : </label>
-          <span class="ml-2"><a href="javascript:void(0)" matTooltip="View Media Detail" (click)="viewMediaDeails()" >{{mediaDetails['drive_count']}}</a></span>
+          <span class="ml-2"><a href="javascript:void(0)" matTooltip="View Media Detail"
+              (click)="viewMediaDeails()">{{mediaDetails['drive_count']}}</a></span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
           <label class="control-label">Media Make : </label>
           <span class="ml-2">{{mediaDetails['media_make']}}</span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-3">
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
           <label class="control-label">Media Capacity : </label>
           <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
           <label class="control-label">Media Model : </label>
           <span class="ml-2">{{mediaDetails['media_model']}}</span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
           <label class="control-label">Media Serial : </label>
           <span class="ml-2">{{mediaDetails['media_serial']}}</span>
-        </div>        
-        <div class="col-lg-6 col-md-6 mb-3">
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          <label class="control-label">Media Status : </label>
+          <span class="ml-2">{{mediaDetails['media_status']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
           <label class="control-label">Media Condition : </label>
           <span class="ml-2">{{mediaDetails['media_condition']}}</span>
         </div>
@@ -92,8 +105,9 @@
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Peripherals With Media : </label>
           <span class="ml-2">{{mediaDetails['media_casing']}}</span>
-        </div>       
-        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['media_type'] != 'RAID' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3"
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
           <label class="control-label">Peripherals Details : </label>
           <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
         </div>
@@ -146,7 +160,8 @@
         </div>
       </div>
       <!--  RAID Media Start Html  -->
-      <div class="row" *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] =='FUSION IO DRIVES' || mediaDetails['media_type'] =='FUSION DRIVES'">
+      <div class="row"
+        *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] ==  'NVR Media' || mediaDetails['media_type'] =='FUSION IO DRIVES' || mediaDetails['media_type'] =='FUSION DRIVES'">
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Type : </label>
           <span class="ml-2">{{mediaDetails['case_type']}}</span>
@@ -417,6 +432,7 @@
 
       </div>
       <!--  CD/DVD Media End Html  -->
+
       <!--  DVR Media Starts Html  -->
       <div class="row" *ngIf="mediaDetails['media_type'] == 'DVR Media'">
         <div class="col-lg-6 col-md-6 mb-3">
@@ -629,6 +645,7 @@
 
       </div>
       <!--  Flash  Media End Html  -->
+
       <!--  Tape  Media End Html  -->
 
       <div class="row" *ngIf="mediaDetails['media_type'] == 'Tape Media'">
@@ -732,7 +749,7 @@
 
       <!--  SSD  Media End Html  -->
 
-      <div class="row" *ngIf="mediaDetails['media_type'] == 'SSD'">
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'Solid Satate Drive'">
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Type : </label>
           <span class="ml-2">{{mediaDetails['case_type']}}</span>
@@ -829,7 +846,8 @@
       <!--  SSD  Media End Html  -->
 
       <!--  Other  Media End Html  -->
-      <div class="row" *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] !='FUSION IO DRIVES' && mediaDetails['media_type'] !='FUSION DRIVES' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'SSD' && mediaDetails['media_type'] != 'Flash Media'">
+      <div class="row"
+        *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] !='FUSION IO DRIVES' && mediaDetails['media_type'] !='FUSION DRIVES' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'Solid Satate Drive' && mediaDetails['media_type'] != 'NVR Media' && mediaDetails['media_type'] != 'Flash Media'">
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Type : </label>
           <span class="ml-2">{{mediaDetails['case_type']}}</span>
@@ -838,13 +856,13 @@
           <label class="control-label">Recovery Possibility : </label>
           <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
         </div>
-		 <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
-            <label class="control-label">Type of Interface : </label>
-            <span class="ml-2">{{mediaDetails['media_interface']}}</span>
-          </div> 
-		 
-		  
-		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Type of Interface : </label>
+          <span class="ml-2">{{mediaDetails['media_interface']}}</span>
+        </div>
+
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Media found encrypted : </label>
           <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
         </div>
@@ -856,40 +874,40 @@
           <label class="control-label">Details provided for decryption are up to mark : </label>
           <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
         </div>
-		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
-            <label class="control-label">Media condition wrt any apparent external physical damage to it : </label>
-            <span class="ml-2">{{mediaDetails['media_damage']}}</span>
-          </div> 
-		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+          <label class="control-label">Media condition wrt any apparent external physical damage to it : </label>
+          <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+        </div>
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">DType of noise identified while the drive is powered-on : </label>
           <span class="ml-2">{{mediaDetails['noise_type']}}</span>
         </div>
-		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Drive electronics & control systems : </label>
           <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
         </div>
-		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Rotatory function : </label>
           <span class="ml-2">{{mediaDetails['rotary_function']}}</span>
         </div>
-		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Internal condition of platters : </label>
           <span class="ml-2">{{mediaDetails['platters_condition']}}</span>
         </div>
-		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Tampering Required : </label>
           <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
         </div>
-		<div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Further use of Media : </label>
           <span class="ml-2">{{mediaDetails['further_use']}}</span>
         </div>
-		     
-		  <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
+
+        <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Recovered data files and folder’s structure : </label>
           <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
         </div>
-		
+
         <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] !='No'">
           <label class="control-label">Recovery Percentage : </label>
           <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
@@ -917,14 +935,16 @@
         </div>
         <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
           <label class="control-label">Inspection On : </label>
-          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] == null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':(mediaDetails['assHis'][0]['added_on'] | date:'medium')}}</span>
         </div>
         <div class="col-lg-6 col-md-6" *ngIf="mediaDetails['assHis'] !=null">
           <label class="control-label">Inspection By : </label>
-          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] == null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
+          <span class="ml-2">{{(mediaDetails['assHis'][0]['user_name'] ==
+            null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
         </div>
-        
-    </div>
+
+      </div>
       <!--  Other  Media End Html  -->
     </div>
   </section>
@@ -936,42 +956,54 @@
       <div class="modal-header" style="background: #ddd;">
         <h2 class="modal-title mb-0">Media Details</h2>
       </div>
-        <div class="modal-body">
-          <div class="row text-center">
-            <div class="form-group col-1">
-              <label>S.N</label>
-            </div>
-            <div class="form-group col-3">
-              <label>Model Number</label>
-            </div>
-            <div class="form-group col-4">
-              <label>Serial Number</label>
-            </div>
-            <div class="form-group col-4">
-              <label>Media Condition</label>
-            </div>
+      <div class="modal-body">
+        <div class="row text-center">
+          <div class="form-group col-1">
+            <label>S.N</label>
           </div>
-          <div class="row text-center" *ngFor="let details of mediaDetails['total_drive']; let i = index">
-            <div class="form-group col-1">
-              {{i+1}}
-            </div>
-            <div class="form-group col-3">
-              {{details['model_number']}}
-            </div>
-            <div class="form-group col-4">
-              {{details['serial_number']}}
-            </div>
-            <div class="form-group col-4">
-              {{details['media_condition']}}
-            </div>
+          <div class="form-group col-2">
+            <label>Model Number</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Serial Number</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Media Capacity</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Media Status</label>
+          </div>
+          <div class="form-group col-3">
+            <label>Media Condition</label>
           </div>
         </div>
-        <div class="modal-footer">
+        <div class="row text-center" *ngFor="let details of mediaDetails['total_drive']; let i = index">
+          <div class="form-group col-1">
+            {{i+1}}
+          </div>
+          <div class="form-group col-2">
+            {{details['model_number']}}
+          </div>
+          <div class="form-group col-2">
+            {{details['serial_number']}}
+          </div>
+          <div class="form-group col-2">
+            {{details['media_capacity']}}
+          </div>
+          <div class="form-group col-2">
+            {{details['media_status']}}
+          </div>
+          <div class="form-group col-3">
+            {{details['media_condition']}}
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
 
-          <button type="button" class="btn btn-primary btn-sm" (click)="closeModel()">
-            Cancel
-          </button>
-        </div>
+        <button type="button" class="btn btn-primary btn-sm" (click)="closeModel()">
+          Cancel
+        </button>
+      </div>
     </div>
   </div>
 </div>

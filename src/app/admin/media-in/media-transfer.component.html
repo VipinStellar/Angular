@@ -3,14 +3,14 @@
     <div mat-dialog-content>
         
         <div class="col-sm-12">
-            <mat-label>Select Branch</mat-label>
+            <mat-label>Transfer to</mat-label>
             <mat-select formControlName="branch_id" [ngClass]="{ 'is-invalid': submitted && f['branch_id'].errors }"
                 class="form-control">
                 <mat-option *ngFor="let ban of branchList" [value]="ban['id']">{{ban['branch_name']}}
                 </mat-option>
             </mat-select>
             <div *ngIf="submitted && f['branch_id'].errors" class="invalid-feedback">
-                <div *ngIf="f['branch_id'].errors['required']">Branch is required</div>
+                <div *ngIf="f['branch_id'].errors['required']">Transfer to is required</div>
             </div>
         </div><br>
         <div class="col-sm-12">

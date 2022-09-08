@@ -22,6 +22,7 @@ export class MediaAssessmentEdit implements OnInit {
     dynamicForm: FormGroup;
     mediaModel = "none";
     modelValue = [];
+    mediaObj: any= []
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -32,6 +33,7 @@ export class MediaAssessmentEdit implements OnInit {
      
     }
     ngOnInit(): void {
+        this.mediaObj = AppUtil.getMediaDeatils() as any;
         this.assignedRole = this.route.snapshot.data['profileResolver'];
         this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "media-assessment");
         if (!this.isAsscessDenied)
@@ -180,9 +182,11 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.t.length < numberOfTickets) {
             for (let i = this.t.length; i < numberOfTickets; i++) {
                 this.t.push(this.formBuilder.group({
-                    model_number: [(this.modelValue !=null &&this.modelValue[i] !=undefined && this.modelValue[i]['model_number']!=null)?this.modelValue[i]['model_number']:''],
+                    model_number: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['model_number']!=null)?this.modelValue[i]['model_number']:''],
                     serial_number: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['serial_number']!=null)?this.modelValue[i]['serial_number']:''],
-                    media_condition: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_condition']!=null)?this.modelValue[i]['media_condition']:'']
+                    media_condition: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_condition']!=null)?this.modelValue[i]['media_condition']:''],
+                    media_capacity: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_capacity']!=null)?this.modelValue[i]['media_capacity']:''],
+                    media_status: [(this.modelValue !=null && this.modelValue[i] !=undefined && this.modelValue[i]['media_status']!=null)?this.modelValue[i]['media_status']:'']
                 }));               
         }      
         } else {
