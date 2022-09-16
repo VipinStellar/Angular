@@ -55,46 +55,46 @@
           <span class="ml-2">{{mediaDetails['media_type']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
-          <label class="control-label">Media Size : </label>
-          <span class="ml-2">{{mediaDetails['media_size']}}</span>
+          <label class="control-label">Media Category : </label>
+          <span class="ml-2">{{mediaDetails['media_category']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Type of Interface : </label>
           <span class="ml-2">{{mediaDetails['media_interface']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'NVR Media' || mediaDetails['media_type'] == 'FUSION DRIVES' || mediaDetails['media_type'] == 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'NVR Media' || mediaDetails['media_type'] == 'Fusion Drive' || mediaDetails['media_type'] == 'Fusion IO Drive'">
           <label class="control-label">No. of Media received : </label>
           <span class="ml-2"><a href="javascript:void(0)" matTooltip="View Media Detail"
               (click)="viewMediaDeails()">{{mediaDetails['drive_count']}}</a></span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Media Make : </label>
           <span class="ml-2">{{mediaDetails['media_make']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Media Capacity : </label>
           <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Media Model : </label>
           <span class="ml-2">{{mediaDetails['media_model']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Media Serial : </label>
           <span class="ml-2">{{mediaDetails['media_serial']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Media Status : </label>
           <span class="ml-2">{{mediaDetails['media_status']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Media Condition : </label>
           <span class="ml-2">{{mediaDetails['media_condition']}}</span>
         </div>
@@ -107,7 +107,7 @@
           <span class="ml-2">{{mediaDetails['media_casing']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'FUSION DRIVES' && mediaDetails['media_type'] != 'FUSION IO DRIVES'">
+          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
           <label class="control-label">Peripherals Details : </label>
           <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
         </div>
@@ -161,7 +161,7 @@
       </div>
       <!--  RAID Media Start Html  -->
       <div class="row"
-        *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] ==  'NVR Media' || mediaDetails['media_type'] =='FUSION IO DRIVES' || mediaDetails['media_type'] =='FUSION DRIVES'">
+        *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] ==  'NVR Media' || mediaDetails['media_type'] =='Fusion IO Drive' || mediaDetails['media_type'] =='Fusion Drive'">
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Type : </label>
           <span class="ml-2">{{mediaDetails['case_type']}}</span>
@@ -749,7 +749,7 @@
 
       <!--  SSD  Media End Html  -->
 
-      <div class="row" *ngIf="mediaDetails['media_type'] == 'Solid Satate Drive'">
+      <div class="row" *ngIf="mediaDetails['media_type'] == 'Solid State Drive'">
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Type : </label>
           <span class="ml-2">{{mediaDetails['case_type']}}</span>
@@ -847,7 +847,7 @@
 
       <!--  Other  Media End Html  -->
       <div class="row"
-        *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] !='FUSION IO DRIVES' && mediaDetails['media_type'] !='FUSION DRIVES' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'Solid Satate Drive' && mediaDetails['media_type'] != 'NVR Media' && mediaDetails['media_type'] != 'Flash Media'">
+        *ngIf="mediaDetails['media_type'] !='RAID' && mediaDetails['media_type'] !='Fusion IO Drive' && mediaDetails['media_type'] !='Fusion Drive' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] !='CD/DVD' &&  mediaDetails['media_type'] != 'DVR Media' && mediaDetails['media_type'] != 'Tape Media' && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'NVR Media' && mediaDetails['media_type'] != 'Flash Media'">
         <div class="col-lg-6 col-md-6 mb-3">
           <label class="control-label">Case Type : </label>
           <span class="ml-2">{{mediaDetails['case_type']}}</span>

@@ -37,19 +37,19 @@ export class AppUtil {
 
     static getMediaType()
     {
-        return ['Hard drive','External Hard drives','Solid Satate Drive','Flash Media',
-                'Tape Media','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','FUSION IO DRIVES','FUSION DRIVES','On-board Flash Memory',
-                'Drive attached to specialised machines','Mobile','Tablets','Other'];
+        return ['Hard Drive','External Hard Drive','Solid State Drive','Flash Media',
+                'Tape Media','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','Fusion IO Drive','Fusion Drive','On-board Flash Memory',
+                'Drive Attached to Specialised Machine','Mobile','Tablets','Other'];
     }
 
     static recoveryPercentage()
     {
-        return ['30%','40%','50%','60%','70%','80%','90%','100%','Undetermined','Recovery without File Name'];
+        return ['30%','40%','50%','60%','70%','80%','90%','100%','Undetermined','Recovery Without File Name'];
     }
 
     static assessmentDueReason()
     {
-        return ['Waiting for Decryption Details','Client not Picking Call','Client Laptop Required','Waiting Tampering Permission for USB Casing','Clone Required for Assessment','Client Application/Software Required','Sample Data Required','Spare required','Waiting  For Tempering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged HDD, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific CHIP/BIOS, Case Escalated To Research Team','Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter','Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface','Burnt Hdd, Platter Cleaning In Process','Other'];
+        return ['Waiting for Decryption Details','Client not Picking Call','Client Laptop Required','Waiting Tampering Permission for USB Casing','Clone Required for Assessment','Client Application/Software Required','Sample Data Required','Spare Required','Waiting  For Tempering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged HDD, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific CHIP/BIOS, Case Escalated To Research Team','Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter','Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface','Burnt Hdd, Platter Cleaning In Process','Other'];
     }
 
     static requiredDays()
@@ -64,7 +64,7 @@ export class AppUtil {
 
     static recoverableData()
     {
-        return ['Same as original files and folder`s structure','Data recoverable only in Raw form (without files & folders name)','Data recoverable with file names only but without folder names','Partial data recoverable with file names and some data in Raw form (without files & folders name)','Not determined at present stage','Not applicable'];
+        return ['Same as Original Files and Folder`s Structure','Data Recoverable Only in Raw form (Without Files & Folders Name)','Data Recoverable With File Names Only but Without Folder Names','Partial Data Recoverable With File Names and some data in Raw form (without files & folders name)','Not determined at present stage','Not applicable'];
     }
 
     static dataLossReason()
@@ -102,17 +102,17 @@ export class AppUtil {
     }
     static encryptionStatus()
     {
-        return ['Yes','No','Not determined at present stage'];
+        return ['Yes','No','Not Determined at Present Stage'];
     }
 
     static encryptionType()
     {
-        return ['Hardware','Software','Not determined at present stage'];
+        return ['Hardware','Software','Not Determined at Present Stage'];
     }
 
     static getServiceType()
     {
-        return ['Data Recovery','Cloning','Degaussing','Data erasure/wiping','Others'];
+        return ['Data Recovery','Cloning','Degaussing','Data Erasure/Wiping','Others'];
     }
 
     static getServiceMode()
@@ -122,7 +122,7 @@ export class AppUtil {
 
     static getMediaSize()
     {
-        return ['2.5 (Laptop hard drives)','3.5 (Desktop hard drives)','22*30','22*42','1.8','N/A'];
+        return ['N/A','2.5 in (Laptop Hard Drive)','3.5 in (Desktop Hard Drive)','1.8 in (Hard Drive)','22*30 cm (SSD)','22*42 cm (SSD)','LTO','Others'];
     }
 
     static getMediaInterFace()
@@ -132,27 +132,27 @@ export class AppUtil {
 
     static getMediaCapacity()
     {
-        return ['less than 1 GB','1 GB','2 GB','4 GB','8 GB','16 GB','32 GB','64 GB','Less than 80 GB','80 GB','128 GB','146 GB','250 GB','300 GB','320 GB','500 GB','600 GB','750 GB','800 GB','900 GB','1 TB','1.2 TB','1.5 TB','2 TB','3 TB +','4 TB','5 TB','6 TB','8 TB','10 TB','12 TB','14 TB','16 TB','18 TB','20 TB +','Others'];
+        return ['Less than 1 GB','1 GB','2 GB','4 GB','8 GB','16 GB','32 GB','64 GB','Less than 80 GB','80 GB','128 GB','146 GB','250 GB','300 GB','320 GB','500 GB','600 GB','750 GB','800 GB','900 GB','1 TB','1.2 TB','1.5 TB','2 TB','3 TB +','4 TB','5 TB','6 TB','8 TB','10 TB','12 TB','14 TB','16 TB','18 TB','20 TB +','Others'];
     }
 
     static getmediaCondition()
     {
-        return ['Non Tampered','Tampered','PCB Tampered','Broken','Burnt','PCB Burnt','Flooded','Flooded and Tampered','Burnt and Tampered','Other Tampered Conditions'];
+        return ['Non Tampered','Tampered','Casing Tampered Media Non Tampered','PCB Tampered','Broken','Burnt','PCB Burnt','Flooded','Flooded and Tampered','Burnt and Tampered','Other Tampered Conditions'];
     }
 
     static getPeripheralsMedia()
     {
-        return ['With storage box','With casing','Storage box or without casing','Storage box','DAS/NAS/SAN With bay','DAS/NAS/SAN without bay','Not aplicable'];
+        return ['With Storage Box','With Casing','Storage Box or Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','Not aplicable'];
     }
 
     static getmediaStatus()
     {
-        return ['Working','Non-working'];
+        return ['Working','Non Working'];
     }
     
     static getMediaMake()
     {
-        return ['Western digital','Seagate','Toshiba','Hitachi','Samsung','Others'];
+        return ['Western Digital','Seagate','Toshiba','Hitachi','Samsung','Fujitsu','HP','IBM','Dell','Others'];
     }
 
     static getMediaCaseType()
@@ -167,7 +167,7 @@ export class AppUtil {
 
     static getMediaDamage()
     {
-        return ['No external damage found','Damage found'];
+        return ['No External Damage Found','Damage Found'];
     }
 
     static plattersCondition()

@@ -49,11 +49,13 @@
                 </mat-select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Media Size : </label>
-                <mat-select class="form-control form-control-sm" formControlName="media_size">
+                <label class="control-label">Media Category: </label>
+                <mat-select class="form-control form-control-sm" formControlName="media_category">
+                  <mat-select-filter [array]="mediaSizeList" (filteredReturn)="mediaObj['mediaSize'] =$event"></mat-select-filter>
                   <mat-option *ngFor="let type of mediaObj['mediaSize']" [value]="type">{{type}}
                   </mat-option>
                 </mat-select>
+                <input *ngIf="f['media_category'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_size_other" placeholder="Please Enter Others Media Category" maxlength="50"> 
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">Type of Interface: </label>
@@ -63,8 +65,8 @@
                 </mat-select>
               </div>
               <div class="col-4 p-3"
-                *ngIf="(f['media_type'].value == 'RAID' || f['media_type'].value == 'NVR Media' || f['media_type'].value == 'FUSION DRIVES' || f['media_type'].value == 'FUSION IO DRIVES')">
-                <label class="control-label">No. of Media received : <span
+                *ngIf="(f['media_type'].value == 'RAID' || f['media_type'].value == 'NVR Media' || f['media_type'].value == 'Fusion Drive' || f['media_type'].value == 'Fusion IO Drive')">
+                <label class="control-label">No. of Media Received : <span
                     style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                       matTooltip="View Media Detail" (click)="openPopup()"></i></span></label>
                 <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup()">
@@ -73,42 +75,42 @@
                 </select>
               </div>
               <div class="col-4 p-3"
-                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' )">
+                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive' )">
                 <label class="control-label">Media Make : </label>               
                   <mat-select class="form-control form-control-sm" formControlName="media_make">
-                    <mat-option *ngFor="let capacity of mediaObj['media_make']" [value]="capacity">{{capacity}}
+                    <mat-option *ngFor="let make of mediaObj['media_make']" [value]="make">{{make}}
                     </mat-option>
                   </mat-select><br>
-                 <input *ngIf="f['media_make'].value == 'Others'" type="text" class="form-control form-control-sm" formControlName="media_make_other" placeholder="Please Enter Others Media Make" maxlength="50"> 
+                 <input *ngIf="f['media_make'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_make_other" placeholder="Please Enter Others Media Make" maxlength="50"> 
                 </div>
-              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' )">
+              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive' )">
                 <label class="control-label">Media Capacity : </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_capacity">
                   <mat-option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}
                   </mat-option>
                 </mat-select>
-                <input *ngIf="f['media_capacity'].value == 'Others'" type="text" class="form-control form-control-sm" formControlName="media_capacity_other" placeholder="Please Enter Others Media Capacity" maxlength="50"> 
+                <input *ngIf="f['media_capacity'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_capacity_other" placeholder="Please Enter Others Media Capacity" maxlength="50"> 
               </div>
               <div class="col-4 p-3"
-                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' )">
+                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive' )">
                 <label class="control-label">Media Model : </label>
-                <input type="text" class="form-control form-control-sm" formControlName="media_model" placeholder=""
+                <input type="text" class="form-control form-control-sm " formControlName="media_model" placeholder=""
                   maxlength="50">
               </div>
               <div class="col-4 p-3"
-                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' )">
+                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive' )">
                 <label class="control-label">Media Serial : </label>
                 <input type="text" class="form-control form-control-sm" formControlName="media_serial" placeholder=""
                   maxlength="50">
               </div>
-              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' )">
+              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive' )">
                 <label class="control-label">Media Status : </label>
-                <mat-select class="form-control form-control-sm" formControlName="media_status">
-                  <mat-option *ngFor="let condition of mediaObj['mediaStatus']" [value]="condition">{{condition}}
+                <mat-select class="form-control form-control-sm" formControlName="media_status" (selectionChange)="mediaStatusChange()">
+                  <mat-option *ngFor="let status of mediaObj['mediaStatus']" [value]="status">{{status}}
                   </mat-option>
                 </mat-select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' && f['media_status'].value == 'Non-working')">
+              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive')">
                 <label class="control-label">Media Condition : </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
@@ -125,7 +127,7 @@
               </div>
 
               <div class="col-4 p-3"
-                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'FUSION DRIVES' &&  f['media_type'].value != 'FUSION IO DRIVES' )">
+                *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive' )">
                 <label class="control-label">Peripherals Details : </label>
                 <textarea class="form-control form-control-sm" formControlName="peripherals_details"
                   maxlength="500"></textarea>

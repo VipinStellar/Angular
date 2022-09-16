@@ -24,6 +24,7 @@ export class MediaEdit implements OnInit {
     mediaModel = "none";
     modelValue = [];
     mediaObj: any= []
+    mediaSizeList:[];
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -33,6 +34,7 @@ export class MediaEdit implements OnInit {
     }
     ngOnInit(): void {
         this.mediaObj = AppUtil.getMediaDeatils() as any;
+        this.mediaSizeList = AppUtil.getMediaSize() as any;
         this.assignedRole = this.route.snapshot.data['profileResolver'];
         this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "pre-analysis");
         if (!this.isAsscessDenied)
@@ -62,10 +64,11 @@ export class MediaEdit implements OnInit {
             stage: ['', [Validators.required]],
             remarks: ['', [Validators.required]],
             total_drive:[''],
-            media_size:[''],
+            media_category:[''],
             media_status:[''],
             media_make_other:[],
             media_capacity_other:[],
+            media_size_other:[],
         });
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
@@ -96,15 +99,19 @@ export class MediaEdit implements OnInit {
         {
             this.f['media_capacity'].setValue(this.f['media_capacity_other'].value)
         }
+        if(this.f['media_category'].value == 'Others')
+        {
+            this.f['media_category'].setValue(this.f['media_size_other'].value)
+        }
         if(this.f['media_status'].value == 'Working')
             this.f['tampered_status'].setValue('Non Tampered');
 
-        if(this.f['media_status'].value == 'Non-working' && this.f['media_condition'].value =='Non Tampered')
+        if(this.f['media_status'].value == 'Non Working' && this.f['media_condition'].value =='Non Tampered')
         {
             this.f['tampered_status'].setValue('Non Tampered')
         }
 
-        if(this.f['media_status'].value == 'Non-working' && this.f['media_condition'].value !='Non Tampered')
+        if(this.f['media_status'].value == 'Non Working' && this.f['media_condition'].value !='Non Tampered')
         {
             this.f['tampered_status'].setValue('Tampered')
         }
@@ -136,6 +143,7 @@ export class MediaEdit implements OnInit {
     modeltoForm(media) {
         this.appendOption(media.media_make,'media_make');
         this.appendOption(media.media_capacity,'capacity');
+        this.appendOption(media.media_category,'mediaSize');
         this.mediaEdit.setValue({
             id: media.id,
             media_type: media.media_type,
@@ -154,11 +162,14 @@ export class MediaEdit implements OnInit {
             remarks: "",
             peripherals_details: media.peripherals_details,
             total_drive:'',
-            media_size:media.media_size,
+            media_category:media.media_category,
             media_status:media.media_status,
             media_make_other:'',
-            media_capacity_other:''
+            media_capacity_other:'',
+            media_size_other:''
         });
+        if(this.mediaDetails['media_type'] != 'RAID' && this.mediaDetails['media_type'] != 'NVR Media' && this.mediaDetails['media_type'] != 'Fusion IO Drive' &&  this.mediaDetails['media_type'] != 'Fusion Drive')
+        this.mediaStatusChange();
     }
 
     hide() {
@@ -205,6 +216,14 @@ export class MediaEdit implements OnInit {
             this.f['tampered_status'].setValue('Non Tampered')
         }
         this.mediaModel = "none";
+    }
+
+    mediaStatusChange()
+    {
+       if(this.f['media_status'].value == 'Working')
+        this.mediaObj['condition'] = ['Non Tampered','Casing Tampered Media Non Tampered'];
+        else
+        this.mediaObj['condition'] = AppUtil.getmediaCondition();
     }
 
 }
