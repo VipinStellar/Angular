@@ -19,6 +19,7 @@ export class MediaCaseDetail implements OnInit {
     tabItems = AppUtil.getMediaTab();
     activeLink = this.tabItems[0];
     mediaModel = "none";
+    mediaFieldShow:boolean;
     constructor( private mediaInService: MediaInService,
                  private router: Router, private route: ActivatedRoute,
                  private toastrService: ToastrService) {
@@ -36,6 +37,7 @@ export class MediaCaseDetail implements OnInit {
     {
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
+            this.mediaFieldShow = AppUtil.CheckMediaTypeFields(this.mediaDetails['media_type']);
             this.isLoading = true;
           });
     }

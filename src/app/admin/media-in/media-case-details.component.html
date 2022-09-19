@@ -62,39 +62,38 @@
           <label class="control-label">Type of Interface : </label>
           <span class="ml-2">{{mediaDetails['media_interface']}}</span>
         </div>
-        <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] == 'RAID' || mediaDetails['media_type'] == 'NVR Media' || mediaDetails['media_type'] == 'Fusion Drive' || mediaDetails['media_type'] == 'Fusion IO Drive'">
+        <div class="col-lg-6 col-md-6 mb-3"  *ngIf="!mediaFieldShow">
           <label class="control-label">No. of Media received : </label>
           <span class="ml-2"><a href="javascript:void(0)" matTooltip="View Media Detail"
               (click)="viewMediaDeails()">{{mediaDetails['drive_count']}}</a></span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Media Make : </label>
           <span class="ml-2">{{mediaDetails['media_make']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Media Capacity : </label>
           <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Media Model : </label>
           <span class="ml-2">{{mediaDetails['media_model']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Media Serial : </label>
           <span class="ml-2">{{mediaDetails['media_serial']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Media Status : </label>
           <span class="ml-2">{{mediaDetails['media_status']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Media Condition : </label>
           <span class="ml-2">{{mediaDetails['media_condition']}}</span>
         </div>
@@ -107,7 +106,7 @@
           <span class="ml-2">{{mediaDetails['media_casing']}}</span>
         </div>
         <div class="col-lg-6 col-md-6 mb-3"
-          *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] != 'NVR Media' &&  mediaDetails['media_type'] != 'Fusion Drive' && mediaDetails['media_type'] != 'Fusion IO Drive'">
+          *ngIf="mediaFieldShow">
           <label class="control-label">Peripherals Details : </label>
           <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
         </div>
