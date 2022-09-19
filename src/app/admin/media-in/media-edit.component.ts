@@ -69,14 +69,34 @@ export class MediaEdit implements OnInit {
             media_status: [''],
             media_make_other: [],
             media_capacity_other: [],
-            media_size_other: [],
+            media_cat_other: [],
         });
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
             this.modelValue = this.mediaDetails['total_drive'];
             this.modeltoForm(this.mediaDetails as any);
         });
-
+        this.mediaEdit.get("media_category")?.valueChanges.subscribe(x => {
+            if(x == 'Others')
+                this.mediaEdit.get('media_cat_other')?.setValidators([Validators.required]);
+                else
+                this.mediaEdit.get('media_cat_other')?.clearValidators();
+            this.mediaEdit.get('media_cat_other')?.updateValueAndValidity();
+          });
+          this.mediaEdit.get("media_capacity")?.valueChanges.subscribe(x => {
+            if(x == 'Others')
+                this.mediaEdit.get('media_capacity_other')?.setValidators([Validators.required]);
+                else
+                this.mediaEdit.get('media_capacity_other')?.clearValidators();
+            this.mediaEdit.get('media_capacity_other')?.updateValueAndValidity();
+          });
+          this.mediaEdit.get("media_make")?.valueChanges.subscribe(x => {
+            if(x == 'Others')
+                this.mediaEdit.get('media_make_other')?.setValidators([Validators.required]);
+                else
+                this.mediaEdit.get('media_make_other')?.clearValidators();
+            this.mediaEdit.get('media_make_other')?.updateValueAndValidity();
+          });
 
     }
 
@@ -99,7 +119,7 @@ export class MediaEdit implements OnInit {
             this.f['media_capacity'].setValue(this.f['media_capacity_other'].value)
         }
         if (this.f['media_category'].value == 'Others') {
-            this.f['media_category'].setValue(this.f['media_size_other'].value)
+            this.f['media_category'].setValue(this.f['media_cat_other'].value)
         }
         if (this.f['media_status'].value == 'Working')
             this.f['tampered_status'].setValue('Non Tampered');
@@ -159,7 +179,7 @@ export class MediaEdit implements OnInit {
             media_status: media.media_status,
             media_make_other: '',
             media_capacity_other: '',
-            media_size_other: ''
+            media_cat_other: ''
         });
         this.mediaTypeChange();
         this.appendMediaCatOption();
