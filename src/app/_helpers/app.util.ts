@@ -30,21 +30,31 @@ export class AppUtil {
 
     static getMediaDeatils()
     {
-        return {'mediaType':this.getMediaType(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
+        return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionType':this.encryptionType(),'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),
-               'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason()};
+               'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason()};
     }
 
     static getMediaType()
     {
-        return ['Hard Drive','External Hard Drive','Solid State Drive','Flash Media',
+        return ['Hard Drive','External Hard Drive','Solid State Drive','Flash Media','External Solid State Drive',
                 'Tape Media','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','Fusion IO Drive','Fusion Drive','On-board Flash Memory',
                 'Drive Attached to Specialised Machine','Mobile','Tablet','Other'];
     }
 
+    static mediaRecevid()
+    {
+        return['With Laptop','Without Laptop'];
+    }
+
     static recoveryPercentage()
     {
-        return ['30%','40%','50%','60%','70%','80%','90%','100%','Undetermined','Recovery Without File Name'];
+        return ['0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','Not Determined at Present Stage','Not Applicable','Raw With Structure'];
+    }
+
+    static mediaClone()
+    {
+        return['YES','No','Not Aplicable'];
     }
 
     static assessmentDueReason()
@@ -54,7 +64,21 @@ export class AppUtil {
 
     static requiredDays()
     {
-        return ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30'];
+        return ['1','2','3','4','5','6','7','8','9','10','11','12','13','14','15','16','17','18','19','20','21','22','23','24','25','26','27','28','29','30','Not Applicable'];
+    }
+
+    static NoiceType()
+    {
+        return ['Light Noise','Heavy Noise','No Movement','Normal Noise','Head Stuck Noise'];
+    }
+    static driveElectronic()
+    {
+        return ['Functional','Not Functional','Not Determined at Present Stage'];
+    }
+
+    static rotaryFunction()
+    {
+        return ['Normal','Not Determined at Present Stage'];
     }
 
     static serverType()
@@ -64,22 +88,22 @@ export class AppUtil {
 
     static recoverableData()
     {
-        return ['Same as Original Files and Folder`s Structure','Data Recoverable Only in Raw form (Without Files & Folders Name)','Data Recoverable With File Names Only but Without Folder Names','Partial Data Recoverable With File Names and some data in Raw form (without files & folders name)','Not determined at present stage','Not applicable'];
+        return ['Same as Original Files and Folder`s Structure','Data Recoverable Only in Raw form (Without Files & Folders Name)','Data Recoverable with File Names only but without Folder Names','Partial Data Recoverable With File Names and some Data in Raw Form (without files & Folders Name)','Not Determined at Present Stage','Not Applicable'];
     }
 
     static dataLossReason()
     {
-        return ['Reinstalled Operating system','Deleted data','Formatted data','Overwritten data','Over encryption','Virus Attack','Others'];
+        return ['Reinstalled Operating System','Deleted Data','Formatted Data','Overwritten Data','Over Encryption','Virus Attack','Others'];
     }
 
     static fileSystemInfo()
     {
-        return ['File system information missing','File system information found inconsistent','File system information found corrupted','File system information found in ok state','Others'];
+        return ['File System Information Missing','File System Information Found Inconsistent','File System Information Found Corrupted','File System Information Found in ok State','Others'];
     }
 
     static compressionStatus()
     {
-        return ['Compressed','Un-compressed','Not applicable'];
+        return ['Compressed','Un Compressed','Not Applicable'];
     }
 
     static furtherUse()
@@ -89,7 +113,7 @@ export class AppUtil {
 
     static getMediaOs()
     {
-        return ['Windows','Mac OS','LINUX','UNIX','HP Unix','Other'];
+        return ['Windows','Linux','Unix','Mac','Virtual File System','Other'];
     }
 
     static getTamperingRequired()
@@ -98,16 +122,22 @@ export class AppUtil {
     }
     static encryptionDetailsCorrect()
     {
-        return ['Yes','No','Not aplicable'];
+        return ['Correct','Incorrect','Not Aplicable','Not Received at Present Stage','Not Determined  at Present Stage'];
     }
+
     static encryptionStatus()
+    {
+        return ['Yes','No','Not Determined at Present Stage'];
+    }
+
+    static sparRequred()
     {
         return ['Yes','No','Not Determined at Present Stage'];
     }
 
     static encryptionType()
     {
-        return ['Hardware','Software','Not Determined at Present Stage'];
+        return ['Hardware Encryption','Software Encryption','Not Determined at Present Stage'];
     }
 
     static getServiceType()
@@ -172,7 +202,7 @@ export class AppUtil {
 
     static plattersCondition()
     {
-        return ['Heavy','Light scratches on upper side of the platter','Light scratches on lower side of the platter','Normal','Not determined at present stage'];
+        return ['Heavy','Light Scratches on Upper Side of the Platter','Light Scratches on Lower Side of the Platter','Normal','Not Determined at Present Stage'];
     }
 
     static CheckMediaTypeFields(mediaType)
