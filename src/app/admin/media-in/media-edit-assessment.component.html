@@ -35,20 +35,20 @@
         </div>
         <div class="col-12">
           <form [formGroup]="mediaEdit">
-            <div class="row">
+            <div class="row" *ngIf="mediaDetails['media_type'] != 'CD/DVD' && mediaDetails['media_type'] != 'Floppy Disk'">
               <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive'">
                 <label class="control-label">Media Received:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_received">
                   <option *ngFor="let dmg of mediaObj['mediaRecevid']" [value]="dmg">{{dmg}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'Flash Media'">
                 <label class="control-label">Media `s Laptop/MacBook Condition wrt any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage_physical">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType &&  mediaDetails['media_type'] != 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="!caseType &&  mediaDetails['media_type'] != 'Solid State Drive' || mediaDetails['media_type'] == 'Flash Media'">
                 <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
@@ -76,18 +76,34 @@
                   <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
                 </div>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'">
                 <label class="control-label">Type of Noise Identified while the Drive is Powered-on:</label><br>
                 <select class="form-control form-control-sm" formControlName="noise_type">
                   <option *ngFor="let rec of mediaObj['NoiceType']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] == 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="!caseType && (mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media')">
                 <label class="control-label">Media Condition : </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
                   </mat-option>
                 </mat-select>
+              </div>
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Flash Media' && !caseType">
+                <label class="control-label">Type of Internal Physical Damage Identified in the Storage Media:</label><br>
+                <select class="form-control form-control-sm" formControlName="media_damage_physical">
+                 <option value="Electronic Circuit Faliure">Electronic Circuit Faliure</option>
+                 <option value="Bad Block Corruption">Bad Block Corruption</option>
+                 <option value="Bad Byte Corruption">Bad Byte Corruption</option>
+                 <option value="Others">Others</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Flash Media' && !caseType">
+                <label class="control-label">FLASH Media`s Architecture:</label><br>
+                <select class="form-control form-control-sm" formControlName="media_architecture">
+                 <option value="Monolithic">Monolithic</option>
+                 <option value="Non Monolithic">Non Monolithic</option>
+                </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
                 <label class="control-label">Drive Electronics & Control Systems:</label><br>
@@ -95,13 +111,13 @@
                   <option *ngFor="let rec of mediaObj['driveElectronic']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive'"> 
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'"> 
                 <label class="control-label">Rotatory Function:</label><br>
                 <select class="form-control form-control-sm" formControlName="rotary_function">
                   <option *ngFor="let rec of mediaObj['rotaryFunction']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'">
                 <label class="control-label">Internal Condition of Platters:</label><br>
                 <select class="form-control form-control-sm" formControlName="platters_condition">
                   <option *ngFor="let pla of mediaObj['plattersCondition']" [value]="pla">{{pla}}</option>
@@ -121,13 +137,13 @@
                   <option *ngFor="let fuse of mediaObj['furtherUse']" [value]="fuse">{{fuse}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType">
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Flash Media'">
                 <label class="control-label">Media Similar Spare Required:</label><br>
                 <select class="form-control form-control-sm" formControlName="spare_required">
                   <option *ngFor="let fuse of mediaObj['sparRequred']" [value]="fuse">{{fuse}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] != 'Flash Media'">
                 <label class="control-label">Media Clone Required:</label><br>
                 <select class="form-control form-control-sm" formControlName="recovery_possibility">
                   <option *ngFor="let rec of mediaObj['mediaClone']" [value]="rec">{{rec}}</option>
@@ -177,6 +193,139 @@
                   <option *ngFor="let losData of mediaObj['dataLossReason']" [value]="losData">{{losData}}</option>
                 </select>
                 <input *ngIf="f['data_loss_reason'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="data_loss_reason_other"  placeholder="Please Enter"> 
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
+                <select class="form-control form-control-sm" formControlName="recoverable_data">
+                  <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <label class="control-label">Recovery Possibility:</label><br>
+                <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                  <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <label class="control-label">Recovery Percentage:</label><br>
+                <select class="form-control form-control-sm" formControlName="recovery_percentage">
+                  <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <label class="control-label">Required Days:</label><br>
+                <select class="form-control form-control-sm" formControlName="required_days">
+                  <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Inspection Status:</label><br>
+                <select class="form-control form-control-sm" formControlName="stage">
+                  <option value="">Select</option>
+                  <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <label class="control-label">Inspection Due Reason:</label><br>
+                <select class="form-control form-control-sm" formControlName="assessment_due_reason">
+                  <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
+                </select>
+              </div>
+              <div class="col-lg-12 col-md-12 mb-3">
+                <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+                <textarea class="form-control form-control-sm" formControlName="remarks"
+                  [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+                <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+                  <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+                </div>
+              </div>
+            </div>
+            <div class="row" *ngIf="mediaDetails['media_type'] == 'CD/DVD' || mediaDetails['media_type'] == 'Floppy Disk'">
+              <div class="col-4 p-3">
+                <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
+                <select class="form-control form-control-sm" formControlName="media_damage">
+                  <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Type of Exterernal Physical Damage Identified in the Storage Media: </label>
+                <mat-select class="form-control form-control-sm" formControlName="media_condition">
+                  <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
+                  </mat-option>
+                </mat-select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Case Type:</label><br>
+                <select class="form-control form-control-sm" formControlName="case_type"
+                  [ngClass]="{ 'is-invalid': submitted && f['case_type'].errors }">
+                  <option *ngFor="let case of mediaObj['casetype']" [value]="case">{{case}}</option>
+                </select>
+                <div *ngIf="submitted && f['case_type'].errors" class="invalid-feedback">
+                  <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
+                </div>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Type of Internal Physical Damage Identified in the Storage Media:</label><br>
+                <select class="form-control form-control-sm" formControlName="media_damage_physical">
+                 <option value="Liquid Crystal Layer Damaged">Liquid Crystal Layer Damaged</option>
+                 <option value="Dust & Scratched on Surface">Dust & Scratched on Surface</option>
+                 <option value="Others">Others</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Media Reading Process: </label>
+                <select class="form-control form-control-sm" formControlName="reading_process">
+                  <option value="Buffering">Buffering</option>
+                  <option value="Stuck">Stuck</option>
+                  <option value="Others">Others</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Media Surface State Identified: </label>
+                <select class="form-control form-control-sm" formControlName="state_identified">
+                  <option value="">Select</option>
+                  <option value="Light Scratches on Disk Surface">Light Scratches on Disk Surface</option>
+                  <option value="Heavy Scraches on Disk Surface">Heavy Scraches on Disk Surface</option>
+                  <option value="Not Determined at Present Stage">Not Determined at Present Stage</option>
+                  <option value="Normal">Normal</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" >
+                <label class="control-label">Further use of Media:</label><br>
+                <select class="form-control form-control-sm" formControlName="further_use">
+                  <option *ngFor="let fuse of mediaObj['furtherUse']" [value]="fuse">{{fuse}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Media Found Encrypted:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_status">
+                  <option *ngFor="let eny of mediaObj['encryptionStatus']" [value]="eny">{{eny}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Encryption Level Identified on the Media:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_type">
+                  <option *ngFor="let enyT of mediaObj['encryptionType']" [value]="enyT">{{enyT}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Details Provided For Decryption are up to Mark:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_details_correct">
+                  <option *ngFor="let enyCT of mediaObj['encryptionDetailsCorrect']" [value]="enyCT">{{enyCT}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Type of File System Identified:</label><br>
+                <select class="form-control form-control-sm" formControlName="media_os">
+                  <option *ngFor="let os of mediaObj['mediaOs']" [value]="os">{{os}}</option>
+                </select>
+                <input *ngIf="f['media_os'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="media_os_other"  placeholder="Please Enter" > 
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Data Status Identified:</label><br>
+                <select class="form-control form-control-sm" formControlName="compression_status">
+                  <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
+                </select>
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
