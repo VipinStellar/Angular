@@ -138,8 +138,10 @@
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Flash Media'">
-                <label class="control-label">Media Similar Spare Required:</label><br>
-                <select class="form-control form-control-sm" formControlName="spare_required">
+                <label class="control-label">Media Similar Spare Required:<span *ngIf="f['spare_required'].value == 'Yes'"
+                  style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
+                    matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
+                <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
                   <option *ngFor="let fuse of mediaObj['sparRequred']" [value]="fuse">{{fuse}}</option>
                 </select>
               </div>
@@ -147,7 +149,7 @@
                 <label class="control-label">Media Clone Required:<span *ngIf="f['media_clone'].value == 'Yes'"
                   style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                     matTooltip="Add Media Details" (click)="mediaClone()"></i></span></label><br>
-                <select class="form-control form-control-sm" formControlName="media_clone">
+                <select class="form-control form-control-sm" formControlName="media_clone" (change)="dropDownChange('clone')">
                   <option *ngFor="let rec of mediaObj['mediaClone']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
@@ -242,6 +244,7 @@
                 </div>
               </div>
             </div>
+            <!--Other -->
             <div class="row" *ngIf="mediaDetails['media_type'] == 'CD/DVD' || mediaDetails['media_type'] == 'Floppy Disk'">
               <div class="col-4 p-3">
                 <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
@@ -466,7 +469,7 @@
             <label>Media Make</label>
           </div>
           <div class="form-group col-3">
-            <label>Model Number</label>
+            <label>Model Model</label>
           </div>
           <div class="form-group col-3">
             <label>Media Capacity</label>
@@ -485,7 +488,7 @@
                 <input type="text" formControlName="media_make" class="form-control">
               </div>
               <div class="form-group col-3">
-                <input type="text" formControlName="model_number" class="form-control" />
+                <input type="text" formControlName="model_model" class="form-control" />
               </div>
               <div class="form-group col-3">
                 <select formControlName="media_capacity" class="form-control">
@@ -501,6 +504,67 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary btn-sm" (click)="saveMediaClone()">Done</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':mediaSpareModel}" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #ddd;">
+        <h2 class="modal-title mb-0">Media Details</h2>
+      </div>
+      <div class="modal-body">
+        <div class="row text-center">
+         <div class="form-group col-2">
+            <label>Media Make</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Model Model</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Media Capacity</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Firmware</label>
+          </div>
+          <div class="form-group col-2">
+            <label>Site Code</label>
+          </div>
+          <div class="form-group col-2">
+            <label>PCB No</label>
+          </div>
+        </div>
+        <form [formGroup]="MediaCloneForm">
+          <div *ngFor="let test of ts.controls; let i = index">
+            <div class="row text-center" [formGroup]="test">
+                <div class="form-group col-2">
+                <input type="text" formControlName="media_make" class="form-control">
+              </div>
+              <div class="form-group col-2">
+                <input type="text" formControlName="model_model" class="form-control" />
+              </div>
+              <div class="form-group col-2">
+                <select formControlName="media_capacity" class="form-control">
+                  <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
+                </select>
+              </div>
+              <div class="form-group col-2">
+                <input type="text" formControlName="firmware" class="form-control" />
+              </div>
+              <div class="form-group col-2">
+                <input type="text" formControlName="site_code" class="form-control" />
+              </div>
+              <div class="form-group col-2">
+                <input type="text" formControlName="pcb_num" class="form-control" />
+              </div>
+            </div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveMediaSpare()">Done</button>
       </div>
     </div>
   </div>

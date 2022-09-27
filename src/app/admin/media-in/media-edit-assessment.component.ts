@@ -22,8 +22,11 @@ export class MediaAssessmentEdit implements OnInit {
     dynamicForm: FormGroup;    
     mediaModel = "none";
     mediaCloneModel = "none";
+    mediaSpareModel = "none";
     mediaCloneModelValue = [];
+    mediaSpareModelValue = [];
     MediaCloneForm: FormGroup;
+    MediaSpareForm: FormGroup;
     modelValue = [];
     mediaObj: any= [];
     caseType:boolean=false;
@@ -50,6 +53,9 @@ export class MediaAssessmentEdit implements OnInit {
         });
         this.MediaCloneForm = this.formBuilder.group({
             mediaCloneData: new FormArray([])
+        });
+        this.MediaSpareForm = this.formBuilder.group({
+            mediaSpareData: new FormArray([])
         });
         this.mediaEdit = this.formBuilder.group({
             id: [''],
@@ -89,6 +95,7 @@ export class MediaAssessmentEdit implements OnInit {
             drive_count:[],
             total_drive:[],
             media_clone_detail:[],
+            media_sapre_detail:[],
             //media_interface:[],
            // extension_required:[],
             //extension_day:[],
@@ -107,6 +114,7 @@ export class MediaAssessmentEdit implements OnInit {
             this.mediaDetails = data as any;
             this.modelValue = this.mediaDetails['total_drive'];
             this.mediaCloneModelValue = this.mediaDetails['media_clone_detail'];
+            this.mediaSpareModelValue = this.mediaDetails['media_sapre_detail'];
             this.modeltoForm(this.mediaDetails as any);
           });
 
@@ -178,7 +186,8 @@ export class MediaAssessmentEdit implements OnInit {
             //cloning_possibility:media.cloning_possibility,
             //server_type:media.server_type,            
             total_drive:'',
-            media_clone_detail:''
+            media_clone_detail:'',
+            media_sapre_detail:'',
         });
         
     }
@@ -192,6 +201,7 @@ export class MediaAssessmentEdit implements OnInit {
          let apiToCall: any;
          this.f['total_drive'].setValue(this.modelValue);
          this.f['media_clone_detail'].setValue(this.mediaCloneModelValue);
+         this.f['media_sapre_detail'].setValue(this.mediaSpareModelValue);
          if (this.f['media_os'].value == 'Other') {
             this.f['media_os'].setValue(this.f['media_os_other'].value)
         }
@@ -225,6 +235,9 @@ export class MediaAssessmentEdit implements OnInit {
 
     get fm() { return this.MediaCloneForm.controls; }
     get tm() { return this.fm['mediaCloneData'] as FormArray; }
+
+    get fs() { return this.MediaSpareForm.controls; }
+    get ts() { return this.fs['mediaSpareData'] as FormArray; }
 
     counter(i: number) {
         return new Array(i);
@@ -267,6 +280,12 @@ export class MediaAssessmentEdit implements OnInit {
         this.mediaCloneModel = "none";
     }
 
+    saveMediaSpare()
+    {
+        this.mediaSpareModelValue = this.fs['mediaSpareData'].value;
+        this.mediaSpareModel = "none";
+    }
+
     mediaClone()
     {
         this.MediaCloneForm.reset();
@@ -275,18 +294,50 @@ export class MediaAssessmentEdit implements OnInit {
         this.mediaCloneModel = "block";
     }
 
+    mediaSpare()
+    {
+        this.MediaCloneForm.reset();
+        this.ts.clear();
+        this.addMediaSpare();
+        this.mediaSpareModel = "block";
+    }
+
+    addMediaSpare() {
+        const numberOfTickets =2;
+        if (this.ts.length < numberOfTickets) {
+            for (let i = this.ts.length; i < numberOfTickets; i++) {
+                this.ts.push(this.formBuilder.group({
+                    media_make: [(this.mediaSpareModelValue !=null && this.mediaSpareModelValue[i] !=undefined && this.mediaSpareModelValue[i]['media_make']!=null)?this.mediaSpareModelValue[i]['media_make']:''],
+                    model_model: [(this.mediaSpareModelValue !=null && this.mediaSpareModelValue[i] !=undefined && this.mediaSpareModelValue[i]['model_model']!=null)?this.mediaSpareModelValue[i]['model_model']:''],
+                    media_capacity: [(this.mediaSpareModelValue !=null && this.mediaSpareModelValue[i] !=undefined && this.mediaSpareModelValue[i]['media_capacity']!=null)?this.mediaSpareModelValue[i]['media_capacity']:''],
+                    firmware: [(this.mediaSpareModelValue !=null && this.mediaSpareModelValue[i] !=undefined && this.mediaSpareModelValue[i]['firmware']!=null)?this.mediaSpareModelValue[i]['firmware']:''],
+                    site_code: [(this.mediaSpareModelValue !=null && this.mediaSpareModelValue[i] !=undefined && this.mediaSpareModelValue[i]['site_code']!=null)?this.mediaSpareModelValue[i]['site_code']:''],
+                    pcb_num: [(this.mediaSpareModelValue !=null && this.mediaSpareModelValue[i] !=undefined && this.mediaSpareModelValue[i]['pcb_num']!=null)?this.mediaSpareModelValue[i]['pcb_num']:''],
+                }));               
+        }      
+        } 
+    }
+
     addMediaClone() {
         const numberOfTickets =2;
-         console.log(this.mediaCloneModelValue)
         if (this.tm.length < numberOfTickets) {
             for (let i = this.tm.length; i < numberOfTickets; i++) {
                 this.tm.push(this.formBuilder.group({
                     media_make: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['media_make']!=null)?this.mediaCloneModelValue[i]['media_make']:''],
-                    model_number: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['model_number']!=null)?this.mediaCloneModelValue[i]['model_number']:''],
+                    model_model: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['model_model']!=null)?this.mediaCloneModelValue[i]['model_model']:''],
                     media_capacity: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['media_capacity']!=null)?this.mediaCloneModelValue[i]['media_capacity']:''],
                     inventry_num: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['inventry_num']!=null)?this.mediaCloneModelValue[i]['inventry_num']:'']
                 }));               
         }      
         } 
+    }
+
+    dropDownChange(type)
+    {
+        if(type == 'spare' && this.f['spare_required'].value == 'Yes')
+        this.mediaSpare();
+        else if(type == 'clone' && this.f['media_clone'].value == 'Yes')
+        this.mediaClone();
+
     }
 }
