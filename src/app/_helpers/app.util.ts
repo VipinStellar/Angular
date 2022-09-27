@@ -54,7 +54,7 @@ export class AppUtil {
 
     static mediaClone()
     {
-        return['YES','No','Not Aplicable'];
+        return['Yes','No','Not Aplicable'];
     }
 
     static assessmentDueReason()

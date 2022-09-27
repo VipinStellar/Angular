@@ -19,8 +19,11 @@ export class MediaAssessmentEdit implements OnInit {
     mediaDetails:MediaIn[] = [];
     stages:[];
     public mediaEdit: FormGroup;
-    dynamicForm: FormGroup;
+    dynamicForm: FormGroup;    
     mediaModel = "none";
+    mediaCloneModel = "none";
+    mediaCloneModelValue = [];
+    MediaCloneForm: FormGroup;
     modelValue = [];
     mediaObj: any= [];
     caseType:boolean=false;
@@ -44,6 +47,9 @@ export class MediaAssessmentEdit implements OnInit {
           });
           this.dynamicForm = this.formBuilder.group({
             tatalDrive: new FormArray([])
+        });
+        this.MediaCloneForm = this.formBuilder.group({
+            mediaCloneData: new FormArray([])
         });
         this.mediaEdit = this.formBuilder.group({
             id: [''],
@@ -80,23 +86,27 @@ export class MediaAssessmentEdit implements OnInit {
             reading_process:[],
             state_identified:[],
             media_architecture:[],
+            drive_count:[],
+            total_drive:[],
+            media_clone_detail:[],
             //media_interface:[],
            // extension_required:[],
             //extension_day:[],
             //media_model:[],
-            drive_count:[],
+            
  
             //media_ubi:[],
             //backup_software:[],
             //cloning_possibility:[],
             //disk_type:[],   
             //server_type:[],            
-            total_drive:[],
+           
            });
 
            this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
             this.modelValue = this.mediaDetails['total_drive'];
+            this.mediaCloneModelValue = this.mediaDetails['media_clone_detail'];
             this.modeltoForm(this.mediaDetails as any);
           });
 
@@ -168,6 +178,7 @@ export class MediaAssessmentEdit implements OnInit {
             //cloning_possibility:media.cloning_possibility,
             //server_type:media.server_type,            
             total_drive:'',
+            media_clone_detail:''
         });
         
     }
@@ -180,6 +191,7 @@ export class MediaAssessmentEdit implements OnInit {
          this.loading = true;
          let apiToCall: any;
          this.f['total_drive'].setValue(this.modelValue);
+         this.f['media_clone_detail'].setValue(this.mediaCloneModelValue);
          if (this.f['media_os'].value == 'Other') {
             this.f['media_os'].setValue(this.f['media_os_other'].value)
         }
@@ -207,8 +219,12 @@ export class MediaAssessmentEdit implements OnInit {
     }
 
     get f() { return this.mediaEdit.controls; }
+    
     get fd() { return this.dynamicForm.controls; }
     get t() { return this.fd['tatalDrive'] as FormArray; }
+
+    get fm() { return this.MediaCloneForm.controls; }
+    get tm() { return this.fm['mediaCloneData'] as FormArray; }
 
     counter(i: number) {
         return new Array(i);
@@ -220,6 +236,7 @@ export class MediaAssessmentEdit implements OnInit {
       this.addmoer();
       this.mediaModel = "block";
     }
+
     addmoer() {
         const numberOfTickets = this.f['drive_count'].value || 0;
         if (this.t.length < numberOfTickets) {
@@ -242,5 +259,34 @@ export class MediaAssessmentEdit implements OnInit {
     modelSave() {
         this.modelValue = this.fd['tatalDrive'].value;
         this.mediaModel = "none";
+    }
+
+    saveMediaClone()
+    {
+        this.mediaCloneModelValue = this.fm['mediaCloneData'].value;
+        this.mediaCloneModel = "none";
+    }
+
+    mediaClone()
+    {
+        this.MediaCloneForm.reset();
+        this.tm.clear();
+        this.addMediaClone();
+        this.mediaCloneModel = "block";
+    }
+
+    addMediaClone() {
+        const numberOfTickets =2;
+         console.log(this.mediaCloneModelValue)
+        if (this.tm.length < numberOfTickets) {
+            for (let i = this.tm.length; i < numberOfTickets; i++) {
+                this.tm.push(this.formBuilder.group({
+                    media_make: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['media_make']!=null)?this.mediaCloneModelValue[i]['media_make']:''],
+                    model_number: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['model_number']!=null)?this.mediaCloneModelValue[i]['model_number']:''],
+                    media_capacity: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['media_capacity']!=null)?this.mediaCloneModelValue[i]['media_capacity']:''],
+                    inventry_num: [(this.mediaCloneModelValue !=null && this.mediaCloneModelValue[i] !=undefined && this.mediaCloneModelValue[i]['inventry_num']!=null)?this.mediaCloneModelValue[i]['inventry_num']:'']
+                }));               
+        }      
+        } 
     }
 }
