@@ -30,6 +30,8 @@ export class MediaAssessmentEdit implements OnInit {
     modelValue = [];
     mediaObj: any= [];
     caseType:boolean=false;
+    raidMediaType:boolean;
+    mediaLoading:boolean;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -96,6 +98,10 @@ export class MediaAssessmentEdit implements OnInit {
             total_drive:[],
             media_clone_detail:[],
             media_sapre_detail:[],
+            damage_drive:[],
+            media_damage_physical_serve:[],
+            server_type:[], 
+            media_group:[],
             //media_interface:[],
            // extension_required:[],
             //extension_day:[],
@@ -106,7 +112,7 @@ export class MediaAssessmentEdit implements OnInit {
             //backup_software:[],
             //cloning_possibility:[],
             //disk_type:[],   
-            //server_type:[],            
+            //           
            
            });
 
@@ -137,6 +143,8 @@ export class MediaAssessmentEdit implements OnInit {
 
     modeltoForm(media)
     {
+        if(media.media_type == 'RAID' || media.media_type == 'NVR Media' || media.media_type == 'Fusion Drive' || media.media_type == 'Fusion IO Drive')
+        this.raidMediaType = true;
         this.appendOption(media.file_system_info, 'fileSystemInfo');
         this.appendOption(media.data_loss_reason, 'dataLossReason');
         this.appendOption(media.media_os, 'mediaOs');
@@ -184,11 +192,16 @@ export class MediaAssessmentEdit implements OnInit {
           //  backup_software:media.backup_software,
             //disk_type:media.disk_type,
             //cloning_possibility:media.cloning_possibility,
-            //server_type:media.server_type,            
+            server_type:media.server_type,            
             total_drive:'',
             media_clone_detail:'',
             media_sapre_detail:'',
+            damage_drive:media.damage_drive,
+            media_damage_physical_serve:media.media_damage_physical_serve,
+            media_group:media.media_group,
         });
+
+        this.mediaLoading = true;
         
     }
 
