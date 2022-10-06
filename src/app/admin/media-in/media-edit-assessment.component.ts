@@ -64,6 +64,7 @@ export class MediaAssessmentEdit implements OnInit {
             case_type: ['',[Validators.required]],
             media_clone:[],            
             encryption_status:[],            
+            encryption_name:[],            
             encryption_type:[],            
             encryption_details_correct:[],
             compression_status:[],
@@ -102,9 +103,11 @@ export class MediaAssessmentEdit implements OnInit {
             media_damage_physical_serve:[],
             server_type:[], 
             media_group:[],
+            extension_required:[],
+            extension_day:[],
             //media_interface:[],
-           // extension_required:[],
-            //extension_day:[],
+           // 
+            //
             //media_model:[],
             
  
@@ -153,6 +156,7 @@ export class MediaAssessmentEdit implements OnInit {
             case_type:media.case_type,
             media_clone:media.media_clone,
             encryption_status:media.encryption_status,
+            encryption_name:media.encryption_name,
             encryption_type:media.encryption_type,
             encryption_details_correct:media.encryption_details_correct,
             media_os:media.media_os,
@@ -183,9 +187,10 @@ export class MediaAssessmentEdit implements OnInit {
             reading_process:media.reading_process,
             state_identified:media.state_identified,
             media_architecture:media.media_architecture,
+            extension_required:media.extension_required,
+            extension_day:media.extension_day, 
            // media_interface:media.media_interface,            
-           // extension_required:media.extension_required,
-           // extension_day:media.extension_day,        
+           //        
             //media_model:media.media_model,
             drive_count:media.drive_count,            
            // media_ubi:media.media_ubi,
@@ -347,7 +352,7 @@ export class MediaAssessmentEdit implements OnInit {
 
     dropDownChange(type)
     {
-        if(type == 'spare' && this.f['spare_required'].value == 'Yes')
+        if(type == 'spare' && (this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer'))
         this.mediaSpare();
         else if(type == 'clone' && this.f['media_clone'].value == 'Yes')
         this.mediaClone();

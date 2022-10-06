@@ -31,7 +31,7 @@ export class AppUtil {
     static getMediaDeatils()
     {
         return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
-                'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionType':this.encryptionType(),'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),
+                'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),
                'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason()};
     }
 
@@ -49,7 +49,7 @@ export class AppUtil {
 
     static recoveryPercentage()
     {
-        return ['0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','Not Determined at Present Stage','Not Applicable','Raw With Structure'];
+        return ['0-10%','10-20%','20-30%','30-40%','40-50%','50-60%','60-70%','70-80%','80-90%','90-100%','Not Determined at Present Stage','Not Applicable','Raw and With Structure'];
     }
 
     static mediaClone()
@@ -59,7 +59,7 @@ export class AppUtil {
 
     static assessmentDueReason()
     {
-        return ['Waiting for Decryption Details','Client not Picking Call','Client Laptop Required','Waiting Tampering Permission for USB Casing','Clone Required for Assessment','Client Application/Software Required','Sample Data Required','Spare Required','Waiting  For Tempering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged HDD, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific CHIP/BIOS, Case Escalated To Research Team','Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter','Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface','Burnt Hdd, Platter Cleaning In Process','Other'];
+        return ['Waiting for Decryption Details','Client not Picking Call','Client Laptop Required','Waiting Tampering Permission for USB Casing','Clone Required for Assessment','Client Application/Software Required','Sample Data Required','Spare Required','Waiting  For Tempering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged HDD, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific CHIP/BIOS, Case Escalated To Research Team','Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter','Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface','Burnt Hdd, Platter Cleaning In Process','Waiting for Proper Data Details','Other'];
     }
 
     static requiredDays()
@@ -130,9 +130,14 @@ export class AppUtil {
         return ['Yes','No','Not Determined at Present Stage'];
     }
 
+    static encryptionName()
+    {
+        return ['BitLocker','McAfee Safeboot','Symantec PGP','Sophos','Trend Micro','Win Magic','Check Point','True Crypt','Windows File Encryption','Not Determined at Present Stage'];
+    }
+
     static sparRequred()
     {
-        return ['Yes','No','Not Determined at Present Stage'];
+        return ['Received','Stellar Inventory','From Customer','No','Not Determined at Present Stage'];
     }
 
     static encryptionType()
@@ -202,7 +207,7 @@ export class AppUtil {
 
     static plattersCondition()
     {
-        return ['Heavy','Light Scratches on Upper Side of the Platter','Light Scratches on Lower Side of the Platter','Normal','Not Determined at Present Stage'];
+        return ['Heavy Light Scratches on Upper Side of the Platter','Heavy Light Scratches on Lower Side of the Platter','Normal','Not Determined at Present Stage'];
     }
 
     static CheckMediaTypeFields(mediaType)

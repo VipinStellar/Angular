@@ -49,7 +49,7 @@
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType &&  mediaDetails['media_type'] != 'Solid State Drive' || mediaDetails['media_type'] == 'Flash Media'">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] != 'Solid State Drive'">
                 <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
@@ -96,6 +96,7 @@
                  <option value="Electronic Circuit Faliure">Electronic Circuit Faliure</option>
                  <option value="Bad Block Corruption">Bad Block Corruption</option>
                  <option value="Bad Byte Corruption">Bad Byte Corruption</option>
+                 <option value="Not Determined at Present Stage">Not Determined at Present Stage</option>
                  <option value="Others">Others</option>
                 </select>
               </div>
@@ -104,6 +105,7 @@
                 <select class="form-control form-control-sm" formControlName="media_architecture">
                  <option value="Monolithic">Monolithic</option>
                  <option value="Non Monolithic">Non Monolithic</option>
+                 <option value="Not Determined at Present Stage">Not Determined at Present Stage</option>
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
@@ -139,7 +141,7 @@
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Flash Media'">
-                <label class="control-label">Media Similar Spare Required:<span *ngIf="f['spare_required'].value == 'Yes'"
+                <label class="control-label">Media Similar Spare Required:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer')"
                   style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                     matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
                 <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
@@ -158,6 +160,12 @@
                 <label class="control-label">Media Found Encrypted:</label><br>
                 <select class="form-control form-control-sm" formControlName="encryption_status">
                   <option *ngFor="let eny of mediaObj['encryptionStatus']" [value]="eny">{{eny}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Encryption Name:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_name">
+                  <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
                 </select>
               </div>
               <div class="col-4 p-3">
@@ -236,6 +244,18 @@
                   <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
                 </select>
               </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <label class="control-label">Extension Required:</label><br>
+                <select class="form-control form-control-sm" formControlName="extension_required">
+                  <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                <label class="control-label">Extension Required Days:</label><br>
+                <select class="form-control form-control-sm" formControlName="extension_day">
+                  <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
+                </select>
+              </div>
               <div class="col-lg-12 col-md-12 mb-3">
                 <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
                 <textarea class="form-control form-control-sm" formControlName="remarks"
@@ -309,6 +329,12 @@
                 </select>
               </div>
               <div class="col-4 p-3">
+                <label class="control-label">Encryption Name:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_name">
+                  <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
                 <label class="control-label">Encryption Level Identified on the Media:</label><br>
                 <select class="form-control form-control-sm" formControlName="encryption_type">
                   <option *ngFor="let enyT of mediaObj['encryptionType']" [value]="enyT">{{enyT}}</option>
@@ -370,6 +396,18 @@
                   <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
                 </select>
               </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <label class="control-label">Extension Required:</label><br>
+                <select class="form-control form-control-sm" formControlName="extension_required">
+                  <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                <label class="control-label">Extension Required Days:</label><br>
+                <select class="form-control form-control-sm" formControlName="extension_day">
+                  <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
+                </select>
+              </div>
               <div class="col-lg-12 col-md-12 mb-3">
                 <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
                 <textarea class="form-control form-control-sm" formControlName="remarks"
@@ -400,7 +438,7 @@
                 <label class="control-label">No. of Hard Drives Received with External Damage was Found:</label><br>
                 <input  type="text" class="form-control form-control-sm" formControlName="damage_drive" > 
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType">
+              <div class="col-4 p-3">
                 <label class="control-label">Type of Exterernal Physical Damage Identified in the Storage Media: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
@@ -459,7 +497,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Media Similar Spare Required:<span *ngIf="f['spare_required'].value == 'Yes'"
+                <label class="control-label">Media Similar Spare Required:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer')"
                   style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                     matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
                 <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
@@ -478,6 +516,12 @@
                 <label class="control-label">Media Found Encrypted:</label><br>
                 <select class="form-control form-control-sm" formControlName="encryption_status">
                   <option *ngFor="let eny of mediaObj['encryptionStatus']" [value]="eny">{{eny}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Encryption Name:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_name">
+                  <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
                 </select>
               </div>
               <div class="col-4 p-3">
@@ -554,6 +598,18 @@
                     <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
                   </select>
                 </div>
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                  <label class="control-label">Extension Required:</label><br>
+                  <select class="form-control form-control-sm" formControlName="extension_required">
+                    <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                  <label class="control-label">Extension Required Days:</label><br>
+                  <select class="form-control form-control-sm" formControlName="extension_day">
+                    <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
+                  </select>
+                </div>
                 <div class="col-lg-12 col-md-12 mb-3">
                   <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
                   <textarea class="form-control form-control-sm" formControlName="remarks"
@@ -566,7 +622,9 @@
             <div class="col-12 text-right">
               <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
               <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span
-                  *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span></button>
+                  *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span></button>&nbsp;
+                  <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save as Draft<span
+                    *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span></button>
             </div>
           </form>
         </div>
@@ -643,7 +701,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background: #ddd;">
-        <h2 class="modal-title mb-0">Media Details</h2>
+        <h2 class="modal-title mb-0">Stellar Destination Drives Details</h2>
       </div>
       <div class="modal-body">
         <div class="row text-center">
@@ -698,7 +756,7 @@
   <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
     <div class="modal-content">
       <div class="modal-header" style="background: #ddd;">
-        <h2 class="modal-title mb-0">Media Details</h2>
+        <h2 class="modal-title mb-0">Similar Spare Details</h2>
       </div>
       <div class="modal-body">
         <div class="row text-center">
