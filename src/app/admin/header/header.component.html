@@ -146,6 +146,12 @@
               <p>Media In</p>
             </a>
           </li>
+          <li class="nav-item" *ngIf="isAccess('job-status')">
+            <a routerLink="./job-status" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-battery-three-quarters"></i>
+              <p>Job Status</p>
+            </a>
+          </li>
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

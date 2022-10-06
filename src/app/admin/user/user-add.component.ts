@@ -67,7 +67,7 @@ export class UserAddComponent implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.loading = false;
-                this.toastrService.success('User Save successfully!', 'Success!');
+                this.toastrService.success('User Saved successfully!', 'Success!');
                 this.hide();
             },
             error => {

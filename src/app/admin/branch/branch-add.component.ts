@@ -58,7 +58,7 @@ export class BranchAddComponent implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.loading = false;
-                this.toastrService.success('Branch Save successfully!', 'Success!');
+                this.toastrService.success('Branch Saved successfully!', 'Success!');
                 this.hide();
             },
             error => {

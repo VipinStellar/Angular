@@ -18,6 +18,8 @@ export class MediaCaseDetail implements OnInit {
     mediaDetails : MediaIn[] = [];
     tabItems = AppUtil.getMediaTab();
     activeLink = this.tabItems[0];
+    mediaModel = "none";
+    mediaFieldShow:boolean;
     constructor( private mediaInService: MediaInService,
                  private router: Router, private route: ActivatedRoute,
                  private toastrService: ToastrService) {
@@ -25,7 +27,7 @@ export class MediaCaseDetail implements OnInit {
     ngOnInit(): void {
         this.assignedRole = this.route.snapshot.data['profileResolver'];
         this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', this.currentUrl);
+        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
         if (!this.isAsscessDenied)
             this.router.navigate(['admin/access-denied']); 
             this.loadMediaDetails();
@@ -35,6 +37,7 @@ export class MediaCaseDetail implements OnInit {
     {
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
+            this.mediaFieldShow = AppUtil.CheckMediaTypeFields(this.mediaDetails['media_type']);
             this.isLoading = true;
           });
     }
@@ -70,6 +73,15 @@ export class MediaCaseDetail implements OnInit {
       
             }
           });
+    }
+
+    viewMediaDeails()
+    {
+      this.mediaModel = "block";
+    }
+    closeModel()
+    {
+      this.mediaModel = "none";
     }
 
 }

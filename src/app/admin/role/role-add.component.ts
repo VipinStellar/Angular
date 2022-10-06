@@ -93,7 +93,7 @@ export class RoleAddComponent implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.loading = false;
-                this.toastrService.success('Role Save successfully!', 'Success!');
+                this.toastrService.success('Role Saved successfully!', 'Success!');
                 this.router.navigate(['/admin/role']);
             },
             error => {

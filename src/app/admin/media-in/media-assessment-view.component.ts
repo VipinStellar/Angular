@@ -5,7 +5,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MediaIn } from './../../_models/mediaIn';
 import { MatDialog } from '@angular/material/dialog';
 import { AccountService } from './../../_services/account.service';
-import { MediaAssessmentEdit } from './media-edit-assessment.component';
 import { MediaAssignToAdd } from './media-assign-to-add.component';
 @Component({
     selector: 'app-media-assessment-view',
@@ -111,19 +110,9 @@ import { MediaAssignToAdd } from './media-assign-to-add.component';
       }
 
 
-      editAssessment(id)
+      editAssessment()
       {
-        const dialogRef = this.dialog.open(MediaAssessmentEdit, {
-          data: this.mediaDetails,
-          disableClose: true,
-          autoFocus: false,
-          width: "74vw",
-    
-        });
-        dialogRef.afterClosed().subscribe(result => {
-          this.getMediaEditHistory();
-          this.getMediaDetails();
-        });
+        this.router.navigate(['admin/media-assessment/edit/'+this.mediaDetails['id']]);
       }
 
       addAssignTo() {
