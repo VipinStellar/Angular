@@ -89,4 +89,8 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'media/saveMediateam', data);
     }
 
+    deleteFile(id) {
+        return this.http.get(environment.apiUrl + 'media/deleteFile/' + id);
+    }
+
 }

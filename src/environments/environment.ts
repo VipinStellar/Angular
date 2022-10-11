@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  apiUrl:"http://localhost/mims/mims-api-new/public/api/"
+  apiUrl:"http://localhost/mims/mims-api-new/api/"
 };
 
 /*

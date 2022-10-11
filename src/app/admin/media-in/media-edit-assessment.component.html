@@ -619,6 +619,20 @@
                   </div>
                 </div>
             </div>
+            <div class="col-lg-12 col-md-12 mb-3" >
+              <fieldset class="p-2 scheduler-border">
+                <legend class="scheduler-border">Upload Sample File:</legend>
+            <input type='file' #fileUploader (change)="onSelectFile($event)" multiple accept=".jpg,.png,.zip,.jpeg">
+            <button class="btn btn-success btn-sm"  (click)="uploadFiles()" [disabled]="!selectedFiles"> Upload</button>
+            <div class="row mt-3">
+              <div class="col-md-4 p-2" *ngFor="let upload of mediaDetails['fileUpload']">
+                <a target="_blank" [href]="upload['store_path']">{{upload['name']}}</a><span class="text-red ml-2" style="cursor: pointer;" (click)="deleteFile(upload)"><i class="nav-icon fas fa-trash"></i></span>
+              </div>
+            </div>
+           </fieldset>
+            </div>
+            <div>
+            </div>
             <div class="col-12 text-right">
               <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
               <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span
