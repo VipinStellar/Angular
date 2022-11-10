@@ -113,14 +113,10 @@ export class MediaAssessmentEdit implements OnInit {
             media_group: [],
             extension_required: [],
             extension_day: [],
+            backup_software:[],
             //media_interface:[],
-            // 
-            //
             //media_model:[],
-
-
             //media_ubi:[],
-            //backup_software:[],
             //cloning_possibility:[],
             //disk_type:[],   
             //           
@@ -201,7 +197,6 @@ export class MediaAssessmentEdit implements OnInit {
             //media_model:media.media_model,
             drive_count: media.drive_count,
             // media_ubi:media.media_ubi,
-            //  backup_software:media.backup_software,
             //disk_type:media.disk_type,
             //cloning_possibility:media.cloning_possibility,
             server_type: media.server_type,
@@ -211,6 +206,7 @@ export class MediaAssessmentEdit implements OnInit {
             damage_drive: media.damage_drive,
             media_damage_physical_serve: media.media_damage_physical_serve,
             media_group: media.media_group,
+            backup_software:media.backup_software,
         });
 
         this.mediaLoading = true;

@@ -147,7 +147,7 @@ export class AppUtil {
 
     static getServiceType()
     {
-        return ['Data Recovery','Cloning','Degaussing','Data Erasure/Wiping','Others'];
+        return ['Data Recovery','Cloning','Degaussing','Data Erasure/Wiping','Data Migration','Others'];
     }
 
     static getServiceMode()
