@@ -43,6 +43,7 @@ import { MediaTransfer } from './media-in/media-transfer.component';
 import {MediaTeam } from './media-in/media-team.component';
 import { JobListComponent } from './media-in/job-list.component';
 import { JobDetailStatusComponent } from './media-in/job-status-details.component';
+import { UserChangePassword } from './user/user-change-password.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -69,7 +70,8 @@ import { JobDetailStatusComponent } from './media-in/job-status-details.componen
     MediaTransfer,
     MediaTeam,
     JobListComponent,
-    JobDetailStatusComponent
+    JobDetailStatusComponent,
+    UserChangePassword
   ],
   imports: [
     CommonModule,
