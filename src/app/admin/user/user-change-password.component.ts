@@ -35,7 +35,7 @@ import { ToastrService } from 'ngx-toastr';
 
     cancel()
     {
-
+        this._location.back();
     }
     onSubmit()
     {
@@ -50,6 +50,7 @@ import { ToastrService } from 'ngx-toastr';
             data => {
                 this.toastrService.success('User Password Has been Changed!', 'Success!',{ timeOut: 3000 });
                 this.loading = false;
+                this._location.back();
            },
             error => {
                 this.loading = false;

@@ -122,6 +122,10 @@
                   </mat-option>
                 </mat-select>
               </div>
+              <div class="col-4 p-3"  *ngIf="(f['media_casing'].value == 'Storage box'|| f['media_casing'].value == 'DAS/NAS/SAN With Bay'|| f['media_casing'].value == 'DAS/NAS/SAN Without Bay')">
+                <label class="control-label">Make & Model of Storage : </label>
+                <input type="text" class="form-control form-control-sm" formControlName="model_storage" maxlength="240">
+              </div>
 
               <div class="col-4 p-3" *ngIf="mediaFieldShow">
                 <label class="control-label">Peripherals Details : </label>

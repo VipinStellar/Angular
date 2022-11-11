@@ -70,6 +70,7 @@ export class MediaEdit implements OnInit {
             media_make_other: [],
             media_capacity_other: [],
             media_cat_other: [],
+            model_storage:[],
         });
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
@@ -179,7 +180,8 @@ export class MediaEdit implements OnInit {
             media_status: media.media_status,
             media_make_other: '',
             media_capacity_other: '',
-            media_cat_other: ''
+            media_cat_other: '',
+            model_storage:media.model_storage,
         });
         this.mediaTypeChange();
         this.appendMediaCatOption();
