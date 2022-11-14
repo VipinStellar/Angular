@@ -58,7 +58,7 @@
                 <input *ngIf="f['media_category'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_cat_other" [ngClass]="{ 'is-invalid': submitted && f['media_cat_other'].errors }" placeholder="Please Enter Others Media Category" maxlength="50"> 
                
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="mediaFieldShow">
                 <label class="control-label">Type of Interface: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_interface">
                   <mat-option *ngFor="let type of mediaOption['mediaIferFace']" [value]="type">{{type}}
@@ -68,8 +68,8 @@
               <div class="col-4 p-3"  *ngIf="!mediaFieldShow">
                 <label class="control-label">No. of Media Received : <span
                     style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
-                      matTooltip="View Media Detail" (click)="openPopup()"></i></span></label>
-                <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup()">
+                      matTooltip="View Media Detail" (click)="openPopup(1)"></i></span></label>
+                <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup(2)">
                   <option value="">Select</option>
                   <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
                 </select>
@@ -122,7 +122,7 @@
                   </mat-option>
                 </mat-select>
               </div>
-              <div class="col-4 p-3"  *ngIf="(f['media_casing'].value == 'Storage box'|| f['media_casing'].value == 'DAS/NAS/SAN With Bay'|| f['media_casing'].value == 'DAS/NAS/SAN Without Bay')">
+              <div class="col-4 p-3"  *ngIf="(f['media_casing'].value != 'With Casing' &&  f['media_casing'].value != 'Not aplicable' && f['media_casing'].value != null)">
                 <label class="control-label">Make & Model of Storage : </label>
                 <input type="text" class="form-control form-control-sm" formControlName="model_storage" maxlength="240">
               </div>
@@ -177,8 +177,8 @@
             <div class="form-group col-1">
               <label>S.N</label>
             </div>
-            <div class="form-group col-2">
-              <label>Model Number</label>
+            <div class="form-group col-1">
+              <label>Model</label>
             </div>
             <div class="form-group col-2">
               <label>Serial Number</label>
@@ -189,8 +189,11 @@
             <div class="form-group col-2">
               <label>Media Status</label>
             </div>
-            <div class="form-group col-3">
+            <div class="form-group col-2">
               <label>Media Condition</label>
+            </div>
+            <div class="form-group col-2">
+              <label>Type of Interface</label>
             </div>
           </div>
           <form [formGroup]="dynamicForm">
@@ -199,33 +202,42 @@
               <div class="form-group col-1">
                 <span class="form-control">{{i+1}}</span>
               </div>
-              <div class="form-group col-2">
-                <input type="text" formControlName="model_number" class="form-control">
+              <div class="form-group col-1">
+                <input type="text" formControlName="model_number" class="form-control" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.model_number.errors }">
               </div>
               <div class="form-group col-2">
-                <input type="text" formControlName="serial_number" class="form-control" />
+                <input type="text" formControlName="serial_number" class="form-control" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.serial_number.errors }">
               </div>
               <div class="form-group col-2">
-                <select formControlName="media_capacity" class="form-control">
+                <select formControlName="media_capacity" class="form-control" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_capacity.errors }">
                   <option *ngFor="let capacity of mediaOption['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
               <div class="form-group col-2">
-                <select formControlName="media_status" class="form-control">
+                <select formControlName="media_status" class="form-control" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_status.errors }">
                   <option *ngFor="let sta of mediaOption['mediaStatus']" [value]="sta">{{sta}}</option>
                 </select>
               </div>
-              <div class="form-group col-3">
-                <select formControlName="media_condition" class="form-control">
+              <div class="form-group col-2">
+                <select formControlName="media_condition" class="form-control" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_condition.errors }">
                   <option *ngFor="let condition of mediaOption['condition']" [value]="condition">{{condition}}</option>
+                </select>
+              </div>
+              <div  class="form-group col-2">
+                <select formControlName="media_interface" class="form-control" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_interface.errors }">
+                  <option *ngFor="let condition of mediaOption['mediaIferFace']" [value]="condition">{{condition}}</option>
                 </select>
               </div>
             </div>
           </div>
         </form>
         </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-primary btn-sm" (click)="modelSave()">Done</button>
+        <div class="modal-footer justify-content-between">
+          <div><h4 class="text-danger" *ngIf="dynamicButton">Please fill all required fields *</h4></div>
+          <div>
+            <button type="button" class="btn btn-primary btn-sm" (click)="modelClose()" *ngIf="previewType">Close</button>
+            <button type="button" class="btn btn-default btn-sm" (click)="modelSave()">Done</button>
+          </div>
         </div>
     </div>
   </div>

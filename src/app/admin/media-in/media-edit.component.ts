@@ -27,6 +27,8 @@ export class MediaEdit implements OnInit {
     mediaSizeList: string[] = [];
     mediaSizeListOption: string[] = [];
     mediaFieldShow:boolean;
+    dynamicButton:boolean;
+    previewType:boolean = true;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -195,7 +197,11 @@ export class MediaEdit implements OnInit {
         return new Array(i);
     }
 
-    openPopup() {
+    openPopup(type) {
+        if(type== 1)
+           this.previewType = false;
+        else
+        this.previewType = true;
         this.dynamicForm.reset();
         this.t.clear();
         this.addmoer();
@@ -207,12 +213,14 @@ export class MediaEdit implements OnInit {
         if (this.t.length < numberOfTickets) {
             for (let i = this.t.length; i < numberOfTickets; i++) {
                 this.t.push(this.formBuilder.group({
-                    model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : ''],
-                    serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : ''],
-                    media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : ''],
-                    media_capacity: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_capacity'] != null) ? this.modelValue[i]['media_capacity'] : ''],
-                    media_status: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_status'] != null) ? this.modelValue[i]['media_status'] : '']
+                    model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : '',[Validators.required]],
+                    serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : '',[Validators.required]],
+                    media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : '',[Validators.required]],
+                    media_capacity: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_capacity'] != null) ? this.modelValue[i]['media_capacity'] : '',[Validators.required]],
+                    media_status: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_status'] != null) ? this.modelValue[i]['media_status'] : '',[Validators.required]],
+                    media_interface: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_interface'] != null) ? this.modelValue[i]['media_interface'] : '',[Validators.required]]
                 }));
+                
             }
 
         } else {
@@ -222,7 +230,18 @@ export class MediaEdit implements OnInit {
         }
     }
 
+    modelClose()
+    {
+        this.f['drive_count'].setValue(this.mediaDetails['drive_count'])
+        this.dynamicButton = false;
+        this.mediaModel = "none";
+    }
+
     modelSave() {
+        this.dynamicButton = true;
+        if (this.dynamicForm.invalid) {
+            return false;
+        }
         this.modelValue = this.fd['tatalDrive'].value;
         for (let i = 0; i < this.modelValue.length; i++) {
             if (this.modelValue[i]['media_condition'] == 'Non Tampered')
@@ -232,6 +251,7 @@ export class MediaEdit implements OnInit {
             else
                 this.f['tampered_status'].setValue('Non Tampered')
         }
+        this.dynamicButton = false;
         this.mediaModel = "none";
     }
 

@@ -114,6 +114,7 @@ export class MediaAssessmentEdit implements OnInit {
             extension_required: [],
             extension_day: [],
             backup_software:[],
+            other_server_type:[]
             //media_interface:[],
             //media_model:[],
             //media_ubi:[],
@@ -154,6 +155,7 @@ export class MediaAssessmentEdit implements OnInit {
         this.appendOption(media.file_system_info, 'fileSystemInfo');
         this.appendOption(media.data_loss_reason, 'dataLossReason');
         this.appendOption(media.media_os, 'mediaOs');
+        this.appendOption(media.server_type, 'serverType');
         this.mediaEdit.setValue({
             id: media.id,
             case_type: media.case_type,
@@ -207,6 +209,7 @@ export class MediaAssessmentEdit implements OnInit {
             media_damage_physical_serve: media.media_damage_physical_serve,
             media_group: media.media_group,
             backup_software:media.backup_software,
+            other_server_type:'',
         });
 
         this.mediaLoading = true;
@@ -225,6 +228,9 @@ export class MediaAssessmentEdit implements OnInit {
         this.f['media_sapre_detail'].setValue(this.mediaSpareModelValue);
         if (this.f['media_os'].value == 'Other') {
             this.f['media_os'].setValue(this.f['media_os_other'].value)
+        }
+        if (this.f['server_type'].value == 'Other') {
+            this.f['server_type'].setValue(this.f['other_server_type'].value)
         }
         if (this.f['file_system_info'].value == 'Others') {
             this.f['file_system_info'].setValue(this.f['file_system_info_other'].value)
@@ -358,7 +364,6 @@ export class MediaAssessmentEdit implements OnInit {
     }
     onSelectFile(event) {
         this.selectedFiles = event.target.files;
-        console.log(this.selectedFiles)
         let totalSize = 0;
         if (this.selectedFiles) 
         {

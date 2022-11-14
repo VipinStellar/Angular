@@ -83,7 +83,7 @@ export class AppUtil {
 
     static serverType()
     {
-        return ['JBOD','Raid0','Raid1','Raid10','Raid5','Raid50','Raid6','Raid60','Other'];
+        return ['JBOD','RAID0','RAID1','RAID10','RAID5','RAID50','RAID6','RAID60','SHR','Beyond RAID','Hybrid RAID','Multiple','Other'];
     }
 
     static recoverableData()
@@ -93,7 +93,7 @@ export class AppUtil {
 
     static dataLossReason()
     {
-        return ['Reinstalled Operating System','Deleted Data','Formatted Data','Overwritten Data','Over Encryption','Virus Attack','Others'];
+        return ['Reinstalled Operating System','Deleted Data','Formatted Data','Overwritten Data','Over Encryption','Virus/Ransom ware','Others'];
     }
 
     static fileSystemInfo()
@@ -162,7 +162,7 @@ export class AppUtil {
 
     static getMediaInterFace()
     {
-        return ['PATA','SATA','SAS','SCSI','FC','USB','M.2','PCIe','NVMe','mSata','Others'];
+        return ['SSD','PATA','SATA','SAS','SCSI','FC','USB','M.2','PCIe','NVMe','mSata','Others'];
     }
 
     static getMediaCapacity()

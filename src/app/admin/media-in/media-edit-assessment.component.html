@@ -608,9 +608,12 @@
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">No. of Hard Drives Received with External Damage was Found:</label><br>
-                <input  type="text" class="form-control form-control-sm" formControlName="damage_drive" > 
+                <select class="form-control form-control-sm" formControlName="damage_drive">
+                  <option value="">Select</option>
+                  <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
+                </select> 
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="!caseType">
                 <label class="control-label">Type of Exterernal Physical Damage Identified in the Storage Media: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
@@ -627,13 +630,14 @@
                   <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
                 </div>
               </div>
-              <div class="col-4 p-3" *ngIf="caseType">
+                <div class="col-4 p-3">
                 <label class="control-label">Type of RAID Configuration Identified:</label><br>
                 <select class="form-control form-control-sm" formControlName="server_type">
                   <option *ngFor="let serverType of mediaObj['serverType']" [value]="serverType">{{serverType}}</option>
                 </select>
+                <input *ngIf="f['server_type'].value == 'Other'" type="text" formControlName="other_server_type" class="form-control form-control-sm mt-1" placeholder="Please Enter Type of RAID Configuration" maxlength="50"> 
               </div>
-              <div class="col-4 p-3" *ngIf="caseType">
+              <div class="col-4 p-3">
                 <label class="control-label">No. of Media Received : <span
                     style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                       matTooltip="View Media Detail" (click)="openPopup()"></i></span></label>
@@ -643,10 +647,11 @@
                 </select>
               </div>
               <div class="col-4 p-3" >
-                <label class="control-label" *ngIf="caseType">No. of Raid Groups in Raid Server/Storage:</label>
-                <label class="control-label" *ngIf="!caseType">No. of Hard Drive Identified as Physically Damage:</label>
-                <br>
-                <input  type="text" class="form-control form-control-sm" formControlName="media_group" > 
+                <label class="control-label">No. of Raid Groups in Raid Server/Storage:</label>
+                <select class="form-control form-control-sm" formControlName="media_group">
+                  <option value="">Select</option>
+                  <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
+                </select> 
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
                 <label class="control-label">Internal Condition of Platters:</label><br>
@@ -690,19 +695,19 @@
                   <option *ngFor="let eny of mediaObj['encryptionStatus']" [value]="eny">{{eny}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Encryption Name:</label><br>
                 <select class="form-control form-control-sm" formControlName="encryption_name">
                   <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Encryption Level Identified on the Media:</label><br>
                 <select class="form-control form-control-sm" formControlName="encryption_type">
                   <option *ngFor="let enyT of mediaObj['encryptionType']" [value]="enyT">{{enyT}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Details Provided For Decryption are up to Mark:</label><br>
                 <select class="form-control form-control-sm" formControlName="encryption_details_correct">
                   <option *ngFor="let enyCT of mediaObj['encryptionDetailsCorrect']" [value]="enyCT">{{enyCT}}</option>
@@ -720,24 +725,20 @@
                 <select class="form-control form-control-sm" formControlName="file_system_info">
                   <option *ngFor="let fileSys of mediaObj['fileSystemInfo']" [value]="fileSys">{{fileSys}}</option>
                 </select>
+                <input *ngIf="f['file_system_info'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="file_system_info_other"  placeholder="Please Enter" > 
               </div>
-                <div class="col-4 p-3">
+                <!-- <div class="col-4 p-3">
                   <label class="control-label">Data Status Identified:</label><br>
                   <select class="form-control form-control-sm" formControlName="compression_status">
                     <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
                   </select>
-                </div>
+                </div> -->
                 <div class="col-4 p-3" *ngIf="raidMediaType">
                   <label class="control-label">Cause of Data Loss:</label><br>
                   <select class="form-control form-control-sm" formControlName="data_loss_reason">
                     <option *ngFor="let losData of mediaObj['dataLossReason']" [value]="losData">{{losData}}</option>
                   </select>
-                </div>
-                <div class="col-4 p-3">
-                  <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
-                  <select class="form-control form-control-sm" formControlName="recoverable_data">
-                    <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
-                  </select>
+                  <input *ngIf="f['data_loss_reason'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="data_loss_reason_other"  placeholder="Please Enter" > 
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
                   <label class="control-label">Recovery Possibility:</label><br>
