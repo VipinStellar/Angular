@@ -141,7 +141,7 @@
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Flash Media'">
-                <label class="control-label">Media Similar Spare Required:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer')"
+                <label class="control-label">Media Similar Spare:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Available in Stellar Inventory' || this.f['spare_required'].value == 'Required From Customer')"
                   style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                     matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
                 <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
@@ -206,17 +206,17 @@
                   <option *ngFor="let losData of mediaObj['dataLossReason']" [value]="losData">{{losData}}</option>
                 </select>
                 <input *ngIf="f['data_loss_reason'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="data_loss_reason_other"  placeholder="Please Enter"> 
+              </div>            
+              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <label class="control-label">Recovery Possibility:</label><br>
+                <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                  <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
+                </select>
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                 <select class="form-control form-control-sm" formControlName="recoverable_data">
                   <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
-                </select>
-              </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
-                <label class="control-label">Recovery Possibility:</label><br>
-                <select class="form-control form-control-sm" formControlName="recovery_possibility">
-                  <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -347,7 +347,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Media Similar Spare Required:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer')"
+                <label class="control-label">Media Similar Spare:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Available in Stellar Inventory' || this.f['spare_required'].value == 'Required From Customer')"
                   style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                     matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
                 <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
@@ -377,17 +377,17 @@
                 <select class="form-control form-control-sm" formControlName="compression_status">
                   <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
                 </select>
+              </div>             
+              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <label class="control-label">Recovery Possibility:</label><br>
+                <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                  <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
+                </select>
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                 <select class="form-control form-control-sm" formControlName="recoverable_data">
                   <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
-                </select>
-              </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
-                <label class="control-label">Recovery Possibility:</label><br>
-                <select class="form-control form-control-sm" formControlName="recovery_possibility">
-                  <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -530,16 +530,16 @@
                   <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
-                <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
-                <select class="form-control form-control-sm" formControlName="recoverable_data">
-                  <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
-                </select>
-              </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
                 <label class="control-label">Recovery Possibility:</label><br>
                 <select class="form-control form-control-sm" formControlName="recovery_possibility">
                   <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
+                </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
+                <select class="form-control form-control-sm" formControlName="recoverable_data">
+                  <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -636,22 +636,22 @@
                   <option *ngFor="let serverType of mediaObj['serverType']" [value]="serverType">{{serverType}}</option>
                 </select>
                 <input *ngIf="f['server_type'].value == 'Other'" type="text" formControlName="other_server_type" class="form-control form-control-sm mt-1" placeholder="Please Enter Type of RAID Configuration" maxlength="50"> 
-              </div>
-              <div class="col-4 p-3">
-                <label class="control-label">No. of Media Received : <span
-                    style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
-                      matTooltip="View Media Detail" (click)="openPopup()"></i></span></label>
-                <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup()">
-                  <option value="">Select</option>
-                  <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
-                </select>
-              </div>
-              <div class="col-4 p-3" >
+              </div>              
+              <div class="col-4 p-3" *ngIf="this.f['server_type'].value == 'Multiple'">
                 <label class="control-label">No. of Raid Groups in Raid Server/Storage:</label>
                 <select class="form-control form-control-sm" formControlName="media_group">
                   <option value="">Select</option>
                   <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
                 </select> 
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">No. of Media Received : <span
+                    style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
+                      matTooltip="View Media Detail" (click)="openPopup(1)"></i></span></label>
+                <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup(2)">
+                  <option value="">Select</option>
+                  <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
+                </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
                 <label class="control-label">Internal Condition of Platters:</label><br>
@@ -674,7 +674,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Media Similar Spare Required:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer')"
+                <label class="control-label">Media Similar Spare:<span *ngIf="(this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Available in Stellar Inventory' || this.f['spare_required'].value == 'Required From Customer')"
                   style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
                     matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
                 <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
@@ -744,6 +744,12 @@
                   <label class="control-label">Recovery Possibility:</label><br>
                   <select class="form-control form-control-sm" formControlName="recovery_possibility">
                     <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3">
+                  <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
+                  <select class="form-control form-control-sm" formControlName="recoverable_data">
+                    <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -830,55 +836,81 @@
           <div class="form-group col-1">
             <label>S.N</label>
           </div>
-          <div class="form-group col-2">
-            <label>Model Number</label>
+          <div class="form-group col">
+            <label>Model</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col">
             <label>Serial Number</label>
-          </div>
-          <div class="form-group col-2">
+          </div>           
+          <div class="form-group col">
             <label>Media Capacity</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col">
             <label>Media Status</label>
           </div>
-          <div class="form-group col-3">
+          <div class="form-group col">
             <label>Media Condition</label>
+          </div>
+          <div class="form-group col">
+            <label>Type of Interface</label>
+          </div>
+          <div class="form-group col" *ngIf="this.f['server_type'].value == 'Multiple'">
+            <label>RAID Gruop</label>
+          </div>
+          <div class="form-group col-1">
+            <label>Media Damage</label>
           </div>
         </div>
         <form [formGroup]="dynamicForm">
           <div *ngFor="let ticket of t.controls; let i = index">
             <div class="row text-center" [formGroup]="ticket">
               <div class="form-group col-1">
-                <span class="form-control">{{i+1}}</span>
+                <span class="form-control form-control-sm">{{i+1}}</span>
               </div>
-              <div class="form-group col-2">
-                <input type="text" formControlName="model_number" class="form-control">
+              <div class="form-group col">
+                <input type="text" formControlName="model_number" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.model_number.errors }">
               </div>
-              <div class="form-group col-2">
-                <input type="text" formControlName="serial_number" class="form-control" />
+              <div class="form-group col">
+                <input type="text" formControlName="serial_number" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.serial_number.errors }">
               </div>
-              <div class="form-group col-2">
-                <select formControlName="media_capacity" class="form-control">
+              <div class="form-group col">
+                <select formControlName="media_capacity" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_capacity.errors }">
                   <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
-              <div class="form-group col-2">
-                <select formControlName="media_status" class="form-control">
+              <div class="form-group col">
+                <select formControlName="media_status" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_status.errors }">
                   <option *ngFor="let sta of mediaObj['mediaStatus']" [value]="sta">{{sta}}</option>
                 </select>
               </div>
-              <div class="form-group col-3">
-                <select formControlName="media_condition" class="form-control">
+              <div class="form-group col">
+                <select formControlName="media_condition" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_condition.errors }">
                   <option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}</option>
                 </select>
+              </div>
+              <div  class="form-group col">
+                <select formControlName="media_interface" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_interface.errors }">
+                  <option *ngFor="let condition of mediaObj['mediaIferFace']" [value]="condition">{{condition}}</option>
+                </select>
+            </div>
+              <div class="form-group col" *ngIf="this.f['server_type'].value == 'Multiple'">
+                <select formControlName="group" class="form-control form-control-sm"> 
+                  <option *ngFor="let item of raidGroup" [value]="item">{{item}}</option>               
+              </select>
+              </div>
+              <div class="form-group col-1">
+                <mat-checkbox formControlName="damage" class="form-control form-control-sm"></mat-checkbox>
               </div>
             </div>
           </div>
         </form>
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-primary btn-sm" (click)="modelSave()">Done</button>
+      <div class="modal-footer justify-content-between">
+        <div><h4 class="text-danger" *ngIf="dynamicButton">Please fill all required fields *</h4></div>
+          <div>
+            <button type="button" class="btn btn-default btn-sm" (click)="modelClose()" *ngIf="previewType">Close</button>&nbsp;
+            <button type="button" class="btn btn-primary btn-sm" (click)="modelSave()">Done</button>
+          </div>
       </div>
     </div>
   </div>
@@ -899,7 +931,7 @@
             <label>Media Make</label>
           </div>
           <div class="form-group col-3">
-            <label>Model Model</label>
+            <label>Model Serial</label>
           </div>
           <div class="form-group col-3">
             <label>Media Capacity</label>
@@ -915,18 +947,18 @@
                 <span class="form-control">{{i+1}}</span>
               </div>
               <div class="form-group col-2">
-                <input type="text" formControlName="media_make" class="form-control">
+                <input type="text" formControlName="media_make" class="form-control form-control-sm">
               </div>
               <div class="form-group col-3">
-                <input type="text" formControlName="model_model" class="form-control" />
+                <input type="text" formControlName="model_model" class="form-control form-control-sm" />
               </div>
               <div class="form-group col-3">
-                <select formControlName="media_capacity" class="form-control">
+                <select formControlName="media_capacity" class="form-control form-control-sm">
                   <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
               <div class="form-group col-3">
-                <input type="text" formControlName="inventry_num" class="form-control" />
+                <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
               </div>
             </div>
           </div>
@@ -970,24 +1002,24 @@
           <div *ngFor="let test of ts.controls; let i = index">
             <div class="row text-center" [formGroup]="test">
                 <div class="form-group col-2">
-                <input type="text" formControlName="media_make" class="form-control">
+                <input type="text" formControlName="media_make" class="form-control form-control-sm">
               </div>
               <div class="form-group col-2">
-                <input type="text" formControlName="model_model" class="form-control" />
+                <input type="text" formControlName="model_model" class="form-control form-control-sm" />
               </div>
               <div class="form-group col-2">
-                <select formControlName="media_capacity" class="form-control">
+                <select formControlName="media_capacity" class="form-control form-control-sm">
                   <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
               <div class="form-group col-2">
-                <input type="text" formControlName="firmware" class="form-control" />
+                <input type="text" formControlName="firmware" class="form-control form-control-sm" />
               </div>
               <div class="form-group col-2">
-                <input type="text" formControlName="site_code" class="form-control" />
+                <input type="text" formControlName="site_code" class="form-control form-control-sm" />
               </div>
               <div class="form-group col-2">
-                <input type="text" formControlName="pcb_num" class="form-control" />
+                <input type="text" formControlName="pcb_num" class="form-control form-control-sm" />
               </div>
             </div>
           </div>

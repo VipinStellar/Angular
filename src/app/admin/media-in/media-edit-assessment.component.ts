@@ -37,6 +37,9 @@ export class MediaAssessmentEdit implements OnInit {
     mediaLoading: boolean;
     uploadUrl: string;
     selectedFiles?: FileList;
+    dynamicButton:boolean;
+    previewType:boolean = true;
+    raidGroup: string[] = [];
     @ViewChild('fileUploader') fileUploader:ElementRef;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
@@ -130,6 +133,11 @@ export class MediaAssessmentEdit implements OnInit {
             this.mediaCloneModelValue = this.mediaDetails['media_clone_detail'];
             this.mediaSpareModelValue = this.mediaDetails['media_sapre_detail'];
             this.modeltoForm(this.mediaDetails as any);
+            if(this.mediaDetails['tampered_status'] == 'Tampered')
+            {
+                this.mediaObj['casetype'].splice('Logical',1);
+                this.mediaObj['casetype'].splice('Logical Complex',1);
+            }
         });
 
         this.mediaEdit.get("case_type")?.valueChanges.subscribe(x => {
@@ -139,6 +147,19 @@ export class MediaAssessmentEdit implements OnInit {
                 this.caseType = false;
         });
 
+        this.mediaEdit.get("media_group")?.valueChanges.subscribe(x => {
+            this.raidGropupChange();
+        });
+
+    }
+
+    raidGropupChange()
+    {
+        this.raidGroup = [];
+        var totalSize = this.f['media_group'].value;
+        for (let n = 0; n < totalSize; ++n) {
+            this.raidGroup.push("Group "+(n+1));
+          }
     }
 
     appendOption(val, key) {
@@ -270,7 +291,11 @@ export class MediaAssessmentEdit implements OnInit {
         return new Array(i);
     }
 
-    openPopup() {
+    openPopup(type) {
+        if(type== 1)
+        this.previewType = false;
+        else
+        this.previewType = true;
         this.dynamicForm.reset();
         this.t.clear();
         this.addmoer();
@@ -282,11 +307,14 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.t.length < numberOfTickets) {
             for (let i = this.t.length; i < numberOfTickets; i++) {
                 this.t.push(this.formBuilder.group({
-                    model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : ''],
-                    serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : ''],
-                    media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : ''],
-                    media_capacity: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_capacity'] != null) ? this.modelValue[i]['media_capacity'] : ''],
-                    media_status: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_status'] != null) ? this.modelValue[i]['media_status'] : '']
+                   model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : '',[Validators.required]],
+                    serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : '',[Validators.required]],
+                    media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : '',[Validators.required]],
+                    media_capacity: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_capacity'] != null) ? this.modelValue[i]['media_capacity'] : '',[Validators.required]],
+                    media_status: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_status'] != null) ? this.modelValue[i]['media_status'] : '',[Validators.required]],
+                    media_interface: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_interface'] != null) ? this.modelValue[i]['media_interface'] : '',[Validators.required]],
+                    group: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['group'] != null) ? this.modelValue[i]['group'] : ''],
+                    damage: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['damage'] != null) ? this.modelValue[i]['damage'] : ''],
                 }));
             }
         } else {
@@ -296,7 +324,19 @@ export class MediaAssessmentEdit implements OnInit {
         }
     }
 
+    modelClose()
+    {
+        this.f['drive_count'].setValue(this.mediaDetails['drive_count'])
+        this.dynamicButton = false;
+        this.mediaModel = "none";
+    }
+
     modelSave() {
+        this.dynamicButton = true;
+        if (this.dynamicForm.invalid) {
+            return false;
+        }
+        this.dynamicButton = false;
         this.modelValue = this.fd['tatalDrive'].value;
         this.mediaModel = "none";
     }
@@ -356,7 +396,7 @@ export class MediaAssessmentEdit implements OnInit {
     }
 
     dropDownChange(type) {
-        if (type == 'spare' && (this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Stellar Inventory' || this.f['spare_required'].value == 'From Customer'))
+        if (type == 'spare' && (this.f['spare_required'].value == 'Received' || this.f['spare_required'].value == 'Available in Stellar Inventory' || this.f['spare_required'].value == 'Required From Customer'))
             this.mediaSpare();
         else if (type == 'clone' && this.f['media_clone'].value == 'Yes')
             this.mediaClone();
@@ -378,9 +418,9 @@ export class MediaAssessmentEdit implements OnInit {
                 }
             }
         }
-        if(totalSize  > 5000000)
+        if(totalSize  > 4000000)
         {
-         this.toastrService.error('File size should not be grater then 5Mb', 'Error!', { timeOut: 10000 });
+         this.toastrService.error('File size should not be grater then 4Mb', 'Error!', { timeOut: 10000 });
          this.fileUploader.nativeElement.value = null;
         }
 

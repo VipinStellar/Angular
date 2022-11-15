@@ -13,6 +13,7 @@ import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
 import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -82,6 +83,7 @@ import { UserChangePassword } from './user/user-change-password.component';
     MatTooltipModule,
     AdminRoutingModule,
     MatMenuModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
     FormsModule,

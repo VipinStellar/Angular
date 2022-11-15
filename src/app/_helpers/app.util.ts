@@ -137,7 +137,7 @@ export class AppUtil {
 
     static sparRequred()
     {
-        return ['Received','Stellar Inventory','From Customer','No','Not Determined at Present Stage'];
+        return ['Received','Available in Stellar Inventory','Required From Customer','Not Required','Not Determined at Present Stage'];
     }
 
     static encryptionType()
