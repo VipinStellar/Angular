@@ -113,7 +113,7 @@ export class AppUtil {
 
     static getMediaOs()
     {
-        return ['Windows','Linux','Unix','Mac','Virtual File System','Other'];
+        return ['Windows','Linux','Unix','Mac','Virtual OS','Other'];
     }
 
     static getTamperingRequired()
@@ -132,7 +132,7 @@ export class AppUtil {
 
     static encryptionName()
     {
-        return ['BitLocker','McAfee Safeboot','Symantec PGP','Sophos','Trend Micro','Win Magic','Check Point','True Crypt','Windows File Encryption','Not Determined at Present Stage'];
+        return ['BitLocker','McAfee Safeboot','Symantec PGP','Sophos','Trend Micro','Win Magic','Check Point','True Crypt','Windows File Encryption','Unknown','Not Determined at Present Stage'];
     }
 
     static sparRequred()

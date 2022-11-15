@@ -181,7 +181,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Type of File System Identified:</label><br>
+                <label class="control-label">Type of File Operating System Identified:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_os">
                   <option *ngFor="let os of mediaObj['mediaOs']" [value]="os">{{os}}</option>
                 </select>
@@ -213,19 +213,19 @@
                   <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="f['recovery_possibility'].value != 'No'">
                 <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                 <select class="form-control form-control-sm" formControlName="recoverable_data">
                   <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No'&& f['stage'].value != '4')">
                 <label class="control-label">Recovery Percentage:</label><br>
                 <select class="form-control form-control-sm" formControlName="recovery_percentage">
                   <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                 <label class="control-label">Required Days:</label><br>
                 <select class="form-control form-control-sm" formControlName="required_days">
                   <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -384,19 +384,19 @@
                   <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="f['recovery_possibility'].value != 'No'">
                 <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                 <select class="form-control form-control-sm" formControlName="recoverable_data">
                   <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                 <label class="control-label">Recovery Percentage:</label><br>
                 <select class="form-control form-control-sm" formControlName="recovery_percentage">
                   <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                 <label class="control-label">Required Days:</label><br>
                 <select class="form-control form-control-sm" formControlName="required_days">
                   <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -445,7 +445,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Type of Exterernal Physical Damage Identified in the Storage Media: </label>
+                <label class="control-label">Type of External Physical Damage in Media: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
                   </mat-option>
@@ -518,7 +518,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Type of File System Identified:</label><br>
+                <label class="control-label">Type of File Operating System Identified:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_os">
                   <option *ngFor="let os of mediaObj['mediaOs']" [value]="os">{{os}}</option>
                 </select>
@@ -536,19 +536,19 @@
                   <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No')">
                 <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                 <select class="form-control form-control-sm" formControlName="recoverable_data">
                   <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                 <label class="control-label">Recovery Percentage:</label><br>
                 <select class="form-control form-control-sm" formControlName="recovery_percentage">
                   <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+              <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                 <label class="control-label">Required Days:</label><br>
                 <select class="form-control form-control-sm" formControlName="required_days">
                   <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -599,7 +599,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Storage/Server Condition wrt any Apparent External Physical Damage to it:</label><br>
+                <label class="control-label">Storage Box/Server Rack Condition wrt any Apparent External Physical Damage to it:</label><br>
                  <select class="form-control form-control-sm" formControlName="media_damage_physical_serve" *ngIf="raidMediaType">
                   <option value="No External Damage Found">No External Damage Found</option>
                   <option value="Damage Found">Damage Found</option>
@@ -614,7 +614,7 @@
                 </select> 
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
-                <label class="control-label">Type of Exterernal Physical Damage Identified in the Storage Media: </label>
+                <label class="control-label">Type of External Physical Damage in Media: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
                   </mat-option>
@@ -714,7 +714,7 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Type of File System Identified:</label><br>
+                <label class="control-label">Type of File Operating System Identified:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_os">
                   <option *ngFor="let os of mediaObj['mediaOs']" [value]="os">{{os}}</option>
                 </select>
@@ -746,19 +746,19 @@
                     <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3">
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No')">
                   <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                   <select class="form-control form-control-sm" formControlName="recoverable_data">
                     <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                   <label class="control-label">Recovery Percentage:</label><br>
                   <select class="form-control form-control-sm" formControlName="recovery_percentage">
                     <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                   <label class="control-label">Required Days:</label><br>
                   <select class="form-control form-control-sm" formControlName="required_days">
                     <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -927,17 +927,23 @@
           <div class="form-group col-1">
             <label>S.N</label>
           </div>
-          <div class="form-group col-2">
-            <label>Media Make</label>
+          <div class="form-group col">
+            <label>Client Media Make </label>
           </div>
-          <div class="form-group col-3">
-            <label>Model Serial</label>
+          <div class="form-group col">
+            <label>Client Media S/N</label>
           </div>
-          <div class="form-group col-3">
-            <label>Media Capacity</label>
+          <div class="form-group col">
+            <label>Type of Processing</label>
           </div>
-          <div class="form-group col-3">
-            <label>HDD Inventory No</label>
+          <div class="form-group col">
+            <label>Stellar Media Make</label>
+          </div>
+          <div class="form-group col">
+            <label>Stellar Media S/N</label>
+          </div>
+          <div class="form-group col">
+            <label>Inventory No</label>
           </div>
         </div>
         <form [formGroup]="MediaCloneForm">
@@ -946,18 +952,28 @@
               <div class="form-group col-1">
                 <span class="form-control">{{i+1}}</span>
               </div>
-              <div class="form-group col-2">
-                <input type="text" formControlName="media_make" class="form-control form-control-sm">
+              <div class="form-group col">
+                <input type="text" formControlName="client_media_make" class="form-control form-control-sm">
               </div>
-              <div class="form-group col-3">
-                <input type="text" formControlName="model_model" class="form-control form-control-sm" />
+              <div class="form-group col">
+                <select formControlName="client_media_sn" class="form-control form-control-sm"> 
+                  <option *ngFor="let item of raidSRNo" [value]="item">{{item}}</option>               
+              </select>
               </div>
-              <div class="form-group col-3">
-                <select formControlName="media_capacity" class="form-control form-control-sm">
-                  <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
+              <div class="form-group col">
+                <select formControlName="type_processing" class="form-control form-control-sm">
+                  <option  value="Clone">Clone</option>
+                  <option  value="Image">Image</option>
+                  <option  value="Other">Other</option>
                 </select>
               </div>
-              <div class="form-group col-3">
+              <div class="form-group col">
+                <input type="text" formControlName="stellar_make" class="form-control form-control-sm" />
+              </div>
+              <div class="form-group col">
+                <input type="text" formControlName="stellar_media_sn" class="form-control form-control-sm" />
+              </div>
+              <div class="form-group col">
                 <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
               </div>
             </div>

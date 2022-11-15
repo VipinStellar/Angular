@@ -40,6 +40,7 @@ export class MediaAssessmentEdit implements OnInit {
     dynamicButton:boolean;
     previewType:boolean = true;
     raidGroup: string[] = [];
+    raidSRNo: string[] = [];
     @ViewChild('fileUploader') fileUploader:ElementRef;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
@@ -354,6 +355,7 @@ export class MediaAssessmentEdit implements OnInit {
     mediaClone() {
         this.MediaCloneForm.reset();
         this.tm.clear();
+        this.getMediaSRNumner();
         this.addMediaClone();
         this.mediaCloneModel = "block";
     }
@@ -386,9 +388,11 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.tm.length < numberOfTickets) {
             for (let i = this.tm.length; i < numberOfTickets; i++) {
                 this.tm.push(this.formBuilder.group({
-                    media_make: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['media_make'] != null) ? this.mediaCloneModelValue[i]['media_make'] : ''],
-                    model_model: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['model_model'] != null) ? this.mediaCloneModelValue[i]['model_model'] : ''],
-                    media_capacity: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['media_capacity'] != null) ? this.mediaCloneModelValue[i]['media_capacity'] : ''],
+                    client_media_make: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['client_media_make'] != null) ? this.mediaCloneModelValue[i]['client_media_make'] : ''],
+                    client_media_sn: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['client_media_sn'] != null) ? this.mediaCloneModelValue[i]['client_media_sn'] : ''],
+                    type_processing: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['type_processing'] != null) ? this.mediaCloneModelValue[i]['type_processing'] : ''],
+                    stellar_make: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['stellar_make'] != null) ? this.mediaCloneModelValue[i]['stellar_make'] : ''],
+                    stellar_media_sn: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['stellar_media_sn'] != null) ? this.mediaCloneModelValue[i]['stellar_media_sn'] : ''],
                     inventry_num: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['inventry_num'] != null) ? this.mediaCloneModelValue[i]['inventry_num'] : '']
                 }));
             }
@@ -402,6 +406,25 @@ export class MediaAssessmentEdit implements OnInit {
             this.mediaClone();
 
     }
+
+    getMediaSRNumner()
+    {
+        this.raidSRNo = [];
+        if(this.raidMediaType)
+        {
+            for (let i = 0; i < this.modelValue.length; i++) {
+                if(this.modelValue[i]['serial_number'] != null)
+                {
+                    this.raidSRNo.push(this.modelValue[i]['serial_number']);
+                }
+            }
+        }
+        else
+        {
+            this.raidSRNo.push(this.mediaDetails['media_serial']);
+        }
+    }
+    
     onSelectFile(event) {
         this.selectedFiles = event.target.files;
         let totalSize = 0;
