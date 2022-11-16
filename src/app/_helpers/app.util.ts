@@ -31,8 +31,9 @@ export class AppUtil {
     static getMediaDeatils()
     {
         return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
-                'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),
-               'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason()};
+                'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
+                'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
+                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther()};
     }
 
     static getMediaType()
@@ -60,6 +61,27 @@ export class AppUtil {
     static assessmentDueReason()
     {
         return ['Waiting for Decryption Details','Client not Picking Call','Client Laptop Required','Waiting Tampering Permission for USB Casing','Clone Required for Assessment','Client Application/Software Required','Sample Data Required','Spare Required','Waiting  For Tempering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged HDD, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific CHIP/BIOS, Case Escalated To Research Team','Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter','Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface','Burnt Hdd, Platter Cleaning In Process','Waiting for Proper Data Details','Other'];
+    }
+
+    static caseNotPossibleFlash()
+    {
+        return ['Due to found (Physical Flash Drive Failure: media bent/broken) track is damaged already of this chip internally','Due to found (Physical Flash Drive Failure: media tampered already)',
+                'Due to one (CHIP Enable) control signal is damaged internally','Due to some control signal is damaged internally','Due to lots of bit errors in this chip, the solution is not available at this time',
+                'Due to lots of Bad columns in this chip, the solution is not available at this time','Due to the monolithic chip found sort /some control signal is damaged internally','Due to perfect Ecc and adaptive xor is not found in this chip, the solution is not available at this time',
+                'Due to an unknown pin-layout of this monolithic chip, the solution is not available at this time','Due to On the fly Encryption (eg: XOR, Dynamic XOR, Adoptive XOR, LDPC, Hardware encryption)','Due to a Fake chip inside the pen drive. & The solution is not available at this time',
+                'Data has been overwritten','Due to Low-level formatting','Corruption was found in the required data','Zero MB data (Empty Data shown)'];
+    }
+
+    static caseNotPossibleSSD()
+    {
+        return ['Due to corruption in the controller chip Due to Bad sector in the firmware Area, this time solution is not available','Due to bad sec in the translator module (Firmware area), this time solution is not available',
+                'corruption in the power circuit Area (Power Problem) this time solution is not available','On board SSD problem in a motherboard, this time solution is not available','Tempering permission not received','Not Possible Due to power IC and controller IC Internally Short This time solution is not available'];
+    }
+
+    static caseNotPossibleOther()
+    {
+        return ['Overwritten','Scratches on platter','Solution not available at present','Corruption in power Controller chip','PCB mismatched',
+                'Wrong media provided by client','Media internally Zero filled','Encryption details not provided by client'];
     }
 
     static requiredDays()
