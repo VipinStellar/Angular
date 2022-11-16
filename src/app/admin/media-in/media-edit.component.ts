@@ -29,6 +29,7 @@ export class MediaEdit implements OnInit {
     mediaFieldShow:boolean;
     dynamicButton:boolean;
     previewType:boolean = true;
+    errorMsg :string = 'Please fill all required fields *';
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
         private router: Router,
@@ -243,16 +244,27 @@ export class MediaEdit implements OnInit {
             return false;
         }
         this.modelValue = this.fd['tatalDrive'].value;
-        for (let i = 0; i < this.modelValue.length; i++) {
-            if (this.modelValue[i]['media_condition'] == 'Non Tampered')
-                this.f['tampered_status'].setValue('Non Tampered')
-            else if (this.modelValue[i]['media_condition'] != 'Non Tampered')
-                this.f['tampered_status'].setValue('Tampered')
-            else
-                this.f['tampered_status'].setValue('Non Tampered')
+        let srNo= [] as any;
+        this.modelValue.forEach(opt => {const obj = {};obj[opt['serial_number']] = opt['serial_number'];srNo.push(opt['serial_number']);});
+        const hasDuplicates = (arr) => arr.length !== new Set(arr).size;
+        if(hasDuplicates(srNo))
+        {
+            this.errorMsg = "Duplicate Serial Number Not Allowed";
         }
+        else
+        {
+            for (let i = 0; i < this.modelValue.length; i++) {
+                if (this.modelValue[i]['media_condition'] == 'Non Tampered')
+                    this.f['tampered_status'].setValue('Non Tampered')
+                else if (this.modelValue[i]['media_condition'] != 'Non Tampered')
+                    this.f['tampered_status'].setValue('Tampered')
+                else
+                    this.f['tampered_status'].setValue('Non Tampered')
+            }
+        this.errorMsg = "Please fill all required fields *"
         this.dynamicButton = false;
         this.mediaModel = "none";
+      }
     }
 
     mediaStatusChange() {

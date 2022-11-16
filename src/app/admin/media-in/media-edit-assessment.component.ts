@@ -41,6 +41,7 @@ export class MediaAssessmentEdit implements OnInit {
     previewType:boolean = true;
     raidGroup: string[] = [];
     raidSRNo: string[] = [];
+    errorMsg :string = 'Please fill all required fields *';
     @ViewChild('fileUploader') fileUploader:ElementRef;
     constructor(private formBuilder: FormBuilder,
         private mediaInService: MediaInService,
@@ -337,9 +338,19 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.dynamicForm.invalid) {
             return false;
         }
-        this.dynamicButton = false;
-        this.modelValue = this.fd['tatalDrive'].value;
-        this.mediaModel = "none";
+        let srNo= [] as any;
+        this.fd['tatalDrive'].value.forEach(opt => {const obj = {};obj[opt['serial_number']] = opt['serial_number'];srNo.push(opt['serial_number']);});
+        const hasDuplicates = (arr) => arr.length !== new Set(arr).size;
+        if(hasDuplicates(srNo))
+        {
+            this.errorMsg = "Duplicate Serial Number Not Allowed";
+        }
+        else{
+            this.errorMsg = "Please fill all required fields *"
+            this.dynamicButton = false;
+            this.modelValue = this.fd['tatalDrive'].value;
+            this.mediaModel = "none";
+        }
     }
 
     saveMediaClone() {

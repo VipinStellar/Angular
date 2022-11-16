@@ -233,7 +233,7 @@
         </form>
         </div>
         <div class="modal-footer justify-content-between">
-          <div><h4 class="text-danger" *ngIf="dynamicButton">Please fill all required fields *</h4></div>
+          <div><h4 class="text-danger" *ngIf="dynamicButton">{{errorMsg}}</h4></div>
           <div>
             <button type="button" class="btn btn-default btn-sm" (click)="modelClose()" *ngIf="previewType">Close</button>&nbsp;
             <button type="button" class="btn btn-primary btn-sm" (click)="modelSave()">Done</button>
