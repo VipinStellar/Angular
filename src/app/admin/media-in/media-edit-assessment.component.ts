@@ -122,6 +122,7 @@ export class MediaAssessmentEdit implements OnInit {
             other_server_type:[],
             no_recovery_reason_other:[],
             no_recovery_reason:[],
+            encryption_name_other:[]
             //media_interface:[],
             //media_model:[],
             //media_ubi:[],
@@ -180,6 +181,7 @@ export class MediaAssessmentEdit implements OnInit {
         this.appendOption(media.file_system_info, 'fileSystemInfo');
         this.appendOption(media.data_loss_reason, 'dataLossReason');
         this.appendOption(media.media_os, 'mediaOs');
+        this.appendOption(media.encryption_name, 'encryptionName');
         this.appendOption(media.server_type, 'serverType');
         this.mediaEdit.setValue({
             id: media.id,
@@ -236,7 +238,8 @@ export class MediaAssessmentEdit implements OnInit {
             backup_software:media.backup_software,
             other_server_type:'',
             no_recovery_reason:JSON.parse(media.no_recovery_reason),
-            no_recovery_reason_other:media.no_recovery_reason_other
+            no_recovery_reason_other:media.no_recovery_reason_other,
+            encryption_name_other:'',
         });
 
         this.mediaLoading = true;
@@ -264,6 +267,9 @@ export class MediaAssessmentEdit implements OnInit {
         }
         if (this.f['data_loss_reason'].value == 'Others') {
             this.f['data_loss_reason'].setValue(this.f['data_loss_reason_other'].value)
+        }
+        if (this.f['encryption_name'].value == 'Other') {
+            this.f['encryption_name'].setValue(this.f['encryption_name_other'].value)
         }
         apiToCall = this.mediaInService.updateMediaAssessment(this.mediaEdit.value);
         apiToCall.subscribe(
@@ -403,7 +409,7 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.tm.length < numberOfTickets) {
             for (let i = this.tm.length; i < numberOfTickets; i++) {
                 this.tm.push(this.formBuilder.group({
-                    client_media_make: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['client_media_make'] != null) ? this.mediaCloneModelValue[i]['client_media_make'] : ''],
+                    //client_media_make: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['client_media_make'] != null) ? this.mediaCloneModelValue[i]['client_media_make'] : ''],
                     client_media_sn: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['client_media_sn'] != null) ? this.mediaCloneModelValue[i]['client_media_sn'] : ''],
                     type_processing: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['type_processing'] != null) ? this.mediaCloneModelValue[i]['type_processing'] : ''],
                     stellar_make: [(this.mediaCloneModelValue != null && this.mediaCloneModelValue[i] != undefined && this.mediaCloneModelValue[i]['stellar_make'] != null) ? this.mediaCloneModelValue[i]['stellar_make'] : ''],

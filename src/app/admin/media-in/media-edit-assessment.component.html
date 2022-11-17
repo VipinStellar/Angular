@@ -167,6 +167,7 @@
                 <select class="form-control form-control-sm" formControlName="encryption_name">
                   <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
                 </select>
+                <input *ngIf="f['encryption_name'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="encryption_name_other"  placeholder="Please Enter" > 
               </div>
               <div class="col-4 p-3"  *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Encryption Level Identified on the Media:</label><br>
@@ -521,6 +522,7 @@
                 <select class="form-control form-control-sm" formControlName="encryption_name">
                   <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
                 </select>
+                <input *ngIf="f['encryption_name'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="encryption_name_other"  placeholder="Please Enter" > 
               </div>
               <div class="col-4 p-3"  *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Encryption Level Identified on the Media:</label><br>
@@ -724,6 +726,7 @@
                 <select class="form-control form-control-sm" formControlName="encryption_name">
                   <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
                 </select>
+                <input *ngIf="f['encryption_name'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="encryption_name_other"  placeholder="Please Enter" > 
               </div>
               <div class="col-4 p-3" *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Encryption Level Identified on the Media:</label><br>
@@ -880,7 +883,7 @@
             <label>RAID Gruop</label>
           </div>
           <div class="form-group col-1">
-            <label>Media Damage</label>
+            <label>Internal Physically Damage</label>
           </div>
         </div>
         <form [formGroup]="dynamicForm">
@@ -949,9 +952,9 @@
           <div class="form-group col-1">
             <label>S.N</label>
           </div>
-          <div class="form-group col">
+          <!-- <div class="form-group col">
             <label>Client Media Make </label>
-          </div>
+          </div> -->
           <div class="form-group col">
             <label>Client Media S/N</label>
           </div>
@@ -974,9 +977,9 @@
               <div class="form-group col-1">
                 <span class="form-control">{{i+1}}</span>
               </div>
-              <div class="form-group col">
+              <!-- <div class="form-group col">
                 <input type="text" formControlName="client_media_make" class="form-control form-control-sm">
-              </div>
+              </div> -->
               <div class="form-group col">
                 <select formControlName="client_media_sn" class="form-control form-control-sm"> 
                   <option *ngFor="let item of raidSRNo" [value]="item">{{item}}</option>               

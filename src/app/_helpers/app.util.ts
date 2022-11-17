@@ -154,7 +154,7 @@ export class AppUtil {
 
     static encryptionName()
     {
-        return ['BitLocker','McAfee Safeboot','Symantec PGP','Sophos','Trend Micro','Win Magic','Check Point','True Crypt','Windows File Encryption','Unknown','Not Determined at Present Stage'];
+        return ['BitLocker','McAfee Safeboot','Symantec PGP','Sophos','Trend Micro','Win Magic','Check Point','True Crypt','Windows File Encryption','Unknown','Not Determined at Present Stage','Other'];
     }
 
     static sparRequred()
