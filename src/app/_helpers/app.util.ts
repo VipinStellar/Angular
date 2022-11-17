@@ -80,8 +80,8 @@ export class AppUtil {
 
     static caseNotPossibleOther()
     {
-        return ['Overwritten','Scratches on platter','Solution not available at present','Corruption in power Controller chip','PCB mismatched',
-                'Wrong media provided by client','Media internally Zero filled','Encryption details not provided by client'];
+        return ['Overwritten','File Severely Damaged','Encryption Details not Received','At Present Solution not Available','Wrong HDD Provided by Client',
+                'Sample Data not Provided by Client','Internally Zero Filled','Low Level Formatted','Unknown Encryption','Required Data not Found','Client not Provide Time','Due to Scratches on Platter'];
     }
 
     static requiredDays()

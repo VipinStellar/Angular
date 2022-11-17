@@ -121,7 +121,7 @@ export class MediaAssessmentEdit implements OnInit {
             backup_software:[],
             other_server_type:[],
             no_recovery_reason_other:[],
-            //no_recovery_reason:[],
+            no_recovery_reason:[],
             //media_interface:[],
             //media_model:[],
             //media_ubi:[],
@@ -235,7 +235,7 @@ export class MediaAssessmentEdit implements OnInit {
             media_group: media.media_group,
             backup_software:media.backup_software,
             other_server_type:'',
-            //no_recovery_reason:media.no_recovery_reason,
+            no_recovery_reason:JSON.parse(media.no_recovery_reason),
             no_recovery_reason_other:media.no_recovery_reason_other
         });
 
