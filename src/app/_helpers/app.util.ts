@@ -33,7 +33,8 @@ export class AppUtil {
         return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
-                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther()};
+                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),
+                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility()};
     }
 
     static getMediaType()
@@ -230,6 +231,11 @@ export class AppUtil {
     static plattersCondition()
     {
         return ['Heavy Light Scratches on Upper Side of the Platter','Heavy Light Scratches on Lower Side of the Platter','Normal','Not Determined at Present Stage'];
+    }
+
+    static backupUtility()
+    {
+        return ['Inbuilt O.S Utility','Thirdparty Utility','Other'];
     }
 
     static CheckMediaTypeFields(mediaType)

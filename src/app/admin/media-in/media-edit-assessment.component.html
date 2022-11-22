@@ -36,7 +36,7 @@
         </div>
         <div class="col-12">
           <form [formGroup]="mediaEdit">
-            <div class="row" *ngIf="mediaDetails['media_type'] != 'CD/DVD' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] != 'Tape Media' && !raidMediaType">
+            <div class="row" *ngIf="mediaDetails['media_type'] != 'CD/DVD' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] != 'Tape Standalone' && mediaDetails['media_type'] != 'Tape Library' && !raidMediaType">
               <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive'">
                 <label class="control-label">Media Received:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_received">
@@ -127,10 +127,10 @@
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
-                <label class="control-label">Tampering Required:</label><br>
+                <label class="control-label">Tamper/Open Permission:</label><br>
                 <select class="form-control form-control-sm" formControlName="tampering_required" >
                   <option value="Required">Required</option>
-                  <option value="Received">Received</option>
+                  <option value="Received">Already Received</option>
                   <option value="Not Required">Not Required</option>
                 </select>
               </div>
@@ -280,15 +280,17 @@
               </div>
             </div>
             <!-- Tape Media -->
-            <div class="row" *ngIf="mediaDetails['media_type'] == 'Tape Media' && !raidMediaType">
-              <div class="col-4 p-3">
-                <label class="control-label">Total no. of Tape received:</label><br>
-                <select class="form-control form-control-sm" formControlName="drive_count" >
+            <div class="row" *ngIf="(mediaDetails['media_type'] == 'Tape Library' || mediaDetails['media_type'] == 'Tape Standalone') && !raidMediaType">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Tape Library'">
+                <label class="control-label">No. of Media Received : <span
+                    style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
+                      matTooltip="View Media Detail" (click)="openPopup(1)"></i></span></label>
+                <select class="form-control form-control-sm" formControlName="drive_count" (change)="openPopup(2)">
                   <option value="">Select</option>
-                  <option *ngFor='let in of counter(255) ;let i = index' value="{{i+1}}">{{i+1}}</option>
+                  <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="f['drive_count'].value > 1">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Tape Library'">
                 <label class="control-label">Tape Drive Require with:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_received">
                   <option  value="Library">Library</option>
@@ -313,17 +315,17 @@
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Any apparent external physical damage to the media:</label><br>
-                 <select class="form-control form-control-sm" formControlName="media_damage_physical_serve">
-                  <option  value="Yes">Yes</option>
-                  <option  value="No">No</option>
-                </select>
-              </div>
-              <div class="col-4 p-3">
                 <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
                 </select>
+              </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Type of External Physical Damage in Media: </label>
+                <mat-select class="form-control form-control-sm" formControlName="media_condition">
+                  <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
+                  </mat-option>
+                </mat-select>
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">Type of O.S on which taken backup:</label><br>
@@ -335,22 +337,22 @@
               <div class="col-4 p-3">
                 <label class="control-label">Backup Utility:</label><br>
                  <select class="form-control form-control-sm" formControlName="backup_software">
-                  <option  value="Inbuilt O.S utility">Inbuilt O.S utility</option>
-                  <option  value="Thirdparty utility">Thirdparty utility</option>
+                  <option *ngFor="let back of mediaObj['backupUtility']" [value]="back">{{back}}</option>
                 </select>
+                <input *ngIf="f['backup_software'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="backup_software_other"  placeholder="Please Enter" > 
               </div>
               <div class="col-4 p-3">
                 <label class="control-label">Backup Architacture:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_architecture">
-                 <option value="Stand alone server">Stand alone server</option>
+                 <option value="Stand alone server">Standalone Mode</option>
                  <option value="Server client Mode">Server client Mode</option>
                 </select>
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Tampering Required:</label><br>
+                <label class="control-label">Tamper/Open Permission:</label><br>
                 <select class="form-control form-control-sm" formControlName="tampering_required" >
                   <option value="Required">Required</option>
-                  <option value="Received">Received</option>
+                  <option value="Received">Already Received</option>
                   <option value="Not Required">Not Required</option>
                 </select>
               </div>
@@ -391,7 +393,7 @@
                 <select class="form-control form-control-sm" formControlName="compression_status">
                   <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
                 </select>
-              </div>             
+              </div> 
               <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
                 <label class="control-label">Recovery Possibility:</label><br>
                 <select class="form-control form-control-sm" formControlName="recovery_possibility">
@@ -686,10 +688,10 @@
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
-                <label class="control-label">Tampering Required:</label><br>
+                <label class="control-label">Tamper/Open Permission:</label><br>
                 <select class="form-control form-control-sm" formControlName="tampering_required" >
                   <option value="Required">Required</option>
-                  <option value="Received">Received</option>
+                  <option value="Received">Already Received</option>
                   <option value="Not Required">Not Required</option>
                 </select>
               </div>
@@ -861,6 +863,12 @@
           <div class="form-group col-1">
             <label>S.N</label>
           </div>
+          <div class="form-group col" *ngIf="mediaDetails['media_type']=='Tape Library'">
+            <label>Media Category</label>
+          </div>
+          <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library'"> 
+            <label>Media Make</label>
+          </div>
           <div class="form-group col">
             <label>Model</label>
           </div>
@@ -876,14 +884,14 @@
           <div class="form-group col">
             <label>Media Condition</label>
           </div>
-          <div class="form-group col">
+          <div class="form-group col" *ngIf="mediaDetails['media_type'] !='Tape Library'">
             <label>Type of Interface</label>
           </div>
-          <div class="form-group col" *ngIf="this.f['server_type'].value == 'Multiple'">
+          <div class="form-group col" *ngIf="this.f['server_type'].value == 'Multiple' && mediaDetails['media_type'] !='Tape Library'">
             <label>RAID Gruop</label>
           </div>
-          <div class="form-group col-1">
-            <label>Internal Physically Damage</label>
+          <div class="form-group col-1" *ngIf="mediaDetails['media_type'] !='Tape Library'">
+            <label>Internal Damage</label>
           </div>
         </div>
         <form [formGroup]="dynamicForm">
@@ -891,6 +899,12 @@
             <div class="row text-center" [formGroup]="ticket">
               <div class="form-group col-1">
                 <span class="form-control form-control-sm">{{i+1}}</span>
+              </div>
+              <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library'">
+                <input type="text" formControlName="media_category" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_category.errors }">
+              </div>
+              <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library'">
+                <input type="text" formControlName="media_make" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_make.errors }">
               </div>
               <div class="form-group col">
                 <input type="text" formControlName="model_number" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.model_number.errors }">
@@ -913,17 +927,17 @@
                   <option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}</option>
                 </select>
               </div>
-              <div  class="form-group col">
+              <div  class="form-group col" *ngIf="mediaDetails['media_type'] !='Tape Library'">
                 <select formControlName="media_interface" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_interface.errors }">
                   <option *ngFor="let condition of mediaObj['mediaIferFace']" [value]="condition">{{condition}}</option>
                 </select>
             </div>
-              <div class="form-group col" *ngIf="this.f['server_type'].value == 'Multiple'">
+              <div class="form-group col" *ngIf="this.f['server_type'].value == 'Multiple' && mediaDetails['media_type'] !='Tape Library'">
                 <select formControlName="group" class="form-control form-control-sm"> 
                   <option *ngFor="let item of raidGroup" [value]="item">{{item}}</option>               
               </select>
               </div>
-              <div class="form-group col-1">
+              <div class="form-group col-1" *ngIf="mediaDetails['media_type'] !='Tape Library'">
                 <mat-checkbox formControlName="damage" class="form-control form-control-sm"></mat-checkbox>
               </div>
             </div>

@@ -122,7 +122,8 @@ export class MediaAssessmentEdit implements OnInit {
             other_server_type:[],
             no_recovery_reason_other:[],
             no_recovery_reason:[],
-            encryption_name_other:[]
+            encryption_name_other:[],
+            backup_software_other:[]
             //media_interface:[],
             //media_model:[],
             //media_ubi:[],
@@ -183,6 +184,7 @@ export class MediaAssessmentEdit implements OnInit {
         this.appendOption(media.media_os, 'mediaOs');
         this.appendOption(media.encryption_name, 'encryptionName');
         this.appendOption(media.server_type, 'serverType');
+        this.appendOption(media.backup_software, 'backupUtility');
         this.mediaEdit.setValue({
             id: media.id,
             case_type: media.case_type,
@@ -240,6 +242,7 @@ export class MediaAssessmentEdit implements OnInit {
             no_recovery_reason:JSON.parse(media.no_recovery_reason),
             no_recovery_reason_other:media.no_recovery_reason_other,
             encryption_name_other:'',
+            backup_software_other:'',
         });
 
         this.mediaLoading = true;
@@ -270,6 +273,9 @@ export class MediaAssessmentEdit implements OnInit {
         }
         if (this.f['encryption_name'].value == 'Other') {
             this.f['encryption_name'].setValue(this.f['encryption_name_other'].value)
+        }
+        if (this.f['backup_software'].value == 'Other') {
+            this.f['backup_software'].setValue(this.f['backup_software_other'].value)
         }
         apiToCall = this.mediaInService.updateMediaAssessment(this.mediaEdit.value);
         apiToCall.subscribe(
@@ -319,12 +325,14 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.t.length < numberOfTickets) {
             for (let i = this.t.length; i < numberOfTickets; i++) {
                 this.t.push(this.formBuilder.group({
-                   model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : '',[Validators.required]],
+                    media_category: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_category'] != null) ? this.modelValue[i]['media_category'] : '',(this.mediaDetails['media_type'] =='Tape Library')?Validators.required:''],
+                    media_make: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_make'] != null) ? this.modelValue[i]['model_number'] : '',(this.mediaDetails['media_type'] =='Tape Library')?Validators.required:''],
+                    model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : '',[Validators.required]],
                     serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : '',[Validators.required]],
                     media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : '',[Validators.required]],
                     media_capacity: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_capacity'] != null) ? this.modelValue[i]['media_capacity'] : '',[Validators.required]],
                     media_status: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_status'] != null) ? this.modelValue[i]['media_status'] : '',[Validators.required]],
-                    media_interface: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_interface'] != null) ? this.modelValue[i]['media_interface'] : '',[Validators.required]],
+                    media_interface: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_interface'] != null) ? this.modelValue[i]['media_interface'] : '',(this.mediaDetails['media_type'] !='Tape Library')?Validators.required:''],
                     group: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['group'] != null) ? this.modelValue[i]['group'] : ''],
                     damage: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['damage'] != null) ? this.modelValue[i]['damage'] : ''],
                 }));
