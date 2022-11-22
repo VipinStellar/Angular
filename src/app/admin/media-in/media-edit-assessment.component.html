@@ -290,13 +290,13 @@
                   <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Tape Library'">
+              <!-- <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Tape Library'">
                 <label class="control-label">Tape Drive Require with:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_received">
                   <option  value="Library">Library</option>
                   <option  value="Without Library">Without Library</option>                 
                 </select>
-              </div>
+              </div> -->
               <div class="col-4 p-3">
                 <label class="control-label">Case Type:</label><br>
                 <select class="form-control form-control-sm" formControlName="case_type"
