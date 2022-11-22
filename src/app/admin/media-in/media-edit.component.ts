@@ -214,12 +214,14 @@ export class MediaEdit implements OnInit {
         if (this.t.length < numberOfTickets) {
             for (let i = this.t.length; i < numberOfTickets; i++) {
                 this.t.push(this.formBuilder.group({
+                    media_category: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_category'] != null) ? this.modelValue[i]['media_category'] : '',(this.f['media_type'].value =='Tape Library')?Validators.required:''],
+                    media_make: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_make'] != null) ? this.modelValue[i]['model_number'] : '',(this.f['media_type'].value =='Tape Library')?Validators.required:''],
                     model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : '',[Validators.required]],
                     serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : '',[Validators.required]],
                     media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : '',[Validators.required]],
                     media_capacity: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_capacity'] != null) ? this.modelValue[i]['media_capacity'] : '',[Validators.required]],
                     media_status: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_status'] != null) ? this.modelValue[i]['media_status'] : '',[Validators.required]],
-                    media_interface: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_interface'] != null) ? this.modelValue[i]['media_interface'] : '',[Validators.required]]
+                    media_interface: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_interface'] != null) ? this.modelValue[i]['media_interface'] : '',(this.f['media_type'].value !='Tape Library')?Validators.required:'']
                 }));
                 
             }

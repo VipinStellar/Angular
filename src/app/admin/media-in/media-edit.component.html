@@ -48,7 +48,7 @@
                   </mat-option>
                 </mat-select>
               </div>
-              <div class="col-4 p-3">
+              <div class="col-4 p-3" *ngIf="f['media_type'].value !='Tape Library'">
                 <label class="control-label">Media Category: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_category">
                   <mat-select-filter [array]="mediaSizeList" (filteredReturn)="mediaSizeListOption =$event"></mat-select-filter>
@@ -58,7 +58,7 @@
                 <input *ngIf="f['media_category'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_cat_other" [ngClass]="{ 'is-invalid': submitted && f['media_cat_other'].errors }" placeholder="Please Enter Others Media Category" maxlength="50"> 
                
               </div>
-              <div class="col-4 p-3" *ngIf="mediaFieldShow">
+              <div class="col-4 p-3" *ngIf="mediaFieldShow && f['media_type'].value != 'Tape Standalone'">
                 <label class="control-label">Type of Interface: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_interface">
                   <mat-option *ngFor="let type of mediaOption['mediaIferFace']" [value]="type">{{type}}
@@ -107,7 +107,7 @@
                   </mat-option>
                 </mat-select>
               </div>
-              <div class="col-4 p-3" *ngIf="(f['media_type'].value != 'RAID' && f['media_type'].value != 'NVR Media' && f['media_type'].value != 'Fusion Drive' &&  f['media_type'].value != 'Fusion IO Drive')">
+              <div class="col-4 p-3" *ngIf="mediaFieldShow">
                 <label class="control-label">Media Condition : </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaOption['condition']" [value]="condition">{{condition}}
@@ -177,22 +177,28 @@
             <div class="form-group col-1">
               <label>S.N</label>
             </div>
-            <div class="form-group col-1">
-              <label>Model</label>
+            <div class="form-group col" *ngIf="f['media_type'].value =='Tape Library'">
+              <label>Media Category</label>
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col" *ngIf="f['media_type'].value =='Tape Library'"> 
+              <label>Media Make</label>
+            </div>
+            <div class="form-group col">
+              <label>Media Model</label>
+            </div>
+            <div class="form-group col">
               <label>Serial Number</label>
             </div>           
-            <div class="form-group col-2">
+            <div class="form-group col">
               <label>Media Capacity</label>
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col">
               <label>Media Status</label>
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col">
               <label>Media Condition</label>
             </div>
-            <div class="form-group col-2">
+            <div class="form-group col" *ngIf="f['media_type'].value !='Tape Library'">
               <label>Type of Interface</label>
             </div>
           </div>
@@ -202,28 +208,34 @@
               <div class="form-group col-1">
                 <span class="form-control">{{i+1}}</span>
               </div>
-              <div class="form-group col-1">
+              <div class="form-group col" *ngIf="f['media_type'].value =='Tape Library'">
+                <input type="text" formControlName="media_category" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_category.errors }">
+              </div>
+              <div class="form-group col" *ngIf="f['media_type'].value =='Tape Library'">
+                <input type="text" formControlName="media_make" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_make.errors }">
+              </div>
+              <div class="form-group col">
                 <input type="text" formControlName="model_number" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.model_number.errors }">
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col">
                 <input type="text" formControlName="serial_number" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.serial_number.errors }">
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col">
                 <select formControlName="media_capacity" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_capacity.errors }">
                   <option *ngFor="let capacity of mediaOption['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col">
                 <select formControlName="media_status" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_status.errors }">
                   <option *ngFor="let sta of mediaOption['mediaStatus']" [value]="sta">{{sta}}</option>
                 </select>
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col">
                 <select formControlName="media_condition" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_condition.errors }">
                   <option *ngFor="let condition of mediaOption['condition']" [value]="condition">{{condition}}</option>
                 </select>
               </div>
-              <div  class="form-group col-2">
+              <div  class="form-group col" *ngIf="f['media_type'].value !='Tape Library'">
                 <select formControlName="media_interface" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_interface.errors }">
                   <option *ngFor="let condition of mediaOption['mediaIferFace']" [value]="condition">{{condition}}</option>
                 </select>

@@ -39,7 +39,7 @@ export class AppUtil {
     static getMediaType()
     {
         return ['Hard Drive','External Hard Drive','Solid State Drive','Flash Media','External Solid State Drive',
-                'Tape Media','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','Fusion IO Drive','Fusion Drive','On-board Flash Memory',
+                'Tape Standalone','Tape Library','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','Fusion IO Drive','Fusion Drive','On-board Flash Memory',
                 'Drive Attached to Specialised Machine','Mobile','Tablet','Other'];
     }
 
@@ -179,7 +179,7 @@ export class AppUtil {
 
     static getMediaSize()
     {
-       return {'Hard Drive':['2.5 in (Laptop Hard Drive)','3.5 in (Desktop Hard Drive)','1.8 in (Hard Drive)','Others'],'Flash Media':['SD Card','MSD Card','CF Card','Pen Drive','Others'],"Solid State Drive":['2.5 in Sata SSD','16*20 mm SSD','20*30 mm SSD','22*42 mm SSD','22*60 mm SSD','22*80 mm SSD','22*110 mm SSD','Others'],"Tape Media":['DSLR','SLR','DLT','DAT 20','DAT 40','DAT 160','DAT 320','LTO 1','LTO 2','LTO 3','LTO 4','LTO 5','LTO 6','LTO 7','LTO 8','LTO 9','Others'],"Mobile":['Apple','MI','Lava','Samsung','Micromax','One Plus','Google Pixel','Nokia','Oppo','Vivo','Huawei','Zte','Lenovo','HP','Others'],"Tablet":['Apple','MI','Lava','Samsung','Micromax','One Plus','Google Pixel','Nokia','Oppo','Vivo','Huawei','Zte','Lenovo','HP','Others'],"Other":['N/A','Others']}
+       return {'Hard Drive':['2.5 in (Laptop Hard Drive)','3.5 in (Desktop Hard Drive)','1.8 in (Hard Drive)','Others'],'Flash Media':['SD Card','MSD Card','CF Card','Pen Drive','Others'],"Solid State Drive":['2.5 in Sata SSD','16*20 mm SSD','20*30 mm SSD','22*42 mm SSD','22*60 mm SSD','22*80 mm SSD','22*110 mm SSD','Others'],"Tape Standalone":['DSLR','SLR','DLT','DAT 20','DAT 40','DAT 160','DAT 320','LTO 1','LTO 2','LTO 3','LTO 4','LTO 5','LTO 6','LTO 7','LTO 8','LTO 9','Others'],"Mobile":['Apple','MI','Lava','Samsung','Micromax','One Plus','Google Pixel','Nokia','Oppo','Vivo','Huawei','Zte','Lenovo','HP','Others'],"Tablet":['Apple','MI','Lava','Samsung','Micromax','One Plus','Google Pixel','Nokia','Oppo','Vivo','Huawei','Zte','Lenovo','HP','Others'],"Other":['N/A','Others']}
     }
 
     static getMediaInterFace()
@@ -209,7 +209,7 @@ export class AppUtil {
     
     static getMediaMake()
     {
-        return ['Western Digital','Seagate','Toshiba','Hitachi','Samsung','Fujitsu','HP','IBM','Dell','Others'];
+        return ['Western Digital','Seagate','Toshiba','Hitachi','Samsung','Fujitsu','HP','IBM','Dell','3M','Sony','Imation','Others'];
     }
 
     static getMediaCaseType()
@@ -234,7 +234,7 @@ export class AppUtil {
 
     static CheckMediaTypeFields(mediaType)
     {
-        if(mediaType != 'RAID' && mediaType != 'NVR Media' && mediaType != 'Fusion Drive' && mediaType != 'Fusion IO Drive')
+        if(mediaType != 'RAID' && mediaType != 'NVR Media' && mediaType != 'Fusion Drive' && mediaType != 'Fusion IO Drive' &&  mediaType != 'Tape Library')
         return true;
         else 
         return false;
