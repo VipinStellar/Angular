@@ -901,10 +901,16 @@
                 <span class="form-control form-control-sm">{{i+1}}</span>
               </div>
               <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library'">
-                <input type="text" formControlName="media_category" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_category.errors }">
+                <select formControlName="media_category" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_category.errors }">
+                  <option *ngFor="let size of mediaObj['mediaSize']['Tape Standalone']" [value]="size">{{size}}</option>
+                </select>
+                <input type="text" formControlName="media_category_other" class="form-control form-control-sm" *ngIf="ticket.controls.media_category.value == 'Others'">
               </div>
               <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library'">
-                <input type="text" formControlName="media_make" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_make.errors }">
+                <select formControlName="media_make" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.media_make.errors }">
+                  <option *ngFor="let make of mediaObj['media_make']" [value]="make">{{make}}</option>
+                </select>
+                <input type="text" formControlName="make_other" class="form-control form-control-sm" *ngIf="ticket.controls.media_make.value == 'Others'">
               </div>
               <div class="form-group col">
                 <input type="text" formControlName="model_number" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': dynamicButton && ticket.controls.model_number.errors }">

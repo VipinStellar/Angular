@@ -326,7 +326,9 @@ export class MediaAssessmentEdit implements OnInit {
             for (let i = this.t.length; i < numberOfTickets; i++) {
                 this.t.push(this.formBuilder.group({
                     media_category: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_category'] != null) ? this.modelValue[i]['media_category'] : '',(this.mediaDetails['media_type'] =='Tape Library')?Validators.required:''],
-                    media_make: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_make'] != null) ? this.modelValue[i]['model_number'] : '',(this.mediaDetails['media_type'] =='Tape Library')?Validators.required:''],
+                    media_make: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_make'] != null) ? this.modelValue[i]['media_make'] : '',(this.mediaDetails['media_type'] =='Tape Library')?Validators.required:''],
+                    media_category_other: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_category_other'] != null) ? this.modelValue[i]['media_category_other'] : ''],
+                    make_other: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['make_other'] != null) ? this.modelValue[i]['make_other'] : ''],
                     model_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['model_number'] != null) ? this.modelValue[i]['model_number'] : '',[Validators.required]],
                     serial_number: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['serial_number'] != null) ? this.modelValue[i]['serial_number'] : '',[Validators.required]],
                     media_condition: [(this.modelValue != null && this.modelValue[i] != undefined && this.modelValue[i]['media_condition'] != null) ? this.modelValue[i]['media_condition'] : '',[Validators.required]],
