@@ -34,14 +34,14 @@ export class AppUtil {
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
                 'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),
-                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility()};
+                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage()};
     }
 
     static getMediaType()
     {
-        return ['Hard Drive','External Hard Drive','Solid State Drive','Flash Media','External Solid State Drive',
-                'Tape Standalone','Tape Library','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','Fusion IO Drive','Fusion Drive','On-board Flash Memory',
-                'Drive Attached to Specialised Machine','Mobile','Tablet','Other'];
+        return ['Hard Drive','External Hard Drive','Solid State Drive','External Solid State Drive','Flash Media',
+                'Tape Standalone','Tape Library','DVR Media','NVR Media','CD/DVD','RAID','Floppy Disk','Fusion IO Drive',
+                'Fusion Drive','On-board Flash Memory','Drive Attached to Specialised Machine','Mobile','Tablet','Other'];
     }
 
     static mediaRecevid()
@@ -200,7 +200,7 @@ export class AppUtil {
 
     static getPeripheralsMedia()
     {
-        return ['With Storage Box','With Casing','Storage Box or Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','Not aplicable'];
+        return ['Not Applicable','With Storage Box','With Casing','Storage Box or Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','With Tape','Without Tape'];
     }
 
     static getmediaStatus()
@@ -235,7 +235,12 @@ export class AppUtil {
 
     static backupUtility()
     {
-        return ['Inbuilt O.S Utility','Thirdparty Utility','Other'];
+        return ['Inbuilt O.S Utility','Thirdparty Utility'];
+    }
+
+    static tapeDamage()
+    {
+        return ['Entangled/Folded Tape Ribbon','Internal Cartridge Mechanism Failure','Broken/Brunt/Flooded/Tampered','Dust Chemical or Moisture in Tape','Other'];
     }
 
     static CheckMediaTypeFields(mediaType)

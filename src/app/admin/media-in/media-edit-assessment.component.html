@@ -37,25 +37,25 @@
         <div class="col-12">
           <form [formGroup]="mediaEdit">
             <div class="row" *ngIf="mediaDetails['media_type'] != 'CD/DVD' && mediaDetails['media_type'] != 'Floppy Disk' && mediaDetails['media_type'] != 'Tape Standalone' && mediaDetails['media_type'] != 'Tape Library' && !raidMediaType">
-              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive'">
                 <label class="control-label">Media Received:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_received">
                   <option *ngFor="let dmg of mediaObj['mediaRecevid']" [value]="dmg">{{dmg}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'Flash Media'">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Flash Media'">
                 <label class="control-label">Media `s Laptop/MacBook Condition wrt any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage_physical">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] != 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'External Solid State Drive'">
                 <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive'">
+              <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive'">
                 <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_damage" *ngIf="caseType">
                   <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
@@ -77,13 +77,13 @@
                   <div *ngIf="f['case_type'].errors['required']">Case Type is required</div>
                 </div>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'">
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'External Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'">
                 <label class="control-label">Type of Noise Identified while the Drive is Powered-on:</label><br>
                 <select class="form-control form-control-sm" formControlName="noise_type">
                   <option *ngFor="let rec of mediaObj['NoiceType']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && (mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media')">
+              <div class="col-4 p-3" *ngIf="!caseType && (mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Flash Media')">
                 <label class="control-label">Media Condition : </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
@@ -114,13 +114,13 @@
                   <option *ngFor="let rec of mediaObj['driveElectronic']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'"> 
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'External Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'"> 
                 <label class="control-label">Rotatory Function:</label><br>
                 <select class="form-control form-control-sm" formControlName="rotary_function">
                   <option *ngFor="let rec of mediaObj['rotaryFunction']" [value]="rec">{{rec}}</option>
                 </select>
               </div>
-              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'">
+              <div class="col-4 p-3" *ngIf="!caseType && mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'External Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'">
                 <label class="control-label">Internal Condition of Platters:</label><br>
                 <select class="form-control form-control-sm" formControlName="platters_condition">
                   <option *ngFor="let pla of mediaObj['plattersCondition']" [value]="pla">{{pla}}</option>
@@ -237,10 +237,10 @@
                 <mat-select *ngIf="mediaDetails['media_type'] == 'Flash Media'" multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1 vipintest">
                   <mat-option *ngFor="let caseno of mediaObj['caseNotPossibleFlash']" [value]="caseno">{{caseno}}</mat-option>
                   </mat-select>
-                  <mat-select *ngIf="mediaDetails['media_type'] == 'Solid State Drive'" multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+                  <mat-select *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive'" multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let caseno of mediaObj['caseNotPossibleSSD']" [value]="caseno">{{caseno}}</mat-option>
                     </mat-select>
-                    <mat-select *ngIf="mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'" multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+                    <mat-select *ngIf="mediaDetails['media_type'] != 'Solid State Drive' && mediaDetails['media_type'] != 'External Solid State Drive' && mediaDetails['media_type'] != 'Flash Media'" multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
                       <mat-option *ngFor="let caseno of mediaObj['caseNotPossibleOther']" [value]="caseno">{{caseno}}</mat-option>
                       </mat-select>
                 <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
@@ -290,13 +290,7 @@
                   <option *ngFor='let in of counter(99) ;let i = index' value="{{i+1}}">{{i+1}}</option>
                 </select>
               </div>
-              <!-- <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Tape Library'">
-                <label class="control-label">Tape Drive Require with:</label><br>
-                <select class="form-control form-control-sm" formControlName="media_received">
-                  <option  value="Library">Library</option>
-                  <option  value="Without Library">Without Library</option>                 
-                </select>
-              </div> -->
+            
               <div class="col-4 p-3">
                 <label class="control-label">Case Type:</label><br>
                 <select class="form-control form-control-sm" formControlName="case_type"
@@ -321,6 +315,13 @@
                 </select>
               </div>
               <div class="col-4 p-3">
+                <label class="control-label">Type of Internal Physical Damage Identified:</label><br>
+                <select class="form-control form-control-sm" formControlName="drive_electronics">
+                  <option *ngFor="let dmg of mediaObj['tapeDamage']" [value]="dmg">{{dmg}}</option>
+                </select>
+                <input *ngIf="f['drive_electronics'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="drive_electronics_other"  placeholder="Please Enter" > 
+              </div>
+              <div class="col-4 p-3">
                 <label class="control-label">Type of External Physical Damage in Media: </label>
                 <mat-select class="form-control form-control-sm" formControlName="media_condition">
                   <mat-option *ngFor="let condition of mediaObj['condition']" [value]="condition">{{condition}}
@@ -339,10 +340,10 @@
                  <select class="form-control form-control-sm" formControlName="backup_software">
                   <option *ngFor="let back of mediaObj['backupUtility']" [value]="back">{{back}}</option>
                 </select>
-                <input *ngIf="f['backup_software'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="backup_software_other"  placeholder="Please Enter" > 
+                <input *ngIf="f['backup_software'].value == 'Thirdparty Utility'" type="text" class="form-control form-control-sm mt-1" formControlName="backup_software_other"  placeholder="Please Enter" > 
               </div>
               <div class="col-4 p-3">
-                <label class="control-label">Backup Architacture:</label><br>
+                <label class="control-label">Backup Architecture:</label><br>
                 <select class="form-control form-control-sm" formControlName="media_architecture">
                  <option value="Stand alone server">Standalone Mode</option>
                  <option value="Server client Mode">Server client Mode</option>
@@ -375,6 +376,13 @@
                 <select class="form-control form-control-sm" formControlName="encryption_status">
                   <option *ngFor="let eny of mediaObj['encryptionStatus']" [value]="eny">{{eny}}</option>
                 </select>
+              </div>
+              <div class="col-4 p-3"  *ngIf="this.f['encryption_status'].value == 'Yes'">
+                <label class="control-label">Encryption Name:</label><br>
+                <select class="form-control form-control-sm" formControlName="encryption_name">
+                  <option *ngFor="let eny of mediaObj['encryptionName']" [value]="eny">{{eny}}</option>
+                </select>
+                <input *ngIf="f['encryption_name'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="encryption_name_other"  placeholder="Please Enter" > 
               </div>
               <div class="col-4 p-3" *ngIf="this.f['encryption_status'].value == 'Yes'">
                 <label class="control-label">Encryption Level Identified on the Media:</label><br>
@@ -1040,46 +1048,55 @@
       </div>
       <div class="modal-body">
         <div class="row text-center">
-         <div class="form-group col-2">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']=='Tape Library' || mediaDetails['media_type']=='Tape Standalone'">
+            <label>Media Category</label>
+          </div>
+         <div class="form-group col">
             <label>Media Make</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col">
             <label>Media Model</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col">
             <label>Media Capacity</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
             <label>Firmware</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
             <label>Site Code</label>
           </div>
-          <div class="form-group col-2">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
             <label>PCB No</label>
           </div>
         </div>
         <form [formGroup]="MediaCloneForm">
           <div *ngFor="let test of ts.controls; let i = index">
             <div class="row text-center" [formGroup]="test">
-                <div class="form-group col-2">
+              <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library' || mediaDetails['media_type'] =='Tape Standalone'">
+                <select formControlName="media_category" class="form-control form-control-sm" >
+                  <option *ngFor="let size of mediaObj['mediaSize']['Tape Standalone']" [value]="size">{{size}}</option>
+                </select>
+                <input type="text" formControlName="media_category_other" class="form-control form-control-sm" *ngIf="test.controls.media_category.value == 'Others'">
+              </div>
+                <div class="form-group col">
                 <input type="text" formControlName="media_make" class="form-control form-control-sm">
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col">
                 <input type="text" formControlName="model_model" class="form-control form-control-sm" />
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col">
                 <select formControlName="media_capacity" class="form-control form-control-sm">
                   <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
                 <input type="text" formControlName="firmware" class="form-control form-control-sm" />
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
                 <input type="text" formControlName="site_code" class="form-control form-control-sm" />
               </div>
-              <div class="form-group col-2">
+              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
                 <input type="text" formControlName="pcb_num" class="form-control form-control-sm" />
               </div>
             </div>

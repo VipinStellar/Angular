@@ -123,7 +123,8 @@ export class MediaAssessmentEdit implements OnInit {
             no_recovery_reason_other:[],
             no_recovery_reason:[],
             encryption_name_other:[],
-            backup_software_other:[]
+            backup_software_other:[],
+            drive_electronics_other:[]
             //media_interface:[],
             //media_model:[],
             //media_ubi:[],
@@ -185,6 +186,7 @@ export class MediaAssessmentEdit implements OnInit {
         this.appendOption(media.encryption_name, 'encryptionName');
         this.appendOption(media.server_type, 'serverType');
         this.appendOption(media.backup_software, 'backupUtility');
+        this.appendOption(media.drive_electronics, 'tapeDamage');
         this.mediaEdit.setValue({
             id: media.id,
             case_type: media.case_type,
@@ -243,6 +245,7 @@ export class MediaAssessmentEdit implements OnInit {
             no_recovery_reason_other:media.no_recovery_reason_other,
             encryption_name_other:'',
             backup_software_other:'',
+            drive_electronics_other:'',
         });
 
         this.mediaLoading = true;
@@ -274,8 +277,11 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.f['encryption_name'].value == 'Other') {
             this.f['encryption_name'].setValue(this.f['encryption_name_other'].value)
         }
-        if (this.f['backup_software'].value == 'Other') {
+        if (this.f['backup_software'].value == 'Thirdparty Utility') {
             this.f['backup_software'].setValue(this.f['backup_software_other'].value)
+        }
+        if (this.f['drive_electronics'].value == 'Other') {
+            this.f['drive_electronics'].setValue(this.f['drive_electronics_other'].value)
         }
         apiToCall = this.mediaInService.updateMediaAssessment(this.mediaEdit.value);
         apiToCall.subscribe(
@@ -403,6 +409,8 @@ export class MediaAssessmentEdit implements OnInit {
         if (this.ts.length < numberOfTickets) {
             for (let i = this.ts.length; i < numberOfTickets; i++) {
                 this.ts.push(this.formBuilder.group({
+                    media_category: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_category'] != null) ? this.mediaSpareModelValue[i]['media_category'] : ''],
+                    media_category_other: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_category_other'] != null) ? this.mediaSpareModelValue[i]['media_category_other'] : ''],
                     media_make: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_make'] != null) ? this.mediaSpareModelValue[i]['media_make'] : ''],
                     model_model: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['model_model'] != null) ? this.mediaSpareModelValue[i]['model_model'] : ''],
                     media_capacity: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_capacity'] != null) ? this.mediaSpareModelValue[i]['media_capacity'] : ''],
