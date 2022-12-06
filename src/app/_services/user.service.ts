@@ -75,6 +75,16 @@ export class UserService {
         return this.http.get(environment.apiUrl + 'user/countCaseNotPossible');
     }
 
+    getConfirmCase()
+    {
+        return this.http.get(environment.apiUrl + 'user/countConfirm');
+    }
+
+    getConfirmNotCase()
+    {
+        return this.http.get(environment.apiUrl + 'user/countConfirmNot');
+    }
+
     changePassword(data)
     {
         return this.http.post(environment.apiUrl + 'user/changePassword', data);

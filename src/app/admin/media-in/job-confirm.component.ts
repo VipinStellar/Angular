@@ -7,6 +7,7 @@ import { MediaInService  } from './../../_services/mediaIn.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppUtil } from 'src/app/_helpers/app.util';
 import { MatDialog } from '@angular/material/dialog';
+import { DataService } from 'src/app/_services/data.service';
 @Component({
   selector: 'job-confirm',
   templateUrl: './job-confirm.component.html',
@@ -38,7 +39,7 @@ export class JobConfirmComponent implements OnInit {
     loading:boolean;
     statusId=null;
     branchId=null;
-    constructor(private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute) {
+    constructor(private dataService:DataService,private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute) {
       }
     ngOnInit(): void {
 
@@ -53,6 +54,14 @@ export class JobConfirmComponent implements OnInit {
           this.mediaInService.getAllBranch().subscribe( data => {
             this.branchList = data as any;
           });
+
+          let dash = this.dataService.getDataByKey('mediaSearch');
+      if(dash != undefined)
+      {
+        this.statusId = dash.status;
+        this.branchId = dash.branch_id;
+        this.dataService.setData('mediaSearch',undefined);
+      }
           this.loadData();
 
     }

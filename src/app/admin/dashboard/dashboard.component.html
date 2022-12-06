@@ -214,6 +214,56 @@
 </div>
 
 <!--End-->
+<!--Case Confirm Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Confirmed Case</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="caseConfirm"></div>
+    <table class="table  table-valign-middle" *ngIf="resultConfirmCase != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultConfirmCase)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewDtails(resultConfirmCase[key],'total')" >{{resultConfirmCase[key]['totalMedia']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+<!--Case Confirm Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Not Confirmed Case</strong></h3>
+    <div class="spinner-border tableLoader" role="status"*ngIf="caseConfirmNot"></div>
+    <table class="table  table-valign-middle" *ngIf="resultConfirmNotCase != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultConfirmNotCase)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewDtails(resultConfirmNotCase[key],'total')" >{{resultConfirmNotCase[key]['totalMedia']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
 
 
         

@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit {
   resultAssDone:any[];
   resultCasePossible:any[];
   resultCaseNotPossible:any[];
+  resultConfirmCase:any[];
+  resultConfirmNotCase:any[];
   Object = Object;
   preloader:boolean  = true;
   preInloader:boolean  = true;
@@ -24,6 +26,8 @@ export class DashboardComponent implements OnInit {
   inDoneloader : boolean = true;
   casePoloader : boolean = true;
   caseNoloader : boolean = true;
+  caseConfirm:boolean = true;
+  caseConfirmNot:boolean = true;
  //displayStyle = "block";
   constructor(private userService:UserService,private dataService:DataService, private router: Router,) { }
 
@@ -100,6 +104,26 @@ export class DashboardComponent implements OnInit {
       data => {
         this.resultCaseNotPossible = data as any;
         this.caseNoloader = false;
+        this.dashboardConfirmCase();
+      });
+  }
+
+  dashboardConfirmCase()
+  {
+    this.userService.getConfirmCase().subscribe(
+      data => {
+        this.resultConfirmCase = data as any;
+        this.caseConfirm = false;
+        this.dashboardConfirmNotCase();
+      });
+  }
+
+  dashboardConfirmNotCase()
+  {
+    this.userService.getConfirmNotCase().subscribe(
+      data => {
+        this.resultConfirmNotCase = data as any;
+        this.caseConfirmNot = false;
       });
   }
 
@@ -111,6 +135,13 @@ export class DashboardComponent implements OnInit {
     let arra = {'branch_id':val['branch_id'],"status":val['stage_id'],"user_id":val['user_id'],"type":type};
     this.dataService.setData('mediaSearch', arra);
     this.router.navigate(['admin/media']);
+  }
+
+  viewDtails(val)
+  {
+    let arra = {'branch_id':val['branch_id'],"status":val['stage_id']};
+    this.dataService.setData('mediaSearch', arra);
+    this.router.navigate(['admin/job-confirm']);
   }
 
   // openPopup() {
