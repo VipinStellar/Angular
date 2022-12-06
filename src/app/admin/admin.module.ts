@@ -45,6 +45,7 @@ import {MediaTeam } from './media-in/media-team.component';
 import { JobListComponent } from './media-in/job-list.component';
 import { JobDetailStatusComponent } from './media-in/job-status-details.component';
 import { UserChangePassword } from './user/user-change-password.component';
+import { JobConfirmComponent } from './media-in/job-confirm.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -72,7 +73,8 @@ import { UserChangePassword } from './user/user-change-password.component';
     MediaTeam,
     JobListComponent,
     JobDetailStatusComponent,
-    UserChangePassword
+    UserChangePassword,
+    JobConfirmComponent
   ],
   imports: [
     CommonModule,

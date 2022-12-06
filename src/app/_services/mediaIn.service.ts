@@ -18,6 +18,10 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'job/joblist', searchParams);
     }
 
+    getJobConfirm(searchParams: any) {
+        return this.http.post(environment.apiUrl + 'job/jobconfirm', searchParams);
+    }
+
     getMedia(id)
     {
         return this.http.get(environment.apiUrl + 'media/getmedia/'+id);

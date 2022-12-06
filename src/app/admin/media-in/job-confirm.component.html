@@ -1,0 +1,88 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-xl-4 col-sm-4">
+            <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">
+            <div class="col-12">
+              <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Search</legend>
+                <div class="row">
+                <div class="col-sm-2 pb-2">          
+                  <mat-select class="form-control form-control-sm" [(value)]="branchId"  placeholder="Select branch List" (selectionChange)="branchChange($event)">              
+                      <mat-option *ngFor="let search of branchList" [value]="search['id']">
+                        {{search['branch_name']}}
+                      </mat-option>
+                    </mat-select>
+                  </div>
+                  <div class="col-sm-2 pb-2">
+                      <mat-select class="form-control form-control-sm" [(value)]="statusId" placeholder="Select Job Status" (selectionChange)="statusChange($event)">              
+                        <mat-option *ngFor="let search of status" [value]="search['id']">
+                          {{search['stage_name']}}
+                        </mat-option>
+                      </mat-select>
+                  </div>
+                  <div class="col-sm-2 pb-2">
+                      <button  class="btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button>
+                    </div>
+                    </div>
+              </fieldset>
+            </div>
+            
+            <div class="col-12">
+                <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+                <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
+                  [dataSource]="mediaInList" style="width: 100%;">
+      
+                  <ng-container matColumnDef="job_id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
+                    <td mat-cell *matCellDef="let element"><a href="javascript:void(0)" (click)="ChangeStatus(element)"
+                        title="Change Job Status">{{element?.job_id}}</a></td>
+                  </ng-container>
+      
+                  <ng-container matColumnDef="customer_id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.customer_name}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="branch_id">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Branch</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.branch_name}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="media_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Media Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.media_type}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="case_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Problem Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element.case_type}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="stage">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
+                    <td mat-cell *matCellDef="let element"> {{element.stage_name}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="last_updated">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>
+                    <td mat-cell *matCellDef="let element"> {{element.last_updated}} </td>
+                  </ng-container>
+                  
+      
+                  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>
+      
+                <mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+                </mat-paginator>
+      
+              </div>
+            </div>
+        </div>
+    </section>
+</div>

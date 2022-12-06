@@ -151,8 +151,14 @@
           </li>
           <li class="nav-item" *ngIf="isAccess('job-status')">
             <a routerLink="./job-status" class="nav-link" routerLinkActive="active">
-              <i class="nav-icon fas fa-battery-three-quarters"></i>
+              <i class="nav-icon fas fa-tasks"></i>
               <p>Job Status</p>
+            </a>
+          </li>
+          <li class="nav-item" *ngIf="isAccess('job-confirm')">
+            <a routerLink="./job-confirm" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-check-circle"></i>
+              <p>Job Confirmation</p>
             </a>
           </li>
         </ul>
