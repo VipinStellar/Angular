@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
   resultCaseNotPossible:any[];
   resultConfirmCase:any[];
   resultConfirmNotCase:any[];
+  resultWaitCase:any[];
   Object = Object;
   preloader:boolean  = true;
   preInloader:boolean  = true;
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
   caseNoloader : boolean = true;
   caseConfirm:boolean = true;
   caseConfirmNot:boolean = true;
+  caseWaiting:boolean = true;
  //displayStyle = "block";
   constructor(private userService:UserService,private dataService:DataService, private router: Router,) { }
 
@@ -104,6 +106,16 @@ export class DashboardComponent implements OnInit {
       data => {
         this.resultCaseNotPossible = data as any;
         this.caseNoloader = false;
+        this.dashboardWaitingCase();
+      });
+  }
+
+  dashboardWaitingCase()
+  {
+    this.userService.getWaitingCase().subscribe(
+      data => {
+        this.resultWaitCase = data as any;
+        this.caseWaiting = false;
         this.dashboardConfirmCase();
       });
   }

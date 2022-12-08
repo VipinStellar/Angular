@@ -80,6 +80,11 @@ export class UserService {
         return this.http.get(environment.apiUrl + 'user/countConfirm');
     }
 
+    getWaitingCase()
+    {
+        return this.http.get(environment.apiUrl + 'user/countWait');
+    }
+
     getConfirmNotCase()
     {
         return this.http.get(environment.apiUrl + 'user/countConfirmNot');

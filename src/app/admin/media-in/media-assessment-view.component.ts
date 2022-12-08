@@ -47,7 +47,7 @@ import { MediaAssignToAdd } from './media-assign-to-add.component';
     editButton()
     {
         this.showEdit = false;
-        if (this.mediaDetails['user_id'] == this.accountService.userValue.id && this.mediaDetails['stage'] !=5)
+        if (this.mediaDetails['user_id'] == this.accountService.userValue.id &&   this.mediaDetails['assHis'][0]['status'] !=5)
         {
           if(this.mediaDetails['transfer_id'] != null  && this.mediaDetails['transferMedia']['media_in_status'] == 0)
           {
@@ -67,7 +67,7 @@ import { MediaAssignToAdd } from './media-assign-to-add.component';
     assignButton()
     {
       this.showAssign = false;
-      if(this.mediaDetails['stage'] !=5)
+      if(this.mediaDetails['assHis'][0]['status'] !=5)
       {
         if(this.mediaDetails['transfer_id'] != null  && this.mediaDetails['transferMedia']['media_in_status'] == 0)
         {

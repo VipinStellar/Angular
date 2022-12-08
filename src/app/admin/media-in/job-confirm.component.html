@@ -43,8 +43,7 @@
       
                   <ng-container matColumnDef="job_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
-                    <td mat-cell *matCellDef="let element"><a href="javascript:void(0)" (click)="ChangeStatus(element)"
-                        title="Change Job Status">{{element?.job_id}}</a></td>
+                    <td mat-cell *matCellDef="let element"><a href="javascript:void(0)">{{element?.job_id}}</a></td>
                   </ng-container>
       
                   <ng-container matColumnDef="customer_id">
@@ -65,7 +64,9 @@
                   </ng-container>
                   <ng-container matColumnDef="stage">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Status </th>
-                    <td mat-cell *matCellDef="let element"> {{element.stage_name}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element.stage_name}} 
+                      <i class="fa fa-info-circle" aria-hidden="true"  matTooltip="Yup, Working." ></i>
+                    </td>
                   </ng-container>
                   <ng-container matColumnDef="last_updated">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Updated At</th>

@@ -417,6 +417,7 @@ export class MediaAssessmentEdit implements OnInit {
                     firmware: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['firmware'] != null) ? this.mediaSpareModelValue[i]['firmware'] : ''],
                     site_code: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['site_code'] != null) ? this.mediaSpareModelValue[i]['site_code'] : ''],
                     pcb_num: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['pcb_num'] != null) ? this.mediaSpareModelValue[i]['pcb_num'] : ''],
+                    inventry_num: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['inventry_num'] != null) ? this.mediaSpareModelValue[i]['inventry_num'] : ''],
                 }));
             }
         }

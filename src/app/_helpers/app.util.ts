@@ -200,7 +200,7 @@ export class AppUtil {
 
     static getPeripheralsMedia()
     {
-        return ['Not Applicable','With Storage Box','With Casing','Storage Box or Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','With Tape','Without Tape'];
+        return ['Not Applicable','With Storage Box','With Casing','Storage Box or Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','With Tape Drive','Without Tape Drive'];
     }
 
     static getmediaStatus()
