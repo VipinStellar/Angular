@@ -122,4 +122,9 @@ export class JobConfirmComponent implements OnInit {
     this.branchId = null;
     this.loadData();
   }
+  
+  ViewDetails(row)
+  {
+    this.router.navigate(['admin/observation/'+row['id']]);
+  }
 }

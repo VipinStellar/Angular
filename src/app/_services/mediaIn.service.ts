@@ -27,6 +27,11 @@ export class MediaInService {
         return this.http.get(environment.apiUrl + 'media/getmedia/'+id);
     }
 
+    getObservation(id)
+    {
+        return this.http.get(environment.apiUrl + 'job/getObservation/'+id);
+    }
+
     getMediaDetails(id)
     {
         return this.http.get(environment.apiUrl + 'mediain/getMediaDetails/'+id);
@@ -95,6 +100,11 @@ export class MediaInService {
 
     deleteFile(id) {
         return this.http.get(environment.apiUrl + 'media/deleteFile/' + id);
+    }
+
+    updateObservation(data)
+    {
+        return this.http.post(environment.apiUrl + 'job/updateObservation', data);
     }
 
 }

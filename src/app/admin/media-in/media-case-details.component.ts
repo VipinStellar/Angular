@@ -37,9 +37,12 @@ export class MediaCaseDetail implements OnInit {
     {
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
+            if(this.mediaDetails['stage'] ==1 || this.mediaDetails['stage'] == 2 || this.mediaDetails['stage'] == 10)
+            this.tabItems.splice(3); 
             this.mediaFieldShow = AppUtil.CheckMediaTypeFields(this.mediaDetails['media_type']);
             this.isLoading = true;
           });
+                    
     }
 
     onchangetab(event)

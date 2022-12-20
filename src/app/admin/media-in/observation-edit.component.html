@@ -1,0 +1,155 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-10">
+            <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid" *ngIf="isLoading">
+            <form [formGroup]="mediaEdit">
+                <div class="row">
+                <div class="col-4 p-3">
+                    <label class="control-label">Media Seal Condition:</label><br>
+                    <select class="form-control form-control-sm" formControlName="media_seal_condition">
+                      <option value="Tampered">Tampered</option>
+                      <option value="Non Tampered">Non Tampered</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">P.c.b. Found Faulty:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_found_faulty">
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Unique Rom Chip:</label><br>
+                    <select class="form-control form-control-sm" formControlName="unique_rom_chip">
+                      <option value="Original">Original</option>
+                      <option value="Changed">Changed</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">P.c.b. Original:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_original">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Motor ( Rotational System ) Found Faulty:</label><br>
+                    <select class="form-control form-control-sm" formControlName="motor_found_faulty">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">P.c.b. Found Tempered:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Head Stack Assembly:</label><br>
+                    <select class="form-control form-control-sm" formControlName="head_stack_assembly">
+                      <option value="Fauly">Fauly</option>
+                      <option value="Physically Ok">Physically Ok</option>
+                      <option value="Broken">Broken</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Found Foreign Particles On Platters:</label><br>
+                    <select class="form-control form-control-sm" formControlName="found_foreign_particles_on_platters">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                        <option value="Ants Found Inside">Ants Found Inside</option>
+                        <option value="Water logged">Water logged</option>
+                        <option value="Burnt">Burnt</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Total Numbers Of Heads:</label><br>
+                    <select class="form-control form-control-sm" formControlName="total_numbers_of_heads">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Total Number Of Platters:</label><br>
+                    <select class="form-control form-control-sm" formControlName="total_number_of_platters">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Number Of Working Heads:</label><br>
+                    <select class="form-control form-control-sm" formControlName="number_of_working_heads">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Number Of Non Working Heads:</label><br>
+                    <select class="form-control form-control-sm" formControlName="number_of_non_working_heads">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Condition Of Platter Surface:</label><br>
+                    <select class="form-control form-control-sm" formControlName="condition_of_platter_surface">
+                      <option value="Light Scratches">Light Scratches</option>
+                      <option value="Heavy Scratches">Heavy Scratches</option>
+                      <option value="Polymeric lubricant layer found damaged">Polymeric lubricant layer found damaged</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Condition Of Multiple Platter Surface:</label><br>
+                    <input type="text" class="form-control form-control-sm" formControlName="condition_of_multiple_platter_surface">
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Platter Cleaning Required At Initial Stage:</label><br>
+                    <select class="form-control form-control-sm" formControlName="platter_cleaning_required_at_initial_stage">
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">P.c.b Rom Is Corrupted:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_rom_is_corrupted">
+                      <option *ngFor="let count of mediaObj['encryptionStatus']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">The Modules In The Service Area Are Corrupted:</label><br>
+                    <select class="form-control form-control-sm" formControlName="service_area_are_corrupted">
+                      <option *ngFor="let count of mediaObj['encryptionStatus']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Imaging Process At Initial Stage:</label><br>
+                    <select class="form-control form-control-sm" formControlName="imaging_process_at_initial_stage">
+                      <option value="Slow">Slow</option>
+                      <option value="Normal">Normal</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Similar Spare Required:</label><br>
+                    <select class="form-control form-control-sm" formControlName="spare_required">
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  
+                </div>
+                <div class="col-12 text-right">
+                  <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+                  <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save<span
+                      *ngIf="loading" class="spinner-border spinner-border-sm mr-1"></span></button>&nbsp;
+                </div>
+            </form>
+        </div>
+    </section>
+
+    </div>

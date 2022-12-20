@@ -46,6 +46,8 @@ import { JobListComponent } from './media-in/job-list.component';
 import { JobDetailStatusComponent } from './media-in/job-status-details.component';
 import { UserChangePassword } from './user/user-change-password.component';
 import { JobConfirmComponent } from './media-in/job-confirm.component';
+import { ObservationView } from './media-in/observation-view.component';
+import{ ObservationEdit } from './media-in/observation-edit.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -74,7 +76,9 @@ import { JobConfirmComponent } from './media-in/job-confirm.component';
     JobListComponent,
     JobDetailStatusComponent,
     UserChangePassword,
-    JobConfirmComponent
+    JobConfirmComponent,
+    ObservationView,
+    ObservationEdit
   ],
   imports: [
     CommonModule,

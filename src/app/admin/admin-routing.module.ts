@@ -24,6 +24,8 @@ import { JobListComponent } from './media-in/job-list.component';
 import { JobDetailStatusComponent } from './media-in/job-status-details.component';
 import { UserChangePassword } from './user/user-change-password.component';
 import { JobConfirmComponent } from './media-in/job-confirm.component';
+import { ObservationView } from './media-in/observation-view.component';
+import {ObservationEdit} from './media-in/observation-edit.component';
 const routes: Routes = [
   {
     path: '',
@@ -119,6 +121,16 @@ const routes: Routes = [
         resolve:{
           profileResolver:ProfileResolver        
           }       
+      },
+      { path: 'observation/edit/:id', component: ObservationEdit,
+      resolve:{
+            profileResolver:ProfileResolver,
+      }        
+     },
+      { path: 'observation/:id', component: ObservationView,
+        resolve:{
+              profileResolver:ProfileResolver,
+        }        
       },
       { path: 'access-denied',component:AccessDeniedComponent },
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },

@@ -207,7 +207,7 @@ export class MediaAssessmentEdit implements OnInit {
             recovery_percentage: media.recovery_percentage,
             required_days: media.required_days,
             stage: media.stage,
-            assessment_due_reason: media.assessment_due_reason,
+            assessment_due_reason:JSON.parse(media.assessment_due_reason),
             remarks: "",
             media_damage: media.media_damage,
             media_damage_physical: media.media_damage_physical,

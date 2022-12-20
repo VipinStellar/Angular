@@ -16,6 +16,11 @@ export class AppUtil {
         return ['Case Details', 'Transfer Media','Pre Inspection','Inspection'];
     }
 
+    static getMediaRecoveryTab()
+    {
+        return ['Initial Physical Observation', 'Media Status Change'];
+    }
+
     static getTabUrl(name)
     {
         if(name == "Case Details")
@@ -34,7 +39,7 @@ export class AppUtil {
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
                 'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),
-                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage()};
+                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount()};
     }
 
     static getMediaType()
@@ -249,6 +254,11 @@ export class AppUtil {
         return true;
         else 
         return false;
+    }
+
+    static plattersCount()
+    {
+        return [1,2,3,4,5,6,7,8,9,'Other'];
     }
 
 

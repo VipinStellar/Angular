@@ -254,9 +254,9 @@
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Inspection Due Reason:</label><br>
-                <select class="form-control form-control-sm" formControlName="assessment_due_reason">
-                  <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
-                </select>
+                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
+                  <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                  </mat-select>
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Extension Required:</label><br>
@@ -439,9 +439,9 @@
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Inspection Due Reason:</label><br>
-                <select class="form-control form-control-sm" formControlName="assessment_due_reason">
-                  <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
-                </select>
+                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
+                  <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                  </mat-select>
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Extension Required:</label><br>
@@ -599,9 +599,9 @@
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Inspection Due Reason:</label><br>
-                <select class="form-control form-control-sm" formControlName="assessment_due_reason">
-                  <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
-                </select>
+                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
+                  <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                  </mat-select>
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Extension Required:</label><br>
@@ -808,9 +808,9 @@
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                   <label class="control-label">Inspection Due Reason:</label><br>
-                  <select class="form-control form-control-sm" formControlName="assessment_due_reason">
-                    <option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</option>
-                  </select>
+                  <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
+                    <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                    </mat-select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                   <label class="control-label">Extension Required:</label><br>
