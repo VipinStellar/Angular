@@ -77,24 +77,28 @@
                     <select class="form-control form-control-sm" formControlName="total_numbers_of_heads">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
+                    <input *ngIf="f['total_numbers_of_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="total_numbers_of_heads_other"  placeholder="Please Enter" >
                   </div>
                   <div class="col-4 p-3">
                     <label class="control-label">Total Number Of Platters:</label><br>
                     <select class="form-control form-control-sm" formControlName="total_number_of_platters">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
+                    <input *ngIf="f['total_number_of_platters'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="total_number_of_platters_other"  placeholder="Please Enter" >
                   </div>
                   <div class="col-4 p-3">
                     <label class="control-label">Number Of Working Heads:</label><br>
                     <select class="form-control form-control-sm" formControlName="number_of_working_heads">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
+                    <input *ngIf="f['number_of_working_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="number_of_working_heads_other"  placeholder="Please Enter" >
                   </div>
                   <div class="col-4 p-3">
                     <label class="control-label">Number Of Non Working Heads:</label><br>
                     <select class="form-control form-control-sm" formControlName="number_of_non_working_heads">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
+                    <input *ngIf="f['number_of_non_working_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="number_of_non_working_heads_other"  placeholder="Please Enter" >
                   </div>
                   <div class="col-4 p-3">
                     <label class="control-label">Condition Of Platter Surface:</label><br>

@@ -39,8 +39,20 @@ export class ObservationEdit implements OnInit {
         });
     }
 
+    appendOption(val, key) {
+        let list = this.mediaObj[key].find(x => x == val);
+        if (list == undefined) {
+            if (val != null && val != '')
+                this.mediaObj[key].push(val);
+        }
+    }
+
     modeltoForm(media)
     {
+        this.appendOption(media.total_numbers_of_heads, 'plattersCount');
+        this.appendOption(media.total_number_of_platters, 'plattersCount');
+        this.appendOption(media.number_of_working_heads, 'plattersCount');
+        this.appendOption(media.number_of_non_working_heads, 'plattersCount');
         this.mediaEdit.setValue({
             id:media.id,
             media_id:media.mediaId,
@@ -62,9 +74,15 @@ export class ObservationEdit implements OnInit {
             p_c_b_rom_is_corrupted:media.p_c_b_rom_is_corrupted,
             service_area_are_corrupted:media.service_area_are_corrupted,
             imaging_process_at_initial_stage:media.imaging_process_at_initial_stage,
-            spare_required:media.spare_required
+            spare_required:media.spare_required,
+            total_numbers_of_heads_other : '',
+            total_number_of_platters_other : '',
+            number_of_working_heads_other : '',
+            number_of_non_working_heads_other : '',   
         });
     }
+
+    get f() { return this.mediaEdit.controls; }
 
     loadForm()
     {
@@ -89,7 +107,11 @@ export class ObservationEdit implements OnInit {
             p_c_b_rom_is_corrupted : [''],
             service_area_are_corrupted : [''],
             imaging_process_at_initial_stage : [''],
-            spare_required : ['']         
+            spare_required : [''],
+            total_numbers_of_heads_other : [''],
+            total_number_of_platters_other : [''],
+            number_of_working_heads_other : [''],
+            number_of_non_working_heads_other : [''],        
         });
     }
 
@@ -104,6 +126,18 @@ export class ObservationEdit implements OnInit {
         }
         this.loading= true;
         let apiToCall: any;
+        if (this.f['total_numbers_of_heads'].value == 'Other') {
+            this.f['total_numbers_of_heads'].setValue(this.f['total_numbers_of_heads_other'].value)
+        }
+        if (this.f['total_number_of_platters'].value == 'Other') {
+            this.f['total_number_of_platters'].setValue(this.f['total_number_of_platters_other'].value)
+        }
+        if (this.f['number_of_working_heads'].value == 'Other') {
+            this.f['number_of_working_heads'].setValue(this.f['number_of_working_heads_other'].value)
+        }
+        if (this.f['number_of_non_working_heads'].value == 'Other') {
+            this.f['number_of_non_working_heads'].setValue(this.f['number_of_non_working_heads_other'].value)
+        }
         apiToCall = this.mediaInService.updateObservation(this.mediaEdit.value);
         apiToCall.subscribe(
             data => {
