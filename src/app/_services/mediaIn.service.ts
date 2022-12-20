@@ -107,4 +107,14 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'job/updateObservation', data);
     }
 
+    getMediaStatusHistory(id)
+    {
+        return this.http.get(environment.apiUrl + 'job/getStatusHistory/'+id);
+    }
+
+    updateMediaStatus(data)
+    {
+        return this.http.post(environment.apiUrl + 'job/updateMediaStatus', data);
+    }
+
 }

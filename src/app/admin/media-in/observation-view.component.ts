@@ -49,4 +49,12 @@ export class ObservationView implements OnInit {
       {
         this.router.navigate(['admin/observation/edit/'+this.mediaDetails['id']]);
       }
+
+      onchangetab(item)
+      {
+        if(item == 'Media Daily Status')
+        this.router.navigate(['admin/daily-status/'+this.mediaDetails['id']]);
+        else
+        this.router.navigate(['admin/observation/'+this.mediaDetails['id']]);
+      }
 }

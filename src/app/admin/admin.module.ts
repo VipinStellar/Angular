@@ -48,6 +48,7 @@ import { UserChangePassword } from './user/user-change-password.component';
 import { JobConfirmComponent } from './media-in/job-confirm.component';
 import { ObservationView } from './media-in/observation-view.component';
 import{ ObservationEdit } from './media-in/observation-edit.component';
+import { DailyStatus } from './media-in/daily-status.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -78,7 +79,8 @@ import{ ObservationEdit } from './media-in/observation-edit.component';
     UserChangePassword,
     JobConfirmComponent,
     ObservationView,
-    ObservationEdit
+    ObservationEdit,
+    DailyStatus
   ],
   imports: [
     CommonModule,

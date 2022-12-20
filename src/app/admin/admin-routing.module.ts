@@ -26,6 +26,7 @@ import { UserChangePassword } from './user/user-change-password.component';
 import { JobConfirmComponent } from './media-in/job-confirm.component';
 import { ObservationView } from './media-in/observation-view.component';
 import {ObservationEdit} from './media-in/observation-edit.component';
+import { DailyStatus } from './media-in/daily-status.component';
 const routes: Routes = [
   {
     path: '',
@@ -128,6 +129,11 @@ const routes: Routes = [
       }        
      },
       { path: 'observation/:id', component: ObservationView,
+        resolve:{
+              profileResolver:ProfileResolver,
+        }        
+      },
+      { path: 'daily-status/:id', component: DailyStatus,
         resolve:{
               profileResolver:ProfileResolver,
         }        
