@@ -127,4 +127,11 @@ export class JobConfirmComponent implements OnInit {
   {
     this.router.navigate(['admin/observation/'+row['id']]);
   }
+
+  changeStatusMEdia(row)
+  {
+    this.mediaInService.updateDummyStatus(row.id).subscribe(data => {
+      this.loadData();
+    });
+  }
 }

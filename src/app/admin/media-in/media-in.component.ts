@@ -51,6 +51,9 @@ export class MediaInComponent implements OnInit {
   selectedType :string;
   selectedBranch  =null;
   searchType:string;
+  AddMediaStyle = "none";
+  selectedMedia: null;
+  selectedAddBranch:null
   constructor(private dataService:DataService,private mediaInService: MediaInService, public dialog: MatDialog,private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
@@ -158,6 +161,56 @@ export class MediaInComponent implements OnInit {
     this.range.controls['start'].reset();
     this.range.controls['end'].reset();
     this.loadData();
+  }
+
+  addMedia()
+  {
+    this.AddMediaStyle = "block";
+  }
+
+  SaveMedia()
+  {
+    if(this.selectedMedia != null && this.selectedAddBranch != null)
+    {
+      let dataToPost = {'media_type': this.selectedMedia,'branch_id' :this.selectedAddBranch};
+      this.mediaInService.addDummyMedia(dataToPost).subscribe(
+        data => {
+          this.loadData();
+          this.selectedMedia = null;
+          this.selectedAddBranch = null;
+          this.AddMediaStyle = "none";
+        });
+
+    }
+    else
+    {
+      alert("Please Select Media Type And Branch");
+    }
+    
+  }
+  
+  CloseMedia()
+  {
+    this.AddMediaStyle = "none";
+  }
+
+  selectMediaType(event)
+  {
+    this.selectedMedia = event.value;
+  }
+
+  selectBranchType(event)
+  {
+    this.selectedAddBranch  = event.value;
+  }
+
+  MediaIndata(media)
+  {
+    let dataToPost = {'id': media.id,'branch_name' :media.branch_name};
+    this.mediaInService.updateDummyMedia(dataToPost).subscribe(
+      data => {
+        this.loadData();
+      });
   }
 
 }

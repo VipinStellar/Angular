@@ -117,4 +117,19 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'job/updateMediaStatus', data);
     }
 
+    addDummyMedia(data)
+    {
+        return this.http.post(environment.apiUrl + 'media/addDummy', data);
+    }
+
+    updateDummyMedia(data)
+    {
+        return this.http.post(environment.apiUrl + 'media/updateDummy', data);
+    }
+
+    updateDummyStatus(id)
+    {
+        return this.http.get(environment.apiUrl + 'media/UpdateStausDummyMedia/'+id);
+    }
+
 }
