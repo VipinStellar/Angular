@@ -39,7 +39,7 @@ export class AppUtil {
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
                 'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),
-                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount()};
+                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'assessmentDueReasonRaid':this.assessmentDueReasonRaid(),'assessmentDueReasonCD':this.assessmentDueReasonCD(),'assessmentDueReasonTape':this.assessmentDueReasonTape(),'assessmentDueReasonFlash':this.assessmentDueReasonFlash()};
     }
 
     static getMediaType()
@@ -66,7 +66,33 @@ export class AppUtil {
 
     static assessmentDueReason()
     {
-        return ['Waiting for Decryption Details','Client not Picking Call','Client Laptop Required','Waiting Tampering Permission for USB Casing','Clone Required for Assessment','Client Application/Software Required','Sample Data Required','Spare Required','Waiting  For Tempering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged HDD, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific CHIP/BIOS, Case Escalated To Research Team','Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Access Received, But Very-2 Slow Access Due To Spots & Scratches On Platter','Heavy-2  Scratches On Platter/surface, Trying To Get Access From Good Platter/surface','Burnt Hdd, Platter Cleaning In Process','Waiting for Proper Data Details','Other'];
+        return ['Waiting  For Tampering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged Hard drive, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific Chip/Bios, Case Escalated To Research Team'
+                ,'Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process','Access Received, Very Slow Access Due To Spots & Scratches On Platter','Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface','Burnt Hdd, Platter Cleaning In Process','Waiting For Decryption Details','Client Not Responding',
+                'Waiting For Client’S Laptop','Waiting For Tampering Permission Of USB Casing','Clone Required For Assessment','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Scanning Slow due to Bad Sectors',
+                'Slow imageing due to lot of bad sector in Nand Data Chip','Access Received, Very Slow Access Due To lots of bit error and bad block in the chip','Unknown Pinout, trying for solution','Finding solution for Non-standerd chip','Broken/tampered chip, trying to get access','Other'];
+    }
+
+    static assessmentDueReasonRaid()
+    {
+        return ['Waiting  For Tampering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged Hard drive, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific Chip/Bios, Case Escalated To Research Team'
+               ,'Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process','Access Received, Very Slow Access Due To Spots & Scratches On Platter','Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface','Burnt Hdd, Platter Cleaning In Process',
+                'Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Scanning Slow due to Bad Sectors','Other'];
+    }
+
+    static assessmentDueReasonCD()
+    {
+        return ['Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Scanning Slow due to Bad Sectors','Other'];
+    }
+
+    static assessmentDueReasonTape()
+    {
+        return ['Waiting For Decryption Details','Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Other'];
+    }
+
+    static assessmentDueReasonFlash()
+    {
+        return ['Waiting For Decryption Details','Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team',
+                'Access Received, Very Slow Access Due To lots of bit error and bad block in the chip','Unknown Pinout, trying for solution','Unknown XOR, trying to decrypt','Finding solution for Non-standerd chip','Broken/tampered chip, trying to get access','Other'];
     }
 
     static caseNotPossibleFlash()

@@ -254,9 +254,13 @@
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Inspection Due Reason:</label><br>
-                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
+                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 "  *ngIf="mediaDetails['media_type'] != 'Flash Media'">
                   <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
                   </mat-select>
+                  <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 "  *ngIf="mediaDetails['media_type'] == 'Flash Media'">
+                    <mat-option *ngFor="let res of mediaObj['assessmentDueReasonFlash']" [value]="res">{{res}}</mat-option>
+                    </mat-select>
+                    <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Extension Required:</label><br>
@@ -440,8 +444,9 @@
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Inspection Due Reason:</label><br>
                 <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
-                  <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                  <mat-option *ngFor="let res of mediaObj['assessmentDueReasonTape']" [value]="res">{{res}}</mat-option>
                   </mat-select>
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Extension Required:</label><br>
@@ -599,9 +604,13 @@
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Inspection Due Reason:</label><br>
-                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
-                  <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 "*ngIf="mediaDetails['media_type'] == 'CD/DVD'">
+                  <mat-option *ngFor="let res of mediaObj['assessmentDueReasonCD']" [value]="res">{{res}}</mat-option>
                   </mat-select>
+                  <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 "*ngIf="mediaDetails['media_type'] == 'Floppy Disk'">
+                    <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                    </mat-select>
+                    <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
               </div>
               <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                 <label class="control-label">Extension Required:</label><br>
@@ -809,8 +818,9 @@
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                   <label class="control-label">Inspection Due Reason:</label><br>
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
-                    <mat-option *ngFor="let res of mediaObj['assessmentDueReason']" [value]="res">{{res}}</mat-option>
+                    <mat-option *ngFor="let res of mediaObj['assessmentDueReasonRaid']" [value]="res">{{res}}</mat-option>
                     </mat-select>
+                    <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
                   <label class="control-label">Extension Required:</label><br>

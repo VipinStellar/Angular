@@ -124,7 +124,8 @@ export class MediaAssessmentEdit implements OnInit {
             no_recovery_reason:[],
             encryption_name_other:[],
             backup_software_other:[],
-            drive_electronics_other:[]
+            drive_electronics_other:[],
+            assessment_due_reason_other:[]
             //media_interface:[],
             //media_model:[],
             //media_ubi:[],
@@ -246,6 +247,7 @@ export class MediaAssessmentEdit implements OnInit {
             encryption_name_other:'',
             backup_software_other:'',
             drive_electronics_other:'',
+            assessment_due_reason_other:media.assessment_due_reason_other,
         });
 
         this.mediaLoading = true;
