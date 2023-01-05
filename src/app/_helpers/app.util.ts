@@ -39,7 +39,8 @@ export class AppUtil {
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
                 'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),
-                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'assessmentDueReasonRaid':this.assessmentDueReasonRaid(),'assessmentDueReasonCD':this.assessmentDueReasonCD(),'assessmentDueReasonTape':this.assessmentDueReasonTape(),'assessmentDueReasonFlash':this.assessmentDueReasonFlash()};
+                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'assessmentDueReasonRaid':this.assessmentDueReasonRaid(),'assessmentDueReasonCD':this.assessmentDueReasonCD(),'assessmentDueReasonTape':this.assessmentDueReasonTape(),
+                'assessmentDueReasonFlash':this.assessmentDueReasonFlash(),'caseNotPossibleHdd':this.caseNotPossibleHdd(),'caseNotPossibleCD':this.caseNotPossibleCD()};
     }
 
     static getMediaType()
@@ -97,23 +98,31 @@ export class AppUtil {
 
     static caseNotPossibleFlash()
     {
-        return ['Due to found (Physical Flash Drive Failure: media bent/broken) track is damaged already of this chip internally','Due to found (Physical Flash Drive Failure: media tampered already)',
-                'Due to one (CHIP Enable) control signal is damaged internally','Due to some control signal is damaged internally','Due to lots of bit errors in this chip, the solution is not available at this time',
-                'Due to lots of Bad columns in this chip, the solution is not available at this time','Due to the monolithic chip found sort /some control signal is damaged internally','Due to perfect Ecc and adaptive xor is not found in this chip, the solution is not available at this time',
-                'Due to an unknown pin-layout of this monolithic chip, the solution is not available at this time','Due to On the fly Encryption (eg: XOR, Dynamic XOR, Adoptive XOR, LDPC, Hardware encryption)','Due to a Fake chip inside the pen drive. & The solution is not available at this time',
-                'Data has been overwritten','Due to Low-level formatting','Corruption was found in the required data','Zero MB data (Empty Data shown)'];
+        return ['Media found bent/broken, Inetrnal tracks of the chip damaged already','Media received in tampered condition','Data signals are damaged internally','Control signals are damaged internally','Lots of bit errors in this chip',
+                'Lots of Bad columns in this chip','Monolithic chip found short','Not able to decrypt Perfect ECC found in the chip','Not able to decrypt Adaptive XOR found in the chip','Unknown pin-layout of the monolithic chip',
+                'On Fly Encryption (eg: XOR, Dynamic XOR, Adaptive XOR, LDPC, Hardware encryption) found in the media','Solution not available at present'];
     }
 
     static caseNotPossibleSSD()
     {
-        return ['Due to corruption in the controller chip Due to Bad sector in the firmware Area, this time solution is not available','Due to bad sec in the translator module (Firmware area), this time solution is not available',
-                'corruption in the power circuit Area (Power Problem) this time solution is not available','On board SSD problem in a motherboard, this time solution is not available','Tempering permission not received','Not Possible Due to power IC and controller IC Internally Short This time solution is not available'];
+        return ['Corruption in the controller chip due to bad sector in the firmware area','Bad sectors in the translator module (Firmware area)','Corruption in the power circuit Area (Power Problem)','Problem in a motherboard of Onboard SSD','Power IC and controller IC Internally Short','Solution not available at present'];
+    }
+
+    static caseNotPossibleHdd()
+    {
+        return ['Corruption in specific chip','Corruption in service area','Non availabilty of similar spare','Non availability of original P.C.B.','Magnetic property of platter lost due to overheating','Heavy scratches on platters','Watter Logged media, not able to clean the foreign particles','Spots and scratches on platters',
+                'Light scratches in Service area','Group of spots on platters','Head burnt and smoke layer found on platter','Not able to clean foreign particles','Solution not available at present'];
+    }
+
+    static caseNotPossibleCD()
+    {
+        return ['CD/DVD surface not Readable','Heavy Scratches on the Surface of CD/DVD','CD/DVD disk not finalized'];
     }
 
     static caseNotPossibleOther()
     {
-        return ['Overwritten','File Severely Damaged','Encryption Details not Received','At Present Solution not Available','Wrong HDD Provided by Client',
-                'Sample Data not Provided by Client','Internally Zero Filled','Low Level Formatted','Unknown Encryption','Required Data not Found','Client not Provide Time','Due to Scratches on Platter'];
+        return ['Required Data not Found','Data Overwritten','Most of the Sectors Internally Zero','Same pattern Written in most of the sectors','Most of the sectors are Garbage Sectors','Encryption Information Overwritten','Encryption Information not Found','File Severely Damaged','Wrong HDD Provided by Client','Sample Data not Provided by Client',
+                'Low Level Formatted','Unknown Encryption','Encryption Details not Received','Corruption was found in the required data','Zero MB data (Empty Data shown)','Solution not available at present'];
     }
 
     static requiredDays()

@@ -27,6 +27,7 @@ import { JobConfirmComponent } from './media-in/job-confirm.component';
 import { ObservationView } from './media-in/observation-view.component';
 import {ObservationEdit} from './media-in/observation-edit.component';
 import { DailyStatus } from './media-in/daily-status.component';
+import { GatePassComponent } from './media-in/gate-pass.component';
 const routes: Routes = [
   {
     path: '',
@@ -135,6 +136,12 @@ const routes: Routes = [
       },
       { path: 'daily-status/:id', component: DailyStatus,
         resolve:{
+              profileResolver:ProfileResolver,
+        }        
+      },
+      { path: 'gate-pass', component: GatePassComponent,
+        resolve:{
+              branchList:BranchResolver,
               profileResolver:ProfileResolver,
         }        
       },

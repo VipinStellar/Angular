@@ -49,6 +49,7 @@ import { JobConfirmComponent } from './media-in/job-confirm.component';
 import { ObservationView } from './media-in/observation-view.component';
 import{ ObservationEdit } from './media-in/observation-edit.component';
 import { DailyStatus } from './media-in/daily-status.component';
+import { GatePassComponent } from './media-in/gate-pass.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -80,7 +81,8 @@ import { DailyStatus } from './media-in/daily-status.component';
     JobConfirmComponent,
     ObservationView,
     ObservationEdit,
-    DailyStatus
+    DailyStatus,
+    GatePassComponent
   ],
   imports: [
     CommonModule,
