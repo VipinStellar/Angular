@@ -597,7 +597,7 @@
                   <mat-option *ngFor="let caseno of mediaObj['caseNotPossibleCD']" [value]="caseno">{{caseno}}</mat-option>
                   </mat-select>
                   <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1" *ngIf="mediaDetails['media_type'] != 'CD/DVD'">
-                    <mat-option *ngFor="let caseno of mediaObj['caseNotPossibleCD']" [value]="caseno">{{caseno}}</mat-option>
+                    <mat-option *ngFor="let caseno of mediaObj['caseNotPossibleOther']" [value]="caseno">{{caseno}}</mat-option>
                     </mat-select>
                 <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
               </div>

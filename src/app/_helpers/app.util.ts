@@ -298,10 +298,10 @@ export class AppUtil {
 
     static mediaStausList()
     {
-        return ['Tempering Permission Required','Waiting  For Tempering Permission','Waiting For Confirmation','Required/ Waiting For  Original P.c.b./specific Chip (Bios)/missing Specific Chip (Bios)','In Analysis Process,________working Days Required',
-                'Sample Image Done , Given To Logical Lab For Further Analysis','Looking For Spare /p.c.b.','Access Lost, Trying To Get Access Again','No Access Yet,Heads Found Broken,Spots & Scratches On Platter','No Access Yet , Heads Ribbon Cable Found Burnt , Smoke Layer Found On The Platter','P.c.b. Found Burnt',
-                'P.c.b. Connector Found Broken','Access Received , There Are ____ Platters And  _______ Heads In The Hdd','Water Logged Hdd , Platter Cleaning In Process, _____ Days Extension Required','Burnt Hdd , Platter Cleaning In Process , _______ Days Extension Required','Access Received , Image Just Started, Very-2 Slow Access Due To Surface Problem',
-                'Given To Pc-3k For Firmware Repairing / P.c.b. Checking/ Imaging','Corruption  In Specific Chip , Looking For Solution',' _______sectors Image Done  With _______  Heads, Total _____ Heads','Waiting For Original  P.c.b. / Specific Chip, Recovery Not Possible Without Original   P.c.b./bios','Severe  Corruption In Service Area Modules, Case  Escalated To Research Team','Corruption In Specific Chip /bios , Case  Escalated To Research Team'];
+        return ['Tempering Permission Required','Waiting  For Tempering Permission','Waiting For Confirmation','Required/ Waiting For  Original P.C.B/specific Chip (Bios)/missing Specific Chip (Bios)','In Analysis Process,________working Days Required',
+                'Sample Image Done , Given To Logical Lab For Further Analysis','Looking For Spare /P.C.B.','Access Lost, Trying To Get Access Again','No Access Yet,Heads Found Broken,Spots & Scratches On Platter','No Access Yet , Heads Ribbon Cable Found Burnt , Smoke Layer Found On The Platter','P.C.B. Found Burnt',
+                'P.C.B. Connector Found Broken','Access Received , There Are ____ Platters And  _______ Heads In The Hdd','Water Logged Hdd , Platter Cleaning In Process, _____ Days Extension Required','Burnt Hdd , Platter Cleaning In Process , _______ Days Extension Required','Access Received , Image Just Started, Very-2 Slow Access Due To Surface Problem',
+                'Given To Pc-3k For Firmware Repairing /P.C.B. Checking/ Imaging','Corruption  In Specific Chip , Looking For Solution',' _______sectors Image Done  With _______  Heads, Total _____ Heads','Waiting For Original  P.C.B. / Specific Chip, Recovery Not Possible Without Original   P.C.B./bios','Severe  Corruption In Service Area Modules, Case  Escalated To Research Team','Corruption In Specific Chip /bios , Case  Escalated To Research Team'];
     }
 
 

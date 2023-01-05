@@ -74,6 +74,7 @@ export class MediaEdit implements OnInit {
             media_capacity_other: [],
             media_cat_other: [],
             model_storage:[],
+            branch_type:[]
         });
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
@@ -185,6 +186,7 @@ export class MediaEdit implements OnInit {
             media_capacity_other: '',
             media_cat_other: '',
             model_storage:media.model_storage,
+            branch_type:media.branch_type
         });
         this.mediaTypeChange();
         this.appendMediaCatOption();

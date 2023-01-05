@@ -79,6 +79,9 @@ export class ObservationEdit implements OnInit {
             total_number_of_platters_other : '',
             number_of_working_heads_other : '',
             number_of_non_working_heads_other : '',   
+            recovery_possibility:media.recovery_possibility,
+            no_recovery_reason:JSON.parse(media.no_recovery_reason),
+            no_recovery_reason_other:media.no_recovery_reason_other,
         });
     }
 
@@ -111,7 +114,10 @@ export class ObservationEdit implements OnInit {
             total_numbers_of_heads_other : [''],
             total_number_of_platters_other : [''],
             number_of_working_heads_other : [''],
-            number_of_non_working_heads_other : [''],        
+            number_of_non_working_heads_other : [''], 
+            recovery_possibility:[],
+            no_recovery_reason:[],
+            no_recovery_reason_other:[]       
         });
     }
 

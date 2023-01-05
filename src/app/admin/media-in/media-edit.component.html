@@ -143,6 +143,13 @@
                   <div *ngIf="f['stage'].errors['required']">Inspection Status is required</div>
                 </div>
               </div>
+              <div class="col-4 p-3">
+                <label class="control-label">Inspection In : </label>
+                <select class="form-control form-control-sm" formControlName="branch_type">
+                  <option  value="Clean Room">Clean Room</option>
+                  <option  value="Without Clean Room">Without Clean Room</option>
+                </select>
+              </div>
               <div class="col-12 p-3">
                 <label class="control-label">Add Your Remarks<sup class="text-danger"> *</sup> : </label>
                 <textarea class="form-control form-control-sm" formControlName="remarks"
