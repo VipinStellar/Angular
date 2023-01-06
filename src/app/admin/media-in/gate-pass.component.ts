@@ -117,7 +117,7 @@ export class GatePassComponent implements OnInit {
             data => {
                 this.cancelGatePass();
                 this.loadData();
-                this.toastrService.success('Gate Pass Created successfully!', 'Success!',{timeOut: 3000});
+                this.toastrService.success('Gate Pass Created successfully!', 'Success!');
             },
             error=>{
                 console.log(error)

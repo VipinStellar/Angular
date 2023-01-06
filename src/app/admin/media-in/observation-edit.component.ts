@@ -148,7 +148,7 @@ export class ObservationEdit implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.hide();
-                this.toastrService.success('Details Saved successfully!', 'Success!', { timeOut: 3000 });
+                this.toastrService.success('Details Saved successfully!', 'Success!');
                 this.router.navigate(['admin/observation/' + this.mediaDetails['mediaId']]);
             },
             error => {

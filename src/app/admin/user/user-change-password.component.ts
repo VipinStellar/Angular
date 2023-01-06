@@ -48,7 +48,7 @@ import { ToastrService } from 'ngx-toastr';
         apiToCall = this.userService.changePassword(this.ChangePassword.value);
         apiToCall.subscribe(
             data => {
-                this.toastrService.success('User Password Has been Changed!', 'Success!',{ timeOut: 3000 });
+                this.toastrService.success('User Password Has been Changed!', 'Success!');
                 this.loading = false;
                 this._location.back();
            },

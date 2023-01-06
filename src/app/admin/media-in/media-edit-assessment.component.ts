@@ -289,7 +289,7 @@ export class MediaAssessmentEdit implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.hide();
-                this.toastrService.success('Details Saved successfully!', 'Success!', { timeOut: 3000 });
+                this.toastrService.success('Details Saved successfully!', 'Success!');
                 this.router.navigate(['admin/media-assessment/' + this.mediaDetails['id']]);
             },
             error => {
@@ -476,7 +476,7 @@ export class MediaAssessmentEdit implements OnInit {
                 totalSize = totalSize + this.selectedFiles[i]['size'];
                 if(this.selectedFiles[i]['type'] != 'application/x-zip-compressed' && this.selectedFiles[i]['type'] != 'image/png' && this.selectedFiles[i]['type'] != 'image/jpeg')
                 {
-                    this.toastrService.error('Only  allow  JPG,PNG,ZIP', 'Error!', { timeOut: 10000 });
+                    this.toastrService.error('Only  allow  JPG,PNG,ZIP', 'Error!');
                     this.fileUploader.nativeElement.value = null;
                     this.selectedFiles = undefined;
                     return 
@@ -485,7 +485,7 @@ export class MediaAssessmentEdit implements OnInit {
         }
         if(totalSize  > 4000000)
         {
-         this.toastrService.error('File size should not be grater then 4Mb', 'Error!', { timeOut: 10000 });
+         this.toastrService.error('File size should not be grater then 4Mb', 'Error!');
          this.fileUploader.nativeElement.value = null;
         }
 
@@ -499,7 +499,6 @@ export class MediaAssessmentEdit implements OnInit {
                 formData.append('files', this.selectedFiles[i]);
                 this.http.post(this.uploadUrl + 'media/upload', formData).subscribe(data => { this.mediaDetails
                     ['fileUpload'] =  data['data'];
-                    //this.toastrService.success('File upload successfully!', 'Success!', { timeOut: 1000 });
                 });
             }
             this.fileUploader.nativeElement.value = null;

@@ -71,7 +71,7 @@ export class JobDetailStatusComponent implements OnInit {
         apiToCall.subscribe(
             data => {
               this.submitted = false;
-              this.toastrService.success('Details Saved successfully!', 'Success!',{timeOut: 3000});
+              this.toastrService.success('Details Saved successfully!', 'Success!');
                 this.getMediaJobDetails();
                 this.Reset();
             }

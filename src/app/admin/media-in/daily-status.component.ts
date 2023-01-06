@@ -60,7 +60,7 @@ export class DailyStatus implements OnInit {
         apiToCall.subscribe(
             data => {
               this.submitted = false;
-              this.toastrService.success('Details Saved successfully!', 'Success!',{timeOut: 3000});
+              this.toastrService.success('Details Saved successfully!', 'Success!');
                 this.getMediaStatusHistory();
                 this.Reset();
             }

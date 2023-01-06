@@ -28,7 +28,7 @@ import { ForgotPasswordComponent } from './login/forgot-password.component';
     HttpClientModule,
     ToastrModule.forRoot({
       closeButton: true,
-      timeOut: 1500, // 15 seconds
+      timeOut: 3000, // 15 seconds
       progressBar: true,
     }),
   ],
