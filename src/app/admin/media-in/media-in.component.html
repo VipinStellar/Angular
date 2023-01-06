@@ -67,7 +67,6 @@
           </fieldset>
         </div>
         <div class="col-12">
-          <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
           <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
             [dataSource]="mediaInList" style="width: 100%;">
 

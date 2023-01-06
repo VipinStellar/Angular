@@ -19,7 +19,6 @@ export class MediaInComponent implements OnInit {
 
   ELEMENT_DATA: MediaIn[] = [];
   selected: MediaIn;
-  isLoading = false;
   totalRows = 0;
   pageSize = 10;
   currentPage = 0;
@@ -101,13 +100,11 @@ export class MediaInComponent implements OnInit {
     searchParams['searchfieldName'] = this.searchfieldName;
     searchParams['startDate'] = this.range.controls['start'].value;
     searchParams['endDate'] = this.range.controls['end'].value;
-    this.isLoading = true;
     this.mediaInService.getMediaInList(searchParams).subscribe(
       data => {
         let res = data as any;
         this.mediaInList.data = res.data;
         this.totalRows = res.recordsTotal;
-        this.isLoading = false;
       });
 
   }

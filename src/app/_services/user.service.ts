@@ -40,54 +40,9 @@ export class UserService {
         return this.http.get(environment.apiUrl + 'user/getSupervisor/'+roleId+'/'+branchId);
     }
 
-    getPreAnalysis()
+    DashBaordCount()
     {
-        return this.http.get(environment.apiUrl + 'user/countPre');
-    }
-
-    getPreAnalysisDone()
-    {
-        return this.http.get(environment.apiUrl + 'user/countPreDone');
-    }
-
-    getMediaIn()
-    {
-        return this.http.get(environment.apiUrl + 'user/countMediaIn');
-    }
-
-    getAssessmentProcess()
-    {
-        return this.http.get(environment.apiUrl + 'user/countAssessmentPro');
-    }
-
-    getAssessmentDone()
-    {
-        return this.http.get(environment.apiUrl + 'user/countAssessmentDone');
-    }
-
-    getCasePossible()
-    {
-        return this.http.get(environment.apiUrl + 'user/countCasePossible');
-    }
-
-    getCasenotPossible()
-    {
-        return this.http.get(environment.apiUrl + 'user/countCaseNotPossible');
-    }
-
-    getConfirmCase()
-    {
-        return this.http.get(environment.apiUrl + 'user/countConfirm');
-    }
-
-    getWaitingCase()
-    {
-        return this.http.get(environment.apiUrl + 'user/countWait');
-    }
-
-    getConfirmNotCase()
-    {
-        return this.http.get(environment.apiUrl + 'user/countConfirmNot');
+        return this.http.get(environment.apiUrl + 'user/DashBaordCount');
     }
 
     changePassword(data)

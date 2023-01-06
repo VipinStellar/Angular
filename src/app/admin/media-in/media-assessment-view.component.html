@@ -5,7 +5,6 @@
         <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"
           [active]="activeLink == tabItem"> {{tabItem}} </a>
       </nav><br>
-      <mat-progress-bar mode="indeterminate" [hidden]="isLoading"></mat-progress-bar>
       <!-- <div class="row mb-2" *ngIf="isLoading">
         <div class="col-xl-12 col-sm-12">
           <h2 class="m-0 ">{{pageTitle +" : "+mediaAssessmentDetails['job_id']}}</h2>
