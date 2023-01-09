@@ -1,0 +1,96 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <nav mat-tab-nav-bar>
+          <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"  [active]="activeLink == tabItem"> {{tabItem}}  </a>
+        </nav><br>
+        <div class="row mb-2">
+            <div class="col-xl-9 col-sm-9">
+              <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['zoho_id']}} &nbsp;&nbsp;&nbsp;<span
+                  *ngIf="mediaDetails['job_id'] !=null">Job Id : {{mediaDetails['job_id']}}</span></h2>
+            </div>            
+          </div>
+      </div>
+    </div>
+    <section class="content mb-3">
+        <div class="container-fluid border p-4">
+          <div class="row" *ngIf="mediaDetails['Obser'] != null">
+            <div class="col-lg-6 col-md-6 mb-3">
+              <label class="control-label">Media Seal Condition : </label>
+              <span class="ml-2">{{mediaDetails['Obser']['media_seal_condition']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B. Found Faulty : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['p_c_b_found_faulty']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Unique Rom Chip : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['unique_rom_chip']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B. Original : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['p_c_b_original']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Motor ( Rotational System ) Found Faulty : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['motor_found_faulty']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B. Found Tempered : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['p_c_b_found_tempered']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Head Stack Assembly : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['head_stack_assembly']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Found Foreign Particles On Platters : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['found_foreign_particles_on_platters']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Total Numbers Of Heads : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['total_numbers_of_heads']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Total Number Of Platters : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['total_number_of_platters']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Number Of Working Heads : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['number_of_working_heads']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Number Of Non Working Heads : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['number_of_non_working_heads']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Condition Of Platter Surface : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['condition_of_platter_surface']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Condition Of Multiple Platter Surface : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['condition_of_multiple_platter_surface']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Platter Cleaning Required At Initial Stage : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['platter_cleaning_required_at_initial_stage']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B Rom Is Corrupted : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['p_c_b_rom_is_corrupted']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">The Modules In The Service Area Are Corrupted : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['service_area_are_corrupted']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Imaging Process At Initial Stage : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['imaging_process_at_initial_stage']}}</span>
+              </div>
+              <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Similar Spare Required : </label>
+                <span class="ml-2">{{mediaDetails['Obser']['spare_required']}}</span>
+              </div>
+            </div>
+            </div></section>
+  </div>

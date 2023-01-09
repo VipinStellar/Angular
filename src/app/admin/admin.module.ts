@@ -50,6 +50,7 @@ import { ObservationView } from './media-in/observation-view.component';
 import{ ObservationEdit } from './media-in/observation-edit.component';
 import { DailyStatus } from './media-in/daily-status.component';
 import { GatePassComponent } from './media-in/gate-pass.component';
+import { ObservationDetails } from './media-in/observation-details.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -82,7 +83,8 @@ import { GatePassComponent } from './media-in/gate-pass.component';
     ObservationView,
     ObservationEdit,
     DailyStatus,
-    GatePassComponent
+    GatePassComponent,
+    ObservationDetails
   ],
   imports: [
     CommonModule,

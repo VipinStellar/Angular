@@ -18,7 +18,7 @@ export class AppUtil {
 
     static getMediaRecoveryTab()
     {
-        return ['Initial Physical Observation', 'Media Daily Status'];
+        return ['Case Details','Initial Observation', 'Media Daily Status'];
     }
 
     static getTabUrl(name)

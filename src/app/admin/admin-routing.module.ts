@@ -28,6 +28,7 @@ import { ObservationView } from './media-in/observation-view.component';
 import {ObservationEdit} from './media-in/observation-edit.component';
 import { DailyStatus } from './media-in/daily-status.component';
 import { GatePassComponent } from './media-in/gate-pass.component';
+import { ObservationDetails } from './media-in/observation-details.component';
 const routes: Routes = [
   {
     path: '',
@@ -142,6 +143,11 @@ const routes: Routes = [
       { path: 'gate-pass', component: GatePassComponent,
         resolve:{
               branchList:BranchResolver,
+              profileResolver:ProfileResolver,
+        }        
+      },
+      { path: 'observation-details/:id', component: ObservationDetails,
+        resolve:{
               profileResolver:ProfileResolver,
         }        
       },

@@ -125,7 +125,7 @@ export class JobConfirmComponent implements OnInit {
   
   ViewDetails(row)
   {
-    this.router.navigate(['admin/observation/'+row['id']]);
+    this.router.navigate(['admin/observation-details/'+row['id']]);
   }
 
   changeStatusMEdia(row)

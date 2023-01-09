@@ -14,7 +14,7 @@ export class DailyStatus implements OnInit {
     isLoading: boolean;
     mediaDetails: MediaIn[] = [];
     tabItems = AppUtil.getMediaRecoveryTab();
-    activeLink = this.tabItems[1];
+    activeLink = this.tabItems[2];
     mediaEditHistory: [];
     submitted: boolean;
     loading:boolean;
@@ -84,6 +84,8 @@ export class DailyStatus implements OnInit {
       {
         if(item == 'Media Daily Status')
         this.router.navigate(['admin/daily-status/'+this.mediaDetails['id']]);
+        else if(item == 'Case Details')
+        this.router.navigate(['admin/observation-details/'+this.mediaDetails['id']]);
         else
         this.router.navigate(['admin/observation/'+this.mediaDetails['id']]);
       }

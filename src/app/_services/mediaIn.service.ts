@@ -141,4 +141,9 @@ export class MediaInService {
         return this.http.post(environment.apiUrl + 'job/addgatepass', data);
     }
 
+    getObvertationDetails(id)
+    {
+        return this.http.get(environment.apiUrl + 'job/obvertation-details/'+id);
+    }
+
 }
