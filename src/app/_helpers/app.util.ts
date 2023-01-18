@@ -304,5 +304,15 @@ export class AppUtil {
                 'Given To Pc-3k For Firmware Repairing /P.C.B. Checking/ Imaging','Corruption  In Specific Chip , Looking For Solution',' _______sectors Image Done  With _______  Heads, Total _____ Heads','Waiting For Original  P.C.B. / Specific Chip, Recovery Not Possible Without Original   P.C.B./bios','Severe  Corruption In Service Area Modules, Case  Escalated To Research Team','Corruption In Specific Chip /bios , Case  Escalated To Research Team'];
     }
 
+    static getObjtoId(obj,fieldName)
+    {
+        let id =[] as any;
+        obj.forEach((element) => {
+            id.push(element[fieldName]);
+        });
+        return id;
+    }
+
+
 
 }
