@@ -22,6 +22,7 @@ export class ObservationEdit implements OnInit {
     submitted: boolean;
     loading: boolean;
     mediaObj: any = [];
+    caseNotPossibleObj:any =[];
     constructor(private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute,
               private toastrService: ToastrService ,private _location: Location, private formBuilder: FormBuilder,private accountService: AccountService) {}    
     ngOnInit(): void {
@@ -36,6 +37,7 @@ export class ObservationEdit implements OnInit {
             this.mediaDetails = data as any;    
             this.modeltoForm(this.mediaDetails);        
             this.loading = false;
+            this.dueReason();
         });
     }
 
@@ -156,5 +158,10 @@ export class ObservationEdit implements OnInit {
                 console.log(error)
             }
         );
+    }
+    dueReason(){
+        let media_type:any = this.mediaDetails['media_type'];
+        let mediaType = AppUtil.checkMediaType(media_type);
+        this.caseNotPossibleObj = AppUtil.caseNotPossible(mediaType);
     }
 }

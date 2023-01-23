@@ -51,6 +51,10 @@ import{ ObservationEdit } from './media-in/observation-edit.component';
 import { DailyStatus } from './media-in/daily-status.component';
 import { GatePassComponent } from './media-in/gate-pass.component';
 import { ObservationDetails } from './media-in/observation-details.component';
+import { InventoryListComponent } from './inventory/inventory-list.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { InventoryAddComponent } from './inventory/inventory-add-component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -84,7 +88,9 @@ import { ObservationDetails } from './media-in/observation-details.component';
     ObservationEdit,
     DailyStatus,
     GatePassComponent,
-    ObservationDetails
+    ObservationDetails,
+    InventoryListComponent,
+    InventoryAddComponent
   ],
   imports: [
     CommonModule,
@@ -107,7 +113,9 @@ import { ObservationDetails } from './media-in/observation-details.component';
     MatTabsModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
 })
 export class AdminModule { }

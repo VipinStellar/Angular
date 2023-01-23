@@ -38,9 +38,7 @@ export class AppUtil {
         return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
-                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'assessmentDueReason':this.assessmentDueReason(),'caseNotPossibleFlash':this.caseNotPossibleFlash(),
-                'caseNotPossibleSSD':this.caseNotPossibleSSD(),'caseNotPossibleOther':this.caseNotPossibleOther(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'assessmentDueReasonRaid':this.assessmentDueReasonRaid(),'assessmentDueReasonCD':this.assessmentDueReasonCD(),'assessmentDueReasonTape':this.assessmentDueReasonTape(),
-                'assessmentDueReasonFlash':this.assessmentDueReasonFlash(),'caseNotPossibleHdd':this.caseNotPossibleHdd(),'caseNotPossibleCD':this.caseNotPossibleCD()};
+                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount()};
     }
 
     static getMediaType()
@@ -63,66 +61,6 @@ export class AppUtil {
     static mediaClone()
     {
         return['Yes','No','Not Aplicable'];
-    }
-
-    static assessmentDueReason()
-    {
-        return ['Waiting  For Tampering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged Hard drive, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific Chip/Bios, Case Escalated To Research Team'
-                ,'Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process','Access Received, Very Slow Access Due To Spots & Scratches On Platter','Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface','Burnt Hdd, Platter Cleaning In Process','Waiting For Decryption Details','Client Not Responding',
-                'Waiting For Client’S Laptop','Waiting For Tampering Permission Of USB Casing','Clone Required For Assessment','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Scanning Slow due to Bad Sectors',
-                'Slow imageing due to lot of bad sector in Nand Data Chip','Access Received, Very Slow Access Due To lots of bit error and bad block in the chip','Unknown Pinout, trying for solution','Finding solution for Non-standerd chip','Broken/tampered chip, trying to get access','Other'];
-    }
-
-    static assessmentDueReasonRaid()
-    {
-        return ['Waiting  For Tampering Permission','Waiting For Original P.C.B.','Waiting For Similar Spare','Waiting For Original P.C.B./ Specific Chip','Water Logged Hard drive, Platter Cleaning In Process','Severe Corruption In Service Area Modules , Case Escalated To Research Team','Corruption In Specific Chip/Bios, Case Escalated To Research Team'
-               ,'Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process','Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process','Access Received, Very Slow Access Due To Spots & Scratches On Platter','Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface','Burnt Hdd, Platter Cleaning In Process',
-                'Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Scanning Slow due to Bad Sectors','Other'];
-    }
-
-    static assessmentDueReasonCD()
-    {
-        return ['Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Scanning Slow due to Bad Sectors','Other'];
-    }
-
-    static assessmentDueReasonTape()
-    {
-        return ['Waiting For Decryption Details','Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team','Other'];
-    }
-
-    static assessmentDueReasonFlash()
-    {
-        return ['Waiting For Decryption Details','Waiting For Decryption Details','Client Not Responding','Waiting For Client’S Application/Software','Waiting For Sample Data','Waiting For Important Data Details From Client','Files Severely Damaged, Case Escalated to Reasearch Team',
-                'Access Received, Very Slow Access Due To lots of bit error and bad block in the chip','Unknown Pinout, trying for solution','Unknown XOR, trying to decrypt','Finding solution for Non-standerd chip','Broken/tampered chip, trying to get access','Other'];
-    }
-
-    static caseNotPossibleFlash()
-    {
-        return ['Media found bent/broken, Inetrnal tracks of the chip damaged already','Media received in tampered condition','Data signals are damaged internally','Control signals are damaged internally','Lots of bit errors in this chip',
-                'Lots of Bad columns in this chip','Monolithic chip found short','Not able to decrypt Perfect ECC found in the chip','Not able to decrypt Adaptive XOR found in the chip','Unknown pin-layout of the monolithic chip',
-                'On Fly Encryption (eg: XOR, Dynamic XOR, Adaptive XOR, LDPC, Hardware encryption) found in the media','Solution not available at present'];
-    }
-
-    static caseNotPossibleSSD()
-    {
-        return ['Corruption in the controller chip due to bad sector in the firmware area','Bad sectors in the translator module (Firmware area)','Corruption in the power circuit Area (Power Problem)','Problem in a motherboard of Onboard SSD','Power IC and controller IC Internally Short','Solution not available at present'];
-    }
-
-    static caseNotPossibleHdd()
-    {
-        return ['Corruption in specific chip','Corruption in service area','Non availabilty of similar spare','Non availability of original P.C.B.','Magnetic property of platter lost due to overheating','Heavy scratches on platters','Watter Logged media, not able to clean the foreign particles','Spots and scratches on platters',
-                'Light scratches in Service area','Group of spots on platters','Head burnt and smoke layer found on platter','Not able to clean foreign particles','Solution not available at present'];
-    }
-
-    static caseNotPossibleCD()
-    {
-        return ['CD/DVD surface not Readable','Heavy Scratches on the Surface of CD/DVD','CD/DVD disk not finalized'];
-    }
-
-    static caseNotPossibleOther()
-    {
-        return ['Required Data not Found','Data Overwritten','Most of the Sectors Internally Zero','Same pattern Written in most of the sectors','Most of the sectors are Garbage Sectors','Encryption Information Overwritten','Encryption Information not Found','File Severely Damaged','Wrong HDD Provided by Client','Sample Data not Provided by Client',
-                'Low Level Formatted','Unknown Encryption','Encryption Details not Received','Corruption was found in the required data','Zero MB data (Empty Data shown)','Solution not available at present'];
     }
 
     static requiredDays()
@@ -312,6 +250,134 @@ export class AppUtil {
         });
         return id;
     }
+
+    
+
+    static checkMediaType(media_type){
+        if(media_type == 'Hard Drive' || media_type == 'External Hard Drive'){
+            media_type = 'Hard Drive';
+        }else if(media_type == 'Solid State Drive' || media_type == 'External Solid State Drive'){
+            media_type = 'Solid State Drive';
+        }else if(media_type == 'Flash Media'){
+            media_type = 'Flash Media';
+        }else if(media_type == 'Tape Standalone' || media_type == 'Tape Library'){
+            media_type = 'Tapes';
+        }else if(media_type == 'CD/DVD'){
+            media_type = 'CD/DVD';
+        }else if(media_type == 'RAID'){
+            media_type = 'RAID';
+        }else{
+            media_type='Other';
+        }
+        return media_type;
+    }
+
+    static InspectionDueReason(media_type){
+        let inspectionDue = {
+            "Hard Drive":["Waiting For Tampering Permission","Waiting For Original P.C.B.","Waiting For Similar Spare.","Waiting For Original P.C.B./ Specific Chip.","Water Logged Hard drive, Platter Cleaning In Process.","Severe Corruption In Service Area Modules , Case Escalated To Research Team.","Corruption In Specific Chip/Bios, Case Escalated To Research Team.",
+        "Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process.","Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process.","Access Received, Very Slow Access Due To Spots & Scratches On Platter.","Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface.",
+        "Burnt Hdd, Platter Cleaning In Process.","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client's Laptop","Waiting For Tampering Permission Of USB Casing","Clone Required For Assessment","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client",
+        "Files Severely Damaged, Case Escalated to Reasearch Team","Scanning Slow due to Bad Sectors"],
+            "Solid State Drive":["Waiting For Tampering Permission","Severe Corruption In Service Area Modules , Case Escalated To Research Team.","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client's Laptop","Clone Required For Assessment","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client",
+        "Files Severely Damaged, Case Escalated to Reasearch Team","Slow cloning/imaging due to lot of bad sector in Nand Data Chip"],
+            "Flash Media":["Waiting For Tampering Permission","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client","Files Severely Damaged, Case Escalated to Reasearch Team",
+        "Access Received, Very Slow Access Due To lots of bit error and bad block in the chip","Unknown Pinout, trying for solution","Unknown XOR, trying to decrypt","Finding solution for Non-standerd chip","Broken/tampered chip, trying to get access"],
+            "Tapes":["Waiting For Tampering Permission","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client","Files Severely Damaged, Case Escalated to Reasearch Team"],
+            "CD/DVD":["Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client","CD/DVD reading under process"],
+            "RAID":["Waiting For Tampering Permission","Waiting For Original P.C.B.","Waiting For Similar Spare.","Waiting For Original P.C.B./ Specific Chip.","Water Logged Hard drive, Platter Cleaning In Process.","Severe Corruption In Service Area Modules , Case Escalated To Research Team.","Corruption In Specific Chip/Bios, Case Escalated To Research Team.",
+        "Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process.","Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process.","Access Received, Very Slow Access Due To Spots & Scratches On Platter.","Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface.",
+        "Burnt Hdd, Platter Cleaning In Process.","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client","Files Severely Damaged, Case Escalated to Reasearch Team","Scanning Slow due to Bad Sectors"],
+            "Other":["Waiting For Tampering Permission","Waiting For Original P.C.B.","Waiting For Similar Spare.","Waiting For Original P.C.B./ Specific Chip.","Water Logged Hard drive, Platter Cleaning In Process.","Severe Corruption In Service Area Modules , Case Escalated To Research Team.","Corruption In Specific Chip/Bios, Case Escalated To Research Team.",
+        "Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process.","Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process.","Access Received, Very Slow Access Due To Spots & Scratches On Platter.","Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface.",
+        "Burnt Hdd, Platter Cleaning In Process.","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client's Laptop","Waiting For Tampering Permission Of USB Casing","Clone Required For Assessment","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client",
+        "Files Severely Damaged, Case Escalated to Reasearch Team","Scanning Slow due to Bad Sectors","Access Received, Very Slow Access Due To lots of bit error and bad block in the chip","Unknown Pinout, trying for solution","Unknown XOR, trying to decrypt","Finding solution for Non-standerd chip","Broken/tampered chip, trying to get access","Tally sample data required",
+        "Tally transaction & Manager files severely damaged","MDF file severely damaged","Busy sample data required","Busy files severely damaged","MDF/BAK sample data required","MDF/BAK file scanning under process due to size of file big","Try to repair MDF file table structure","MDF file repair process slow due to huge number of record inside tables",
+        "Advanced scanning under Process due to metadata damaged","Searching for metadata entries","Metadata entries are missing advance scanning under process","Decryption under process","Decryption details provided by client mismatch, waiting for correct details","Mail File repairing under process","DVR scanning under process","Video file repairing under process",
+        "Video sample file required","Photos repairing under process","Excle file password recovery under process","Word file password recovery under process","CD/DVD reading under process","Zip/Rar file partially damaged repairing under process"]
+        };
+        return inspectionDue[media_type];
+    }
+
+    static RecoveryDue(media_type){
+        let recoveryReason = {
+                "Hard Drive":["Waiting For Tampering Permission","Waiting For Original P.C.B.","Waiting For Similar Spare","Waiting For Original P.C.B./ Specific Chip","Water Logged Hard drive, Platter Cleaning In Process","Severe Corruption In Service Area Modules , Case Escalated To Research Team","Corruption In Specific Chip/Bios, Case Escalated To Research Team",
+            "Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process","Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process","Access Received, Very Slow Access Due To Spots & Scratches On Platter","Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface",
+            "Burnt Hdd, Platter Cleaning In Process","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Laptop","Waiting For Tampering Permission Of USB Casing","Clone Required For Assessment","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client",
+            "Files Severely Damaged, Case Escalated to Reasearch Team","Scanning Slow due to Bad Sectors","File Severely Damaged, Case Escalated to Reasearch Team"],
+                "Solid State Drive":["Waiting For Tampering Permission","Severe Corruption In Service Area Modules , Case Escalated To Research Team","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Laptop","Clone Required For Assessment","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client",
+            "Files Severely Damaged, Case Escalated to Reasearch Team","Slow cloning/imaging due to lot of bad sector in Nand Data Chip"],
+                "Flash Media":["Waiting For Tampering Permission","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client","Files Severely Damaged, Case Escalated to Reasearch Team","Access Received, Very Slow Access Due To lots of bit error and bad block in the chip",
+            "Unknown Pinout, trying for solution","Unknown XOR, trying to decrypt","Finding solution for Non-standerd chip","Broken/tampered chip, trying to get access"],
+                "Tapes":["Waiting For Tampering Permission","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client","Files Severely Damaged, Case Escalated to Reasearch Team"],
+                "CD/DVD":["Waiting for client's response","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client"],
+                "RAID":["Waiting For Tampering Permission","Waiting For Original P.C.B.","Waiting For Similar Spare","Waiting For Original P.C.B./ Specific Chip","Water Logged Hard drive, Platter Cleaning In Process","Severe Corruption In Service Area Modules , Case Escalated To Research Team","Corruption In Specific Chip/Bios, Case Escalated To Research Team","Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process",
+            "Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process","Access Received, Very Slow Access Due To Spots & Scratches On Platter","Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface","Burnt Hdd, Platter Cleaning In Process","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Application/Software",
+            "Waiting For Sample Data","Waiting For Important Data Details From Client","Files Severely Damaged, Case Escalated to Reasearch Team","Scanning Slow due to Bad Sectors","File Severely Damaged, Case Escalated to Reasearch Team"],
+                "Other":["Waiting For Tampering Permission","Waiting For Original P.C.B.","Waiting For Similar Spare","Waiting For Original P.C.B./ Specific Chip","Water Logged Hard drive, Platter Cleaning In Process","Severe Corruption In Service Area Modules , Case Escalated To Research Team","Corruption In Specific Chip/Bios, Case Escalated To Research Team",
+            "Heads Found Broken, Spots & Scratches On Platter, Platter Cleaning In Process","Head Ribbon Cable Found Burnt, Smoke Layer Found On The Platter, Platter Cleaning In Process","Access Received, Very Slow Access Due To Spots & Scratches On Platter","Heavy Scratches On Platter/Surface, Trying To Get Access From Good Platter/Surface",
+            "Burnt Hdd, Platter Cleaning In Process","Waiting For Decryption Details from client","Waiting for client's response","Waiting For Client’s Laptop","Waiting For Tampering Permission Of USB Casing","Clone Required For Assessment","Waiting For Client’s Application/Software","Waiting For Sample Data","Waiting For Important Data Details From Client",
+            "Files Severely Damaged, Case Escalated to Reasearch Team","Scanning Slow due to Bad Sectors","Slow cloning/imaging due to lot of bad sector in Nand Data Chip","Access Received, Very Slow Access Due To lots of bit error and bad block in the chip","Unknown Pinout, trying for solution","Unknown XOR, trying to decrypt","Finding solution for Non-standerd chip","Broken/tampered chip, trying to get access","Recovery Under Process",
+            "Tally transaction & Manager files severely damaged need extention required","MDF file severely damaged need extention required","Busy files severely damaged need extention required","MDF file scanning under process due to size of file big",
+            "Trying to repair MDF file table structure","MDF file repair process slow due to huge number of record inside tables","Advanced scanning under Process due to meta Data damaged","Searching for metadata entries","Metadata entries are missing advance scanning under process","Decryption under process","Decryption details provided by client mismatch, waiting for correct details",
+            "Mail file repairing under process","DVR recovery under process"]
+        }
+        return recoveryReason[media_type];
+    }
+
+    static StatusRecovery(media_type){
+        let statusReason = {
+                "Hard Drive":["Tampering Permission Required","Waiting For Tampering Permission","Waiting For Original PCB/specific Chip (Bios)","Waiting For Missing Specific Chip (Bios)","In Analysis Process,________working Days Required","Sample Image/clone Done, Given To Logical Lab For Further Analysis",
+            "Looking for Similar Spare","Access Lost, Trying To Get Access Again","No Access Yet,Heads Found Broken,Spots & Scratches On Platter","No Access Yet , Heads Ribbon Cable Found Burnt , Smoke Layer Found On The Platter","PCB Found Burnt","PCB Connector Found Broken",
+            "Access Received , There are ____ Platters and _______ Heads In The Hdd","Water Logged Hdd , Platter Cleaning In Process, _____ Days Extension Required","Burnt Hdd , Platter Cleaning In Process , _______ Days Extension Required","Access Received , Clone Just Started, Very Slow Access Due To Surface Problem",
+            "Given To PC-3K For Firmware Repairing","Given To PC-3K For P.C.B. Checking","Given to PC-3K For cloning","Corruption In Specific Chip , Looking For Solution","_______sectors Clone Done With _______ Heads, Total _____ Heads","Waiting For Original PCB / Specific Chip, Recovery Not Possible Without Original PCB/bios",
+            "Severe Corruption In Service Area Modules, Case Escalated To Research Team","Corruption In Specific Chip /bios , Case Escalated To Research Team","_______sectors Image Done With _______ Heads, Total _____ Heads","#NAME?","No access yet, trying to get access","No access, needs ____to_____   working days’ time extension",
+            "Advanced scanning of media is started","Data recovery is completed"],
+                "Solid State Drive":["Tampering Permission Required","Waiting For Tampering Permission","In Analysis Process,________working Days Required","Sample Image/clone Done, Given To Logical Lab For Further Analysis","Looking for Similar Spare","Access Lost, Trying To Get Access Again","Data recovery is completed"],
+                "Flash Media":["Tampering Permission Required","Waiting For Tampering Permission","In Analysis Process,________working Days Required","Sample Image/clone Done, Given To Logical Lab For Further Analysis","Looking for Similar Spare","No access yet, trying to get access","No access, needs ____to_____   working days’ time extension",
+            "Access received; Chip reading is started","In process, Req. _ Working days’ time extension due to monolithic chip","Req. time extension _working days due to unknown encryption","Req. time extension _ working days due to an unknown Pin-layout of the non-standard chip",
+            "Job is in chip-off process, _ working days’ time extension to proceed further"," _ % Chip reading done. (Need No. input)"," _ % Chip reading done of 1 chip (total 4 Chips inside the card). (Need no. input)","Require time extension _ to _ working days’ due to lots of bit errors/Bad columns /others (need Input)",
+            "Require time extension _ of working days to take support from our research team","In the initial phase, Chip reading is done but re-reading is in the process further due to lots of bits errors in the chip","Tampered media received, so req. time extension to proceed further (_ working days)",
+            "Non-standard chip /controller, req. time extension to find the solution","Chip reading is done","Media is in the analysis process","Advanced scanning of media is started","Req. time extension _ no. of working days due to bad blocks in the media /virus-infected/others","Data recovery is completed"],
+                "Tapes":["Tampering Permission Required","Waiting For Tampering Permission","In Analysis Process,________working Days Required","Data recovery is completed"],
+                "CD/DVD":["Tampering Permission Required","Waiting For Tampering Permission","In Analysis Process,________working Days Required","Data recovery is completed"],
+                "RAID":["Tampering Permission Required","Waiting For Tampering Permission","Waiting For Original PCB/specific Chip (Bios)","Waiting For Missing Specific Chip (Bios)","In Analysis Process,________working Days Required","Sample Image/clone Done, Given To Logical Lab For Further Analysis",
+            "Looking for Similar Spare","Access Lost, Trying To Get Access Again","No Access Yet,Heads Found Broken,Spots & Scratches On Platter","No Access Yet , Heads Ribbon Cable Found Burnt , Smoke Layer Found On The Platter","PCB Found Burnt","PCB Connector Found Broken",
+            "Access Received , There are ____ Platters and _______ Heads In The Hdd","Water Logged Hdd , Platter Cleaning In Process, _____ Days Extension Required","Burnt Hdd , Platter Cleaning In Process , _______ Days Extension Required","Access Received , Clone Just Started, Very Slow Access Due To Surface Problem",
+            "Given To PC-3K For Firmware Repairing","Given To PC-3K For P.C.B. Checking","Given to PC-3K For cloning","Corruption In Specific Chip , Looking For Solution","_______sectors Clone Done With _______ Heads, Total _____ Heads","Waiting For Original PCB / Specific Chip, Recovery Not Possible Without Original PCB/bios",
+            "Severe Corruption In Service Area Modules, Case Escalated To Research Team","Corruption In Specific Chip /bios , Case Escalated To Research Team","_______sectors Image Done With _______ Heads, Total _____ Heads","#NAME?","No access yet, trying to get access","No access, needs ____to_____   working days’ time extension",
+            "Advanced scanning of media is started","Data recovery is completed"],
+                "Other":["Tampering Permission Required","Waiting For Tampering Permission","Waiting For Original PCB/specific Chip (Bios)","Waiting For Missing Specific Chip (Bios)","In Analysis Process,________working Days Required","Sample Image/clone Done, Given To Logical Lab For Further Analysis",
+            "Looking for Similar Spare","Access Lost, Trying To Get Access Again","No Access Yet,Heads Found Broken,Spots & Scratches On Platter","No Access Yet , Heads Ribbon Cable Found Burnt , Smoke Layer Found On The Platter","PCB Found Burnt","PCB Connector Found Broken",
+            "Access Received , There are ____ Platters and _______ Heads In The Hdd","Water Logged Hdd , Platter Cleaning In Process, _____ Days Extension Required","Burnt Hdd , Platter Cleaning In Process , _______ Days Extension Required","Access Received , Clone Just Started, Very Slow Access Due To Surface Problem",
+            "Given To PC-3K For Firmware Repairing","Given To PC-3K For P.C.B. Checking","Given to PC-3K For cloning","Corruption In Specific Chip , Looking For Solution","_______sectors Clone Done With _______ Heads, Total _____ Heads","Waiting For Original PCB / Specific Chip, Recovery Not Possible Without Original PCB/bios",
+            "Severe Corruption In Service Area Modules, Case Escalated To Research Team","Corruption In Specific Chip /bios , Case Escalated To Research Team","_______sectors Image Done With _______ Heads, Total _____ Heads","#NAME?","No access yet, trying to get access","No access, needs ____to_____   working days’ time extension",
+            "Access received; Chip reading is started","In process, Req. _ Working days’ time extension due to monolithic chip","Req. time extension _working days due to unknown encryption","Req. time extension _ working days due to an unknown Pin-layout of the non-standard chip",
+            "Job is in chip-off process, _ working days’ time extension to proceed further"," _ % Chip reading done. (Need No. input)"," _ % Chip reading done of 1 chip (total 4 Chips inside the card). (Need no. input)","Require time extension _ to _ working days’ due to lots of bit errors/Bad columns /others (need Input)",
+            "Require time extension _ of working days to take support from our research team","In the initial phase, Chip reading is done but re-reading is in the process further due to lots of bits errors in the chip","Tampered media received, so req. time extension to proceed further (_ working days)",
+            "Non-standard chip /controller, req. time extension to find the solution","Chip reading is done","Media is in the analysis process","Advanced scanning of media is started","Req. time extension _ no. of working days due to bad blocks in the media /virus-infected/others","Data recovery is completed"]
+        }
+        return statusReason[media_type];
+    }
+
+    static caseNotPossible(media_type){
+        let notPossible = {
+            "Hard Drive":["Corruption in specific chip","Corruption in service area","Non availabilty of similar spare","Non availability of original P.C.B.","Magnetic property of platter lost due to overheating","Heavy scratches on platter/s","Heavy scratches on both sides of the platter",
+                "Heavy scratches on both sides of the platter, Heads found broken","Heavy scratches on lower side of the platter","Light scratches on lower side of the platter","Heavy scratches on upper side of the platter","Light scratches on upper side of the platter","Heads found broken inside the hard drive",
+                "Watter Logged media, not able to clean the foreign particles","Spots and scratches on platter/s","Light scratches in Service area","Group of spots on platter/s","Head burnt and smoke layer found on platter","Not able to write the firmware module","Not able to clean foreign particles",
+                "Solution not available at present"],
+            "Solid State Drive":["Corruption in the controller chip due to bad sector in the firmware area","Bad sectors in the translator module (Firmware area)","Corruption in the power circuit Area (Power Problem)","Problem in a motherboard of Onboard SSD","Power IC and controller IC Internally Short",
+                "Problem in NANDA DATA chip This time solution not available"],
+            "Flash Media":["Media found bent/broken, Inetrnal tracks of the chip damaged already","Media received in tampered condition","Data signals are damaged internally","Control signals are damaged internally","Lots of bit errors in this chip","Lots of Bad columns in this chip","Monolithic chip found short",
+                "Not able to decrypt Perfect ECC found in the chip","Not able to decrypt Adaptive XOR found in the chip","Unknown pin-layout of the monolithic chip","On Fly Encryption (eg: XOR, Dynamic XOR, Adaptive XOR, LDPC, Hardware encryption) found in the media","Fake chip inside the media",
+                "Solution not available at present"],
+            "CD/DVD":["CD/DVD surface not Readable","Heavy Scratches on the Surface of CD/DVD"],
+            "RAID":["Solution not available at present"],
+            "Other":["Required Data not Found","Data Overwritten","Most of the Sectors Internally Zero","Same pattern Written in most of the sectors","Most of the sectors are Garbage Sectors","Encryption Information Overwritten","Encryption Information not Found","CD/DVD disk not finalized",
+            "File Severely Damaged","Wrong HDD Provided by Client","Sample Data not Provided by Client","Low Level Formatted","Unknown Encryption","Encryption Details not Received","Corruption was found in the required data","Zero MB data (Empty Data shown)","Solution not available at present"]
+        }
+        return notPossible[media_type];
+    }
+
 
 
 

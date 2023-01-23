@@ -41,6 +41,8 @@ export class MediaAssessmentEdit implements OnInit {
     previewType:boolean = true;
     raidGroup: string[] = [];
     raidSRNo: string[] = [];
+    inspectionObj:any =[];
+    caseNotPossibleObj:any =[];
     errorMsg :string = 'Please fill all required fields *';
     @ViewChild('fileUploader') fileUploader:ElementRef;
     constructor(private formBuilder: FormBuilder,
@@ -146,6 +148,8 @@ export class MediaAssessmentEdit implements OnInit {
                 this.mediaObj['casetype'].splice('Logical',1);
                 this.mediaObj['casetype'].splice('Logical Complex',1);
             }
+            
+            this.dueReason();
         });
 
         this.mediaEdit.get("case_type")?.valueChanges.subscribe(x => {
@@ -529,4 +533,11 @@ export class MediaAssessmentEdit implements OnInit {
             } 
           });
     }
+    dueReason(){
+        let media_type:any = this.mediaDetails['media_type'];
+        let mediaType = AppUtil.checkMediaType(media_type);
+        this.inspectionObj = AppUtil.InspectionDueReason(mediaType);
+        this.caseNotPossibleObj = AppUtil.caseNotPossible(mediaType);
+    }
+    
 }

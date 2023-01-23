@@ -29,6 +29,8 @@ import {ObservationEdit} from './media-in/observation-edit.component';
 import { DailyStatus } from './media-in/daily-status.component';
 import { GatePassComponent } from './media-in/gate-pass.component';
 import { ObservationDetails } from './media-in/observation-details.component';
+import { InventoryListComponent } from './inventory/inventory-list.component';
+import { InventoryAddComponent } from './inventory/inventory-add-component';
 const routes: Routes = [
   {
     path: '',
@@ -150,6 +152,21 @@ const routes: Routes = [
         resolve:{
               profileResolver:ProfileResolver,
         }        
+      },
+      { path: 'inventory', component: InventoryListComponent,
+        resolve:{
+              profileResolver:ProfileResolver,
+        }        
+      },
+      { path: 'inventory/edit/:id', component: InventoryAddComponent,
+        resolve:{
+              roleList:RoleResolver,
+        }        
+      },
+      { path: 'inventory/add', component: InventoryAddComponent,
+          resolve:{
+                roleList:RoleResolver,
+          }        
       },
       { path: 'access-denied',component:AccessDeniedComponent },
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },

@@ -6,7 +6,6 @@ import { MediaIn } from './../../_models/mediaIn';
 import { MediaInService  } from './../../_services/mediaIn.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AppUtil } from 'src/app/_helpers/app.util';
-import { MatDialog } from '@angular/material/dialog';
 import { DataService } from 'src/app/_services/data.service';
 @Component({
   selector: 'job-confirm',

@@ -24,7 +24,6 @@ export class DailyStatus implements OnInit {
     ngOnInit(): void {
         this.getMediaDetails();
         this.getMediaStatusHistory();
-        this.statusList = AppUtil.mediaStausList() as any;
         this.jobStatus = this.formBuilder.group({
             media_id:[],  
             statusDrp:['',[Validators.required]],        
@@ -38,6 +37,9 @@ export class DailyStatus implements OnInit {
             this.mediaDetails = data as any;
             this.isLoading = true;
           });
+          let media_type:any = this.mediaDetails['media_type'];
+          let mediaType = AppUtil.checkMediaType(media_type);
+          this.statusList = AppUtil.StatusRecovery(mediaType);
     }
 
     getMediaStatusHistory()
