@@ -2,7 +2,10 @@
     <div class="content-header" style="margin-top: 57px;">
       <div class="container-fluid">
         <nav mat-tab-nav-bar>
-          <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"  [active]="activeLink == tabItem"> {{tabItem}}  </a>
+          <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"  [active]="activeLink == tabItem">
+            {{(mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive')?
+            tabItem:(mediaDetails['media_type'] !='Hard Drive' && mediaDetails['media_type'] !='External Hard Drive' && tabItem=='Initial Observation')?'Recovery':tabItem }} 
+            </a>
         </nav><br>
         <div class="row mb-2">
             <div class="col-xl-9 col-sm-9">

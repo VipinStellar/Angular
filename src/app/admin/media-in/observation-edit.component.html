@@ -12,49 +12,178 @@
         <div class="container-fluid" *ngIf="isLoading">
             <form [formGroup]="mediaEdit">
                 <div class="row">
-                <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">Media Condition:</label><br>
+                    <select class="form-control form-control-sm" formControlName="media_seal_condition">
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">Flash Media Architacture:</label><br>
+                    <select class="form-control form-control-sm" formControlName="architacture">
+                      <option value="Monolithic">Monolithic</option>
+                      <option value="Non Monolithic">Non Monolithic</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
+                    <label class="control-label">Media Interface:</label><br>
+                    <select class="form-control form-control-sm" formControlName="media_interface">
+                      <option value="SATA">SATA</option>
+                      <option value="SATA M.2">SATA M.2</option>
+                      <option value="NVME(M.2)">NVME(M.2)</option>
+                      <option value="U.2 ,ACHI">U.2 ,ACHI</option>
+                      <option value="muSATA">muSATA</option>
+                      <option value="PCIe EXPRESS"> PCIe EXPRESS</option>
+                      <option value="USB/Onborad"> USB/Onborad</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
+                    <label class="control-label">SSD Found Tempered:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
+                        <option value="Physical Damage">Physical Damage</option>
+                        <option value="Broken">Broken</option>
+                        <option value="Component Missing">Component Missing</option>
+                        <option value="Component Resolder">Component Resolder</option>
+                        <option value="Already Use Hot Air Gun">Already Use Hot Air Gun</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">NAND  Chip Found Tempered:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' && mediaDetails['media_type'] = 'Solid State Drive'">
                     <label class="control-label">Media Seal Condition:</label><br>
                     <select class="form-control form-control-sm" formControlName="media_seal_condition">
                       <option value="Tampered">Tampered</option>
                       <option value="Non Tampered">Non Tampered</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">{{mediaDetails['media_type']=='Flash Media'?'NAND Chip Found Faulty':'SSD Found Faulty'}}:</label><br>
+                    <select class="form-control form-control-sm" formControlName="p_c_b_found_faulty">
+                      <option value="Yes">Yes</option>
+                      <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">P.C.B. Found Faulty:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_found_faulty">
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3"  *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">Controller Found Faulty:</label><br>
+                    <select class="form-control form-control-sm" formControlName="motor_found_faulty">
+                        <option value="Yes">Yes</option>
+                        <option value="No">No</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">NAND Chip Internal Damage:</label><br>
+                    <select class="form-control form-control-sm" formControlName="internal_damage">
+                      <option value="Data Tracks">Data Tracks</option>
+                      <option value="Technological Pins">Technological Pins</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
+                    <label class="control-label">Controller Name:</label><br>
+                    <select class="form-control form-control-sm" formControlName="controller_name">
+                        <option value="Silicon Motion family(SM)">Silicon Motion family(SM)</option>
+                        <option value="Phison family,Marvell Family">Phison family,Marvell Family</option>
+                        <option value="Samsung family">Samsung family</option>
+                        <option value="Indilinx Barefoot family">Indilinx Barefoot family</option>
+                        <option value="OCZ Barefoot 3 family">OCZ Barefoot 3 family</option>
+                        <option value="Intel family">Intel family</option>
+                        <option value="Jmicron">Jmicron</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">Total No. of Data chips:</label><br>
+                    <select class="form-control form-control-sm" formControlName="total_numbers_of_heads">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                    <input *ngIf="f['total_numbers_of_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="total_numbers_of_heads_other"  placeholder="Please Enter" >
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] =='Flash Media'">
+                    <label class="control-label">Number Of Working NAND Chips:</label><br>
+                    <select class="form-control form-control-sm" formControlName="number_of_working_heads">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] =='Flash Media'">
+                    <label class="control-label">Number Of Non Working NAND Chips:</label><br>
+                    <select class="form-control form-control-sm" formControlName="number_of_non_working_heads">
+                        <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] =='Flash Media'">
+                    <label class="control-label">Encryption in Media:</label><br>
+                    <select class="form-control form-control-sm" formControlName="encryption">
+                      <option value="Dynamic XOR">Dynamic XOR</option>
+                      <option value="Adaptive XOR">Adaptive XOR</option>
+                      <option value="LDPC">LDPC</option>
+                      <option value="Hardware Encryption">Hardware Encryption</option>
+                      <option value="Unknown">Unknown</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3"  *ngIf="mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">XOR Key :</label><br>
+                    <select class="form-control form-control-sm" formControlName="virtual_translater">
+                      <option value="Available in Database">Available in Database</option>
+                      <option value="Non Available in Database">Non Available in Database</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
+                    <label class="control-label">Data Chip Type:</label><br>
+                    <select class="form-control form-control-sm" formControlName="unique_rom_chip">
+                      <option value="SMD(surface mounted Device)">SMD(surface mounted Device)</option>
+                      <option value="BGA ( Ball Grid Array)">BGA ( Ball Grid Array)</option>
+                      <option value="Embedded">Embedded</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
+                    <label class="control-label">On the Fly Encryption:</label><br>
+                    <select class="form-control form-control-sm" formControlName="encryption">
+                      <option value="T2 Chip">T2 Chip</option>
+                      <option value="M1 Chip">M1 Chip</option>
+                      <option value="Hardware">Hardware</option>
+                    </select>
+                  </div>
+
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Unique Rom Chip:</label><br>
                     <select class="form-control form-control-sm" formControlName="unique_rom_chip">
                       <option value="Original">Original</option>
                       <option value="Changed">Changed</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">P.C.B. Original:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_original">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Motor ( Rotational System ) Found Faulty:</label><br>
                     <select class="form-control form-control-sm" formControlName="motor_found_faulty">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">P.C.B. Found Tempered:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Head Stack Assembly:</label><br>
                     <select class="form-control form-control-sm" formControlName="head_stack_assembly">
                       <option value="Fauly">Fauly</option>
@@ -62,7 +191,7 @@
                       <option value="Broken">Broken</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Found Foreign Particles On Platters:</label><br>
                     <select class="form-control form-control-sm" formControlName="found_foreign_particles_on_platters">
                         <option value="Yes">Yes</option>
@@ -72,35 +201,35 @@
                         <option value="Burnt">Burnt</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Total Numbers Of Heads:</label><br>
                     <select class="form-control form-control-sm" formControlName="total_numbers_of_heads">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
                     <input *ngIf="f['total_numbers_of_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="total_numbers_of_heads_other"  placeholder="Please Enter" >
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Total Number Of Platters:</label><br>
                     <select class="form-control form-control-sm" formControlName="total_number_of_platters">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
                     <input *ngIf="f['total_number_of_platters'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="total_number_of_platters_other"  placeholder="Please Enter" >
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Number Of Working Heads:</label><br>
                     <select class="form-control form-control-sm" formControlName="number_of_working_heads">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
                     <input *ngIf="f['number_of_working_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="number_of_working_heads_other"  placeholder="Please Enter" >
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Number Of Non Working Heads:</label><br>
                     <select class="form-control form-control-sm" formControlName="number_of_non_working_heads">
                         <option *ngFor="let count of mediaObj['plattersCount']" [value]="count">{{count}}</option>
                     </select>
                     <input *ngIf="f['number_of_non_working_heads'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="number_of_non_working_heads_other"  placeholder="Please Enter" >
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Condition Of Platter Surface:</label><br>
                     <select class="form-control form-control-sm" formControlName="condition_of_platter_surface">
                       <option value="Light Scratches">Light Scratches</option>
@@ -108,30 +237,30 @@
                       <option value="Polymeric lubricant layer found damaged">Polymeric lubricant layer found damaged</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Condition Of Multiple Platter Surface:</label><br>
                     <input type="text" class="form-control form-control-sm" formControlName="condition_of_multiple_platter_surface">
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Platter Cleaning Required At Initial Stage:</label><br>
                     <select class="form-control form-control-sm" formControlName="platter_cleaning_required_at_initial_stage">
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
-                    <label class="control-label">P.c.b Rom Is Corrupted:</label><br>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
+                    <label class="control-label">P.C.B Rom Is Corrupted:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_rom_is_corrupted">
                       <option *ngFor="let count of mediaObj['encryptionStatus']" [value]="count">{{count}}</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">The Modules In The Service Area Are Corrupted:</label><br>
                     <select class="form-control form-control-sm" formControlName="service_area_are_corrupted">
                       <option *ngFor="let count of mediaObj['encryptionStatus']" [value]="count">{{count}}</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3">
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
                     <label class="control-label">Imaging Process At Initial Stage:</label><br>
                     <select class="form-control form-control-sm" formControlName="imaging_process_at_initial_stage">
                       <option value="Slow">Slow</option>
@@ -145,10 +274,42 @@
                       <option value="No">No</option>
                     </select>
                   </div>
+                  <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'|| mediaDetails['media_type'] == 'Flash Media'">
+                    <label class="control-label">Chip Reading Method :</label><br>
+                    <select class="form-control form-control-sm" formControlName="imaging_process_at_initial_stage">
+                      <option value="Chipoff">Chipoff</option>
+                      <option value="Non Chipoff">Non Chipoff</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3"  *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
+                    <label class="control-label">Virtual Translater :</label><br>
+                    <select class="form-control form-control-sm" formControlName="virtual_translater">
+                      <option value="Available in Database">Available in Database</option>
+                      <option value="Non Available in Database">Non Available in Database</option>
+                    </select>
+                  </div>
                   <div class="col-4 p-3">
                     <label class="control-label">Recovery Possibility:</label><br>
                     <select class="form-control form-control-sm" formControlName="recovery_possibility">
                       <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No') && (mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive')">
+                    <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
+                    <select class="form-control form-control-sm" formControlName="recoverable_data">
+                      <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No') && (mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive')">
+                    <label class="control-label">Recovery Percentage:</label><br>
+                    <select class="form-control form-control-sm" formControlName="recovery_percentage">
+                      <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No') && (mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive')">
+                    <label class="control-label">Required Days:</label><br>
+                    <select class="form-control form-control-sm" formControlName="required_days">
+                      <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
                     </select>
                   </div>
                   <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
@@ -158,7 +319,38 @@
                         </mat-select>
                     <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
                   </div>
-                  
+                  <div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
+                    <label class="control-label">Field 1:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="label1"></textarea>
+                  </div>
+                  <div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
+                    <label class="control-label">Field 2:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="label2"></textarea>
+                  </div>
+                  <div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
+                    <label class="control-label">Field 3:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="label3"></textarea>
+                  </div>
+                  <div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
+                    <label class="control-label">Field 4:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="label4"></textarea>
+                  </div>
+                  <div class="col-lg-12 col-md-12 p-3">
+                    <label class="control-label">Notes For Customer:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="notes"
+                      [ngClass]="{ 'is-invalid': submitted && f['notes'].errors }"></textarea>
+                    <div *ngIf="submitted && f['notes'].errors" class="invalid-feedback">
+                      <div *ngIf="f['notes'].errors['required']">notes is required</div>
+                    </div>
+                  </div>
+                  <div class="col-lg-12 col-md-12 p-3">
+                    <label class="control-label">Add Your Remarks For ISE/DRC<sup class="text-danger">*</sup>:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="remarks"
+                      [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+                    <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+                      <div *ngIf="f['remarks'].errors['required']">Remarks is required</div>
+                    </div>
+                  </div>
                 </div>
                 <div class="col-12 text-right">
                   <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;

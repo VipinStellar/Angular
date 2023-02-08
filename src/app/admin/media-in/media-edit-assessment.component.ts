@@ -127,14 +127,8 @@ export class MediaAssessmentEdit implements OnInit {
             encryption_name_other:[],
             backup_software_other:[],
             drive_electronics_other:[],
-            assessment_due_reason_other:[]
-            //media_interface:[],
-            //media_model:[],
-            //media_ubi:[],
-            //cloning_possibility:[],
-            //disk_type:[],   
-            //           
-
+            assessment_due_reason_other:[],      
+            notes:[]
         });
 
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
@@ -230,13 +224,7 @@ export class MediaAssessmentEdit implements OnInit {
             media_architecture: media.media_architecture,
             extension_required: media.extension_required,
             extension_day: media.extension_day,
-            // media_interface:media.media_interface,            
-            //        
-            //media_model:media.media_model,
             drive_count: media.drive_count,
-            // media_ubi:media.media_ubi,
-            //disk_type:media.disk_type,
-            //cloning_possibility:media.cloning_possibility,
             server_type: media.server_type,
             total_drive: '',
             media_clone_detail: '',
@@ -252,6 +240,7 @@ export class MediaAssessmentEdit implements OnInit {
             backup_software_other:'',
             drive_electronics_other:'',
             assessment_due_reason_other:media.assessment_due_reason_other,
+            notes:media.notes
         });
 
         this.mediaLoading = true;
@@ -424,6 +413,9 @@ export class MediaAssessmentEdit implements OnInit {
                     site_code: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['site_code'] != null) ? this.mediaSpareModelValue[i]['site_code'] : ''],
                     pcb_num: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['pcb_num'] != null) ? this.mediaSpareModelValue[i]['pcb_num'] : ''],
                     inventry_num: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['inventry_num'] != null) ? this.mediaSpareModelValue[i]['inventry_num'] : ''],
+                    controller_model: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['controller_model'] != null) ? this.mediaSpareModelValue[i]['controller_model'] : ''],
+                    nom_of_data: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['nom_of_data'] != null) ? this.mediaSpareModelValue[i]['nom_of_data'] : ''],
+                    controller_make: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['controller_make'] != null) ? this.mediaSpareModelValue[i]['controller_make'] : ''],
                 }));
             }
         }

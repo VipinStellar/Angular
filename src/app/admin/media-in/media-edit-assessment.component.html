@@ -96,7 +96,8 @@
                  <option value="Electronic Circuit Faliure">Electronic Circuit Faliure</option>
                  <option value="Bad Block Corruption">Bad Block Corruption</option>
                  <option value="Bad Byte Corruption">Bad Byte Corruption</option>
-                 <option value="Not Determined at Present Stage">Not Determined at Present Stage</option>
+                 <option value="Defective Tracks">Defective Tracks</option>
+                 <option value="Not Known at Persent ">Not Known at Persent </option>
                  <option value="Others">Others</option>
                 </select>
               </div>
@@ -105,7 +106,7 @@
                 <select class="form-control form-control-sm" formControlName="media_architecture">
                  <option value="Monolithic">Monolithic</option>
                  <option value="Non Monolithic">Non Monolithic</option>
-                 <option value="Not Determined at Present Stage">Not Determined at Present Stage</option>
+                 <option value="Not Known at Persent ">Not Known at Persent </option>
                 </select>
               </div>
               <div class="col-4 p-3" *ngIf="!caseType">
@@ -267,7 +268,15 @@
                 </select>
               </div>
               <div class="col-lg-12 col-md-12 mb-3">
-                <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+                <label class="control-label">Notes For Customer:</label><br>
+                <textarea class="form-control form-control-sm" formControlName="notes"
+                  [ngClass]="{ 'is-invalid': submitted && f['notes'].errors }"></textarea>
+                <div *ngIf="submitted && f['notes'].errors" class="invalid-feedback">
+                  <div *ngIf="f['notes'].errors['required']">notes is required</div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 mb-3">
+                <label class="control-label">Add Your Remarks(ISE/DRC)<sup class="text-danger">*</sup>:</label><br>
                 <textarea class="form-control form-control-sm" formControlName="remarks"
                   [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
                 <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
@@ -453,7 +462,15 @@
                 </select>
               </div>
               <div class="col-lg-12 col-md-12 mb-3">
-                <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+                <label class="control-label">Notes For Customer:</label><br>
+                <textarea class="form-control form-control-sm" formControlName="notes"
+                  [ngClass]="{ 'is-invalid': submitted && f['notes'].errors }"></textarea>
+                <div *ngIf="submitted && f['notes'].errors" class="invalid-feedback">
+                  <div *ngIf="f['notes'].errors['required']">notes is required</div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 mb-3">
+                <label class="control-label">Add Your Remarks(ISE/DRC)<sup class="text-danger">*</sup>:</label><br>
                 <textarea class="form-control form-control-sm" formControlName="remarks"
                   [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
                 <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
@@ -614,7 +631,15 @@
                 </select>
               </div>
               <div class="col-lg-12 col-md-12 mb-3">
-                <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+                <label class="control-label">Notes For Customer:</label><br>
+                <textarea class="form-control form-control-sm" formControlName="notes"
+                  [ngClass]="{ 'is-invalid': submitted && f['notes'].errors }"></textarea>
+                <div *ngIf="submitted && f['notes'].errors" class="invalid-feedback">
+                  <div *ngIf="f['notes'].errors['required']">notes is required</div>
+                </div>
+              </div>
+              <div class="col-lg-12 col-md-12 mb-3">
+                <label class="control-label">Add Your Remarks(ISE/DRC)<sup class="text-danger">*</sup>:</label><br>
                 <textarea class="form-control form-control-sm" formControlName="remarks"
                   [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
                 <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
@@ -824,7 +849,15 @@
                   </select>
                 </div>
                 <div class="col-lg-12 col-md-12 mb-3">
-                  <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+                  <label class="control-label">Notes For Customer:</label><br>
+                  <textarea class="form-control form-control-sm" formControlName="notes"
+                    [ngClass]="{ 'is-invalid': submitted && f['notes'].errors }"></textarea>
+                  <div *ngIf="submitted && f['notes'].errors" class="invalid-feedback">
+                    <div *ngIf="f['notes'].errors['required']">notes is required</div>
+                  </div>
+                </div>
+                <div class="col-lg-12 col-md-12 mb-3">
+                  <label class="control-label">Add Your Remarks(ISE/DRC)<sup class="text-danger">*</sup>:</label><br>
                   <textarea class="form-control form-control-sm" formControlName="remarks"
                     [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
                   <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
@@ -1059,13 +1092,22 @@
           <div class="form-group col">
             <label>Media Capacity</label>
           </div>
-          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+            <label>Controller Model No</label>
+          </div>
+          <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+            <label>No Of Data CHIP</label>
+          </div>
+          <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+            <label>Controller Make</label>
+          </div>
+          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
             <label>Firmware</label>
           </div>
-          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
             <label>Site Code</label>
           </div>
-          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
+          <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
             <label>PCB No</label>
           </div>
           <div class="form-group col" *ngIf="this.f['spare_required'].value == 'Available in Stellar Inventory'">
@@ -1092,13 +1134,22 @@
                   <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
                 </select>
               </div>
-              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
+              <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+                <input type="text" formControlName="controller_model" class="form-control form-control-sm" />
+              </div>
+              <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+                <input type="text" formControlName="nom_of_data" class="form-control form-control-sm" />
+              </div>
+              <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+                <input type="text" formControlName="controller_make" class="form-control form-control-sm" />
+              </div>
+              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
                 <input type="text" formControlName="firmware" class="form-control form-control-sm" />
               </div>
-              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
+              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
                 <input type="text" formControlName="site_code" class="form-control form-control-sm" />
               </div>
-              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone'">
+              <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Standalone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
                 <input type="text" formControlName="pcb_num" class="form-control form-control-sm" />
               </div>
               <div class="form-group col" *ngIf="this.f['spare_required'].value == 'Available in Stellar Inventory'">

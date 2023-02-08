@@ -137,6 +137,44 @@
                                         *ngIf="Invalidate['date_purchase'].errors['message']">{{Invalidate['date_purchase'].errors['message']}}</small>
                                 </div>
                             </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Received From: </label>
+                                <select class="form-control form-control-sm" formControlName="received_from"  [ngClass]="{ 'is-invalid': submitted && Invalidate['received_from'].errors }">
+                                    <option value="Stellar Inventory">Stellar Inventory</option>
+                                    <option value="Branch Inventory">Branch Inventory</option>
+                                    <option value="Junk">Junk</option>
+                                  </select>
+                                <div *ngIf="submitted && Invalidate['received_from'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['received_from'].errors['required']">Received From is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['received_from'].errors['message']">{{Invalidate['received_from'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4  p-2" *ngIf="Invalidate['received_from'].value != null && Invalidate['received_from'].value != 'Stellar Inventory'">
+                                <label class="control-label">Branch: </label>
+                                <select class="form-control form-control-sm" formControlName="branch_id"  [ngClass]="{ 'is-invalid': submitted && Invalidate['branch_id'].errors }">
+                                    <option *ngFor="let search of branchList" [value]="search['id']">{{search['branch_name']}}</option>
+                                  </select>
+                            </div>
+                            <div class="col-4  p-2" *ngIf="Invalidate['received_from'].value != null && Invalidate['received_from'].value != 'Stellar Inventory'">
+                                <label class="control-label">Job Id: </label>
+                                <input type="text" formControlName="job_id"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['job_id'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['job_id'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['job_id'].errors['required']">Job Id is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['job_id'].errors['message']">{{Invalidate['job_id'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-12  p-2">
+                                <label class="control-label">Add Your Remarks<sup class="text-danger"> *</sup> : </label>
+                                <textarea class="form-control form-control-sm" formControlName="remarks"
+                                  [ngClass]="{ 'is-invalid': submitted && Invalidate['remarks'].errors }"></textarea>
+                                <div *ngIf="submitted && Invalidate['remarks'].errors" class="invalid-feedback">
+                                  <div *ngIf="Invalidate['remarks'].errors['required']">Remarks is required</div>
+                                </div>
+                            </div>
                             <div class="col-12 text-right">
                                 <button class="btn btn-default" (click)="cancel();">Close</button>&nbsp;
                                 <button type="buttun" class="btn btn-primary" (click)="onSubmit()">Save</button>

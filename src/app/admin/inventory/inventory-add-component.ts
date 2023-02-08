@@ -5,6 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Inventory } from 'src/app/_models/inventory';
 import { Location } from '@angular/common';
 import {InventoryService} from './../../_services/inventory';
+import { MediaInService } from 'src/app/_services/mediaIn.service';
 @Component({
     selector: 'inventory-add',
     templateUrl: './inventory-add-component.html',
@@ -15,11 +16,13 @@ export class InventoryAddComponent implements OnInit {
     inventoryForm: FormGroup;
     submitted:boolean;
     isEdit:boolean;
+    branchList:[];
     constructor(private toastrService: ToastrService,
                 private formBuilder: FormBuilder,
                 private router: Router, 
                 private route: ActivatedRoute,
                 private _location: Location,
+                private mediaInService: MediaInService,
                 private inventoryService:InventoryService) {
                     if(this.router.url.indexOf("/edit/") != -1){
                         this.isEdit = true;
@@ -27,6 +30,9 @@ export class InventoryAddComponent implements OnInit {
                       }
                 }  
     ngOnInit(): void {
+        this.mediaInService.getAllBranch().subscribe( data => {
+            this.branchList = data as any;
+          }); 
         this.loadForm();
         if(this.isEdit)
         {
@@ -51,7 +57,11 @@ export class InventoryAddComponent implements OnInit {
             rack_num:data.rack_num,
             inventory_type:data.inventory_type,
             size:capacity[1],
-            numsize:capacity[0]
+            numsize:capacity[0],
+            received_from:data.received_from,
+            branch_id:data.branch_id,
+            job_id:data.job_id,
+            remarks:data.remarks
         });
     }
 
@@ -63,13 +73,17 @@ export class InventoryAddComponent implements OnInit {
             serial_num : ['',[Validators.required]],
             pcb_num : ['',[Validators.required]],
             interface : ['',[Validators.required]],
-            firmware : ['',[Validators.required]],
-            date_purchase : ['',[Validators.required]],
+            firmware : [''],
+            date_purchase : [],
             size : ['',[Validators.required]],
             numsize : ['',[Validators.required]],
             type : ['',[Validators.required]],
             rack_num : ['',[Validators.required]],
             inventory_type : ['',[Validators.required]],
+            received_from:[],
+            branch_id:[],
+            job_id:[],
+            remarks:['',[Validators.required]]
           });
     }
 

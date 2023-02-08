@@ -36,10 +36,10 @@ export class DailyStatus implements OnInit {
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
             this.isLoading = true;
+            let mediaType = AppUtil.checkMediaType(this.mediaDetails['media_type']);
+            this.statusList = AppUtil.StatusRecovery(mediaType);
           });
-          let media_type:any = this.mediaDetails['media_type'];
-          let mediaType = AppUtil.checkMediaType(media_type);
-          this.statusList = AppUtil.StatusRecovery(mediaType);
+         
     }
 
     getMediaStatusHistory()

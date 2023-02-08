@@ -12,7 +12,7 @@ import { Location } from '@angular/common';
     templateUrl: './observation-edit.component.html',
 })
 export class ObservationEdit implements OnInit {
-    pageTitle: string = "Initial Physical Observation";
+    pageTitle: string = "Initial Observation";
     assignedRole: [];
     currentUrl: string;
     isAsscessDenied: boolean;
@@ -35,7 +35,9 @@ export class ObservationEdit implements OnInit {
         this.loadForm();  
         this.mediaInService.getObservation(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;    
-            this.modeltoForm(this.mediaDetails);        
+            this.modeltoForm(this.mediaDetails); 
+            if(this.mediaDetails['media_type'] != 'Hard Drive' && this.mediaDetails['media_type'] != 'External Hard Drive')
+            this.pageTitle = "Recovery";       
             this.loading = false;
             this.dueReason();
         });
@@ -84,6 +86,21 @@ export class ObservationEdit implements OnInit {
             recovery_possibility:media.recovery_possibility,
             no_recovery_reason:JSON.parse(media.no_recovery_reason),
             no_recovery_reason_other:media.no_recovery_reason_other,
+            media_interface:media.media_interface,
+            controller_name:media.controller_name,
+            encryption:media.encryption,
+            virtual_translater:media.virtual_translater,
+            notes:media.notes,
+            remarks:'',
+            recovery_percentage:media.recovery_percentage,
+            recoverable_data:media.recoverable_data,
+            required_days:media.required_days,
+            label1:media.label1,      
+            label2:media.label2,      
+            label3:media.label3,      
+            label4:media.label4,
+            architacture:media.architacture,
+            internal_damage:media.internal_damage
         });
     }
 
@@ -95,6 +112,10 @@ export class ObservationEdit implements OnInit {
             id : [''],
             media_id : [''],
             media_seal_condition : [''],
+            media_interface : [''],
+            controller_name:[],
+            encryption:[],
+            virtual_translater:[],
             p_c_b_found_faulty : [''],
             unique_rom_chip : [''],
             p_c_b_original : [''],
@@ -119,7 +140,18 @@ export class ObservationEdit implements OnInit {
             number_of_non_working_heads_other : [''], 
             recovery_possibility:[],
             no_recovery_reason:[],
-            no_recovery_reason_other:[]       
+            no_recovery_reason_other:[],
+            remarks: ['', [Validators.required]],
+            notes:[],
+            recovery_percentage:[],       
+            recoverable_data:[],       
+            required_days:[], 
+            label1:[],      
+            label2:[],      
+            label3:[],      
+            label4:[], 
+            architacture:[],
+            internal_damage:[]     
         });
     }
 
