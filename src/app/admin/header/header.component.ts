@@ -4,24 +4,20 @@ import { ToastrService } from 'ngx-toastr';
 import { AuthUser } from 'src/app/_models/authuser';
 import { UserService } from './../../_services/user.service';
 import { Router} from '@angular/router';
+import { Permission } from './../../_helpers/permission';
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.sass']
+  styleUrls: ['./header.component.sass'],
+  providers:[Permission]
 })
 export class HeaderComponent implements OnInit {
   user: AuthUser;
-  assignRole;
-  constructor(private toastrService:ToastrService,  private accountService:AccountService,private userService:UserService,private router:Router) { }
+  assignedRole:[];
+  constructor(public permission:Permission, private toastrService:ToastrService,  private accountService:AccountService,private userService:UserService,private router:Router) { }
 
   ngOnInit(): void {
    this.user =  this.accountService.userValue;
-   this.userService.getAssignRole().subscribe( data => {
-     let res = data as any;
-     let tmp = JSON.parse(res.assign);
-     tmp = tmp['access'];
-     this.assignRole = JSON.stringify(tmp);
-  });
   }
 
   logout() {
@@ -31,15 +27,5 @@ export class HeaderComponent implements OnInit {
       this.toastrService.success('User logged out successfully','Success!');
   });
   } 
-
-  isAccess(url:string)
-  {
-
-    if(url != undefined && url !=null && url !='' && url !='/' && this.assignRole != undefined &&  this.assignRole.indexOf(url) !== -1)
-    {
-      return true
-    }
-    return false;
-  }
 
 }

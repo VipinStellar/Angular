@@ -29,20 +29,12 @@ mediaInList: MatTableDataSource<MediaIn> = new MatTableDataSource();
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator)
 paginator!: MatPaginator;
-isAsscessDenied: boolean;
-currentUrl: string;
-assignedRole: [];
 branchList:[];
 status:[];
 statusId=null;
 branchId=null;
 constructor(private mediaInService: MediaInService, private route: ActivatedRoute,private router: Router,public dialog: MatDialog) { }
     ngOnInit(): void {
-     this.currentUrl = this.router.url.split('/')[2];
-    this.assignedRole = this.route.snapshot.data['profileResolver'];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-    if (!this.isAsscessDenied)
-      this.router.navigate(['admin/access-denied']);
       this.mediaInService.mediastatus('all').subscribe( data => {
         this.status = data as any;
       }); 

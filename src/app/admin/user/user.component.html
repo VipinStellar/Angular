@@ -23,7 +23,7 @@
           <div class="col-sm-2 " *ngIf="searchfieldName !=null && searchfieldName !=''"> 
             <button  class="btn btn-primary" (click)="loadData()">Search</button>
           </div>
-          <div class="col-sm-2" *ngIf="_isAsscessDenied('modify')">
+          <div class="col-sm-2" *ngIf="permission.editPermission('user')">
               <button class="btn btn-primary" style="float: right;" (click)="openUser()">Add User</button>
           </div>
         </div>
@@ -84,13 +84,13 @@
 
 <mat-menu #menu="matMenu">
   <ng-template matMenuContent let-user="user">
-    <button mat-menu-item (click)="editUser(user)" *ngIf="_isAsscessDenied('modify')">
+    <button mat-menu-item (click)="editUser(user)" *ngIf="permission.editPermission('user')">
       <mat-icon>edit</mat-icon><span>Edit</span>
     </button>
-    <button mat-menu-item (click)="viewUser(user);" *ngIf="_isAsscessDenied('access')">
+    <button mat-menu-item (click)="viewUser(user);" *ngIf="permission.PermissionForAccess('user')">
       <mat-icon>pageview</mat-icon><span>View</span>
   </button>
-    <button mat-menu-item (click)="deleteUser(user)" *ngIf="_isAsscessDenied('delete')">
+    <button mat-menu-item (click)="deleteUser(user)" *ngIf="permission.deletePermission('user')">
       <mat-icon>delete</mat-icon><span>Delete</span>
     </button>
   </ng-template>

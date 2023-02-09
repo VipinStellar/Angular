@@ -120,11 +120,9 @@
               </div>
              </div>
               <div class="col-md-6" *ngIf="validateGatepass['gatepass_type'].value == 'Returnable'">
-                <div class="form-group d-flex">
-                  <input matInput [matDatepicker]="picker" formControlName="expected_return_date" [ngClass]="{ 'is-invalid':submitted && validateGatepass['expected_return_date'].errors }" class="form-control form-control-sm" placeholder="Expected Return Date">
-                  <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
-                  <mat-datepicker #picker></mat-datepicker>
-                  <div *ngIf="submitted && validateGatepass['expected_return_date'].errors" class="invalid-feedback">
+                <div class="form-group ">
+                  <input type="date" formControlName="expected_return_date" [ngClass]="{ 'is-invalid':submitted && validateGatepass['expected_return_date'].errors }" class="form-control form-control-sm">
+                   <div *ngIf="submitted && validateGatepass['expected_return_date'].errors" class="invalid-feedback">
                     <div *ngIf="validateGatepass['expected_return_date'].errors['required']">Please Enter Expected Return Date</div>
                   </div>
                 </div>

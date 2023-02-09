@@ -13,9 +13,6 @@ import { Location } from '@angular/common';
 })
 export class ObservationEdit implements OnInit {
     pageTitle: string = "Initial Observation";
-    assignedRole: [];
-    currentUrl: string;
-    isAsscessDenied: boolean;
     isLoading: boolean = true;
     mediaDetails: MediaIn[] = [];
     mediaEdit: FormGroup;
@@ -26,12 +23,6 @@ export class ObservationEdit implements OnInit {
     constructor(private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute,
               private toastrService: ToastrService ,private _location: Location, private formBuilder: FormBuilder,private accountService: AccountService) {}    
     ngOnInit(): void {
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', this.currentUrl);
-        this.mediaObj = AppUtil.getMediaDeatils() as any;
-        if (!this.isAsscessDenied)
-        this.router.navigate(['admin/access-denied']);
         this.loadForm();  
         this.mediaInService.getObservation(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;    

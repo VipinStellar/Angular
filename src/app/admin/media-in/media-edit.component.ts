@@ -11,9 +11,6 @@ import { AppUtil } from 'src/app/_helpers/app.util';
     templateUrl: './media-edit.component.html',
 })
 export class MediaEdit implements OnInit {
-    currentUrl: string;
-    assignedRole: [];
-    isAsscessDenied: boolean;
     pageTitle: string;
     submitted: boolean;
     loading: boolean;
@@ -39,10 +36,6 @@ export class MediaEdit implements OnInit {
     }
     ngOnInit(): void {
         this.mediaOption = AppUtil.getMediaDeatils() as any;
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "pre-analysis");
-        if (!this.isAsscessDenied)
-            this.router.navigate(['admin/access-denied']);
         this.pageTitle = "Pre Inspection";
         this.mediaInService.mediastatus('analysis').subscribe(data => {
             this.stages = data as any;

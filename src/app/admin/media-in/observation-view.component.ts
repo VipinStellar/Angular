@@ -10,22 +10,14 @@ import { AccountService } from 'src/app/_services/account.service';
 })
 export class ObservationView implements OnInit {
     pageTitle: string = "Pre Inspection";
-    assignedRole: [];
-    currentUrl: string;
-    isAsscessDenied: boolean;
     isLoading: boolean;
     mediaDetails: MediaIn[] = [];
     tabItems = AppUtil.getMediaRecoveryTab();
     activeLink = this.tabItems[1];
     mediaEditHistory: [];
-    constructor(private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute,
-                private accountService: AccountService) {}    
+    constructor(private mediaInService: MediaInService,private router: Router,
+                 private route: ActivatedRoute) {}    
     ngOnInit(): void {
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-        if (!this.isAsscessDenied)
-        this.router.navigate(['admin/access-denied']);
         this.getMediaDetails();
         this.getMediaEditHistory();
         

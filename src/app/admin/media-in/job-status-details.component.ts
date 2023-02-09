@@ -12,9 +12,6 @@ import { ToastrService } from 'ngx-toastr';
 
 export class JobDetailStatusComponent implements OnInit {
   pageTitle: string = "Job Status";
-  assignedRole: [];
-  currentUrl: string;
-  isAsscessDenied: boolean;
   mediaDetails: MediaIn[] = [];
   statusList:[];
   submitted: boolean;
@@ -24,14 +21,7 @@ export class JobDetailStatusComponent implements OnInit {
     private router: Router, private route: ActivatedRoute) {
   }
     ngOnInit(): void {
-
-      this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', this.currentUrl);
-        if (!this.isAsscessDenied)
-          this.router.navigate(['admin/access-denied']);
           this.getMediaJobDetails();
-
           this.mediaInService.mediastatus('all').subscribe( data => {
             this.statusList = data as any;
           }); 

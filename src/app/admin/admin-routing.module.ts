@@ -10,7 +10,6 @@ import { RoleResolver } from './role/role.resolver';
 import { CountryResolver } from './branch/country.resolver';
 import { StateResolver} from './branch/state.resolver';
 import { ModuleResolver } from './role/module.resolver';
-import { ProfileResolver } from './user/profile.resolver';
 import { TeamResolver } from './user/teamresolver';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { RoleAddComponent } from './role/role-add.component';
@@ -41,133 +40,51 @@ const routes: Routes = [
            resolve:{
             branchList:BranchResolver,
             roleList:RoleResolver,
-            teamList:TeamResolver,
-            profileResolver:ProfileResolver
+            teamList:TeamResolver
            }
       },
       {path:'user/change-password',component: UserChangePassword},
-      { path: 'role', component: RoleComponent,
-            resolve:{
-              profileResolver:ProfileResolver
-            }
-      },
+      { path: 'role', component: RoleComponent},
       { path: 'role/edit/:id', component: RoleAddComponent,
         resolve:{
               moduleList:ModuleResolver,
-              profileResolver:ProfileResolver,
               roleList:RoleResolver,
         }        
       },
       { path: 'role/add', component: RoleAddComponent,
           resolve:{
                 moduleList:ModuleResolver,
-                profileResolver:ProfileResolver,
                 roleList:RoleResolver,
-          }        
+            }        
       },
       { path: 'branch', component: BranchComponent,
           resolve:{
             countryList:CountryResolver,
             stateList:StateResolver,
-            profileResolver:ProfileResolver
-          } 
-          
-      },
-      { path: 'media', component: MediaInComponent,
-          resolve:{
-            profileResolver:ProfileResolver,
-            
           }           
       },
-      { path: 'job-status', component: JobListComponent,
-        resolve:{
-          profileResolver:ProfileResolver        
-          }       
-      },
-      { path: 'job-status/:id', component: JobDetailStatusComponent,
-         resolve:{
-        profileResolver:ProfileResolver,
-        
-        }       
-      },
-      { path: 'case-details/:id', component: MediaCaseDetail,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
+      { path: 'media', component: MediaInComponent},
+      { path: 'job-status', component: JobListComponent},
+      { path: 'job-status/:id', component: JobDetailStatusComponent},
+      { path: 'case-details/:id', component: MediaCaseDetail},
       { path: 'pre-analysis/:id', component: MediaPreComponent,
-        resolve:{
-              profileResolver:ProfileResolver,
-              teamList:TeamResolver,
-        }        
+        resolve:{ teamList:TeamResolver}        
       },
-      { path: 'pre-analysis/edit/:id', component: MediaEdit,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'media-assessment/edit/:id', component: MediaAssessmentEdit,
-        resolve:{
-            profileResolver:ProfileResolver,
-         }        
-     },
+      { path: 'pre-analysis/edit/:id', component: MediaEdit},
+      { path: 'media-assessment/edit/:id', component: MediaAssessmentEdit},
       { path: 'transfer-media/:id', component: MediaPreComponent,
-      resolve:{
-            profileResolver:ProfileResolver,
-            teamList:TeamResolver,
-      }        
+        resolve:{teamList:TeamResolver}        
       },
-      { path: 'media-assessment/:id', component: MediaAssessmentView,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'job-confirm', component: JobConfirmComponent,
-        resolve:{
-          profileResolver:ProfileResolver        
-          }       
-      },
-      { path: 'observation/edit/:id', component: ObservationEdit,
-      resolve:{
-            profileResolver:ProfileResolver,
-      }        
-     },
-      { path: 'observation/:id', component: ObservationView,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'daily-status/:id', component: DailyStatus,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'gate-pass', component: GatePassComponent,
-        resolve:{
-              branchList:BranchResolver,
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'observation-details/:id', component: ObservationDetails,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'inventory', component: InventoryListComponent,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'inventory/edit/:id', component: InventoryAddComponent,
-        resolve:{
-              roleList:RoleResolver,
-        }        
-      },
-      { path: 'inventory/add', component: InventoryAddComponent,
-          resolve:{
-                roleList:RoleResolver,
-          }        
-      },
+      { path: 'media-assessment/:id', component: MediaAssessmentView},
+      { path: 'job-confirm', component: JobConfirmComponent},
+      { path: 'observation/edit/:id', component: ObservationEdit},
+      { path: 'observation/:id', component: ObservationView},
+      { path: 'daily-status/:id', component: DailyStatus},
+      { path: 'gate-pass', component: GatePassComponent},
+      { path: 'observation-details/:id', component: ObservationDetails},
+      { path: 'inventory', component: InventoryListComponent},
+      { path: 'inventory/edit/:id', component: InventoryAddComponent},
+      { path: 'inventory/add', component: InventoryAddComponent},
       { path: 'access-denied',component:AccessDeniedComponent },
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
     
@@ -178,6 +95,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[BranchResolver,RoleResolver,TeamResolver,CountryResolver,StateResolver,ModuleResolver,ProfileResolver]
+  providers:[BranchResolver,RoleResolver,TeamResolver,CountryResolver,StateResolver,ModuleResolver]
 })
 export class AdminRoutingModule { }

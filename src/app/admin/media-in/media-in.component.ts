@@ -35,9 +35,6 @@ export class MediaInComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  assignedRole: [];
-  isAsscessDenied: boolean;
-  currentUrl: string;
   branchList:[];
   status:[];
   range = new FormGroup({
@@ -55,14 +52,7 @@ export class MediaInComponent implements OnInit {
   selectedAddBranch:null
   constructor(private dataService:DataService,private mediaInService: MediaInService, public dialog: MatDialog,private route: ActivatedRoute,private router: Router) { }
 
-  ngOnInit(): void {
-    this.currentUrl = this.router.url.split('/')[2];
-    this.assignedRole = this.route.snapshot.data['profileResolver'];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-    if (!this.isAsscessDenied)
-      this.router.navigate(['admin/access-denied']);
-     
-
+  ngOnInit(): void {  
       this.mediaInService.mediastatus('all').subscribe( data => {
         this.status = data as any;
       }); 

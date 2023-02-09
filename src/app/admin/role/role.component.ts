@@ -6,11 +6,12 @@ import { Role } from './../../_models/role';
 import { RoleService } from './../../_services/role.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AppUtil } from 'src/app/_helpers/app.util';
+import { Permission } from './../../_helpers/permission';
 @Component({
   selector: 'app-role',
   templateUrl: './role.component.html',
-  styleUrls: ['./role.component.sass']
+  styleUrls: ['./role.component.sass'],
+  providers:[Permission]
 })
 export class RoleComponent implements OnInit {
 
@@ -30,17 +31,10 @@ export class RoleComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  assignedRole: [];
-  isAsscessDenied: boolean;
-  currentUrl: string;
-  constructor(private roleService: RoleService, public dialog: MatDialog,private route: ActivatedRoute,private router: Router) { }
+  constructor(private roleService: RoleService, public dialog: MatDialog,
+              public permission:Permission,private route: ActivatedRoute,private router: Router) { }
 
   ngOnInit(): void {
-    this.currentUrl = this.router.url.split('/')[2];
-    this.assignedRole = this.route.snapshot.data['profileResolver'];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-    if (!this.isAsscessDenied)
-      this.router.navigate(['admin/access-denied']);
     this.loadData();
   }
 
@@ -84,14 +78,6 @@ export class RoleComponent implements OnInit {
 
   editRole(data) {
     this.router.navigate(['/admin/role/edit/' + data.id]);
-  }
-
-  _isAsscessDenied(type) {
-    let isAccess = AppUtil._getPageAccess(this.assignedRole, type, this.currentUrl);
-    if (isAccess)
-      return true;
-    else
-      return false;
   }
 
 }

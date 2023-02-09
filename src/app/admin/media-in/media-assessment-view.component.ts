@@ -12,9 +12,6 @@ import { MediaAssignToAdd } from './media-assign-to-add.component';
   })
   export class MediaAssessmentView implements OnInit {
     pageTitle: string = "Media Inspection";
-    assignedRole: [];
-    currentUrl: string;
-    isAsscessDenied: boolean;
     isLoading: boolean;
     mediaDetails: MediaIn[] = [];
     showEdit: boolean;
@@ -28,11 +25,6 @@ import { MediaAssignToAdd } from './media-assign-to-add.component';
         private accountService: AccountService, public dialog: MatDialog) {
       }
     ngOnInit(): void {
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', this.currentUrl);
-        if (!this.isAsscessDenied)
-          this.router.navigate(['admin/access-denied']);
           this.activelink();
     }
 

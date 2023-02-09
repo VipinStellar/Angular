@@ -4,9 +4,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MediaIn } from './../../_models/mediaIn';
 import { MediaInService  } from './../../_services/mediaIn.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
-import { DataService } from 'src/app/_services/data.service';
 import { ToastrService } from 'ngx-toastr';
 import {SelectionModel} from '@angular/cdk/collections';
 import { environment } from 'src/environments/environment';
@@ -43,9 +41,8 @@ export class GatePassComponent implements OnInit {
     selection = new SelectionModel<MediaIn>(true, []);
     GatePassPDF=environment.apiUrl.replace("/api", "")+"downloadpass/";
 
-    constructor(private formBuilder: FormBuilder,private dataService:DataService,
-                    private mediaInService: MediaInService,private toastrService:ToastrService,
-                    private router: Router, private route: ActivatedRoute,private cdRef : ChangeDetectorRef) {
+    constructor(private formBuilder: FormBuilder,private mediaInService: MediaInService,
+                private toastrService:ToastrService,private cdRef : ChangeDetectorRef) {
      
     }
 

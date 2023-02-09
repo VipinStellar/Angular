@@ -11,10 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class MediaCaseDetail implements OnInit {
     pageTitle:string ="Case Details";
-    assignedRole: [];
-    currentUrl: string;
     isLoading:boolean;
-    isAsscessDenied: boolean;
     mediaDetails : MediaIn[] = [];
     tabItems = AppUtil.getMediaTab();
     activeLink = this.tabItems[0];
@@ -25,11 +22,6 @@ export class MediaCaseDetail implements OnInit {
                  private toastrService: ToastrService) {
     }
     ngOnInit(): void {
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-        if (!this.isAsscessDenied)
-            this.router.navigate(['admin/access-denied']); 
             this.loadMediaDetails();
     }
 

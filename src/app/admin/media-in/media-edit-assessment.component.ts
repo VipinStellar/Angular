@@ -14,8 +14,6 @@ import Swal from 'sweetalert2';
     templateUrl: './media-edit-assessment.component.html',
 })
 export class MediaAssessmentEdit implements OnInit {
-    assignedRole: [];
-    isAsscessDenied: boolean;
     pageTitle: string;
     submitted: boolean;
     loading: boolean;
@@ -58,10 +56,6 @@ export class MediaAssessmentEdit implements OnInit {
     ngOnInit(): void {
         this.uploadUrl = environment.apiUrl;
         this.mediaObj = AppUtil.getMediaDeatils() as any;
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', "media-assessment");
-        if (!this.isAsscessDenied)
-            this.router.navigate(['admin/access-denied']);
         this.mediaInService.mediastatus('assessment').subscribe(data => {
             this.stages = data as any;
         });

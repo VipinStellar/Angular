@@ -29,9 +29,6 @@ export class JobConfirmComponent implements OnInit {
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
-    assignedRole: [];
-    currentUrl: string;
-    isAsscessDenied: boolean;
     mediaDetails: MediaIn[] = [];
     status:[];
     branchList:[];
@@ -41,12 +38,6 @@ export class JobConfirmComponent implements OnInit {
     constructor(private dataService:DataService,private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute) {
       }
     ngOnInit(): void {
-
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-        if (!this.isAsscessDenied)
-          this.router.navigate(['admin/access-denied']);
           this.mediaInService.mediastatus('jobconfirm').subscribe( data => {
             this.status = data as any;
           }); 

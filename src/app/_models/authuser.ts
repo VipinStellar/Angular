@@ -12,5 +12,5 @@
     status: string;
     storageTime:number;
     redirectToUrl:string;
-
+    assignRole:[]
 }

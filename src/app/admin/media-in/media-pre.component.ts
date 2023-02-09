@@ -14,9 +14,7 @@ import { MediaTeam } from './media-team.component';
 })
 export class MediaPreComponent implements OnInit {
   pageTitle: string = "Pre Inspection";
-  assignedRole: [];
   currentUrl: string;
-  isAsscessDenied: boolean;
   isLoading: boolean;
   mediaDetails: MediaIn[] = [];
   mediaAssignHistory: [];
@@ -33,12 +31,8 @@ export class MediaPreComponent implements OnInit {
     private accountService: AccountService, public dialog: MatDialog) {
   }
   ngOnInit(): void {
-    this.assignedRole = this.route.snapshot.data['profileResolver'];
     this.teamList = this.route.snapshot.data['teamList'];
     this.currentUrl = this.router.url.split('/')[2];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-    if (!this.isAsscessDenied)
-      this.router.navigate(['admin/access-denied']);
       this.activelink();
 
   }
