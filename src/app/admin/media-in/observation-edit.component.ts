@@ -23,6 +23,7 @@ export class ObservationEdit implements OnInit {
     constructor(private mediaInService: MediaInService,private router: Router, private route: ActivatedRoute,
               private toastrService: ToastrService ,private _location: Location, private formBuilder: FormBuilder,private accountService: AccountService) {}    
     ngOnInit(): void {
+        this.mediaObj = AppUtil.getMediaDeatils() as any;
         this.loadForm();  
         this.mediaInService.getObservation(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;    

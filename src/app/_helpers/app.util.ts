@@ -1,17 +1,6 @@
 export class AppUtil {
 
-    static _getPageAccess(assignedRole, type, url) {
-        let res = assignedRole as any;
-        let tmp = JSON.parse(res.assign);
-        tmp = tmp[type];
-        let test = JSON.stringify(tmp);
-        if (url != undefined && url != null && url != '' && url != '/' && test.indexOf(url) !== -1) {
-            return true
-        }
-        return false;
-    }
-
-    static getMediaTab()
+   static getMediaTab()
     {
         return ['Case Details', 'Transfer Media','Pre Inspection','Inspection'];
     }

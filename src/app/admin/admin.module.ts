@@ -55,6 +55,7 @@ import { InventoryListComponent } from './inventory/inventory-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { InventoryAddComponent } from './inventory/inventory-add-component';
+import { mediaTable  } from './../_helpers/commanHtmlMedia';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -90,7 +91,8 @@ import { InventoryAddComponent } from './inventory/inventory-add-component';
     GatePassComponent,
     ObservationDetails,
     InventoryListComponent,
-    InventoryAddComponent
+    InventoryAddComponent,
+    mediaTable
   ],
   imports: [
     CommonModule,
@@ -117,5 +119,6 @@ import { InventoryAddComponent } from './inventory/inventory-add-component';
     MatFormFieldModule,
     MatInputModule 
   ],
+  exports: [ MatInputModule ]
 })
 export class AdminModule { }

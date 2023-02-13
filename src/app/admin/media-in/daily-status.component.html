@@ -12,23 +12,7 @@
     <section class="content" *ngIf="isLoading">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-12">
-                    <table class="table table-striped table-bordered responsive "
-                        style="background-color: #fff !important;">
-                        <tr>
-                            <th>Client Name</th>
-                            <th>Zoho Id</th>
-                            <th>Job Id</th>
-                            <th>Media Type</th>
-                        </tr>
-                        <tr>
-                            <td>{{mediaDetails['customer_name']}}</td>
-                            <td>{{mediaDetails['zoho_id']}}</td>
-                            <td>{{mediaDetails['job_id']}}</td>
-                            <td>{{mediaDetails['media_type']}}</td>
-                        </tr>
-                    </table>
-                </div>
+                <div class="col-12" [innerHtml]="mediaDetails|mediaTable"></div>
                 <div class="col-md-8">
                     <form [formGroup]="jobStatus">
 
