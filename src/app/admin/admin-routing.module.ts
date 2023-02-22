@@ -78,7 +78,9 @@ const routes: Routes = [
       { path: 'media-assessment/:id', component: MediaAssessmentView},
       { path: 'job-confirm', component: JobConfirmComponent},
       { path: 'observation/edit/:id', component: ObservationEdit},
-      { path: 'observation/:id', component: ObservationView},
+      { path: 'observation/:id', component: ObservationView,
+           resolve:{teamList:TeamResolver}  
+      },
       { path: 'daily-status/:id', component: DailyStatus},
       { path: 'gate-pass', component: GatePassComponent},
       { path: 'observation-details/:id', component: ObservationDetails},

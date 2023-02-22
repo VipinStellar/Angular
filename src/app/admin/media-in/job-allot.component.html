@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="teamFrom ">
+    <div class="row">
+      <div class="col-12 pt-2">
+          <label class="control-label">Select Department<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="team_id" (change)="deptChange($event.target.value)" [ngClass]="{ 'is-invalid': submitted && tm['team_id'].errors }">
+              <option *ngFor="let team of data['teamList']" [value]="team.id">{{team.team_name}}</option>
+           </select>
+           <div *ngIf="submitted && tm['team_id'].errors" class="invalid-feedback">
+            <div *ngIf="tm['team_id'].errors['required']">Department is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+          <label class="control-label">Select Department User<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="user_id" [ngClass]="{ 'is-invalid': submitted && tm['user_id'].errors }">
+              <option *ngFor="let dept of deptUser" [value]="dept.id">{{dept.name}}</option>
+           </select>
+           <div *ngIf="submitted && tm['user_id'].errors" class="invalid-feedback">
+            <div *ngIf="tm['user_id'].errors['required']">Department User is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+          <label class="control-label">Reason For Allot<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="remarks" [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }">
+            <option value="Firmware Done">Firmware Done</option>
+            <option value="Firmware Not Done">Firmware Not Done</option>
+            <option value="For Imaging">For Imaging</option>
+            <option value="For Checking">For Checking</option>
+            <option value="Image Not Done Return To CR">Image Not Done Return To CR</option>
+            <option selected="selected" value="Image Done Return To CR">Image Done Return To CR</option>
+            <option value="Partial Image Done Return To CR">Partial Image Done Return To CR</option>
+            <option value="Not Repairable">Not Repairable</option>
+            <option value="Tampered Media">Tampered Media</option>
+            <option value="Making Noise">Making Noise</option>
+            <option value="No Movement">No Movement</option>
+            <option value="Head Stuck">Head Stuck</option>
+           </select>
+           <div *ngIf="submitted && tm['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="tm['remarks'].errors['required']">Reason is required</div>
+          </div>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

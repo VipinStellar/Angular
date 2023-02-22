@@ -1,7 +1,7 @@
 <div class="content-wrapper">
     <div class="content-header" style="margin-top: 57px;">
       <div class="container-fluid">
-        <nav mat-tab-nav-bar *ngIf="isLoading">
+        <nav mat-tab-nav-bar >
           <a mat-tab-link *ngFor="let tabItem of tabItems" (click)="onchangetab(tabItem)"  [active]="activeLink == tabItem">
              {{(mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive')?
              tabItem:(mediaDetails['media_type'] !='Hard Drive' && mediaDetails['media_type'] !='External Hard Drive' && tabItem=='Initial Observation')?'Recovery':tabItem }} 
@@ -9,19 +9,15 @@
         </nav><br>
       </div>
     </div>
-    <section class="content" *ngIf="isLoading">
+    <section class="content">
       <div class="container-fluid">
         <div class="row">
-          <div class="col-12" [innerHtml]="mediaDetails|mediaTable"></div>   
-          
+          <div class="col-12" [innerHtml]="mediaDetails|mediaTable"></div>             
           <div class="col-12">
             <table class="table table-striped table-bordered responsive" style="background-color: #fff !important;">
               <tr>
-                <th colspan="3" class="h6">History</th>
-                <th>
-                  <a style="float:right"  *ngIf="mediaDetails['stage'] == 7" href="javascript:void(0)"  class="btn btn-primary btn-sm" (click)="editMediaIn()">
-                    Edit Details</a>
-                  </th>
+                <th colspan="3" class="h6">{{(mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive')?'Initial Observation':'Recovery Process'}}</th>
+                <th><a style="float:right"  *ngIf="mediaDetails['stage'] == 7" [routerLink]="['../edit/', mediaDetails.id]"  class="btn btn-primary btn-sm">Edit Process</a></th>
               </tr>
               <tr>
                 <th width="30">S.No</th>
@@ -29,17 +25,70 @@
                 <th width="200">Modify By</th>
                 <th>Remarks</th>
               </tr>
-              <tr *ngFor="let item of mediaEditHistory; let i = index">
+              <tr *ngFor="let item of observationHis; let i = index">
                 <td>{{i+1}}</td>
-                <td>{{mediaEditHistory[i]['added_on'] | date:'medium'}}</td>
-                <td>{{ mediaEditHistory[i]['user_name'] ==null ? mediaEditHistory[i]['added_by'] :
-                  mediaEditHistory[i]['user_name'] }}</td>
-                <td>{{mediaEditHistory[i]['remarks']}}</td>
+                <td>{{observationHis[i]['added_on'] | date:'medium'}}</td>
+                <td>{{ observationHis[i]['user_name'] ==null ? observationHis[i]['added_by'] :
+                  observationHis[i]['user_name'] }}</td>
+                <td>{{observationHis[i]['remarks']}}</td>
+              </tr>
+            </table>
+            <table class="table table-striped table-bordered responsive" style="background-color: #fff !important;" *ngIf="mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive'">
+              <tr>
+                <th colspan="3" class="h6">Recovery Process</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery()" class="btn btn-primary btn-sm">Edit Recovery Process</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+              <tr *ngFor="let item of recoveryHis; let i = index">
+                 <td>{{i+1}}</td>
+                <td>{{recoveryHis[i]['added_on'] | date:'medium'}}</td>
+                <td>{{ recoveryHis[i]['user_name'] ==null ? recoveryHis[i]['added_by'] :recoveryHis[i]['user_name'] }}</td>
+                <td>{{recoveryHis[i]['remarks']}}</td> 
+              </tr>
+            </table>
+            <table class="table table-striped table-bordered responsive" style="background-color: #fff !important;" *ngIf="mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive'">
+              <tr>
+                <th colspan="3" class="h6">Job Allot Process </th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="allotJob()" class="btn btn-primary btn-sm">Job Allot</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Reason</th>
+              </tr>
+              <tr *ngFor="let item of allotHis; let i = index">
+                 <td>{{i+1}}</td>
+                <td>{{allotHis[i]['added_on'] | date:'medium'}}</td>
+                <td>{{ allotHis[i]['user_name'] ==null ? allotHis[i]['added_by'] :allotHis[i]['user_name'] }}</td>
+                <td>{{allotHis[i]['remarks']}}</td> 
+              </tr>
+            </table>
+            <table class="table table-striped table-bordered responsive" style="background-color: #fff !important;" *ngIf="mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive'">
+              <tr>
+                <th colspan="3" class="h6">Transfer Clone</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="branchClone()" class="btn btn-primary btn-sm">Transfer</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Reason</th>
+              </tr>
+              <tr *ngFor="let item of cloneHis; let i = index">
+                 <td>{{i+1}}</td>
+                <td>{{cloneHis[i]['added_on'] | date:'medium'}}</td>
+                <td>{{ cloneHis[i]['user_name'] ==null ? cloneHis[i]['added_by'] :cloneHis[i]['user_name'] }}</td>
+                <td>{{cloneHis[i]['remarks']}}</td> 
               </tr>
             </table>
           </div>
-         </div>
-  
+         </div>  
       </div>
     </section>
   </div>

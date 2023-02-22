@@ -3,23 +3,32 @@ import { MediaIn } from 'src/app/_models/mediaIn';
 import { MediaInService } from './../../_services/mediaIn.service';
 import { AppUtil } from 'src/app/_helpers/app.util';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AccountService } from 'src/app/_services/account.service';
+import { MatDialog } from '@angular/material/dialog';
+import { Recovery } from './recovery.component';
+import { JobAllot } from './job-allot.component';
+import { BrannchClone } from './branch-clone.component';
 @Component({
     selector: 'app-observation',
     templateUrl: './observation-view.component.html',
 })
 export class ObservationView implements OnInit {
-    pageTitle: string = "Pre Inspection";
-    isLoading: boolean;
     mediaDetails: MediaIn[] = [];
     tabItems = AppUtil.getMediaRecoveryTab();
     activeLink = this.tabItems[1];
-    mediaEditHistory: [];
-    constructor(private mediaInService: MediaInService,private router: Router,
+    observationHis: [];
+    recoveryHis: [];
+    allotHis:[];
+    cloneHis:[];
+    teamList: [];
+    constructor(private mediaInService: MediaInService,private router: Router,public dialog: MatDialog,
                  private route: ActivatedRoute) {}    
     ngOnInit(): void {
         this.getMediaDetails();
-        this.getMediaEditHistory();
+        this._ObservationHis();
+        this._recoveryHis();
+        this._allotJobHis();
+        this._branchCloneHis();
+        this.teamList = this.route.snapshot.data['teamList'];
         
     }
 
@@ -27,19 +36,32 @@ export class ObservationView implements OnInit {
     {
         this.mediaInService.getMedia(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;
-            this.isLoading = true;
           });
     }
 
-    getMediaEditHistory() {
+    _ObservationHis() {
         this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','observation').subscribe(data => {
-          this.mediaEditHistory = data as any;
+          this.observationHis = data as any;
         });
       }
 
-      editMediaIn()
+      _recoveryHis() {
+        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','recovery').subscribe(data => {
+          this.recoveryHis = data as any;
+        });
+      }
+
+      _allotJobHis() {
+        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','allotJob').subscribe(data => {
+          this.allotHis = data as any;
+        });
+      }
+
+      _branchCloneHis()
       {
-        this.router.navigate(['admin/observation/edit/'+this.mediaDetails['id']]);
+        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','branchClone').subscribe(data => {
+          this.cloneHis = data as any;
+        });
       }
 
       onchangetab(item)
@@ -51,4 +73,44 @@ export class ObservationView implements OnInit {
         else
         this.router.navigate(['admin/observation/'+this.mediaDetails['id']]);
       }
+
+      editRecovery() {
+        const dialogRef = this.dialog.open(Recovery, {
+          data: this.mediaDetails['id'],
+          disableClose: true,
+          autoFocus: true,
+          width: "60rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+              this._recoveryHis()
+        });    
+      }
+
+      allotJob()
+      {
+        const dialogRef = this.dialog.open(JobAllot, {
+          data: {mediaId:this.mediaDetails['id'],'teamList':this.teamList},
+          disableClose: true,
+          autoFocus: true,
+          width: "30rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+              this._allotJobHis()
+        }); 
+      }
+
+      branchClone()
+      {
+        const dialogRef = this.dialog.open(BrannchClone, {
+          data: this.mediaDetails['id'],
+          disableClose: true,
+          autoFocus: true,
+          width: "30rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+              this._branchCloneHis()
+        }); 
+      }
+
+      
 }

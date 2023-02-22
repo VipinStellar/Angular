@@ -56,6 +56,9 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { InventoryAddComponent } from './inventory/inventory-add-component';
 import { mediaTable  } from './../_helpers/commanHtmlMedia';
+import { Recovery } from './media-in/recovery.component';
+import { JobAllot }  from './media-in/job-allot.component';
+import { BrannchClone } from './media-in/branch-clone.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -92,7 +95,10 @@ import { mediaTable  } from './../_helpers/commanHtmlMedia';
     ObservationDetails,
     InventoryListComponent,
     InventoryAddComponent,
-    mediaTable
+    mediaTable,
+    Recovery,
+    JobAllot,
+    BrannchClone
   ],
   imports: [
     CommonModule,
