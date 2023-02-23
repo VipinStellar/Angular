@@ -15,21 +15,14 @@ export class ObservationView implements OnInit {
     mediaDetails: MediaIn[] = [];
     tabItems = AppUtil.getMediaRecoveryTab();
     activeLink = this.tabItems[1];
-    observationHis: [];
-    recoveryHis: [];
-    allotHis:[];
-    cloneHis:[];
+    allHistory: [];
     teamList: [];
     constructor(private mediaInService: MediaInService,private router: Router,public dialog: MatDialog,
                  private route: ActivatedRoute) {}    
     ngOnInit(): void {
+        this.getCommanHistory();
         this.getMediaDetails();
-        this._ObservationHis();
-        this._recoveryHis();
-        this._allotJobHis();
-        this._branchCloneHis();
-        this.teamList = this.route.snapshot.data['teamList'];
-        
+        this.teamList = this.route.snapshot.data['teamList'];        
     }
 
     getMediaDetails()
@@ -39,33 +32,15 @@ export class ObservationView implements OnInit {
           });
     }
 
-    _ObservationHis() {
-        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','observation').subscribe(data => {
-          this.observationHis = data as any;
+    getCommanHistory()
+    {
+        this.mediaInService.getCommanHistory(this.route.snapshot.params['id']).subscribe(data => {
+          this.allHistory = data as any;
         });
-      }
+    }
 
-      _recoveryHis() {
-        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','recovery').subscribe(data => {
-          this.recoveryHis = data as any;
-        });
-      }
-
-      _allotJobHis() {
-        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','allotJob').subscribe(data => {
-          this.allotHis = data as any;
-        });
-      }
-
-      _branchCloneHis()
-      {
-        this.mediaInService.mediaHistory(this.route.snapshot.params['id'], 'edit','branchClone').subscribe(data => {
-          this.cloneHis = data as any;
-        });
-      }
-
-      onchangetab(item)
-      {
+    onchangetab(item)
+    {
         if(item == 'Media Daily Status')
         this.router.navigate(['admin/daily-status/'+this.mediaDetails['id']]);
         else if(item == 'Case Details')
@@ -74,15 +49,15 @@ export class ObservationView implements OnInit {
         this.router.navigate(['admin/observation/'+this.mediaDetails['id']]);
       }
 
-      editRecovery() {
+      editRecovery(type) {
         const dialogRef = this.dialog.open(Recovery, {
-          data: this.mediaDetails['id'],
+          data: {'media_id':this.mediaDetails['id'],'type':type},
           disableClose: true,
           autoFocus: true,
           width: "60rem"
         });
         dialogRef.afterClosed().subscribe(result => {
-              this._recoveryHis()
+            this.getCommanHistory();
         });    
       }
 
@@ -95,7 +70,7 @@ export class ObservationView implements OnInit {
           width: "30rem"
         });
         dialogRef.afterClosed().subscribe(result => {
-              this._allotJobHis()
+          this.getCommanHistory();
         }); 
       }
 
@@ -108,7 +83,7 @@ export class ObservationView implements OnInit {
           width: "30rem"
         });
         dialogRef.afterClosed().subscribe(result => {
-              this._branchCloneHis()
+          this.getCommanHistory();
         }); 
       }
 

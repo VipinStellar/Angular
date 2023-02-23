@@ -1,77 +1,83 @@
-<h2 mat-dialog-title>{{diaTitle}}</h2>
+<h2 mat-dialog-title>{{(data['type'] == 'cloneCreation')?'Clone Creation':(data['type'] == 'dataEncrypted')?'Data Encrypted':(data['type'] == 'recoverableData')?'Client Data Recoverable':diaTitle}}</h2>
 <mat-dialog-content >
     <form [formGroup]="recovery">
         <div class="row">
-          <div class="col-4 pt-2">
-              <label class="control-label">Clone Creation Completed: </label>
-              <select class="form-control form-control-sm" formControlName="clone_creation">
-                  <option value="Yes">Yes</option>
-                  <option value="No">No</option>
-              </select>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'cloneCreation'">
+            <label class="control-label">Clone Creation Completed: </label>
+            <select class="form-control form-control-sm" formControlName="clone_creation">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes' && data['type'] == 'cloneCreation'">
+            <label class="control-label">Information Related to Clone: </label>
+            <select class="form-control form-control-sm" formControlName="cloned_done">
+                <option value="Complete">Complete</option>
+                <option value="Partial">Partial</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes'  && data['type'] == 'cloneCreation'">
+            <label class="control-label">Details of Cloned Sectors: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="cloned_sectors">
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['clone_creation'].value == 'No')">
+            <label class="control-label">Case Not Possible Reason:</label><br>
+            <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+              <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
+            </mat-select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'dataEncrypted'">
+            <label class="control-label">Data Encrypted: </label>
+            <select class="form-control form-control-sm" formControlName="data_encrypted">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && data['type'] == 'dataEncrypted')">
+            <label class="control-label">Decryption Details Received: </label>
+            <select class="form-control form-control-sm" formControlName="decryption_details">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['decryption_details'].value == 'No' && data['type'] == 'dataEncrypted')">
+            <label class="control-label">Decryption Details: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="decryption_details_send">
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && data['type'] == 'dataEncrypted')">
+            <label class="control-label">Data Decrytion Successful: </label>
+            <select class="form-control form-control-sm" formControlName="decryption_data">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['decryption_data'].value == 'No' && data['type'] == 'dataEncrypted')">
+            <label class="control-label">Correct Decryption Details: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="decryption_data_details">
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'recoverableData'">
+            <label class="control-label">Client Data Recoverable: </label>
+            <select class="form-control form-control-sm" formControlName="recoverable_data">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['recoverable_data'].value == 'No' && data['type'] == 'recoverableData')">
+            <label class="control-label">Case Not Possible Reason:</label><br>
+            <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+              <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
+            </mat-select>
+          </div>
+
+          <div class="col-lg-12 col-md-12 pt-2">
+            <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+            <textarea class="form-control form-control-sm" formControlName="remarks"
+              [ngClass]="{ 'is-invalid': submitted && r['remarks'].errors }"></textarea>
+            <div *ngIf="submitted && r['remarks'].errors" class="invalid-feedback">
+              <div *ngIf="r['remarks'].errors['required']">Remarks is required</div>
             </div>
-            <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes'">
-                <label class="control-label">Information Related to Clone: </label>
-                <select class="form-control form-control-sm" formControlName="cloned_done">
-                    <option value="Complete">Complete</option>
-                    <option value="Partial">Partial</option>
-                </select>
-              </div>
-              <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes'">
-                <label class="control-label">Details of Cloned Sectors: </label>
-                <input type="text" class="form-control form-control-sm" formControlName="cloned_sectors">
-              </div>
-              <div class="col-4 pt-2" *ngIf="(r['clone_creation'].value == 'No')">
-                <label class="control-label">Case Not Possible Reason:</label><br>
-                <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
-                  <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
-                </mat-select>
-              </div>
-              <div class="col-4 pt-2">
-                <label class="control-label">Data Encrypted: </label>
-                <select class="form-control form-control-sm" formControlName="data_encrypted">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-              </div>
-              <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes')">
-                <label class="control-label">Decryption Details Received: </label>
-                <select class="form-control form-control-sm" formControlName="decryption_details">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-              </div>
-              <div class="col-4 pt-2" *ngIf="(r['decryption_details'].value == 'No')">
-                <label class="control-label">Decryption Details: </label>
-                <input type="text" class="form-control form-control-sm" formControlName="decryption_details_send">
-              </div>
-              <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes')">
-                <label class="control-label">Data Decrytion Successful: </label>
-                <select class="form-control form-control-sm" formControlName="decryption_data">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-              </div>
-              <div class="col-4 pt-2" *ngIf="(r['decryption_data'].value == 'No')">
-                <label class="control-label">Correct Decryption Details: </label>
-                <input type="text" class="form-control form-control-sm" formControlName="decryption_data_details">
-              </div>
-              <div class="col-4 pt-2">
-                <label class="control-label">Client Data Recoverable: </label>
-                <select class="form-control form-control-sm" formControlName="recoverable_data">
-                    <option value="Yes">Yes</option>
-                    <option value="No">No</option>
-                </select>
-              </div>
-              <div class="col-lg-12 col-md-12 pt-2">
-                <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
-                <textarea class="form-control form-control-sm" formControlName="remarks"
-                  [ngClass]="{ 'is-invalid': submitted && r['remarks'].errors }"></textarea>
-                <div *ngIf="submitted && r['remarks'].errors" class="invalid-feedback">
-                  <div *ngIf="r['remarks'].errors['required']">Remarks is required</div>
-                </div>
-              </div>
-        </div>
-      
+          </div>
+        </div>      
   </form>
 </mat-dialog-content>
 <mat-dialog-actions class="float-right">

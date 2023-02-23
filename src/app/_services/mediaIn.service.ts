@@ -146,4 +146,9 @@ export class MediaInService {
         return this.http.get(environment.apiUrl + 'job/obvertation-details/'+id);
     }
 
+    getCommanHistory(id)
+    {
+        return this.http.get(environment.apiUrl + 'media/comman-history/'+id);
+    }
+
 }

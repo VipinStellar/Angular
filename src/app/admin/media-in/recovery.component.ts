@@ -20,7 +20,7 @@ export class Recovery implements OnInit {
         private dialogRef: MatDialogRef<Recovery>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.diaTitle= 'Recovery Process';
-            this.recoveryService.fatchRecovery(this.data).subscribe( data => {
+            this.recoveryService.fatchRecovery(this.data['media_id']).subscribe( data => {
                 this.recoveryData = data as any;
                 if(this.recoveryData['recoveryObj'] != null)
                 this.modeltoForm(this.recoveryData);
@@ -29,8 +29,9 @@ export class Recovery implements OnInit {
     ngOnInit(): void {
         this.recovery = this.formBuilder.group({
             id:[],            
-            media_id:[this.data],            
+            media_id:[this.data['media_id']],            
             clone_creation: [],
+            type: [this.data['type']],
             cloned_done: [],
             cloned_sectors:[],
             no_recovery_reason:[],
@@ -51,6 +52,7 @@ export class Recovery implements OnInit {
             id:rec['recoveryObj'].id,
             media_id:rec.id,
             clone_creation:rec['recoveryObj'].clone_creation,
+            type: this.data['type'],
             cloned_done:rec['recoveryObj'].cloned_done,
             cloned_sectors:rec['recoveryObj'].cloned_sectors,
             no_recovery_reason:JSON.parse(rec.no_recovery_reason),
