@@ -43,6 +43,16 @@
                 <div *ngIf="f['state_name'].errors['required']">State is required</div>
             </div>
         </div><br>
+        <div class="col-sm-12" >
+            <mat-label>Room Type</mat-label>
+            <select formControlName="branch_type" class="form-control" [ngClass]="{ 'is-invalid': submitted && f['branch_type'].errors }">
+                <option value="Clean Room">Clean Room</option>
+                <option value="Without Clean Room">Without Clean Room</option>
+            </select>
+            <div *ngIf="submitted && f['branch_type'].errors" class="invalid-feedback">
+                <div *ngIf="f['branch_type'].errors['required']">Room Type is required</div>
+            </div>
+        </div><br>
         <div class="col-sm-12">
                 <textarea formControlName="address"  [ngClass]="{ 'is-invalid': submitted && f['address'].errors }"
                 class="form-control"  placeholder="Address..."></textarea>

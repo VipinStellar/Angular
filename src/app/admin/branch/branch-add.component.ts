@@ -38,7 +38,8 @@ export class BranchAddComponent implements OnInit {
             branch_name: [this.data['data'].branch_name, [Validators.required]],
             country_id: [this.data['data'].country_id, [Validators.required]],
             state_name: [this.data['data'].state_name, [Validators.required]],
-            address: [this.data['data'].address, [Validators.required]]
+            address: [this.data['data'].address, [Validators.required]],
+            branch_type: [this.data['data'].branch_type, [Validators.required]]
         });
     }
 

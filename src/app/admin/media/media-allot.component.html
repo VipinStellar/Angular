@@ -1,0 +1,43 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let tab of tabItems" [routerLink]="['../../',tab['url'], mediaDetails['id']]" [active]="activeLink == tab['name']">
+                {{tab['name']}}
+              </a>
+        </nav><br>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
+          </div> 
+          <div class="col-12">
+          <table class="table table-striped table-bordered responsive" style="background-color: #fff !important;">
+            <tr>
+              <th colspan="3" class="h6">Allot Job</th>
+              <th><a style="float:right" href="javascript:void(0)" (click)="changeUser()" class="btn btn-primary btn-sm">Allot Job</a></th>
+            </tr>
+            <tr>
+              <th width="30">S.No</th>
+              <th width="200">Modify On</th>
+              <th width="200">Modify By</th>
+              <th>Reason</th>
+            </tr>
+            <ng-container *ngFor="let item of _history; let i = index">
+                <tr mdbTableCol *ngIf="item['module_type'] == 'ASSIGN-CHANGE'">
+                  <td>{{i+1}}</td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :
+                    item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </ng-container>          
+          </table>
+        </div>
+        </div>
+  
+      </div>
+    </section>
+  </div>

@@ -158,23 +158,23 @@
               <p>Branch</p>
             </a>
           </li>
-          <li class="nav-item" *ngIf="permission.PermissionForAccess('media')">
+          <li class="nav-item">
             <a routerLink="./media" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-hdd"></i>
-              <p>Media In</p>
+              <p>Media In List</p>
             </a>
           </li>
-          <!-- <li class="nav-item" *ngIf="permission.PermissionForAccess('job-status')">
-            <a routerLink="./job-status" class="nav-link" routerLinkActive="active">
+          <li class="nav-item">
+            <a routerLink="./transfer-media" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-tasks"></i>
-              <p>Job Status</p>
+            <p>Transfer Media</p>
             </a>
-          </li> -->
-          <li class="nav-item" *ngIf="permission.PermissionForAccess('job-confirm')">
+          </li>
+          <!-- <li class="nav-item" *ngIf="permission.PermissionForAccess('job-confirm')">
             <a routerLink="./job-confirm" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-check-circle"></i>
               <p>Job Confirmation</p>
-            </a>
+            </a> -->
             <li class="nav-item" *ngIf="permission.PermissionForAccess('gate-pass')">
               <a routerLink="./gate-pass" class="nav-link" routerLinkActive="active">
                 <i class="nav-icon fas fa-envelope"></i>

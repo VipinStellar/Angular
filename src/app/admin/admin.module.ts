@@ -29,36 +29,30 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import { UseriewComponent } from './user/user-view.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { MediaInComponent } from './media-in/media-in.component';
-import { MediaCaseDetail } from './media-in/media-case-details.component';
+import { MediaListComponent } from './media/media-list.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { MediaPreComponent } from './media-in/media-pre.component';
 import { MatProgressSpinnerModule  } from '@angular/material/progress-spinner';
-import { MediaAssignToAdd } from './media-in/media-assign-to-add.component';
-import { MediaEdit}  from './media-in/media-edit.component';
-import { MediaAssessmentView }  from './media-in/media-assessment-view.component';
-import { MediaAssessmentEdit } from './media-in/media-edit-assessment.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import { MediaTransfer } from './media-in/media-transfer.component';
-import {MediaTeam } from './media-in/media-team.component';
-import { JobListComponent } from './media-in/job-list.component';
-import { JobDetailStatusComponent } from './media-in/job-status-details.component';
 import { UserChangePassword } from './user/user-change-password.component';
-import { JobConfirmComponent } from './media-in/job-confirm.component';
-import { ObservationView } from './media-in/observation-view.component';
-import{ ObservationEdit } from './media-in/observation-edit.component';
-import { DailyStatus } from './media-in/daily-status.component';
-import { GatePassComponent } from './media-in/gate-pass.component';
-import { ObservationDetails } from './media-in/observation-details.component';
+import { GatePassComponent } from './media/gate-pass.component';
 import { InventoryListComponent } from './inventory/inventory-list.component';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { InventoryAddComponent } from './inventory/inventory-add-component';
 import { mediaTable  } from './../_helpers/commanHtmlMedia';
-import { Recovery } from './media-in/recovery.component';
-import { JobAllot }  from './media-in/job-allot.component';
-import { BrannchClone } from './media-in/branch-clone.component';
+import { MediaViewComponent } from './media/media-view.component';
+import { MediaAllotComponent } from './media/media-allot.component';
+import { MediaJobProcessComponent } from './media/media-process.component';
+import { AllotChangeComponent } from './media/allot-change.component';
+import { PreInspectionComponenet } from './media/pre-inspection.component';
+import { InspectionComponent } from './media/inspection.component';
+import { ObservationEditComponent  } from './media/observation-edit.component';
+import { RecoveryComponent } from './media/recovery.component';
+import { CloneTransferComponenet } from './media/clone-transfer.component';
+import { DailyStatusComponent  } from './media/daily-status.component';
+import { TransferListComponent } from './transfer-media/transfer-list.component';
+import { TransferEditComponent } from './transfer-media/transfer-edit.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -75,30 +69,24 @@ import { BrannchClone } from './media-in/branch-clone.component';
     BranchviewComponent,
     UseriewComponent,
     AccessDeniedComponent,
-    MediaInComponent,
-    MediaCaseDetail,
-    MediaPreComponent,
-    MediaAssignToAdd,
-    MediaEdit,
-    MediaAssessmentView,
-    MediaAssessmentEdit,
-    MediaTransfer,
-    MediaTeam,
-    JobListComponent,
-    JobDetailStatusComponent,
+    MediaListComponent,
+    MediaViewComponent,
+    MediaAllotComponent,
+    MediaJobProcessComponent,
+    AllotChangeComponent,
+    PreInspectionComponenet,
+    InspectionComponent,
+    ObservationEditComponent,
+    RecoveryComponent,
+    CloneTransferComponenet,
+    DailyStatusComponent,
+    TransferListComponent,
+    TransferEditComponent,
     UserChangePassword,
-    JobConfirmComponent,
-    ObservationView,
-    ObservationEdit,
-    DailyStatus,
     GatePassComponent,
-    ObservationDetails,
     InventoryListComponent,
     InventoryAddComponent,
-    mediaTable,
-    Recovery,
-    JobAllot,
-    BrannchClone
+    mediaTable
   ],
   imports: [
     CommonModule,

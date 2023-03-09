@@ -5,7 +5,7 @@ import { ToastrService } from 'ngx-toastr';
 import { Inventory } from 'src/app/_models/inventory';
 import { Location } from '@angular/common';
 import {InventoryService} from './../../_services/inventory';
-import { MediaInService } from 'src/app/_services/mediaIn.service';
+import { MediaService } from 'src/app/_services/media.service';
 @Component({
     selector: 'inventory-add',
     templateUrl: './inventory-add-component.html',
@@ -22,7 +22,7 @@ export class InventoryAddComponent implements OnInit {
                 private router: Router, 
                 private route: ActivatedRoute,
                 private _location: Location,
-                private mediaInService: MediaInService,
+                private mediaService: MediaService,
                 private inventoryService:InventoryService) {
                     if(this.router.url.indexOf("/edit/") != -1){
                         this.isEdit = true;
@@ -30,7 +30,7 @@ export class InventoryAddComponent implements OnInit {
                       }
                 }  
     ngOnInit(): void {
-        this.mediaInService.getAllBranch().subscribe( data => {
+        this.mediaService.getAllBranch().subscribe( data => {
             this.branchList = data as any;
           }); 
         this.loadForm();

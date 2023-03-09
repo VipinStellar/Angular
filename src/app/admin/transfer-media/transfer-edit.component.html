@@ -1,0 +1,112 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12" [innerHtml]="mediaDetails|mediaTable">
+                </div>
+                <div class="col-md-8" *ngIf="mediaDetails['transfer_code'] !=null">
+                    <form [formGroup]="media">
+                        <div class="form-group">
+                            <label for="uname">Transfer to:<sup class="text-danger">*</sup></label>
+                            <mat-select formControlName="branch_id"
+                                [ngClass]="{ 'is-invalid': submitted && f['branch_id'].errors }" class="form-control">
+                                <mat-option *ngFor="let ban of branchList" [value]="ban['id']">{{ban['branch_name']}}
+                                </mat-option>
+                            </mat-select>
+                            <div *ngIf="submitted && f['branch_id'].errors" class="invalid-feedback">
+                                <div *ngIf="f['branch_id'].errors['required']">Transfer to is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="uname">Select Reason:<sup class="text-danger">*</sup></label>
+                            <mat-select formControlName="reason" [ngClass]="{ 'is-invalid': submitted && f['reason'].errors }"
+                                class="form-control">
+                                <mat-option value="Need to send to HO for Pre-Inspection">Need to send to HO for Pre-Inspection</mat-option>
+                                <mat-option value="Need to send to HO for Inspection">Need to send to HO for Inspection</mat-option>                
+                                <mat-option value="Need to send to Other Branch for Inspection">Need to send to Other Branch for Inspection</mat-option>
+                                <mat-option value="Need to send to HO for Recovery">Need to send to HO for Recovery</mat-option>
+                                <mat-option value=">Need to send to Other Branch for Recovery">Need to send to Other Branch for Recovery</mat-option>
+                                <mat-option value="Need to send to other Branch for Pre-Inspection Recovery">Need to send to other Branch for Pre-Inspection Recovery</mat-option>
+                                 </mat-select>
+                            <div *ngIf="submitted && f['reason'].errors" class="invalid-feedback">
+                                <div *ngIf="f['reason'].errors['required']">Reason is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label>Extension Required</label>
+                          <select class="form-control" formControlName="extension_required">
+                            <option value="">Select</option>
+                            <option value="Yes">Yes</option>
+                            <option value="No">No</option>
+                          </select>
+                        </div>
+                        <div class="form-group" *ngIf="f['extension_required'].value == 'Yes' ">
+                            <label>Extension Required Days</label>
+                            <select class="form-control" formControlName="extension_day">
+                              <option value="">Select</option>
+                              <option value="1">1</option>
+                              <option value="2">2</option>
+                              <option value="3">3</option>
+                              <option value="4">4</option>
+                              <option value="5">5</option>
+                              <option value="6">6</option>
+                              <option value="7">7</option>
+                              <option value="8">8</option>
+                              <option value="9">9</option>
+                              <option value="10">10</option>
+                              <option value="11">11</option>
+                              <option value="12">12</option>
+                              <option value="13">13</option>
+                              <option value="14">14</option>
+                              <option value="15">15</option>
+                              <option value="16">16</option>
+                              <option value="17">17</option>
+                              <option value="18">18</option>
+                              <option value="19">19</option>
+                              <option value="20">20</option>
+                              <option value="21">21</option>
+                              <option value="22">22</option>
+                              <option value="23">23</option>
+                              <option value="24">24</option>
+                              <option value="25">25</option>
+                              <option value="26">26</option>
+                              <option value="27">27</option>
+                              <option value="28">28</option>
+                              <option value="29">29</option>
+                              <option value="30">30</option>
+                            </select>
+                          </div>
+                          <div class="text-right mb-3">
+                            <button class="btn btn-default" (click)="cancle();">Close</button>&nbsp;
+                            <button  type="buttun" class="btn btn-primary" (click)="onSubmit()">Save</button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-12">
+                    <table class="table table-striped table-bordered responsive"
+                        style="background-color: #fff !important;">
+                        <tr><th colspan="4" class="h6">Transfer History</th></tr>
+                        <tr>
+                            <th width="30">S.No</th>
+                            <th width="200">Modify On</th>
+                            <th width="200">Modify By</th>
+                            <th>Remarks</th>
+                          </tr>
+                          <ng-container *ngFor="let item of _history; let i = index" >
+                            <tr mdbTableCol *ngIf="item['module_type'] == 'TRANSFER-MEDIA';">
+                              <td>{{i+1}}</td>
+                              <td>{{item['added_on'] | date:'medium'}}</td>
+                              <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                              <td>{{item['remarks']}}</td>
+                            </tr>
+                          </ng-container>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+    </section>
+</div>

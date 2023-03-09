@@ -1,0 +1,226 @@
+<style>
+table.count_table {
+  counter-reset: section;
+}
+
+table.count_table tbody tr td.inc-td:after {
+  counter-increment: section;
+  content: counter(section) "";
+}
+table thead tr.table-title{ 
+  background-color: #f2f2f2 !important;
+}
+::ng-deep table tr{ 
+  background-color: #ffffff !important;
+}
+</style>
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <nav mat-tab-nav-bar>
+            <a mat-tab-link *ngFor="let tab of tabItems" [routerLink]="['../../',tab['url'], mediaDetails['id']]" [active]="activeLink == tab['name']">
+                {{tab['name']}}
+              </a>
+        </nav><br>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
+          </div>
+          <div class="col-12">
+            <table class="table table-striped table-bordered responsive count_table">
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Pre Inspection</th>
+                <th>
+                  <a style="float:right" [routerLink]="['../../pre-inspection', mediaDetails['id']]" class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'] && (mediaDetails['stage'] == 1 || mediaDetails['stage'] == 2))">
+                    Edit Details</a>
+                  </th>
+              </tr>
+              
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+             </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr *ngIf="item['module_type'] == 'PRE-ANALYSIS'">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :
+                    item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['job_id'] != null">
+            <table class="table table-striped table-bordered responsive count_table">
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Media Inspection</th>
+                <th>
+                  <a style="float:right" [routerLink]="['../../inspection', mediaDetails['id']]" class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'] && (mediaDetails['stage'] == 4 || mediaDetails['stage'] == 5))">
+                    Edit Details</a>
+                </th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+             </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                 <tr mdbTableCol *ngIf="item['module_type'] == 'INSPECTION';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['stage'] == 8">
+            <table class="table table-striped table-bordered responsive count_table">
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">{{(mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive')?'Initial Observation':'Recovery Process'}}</th>
+                <th><a style="float:right"  [routerLink]="['../../observation', mediaDetails['id']]"  class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'OBSERVATION';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['stage'] == 8 && mediaDetails['media_clone']=='Yes'">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Clone Creation</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery('CLONECREATION')" class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+              </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'CLONECREATION';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['stage'] == 8">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Data Encrypted</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery('DATA-ENCRYPTED')" class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'DATA-ENCRYPTED';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['stage'] == 8">
+            <table class="table table-striped table-bordered responsive count_table" >
+            <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Client Data Recoverable</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery('RECOVERABLE-DATA')" class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'RECOVERABLE-DATA';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table> 
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['stage'] == 8">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Transfer Clone</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="branchClone()" class="btn btn-primary btn-sm" *ngIf="(user.id == mediaDetails['user_id'])">Transfer</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modify On</th>
+                <th width="200">Modify By</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'CLONE-TRANSFER';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+               </tbody>
+              </ng-container>
+            </table>
+          </div>
+        </div>
+  
+      </div>
+    </section>
+  </div>

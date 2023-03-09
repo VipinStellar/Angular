@@ -1,33 +1,18 @@
 export class AppUtil {
 
-   static getMediaTab()
+    static MediaTab()
     {
-        return ['Case Details', 'Transfer Media','Pre Inspection','Inspection'];
+        return [{'name':'Case Details','url':'view'},{'name':'Allot Job','url':'allot-job'},
+                {'name':'Job Process','url':'job-process'},{'name':'Media Daily Status','url':'daily-status'}];
     }
 
-    static getMediaRecoveryTab()
-    {
-        return ['Case Details','Initial Observation', 'Media Daily Status'];
-    }
-
-    static getTabUrl(name)
-    {
-        if(name == "Case Details")
-        return "admin/case-details/";
-        else if(name == "Pre Inspection")
-        return "admin/pre-analysis/";
-        else if(name == "Transfer Media")
-        return "admin/transfer-media/";
-        else if(name == "Inspection")
-        return "admin/media-assessment/";
-    }
 
     static getMediaDeatils()
     {
         return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
-                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount()};
+                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'HeadCount':this.HeadCount()};
     }
 
     static getMediaType()
@@ -182,7 +167,7 @@ export class AppUtil {
 
     static getMediaCaseType()
     {
-        return ['Logical','Logical Complex','Physical','Physical Complex','Logical Cum Physical'];
+        return ['Logical','Logical Complex','Most Complex','Physical','Physical Complex'];
     }
 
     static getMediaRecoveryPos()
@@ -220,7 +205,12 @@ export class AppUtil {
 
     static plattersCount()
     {
-        return [1,2,3,4,5,6,7,8,9,'Other'];
+        return [1,2,3,4,5,6,7,8,9,'N/A','Other'];
+    }
+
+    static HeadCount()
+    {
+        return [0,1,2,3,4,5,6,7,8,9,'N/A','Other'];
     }
 
     static mediaStausList()
