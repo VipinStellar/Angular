@@ -274,7 +274,7 @@ export class InspectionComponent implements OnInit {
             data => {
                 this.hide();
                 this.toastrService.success('Details Saved successfully!', 'Success!');
-                this.router.navigate(['admin/media-assessment/' + this.mediaDetails['id']]);
+                this.router.navigate(['admin/media/job-process/' + this.mediaDetails['id']]);
             },
             error => {
                 console.log(error)

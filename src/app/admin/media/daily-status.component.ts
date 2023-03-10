@@ -5,6 +5,8 @@ import { AppUtil } from 'src/app/_helpers/app.util';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthUser } from 'src/app/_models/authuser';
+import { AccountService } from './../../_services/account.service';
 @Component({
     selector: 'daily-status-app',
     templateUrl: './daily-status.component.html',
@@ -20,9 +22,11 @@ export class DailyStatusComponent implements OnInit {
     loading:boolean;
     jobStatus: FormGroup;
     statusList:[];
+    user: AuthUser;
     constructor(private toastrService: ToastrService,private formBuilder: FormBuilder,
-                private mediaService: MediaService, private route: ActivatedRoute) {}  
+                private mediaService: MediaService, private route: ActivatedRoute, private accountService:AccountService) {}  
     ngOnInit(): void {
+        this.user =  this.accountService.userValue;
         this.getMediaDetails();
         this.loadMediaHistory();
         this.jobStatus = this.formBuilder.group({

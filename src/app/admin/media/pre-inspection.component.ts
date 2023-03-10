@@ -136,7 +136,7 @@ export class PreInspectionComponenet implements OnInit {
             data => {
                 this.hide();
                 this.toastrService.success('Details Saved successfully!', 'Success!');
-                this.router.navigate(['admin/pre-analysis/' + this.mediaDetails['id']]);
+                this.router.navigate(['admin/media/job-process/' + this.mediaDetails['id']]);
 
             },
             error => {
