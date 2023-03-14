@@ -2,7 +2,7 @@ export class AppUtil {
 
     static MediaTab()
     {
-        return [{'name':'Case Details','url':'view'},{'name':'Allot Job','url':'allot-job'},
+        return [{'name':'Case Details','url':'view'},{'name':'Assign Job','url':'allot-job'},
                 {'name':'Job Process','url':'job-process'},{'name':'Media Daily Status','url':'daily-status'}];
     }
 

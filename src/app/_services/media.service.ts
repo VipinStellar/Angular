@@ -165,6 +165,11 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'job/addgatepass', data);
     }
 
+    updateGatePassRef(data)
+    {
+        return this.http.post(environment.apiUrl + 'media/updateGatePassRef', data);
+    }
+
     getObvertationDetails(id)
     {
         return this.http.get(environment.apiUrl + 'job/obvertation-details/'+id);

@@ -12,7 +12,7 @@ import { AllotChangeComponent } from './allot-change.component';
 export class MediaAllotComponent implements OnInit {
     mediaDetails : Media[] = [];
     tabItems = AppUtil.MediaTab();
-    activeLink = 'Allot Job';
+    activeLink = 'Assign Job';
     _history: [];
     teamList:[];
     constructor(private mediaService: MediaService, private route: ActivatedRoute,

@@ -25,8 +25,6 @@ export class MediaViewComponent implements OnInit {
 
     loadMediaDetails()
     {
-     
-      //delete this.tabItems['Allot Job'];
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
             if(this.mediaDetails['transfer_id'] !=null && this.mediaDetails['transfer_code'] ==null)

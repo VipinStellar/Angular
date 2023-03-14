@@ -67,8 +67,9 @@
                   <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef>Action </th>
                     <td mat-cell *matCellDef="let element"> 
-                        <a [routerLink]="['./../transfer-media', element['id']]"  *ngIf="((element.transfer_id == null) || (element.transfer_id !=null && element.transfer_code !=null ))">Transfer</a>
-                        <a href="javascript:void(0)" *ngIf="element.transfer_id !=null && element.transfer_code == null" (click)="generateCode(element)">Media In</a>
+                      <a  [routerLink]="['./../gate-pass']" [queryParams]="{ job_id: (element.job_id==null)?element.zoho_id:element.job_id}" *ngIf="element.getpasStatus ==0">Generate GatePass</a>
+                      <a href="javascript:void(0)" *ngIf="element.getpasStatus ==1 && element.transfer_code == null" (click)="generateCode(element)">Media In</a>
+                      <a [routerLink]="['./../transfer-media', element['id']]"  *ngIf="((element.transfer_id == null) || (element.transfer_id !=null && element.transfer_code !=null ))">Transfer</a>
                     </td>
                   </ng-container>
       
@@ -84,4 +85,34 @@
             </div>
         </div>
     </section>
+</div>
+<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':AddGatePassStyle}" style="z-index: 1000;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #dddddd;">
+        <h4 class="modal-title mb-0"><strong>Update Gate Pass</strong></h4>
+      </div>
+      <div class="modal-body">
+      <form [formGroup]="GatePass">
+        <div class="container">
+          <div class="row">
+           <div class="col-md-12">
+            <div class="form-group">
+              <input type="text" [ngClass]="{ 'is-invalid':submitted && fg['ref_name_num'].errors }" formControlName="ref_name_num"  class="form-control form-control-sm" placeholder="Ref. Name/No.">
+              <div *ngIf="submitted && fg['ref_name_num'].errors" class="invalid-feedback">
+                <div *ngIf="fg['ref_name_num'].errors['required']">Please Enter Ref. Name/No.</div>
+              </div>
+            </div>
+            </div>
+          </div>
+          
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveGatePass()" >Save </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="cancelGatePass()">Close</button>
+      </div>
+    </div>
+  </div>
 </div>

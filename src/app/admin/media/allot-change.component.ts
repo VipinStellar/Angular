@@ -17,7 +17,7 @@ export class AllotChangeComponent implements OnInit {
         private mediaService:MediaService,
         private dialogRef: MatDialogRef<AllotChangeComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-            this.diaTitle= 'Job Allot Process';
+            this.diaTitle= 'Assign Job';
         }
        ngOnInit(): void {
         this.teamFrom = this.formBuilder.group({ 

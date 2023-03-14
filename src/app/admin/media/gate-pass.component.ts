@@ -9,6 +9,7 @@ import { ToastrService } from 'ngx-toastr';
 import {SelectionModel} from '@angular/cdk/collections';
 import { environment } from 'src/environments/environment';
 import { AppUtil } from 'src/app/_helpers/app.util';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'gate-pass',
@@ -40,13 +41,15 @@ export class GatePassComponent implements OnInit {
     passType=null;
     selection = new SelectionModel<Media>(true, []);
     GatePassPDF=environment.apiUrl.replace("/api", "")+"downloadpass/";
-
-    constructor(private formBuilder: FormBuilder,private mediaService: MediaService,
+    jobIdUrl:string;
+    selectdMediaId:string[] = [];
+    constructor(private formBuilder: FormBuilder,private mediaService: MediaService,private route: ActivatedRoute,
                 private toastrService:ToastrService,private cdRef : ChangeDetectorRef) {
      
     }
 
     ngOnInit(): void {
+      this.route.queryParams.subscribe(params => {this.jobIdUrl = params['job_id'];});
         this.loadData();
         this.mediaService.getAllBranch().subscribe( data => {
           this.branchList = data as any;
@@ -70,6 +73,9 @@ export class GatePassComponent implements OnInit {
           dispatch_name: ['',[Validators.required]],
           remarks: ['',[Validators.required]],
           otherAssets: this.formBuilder.array([]),  
+          transfer_mode: ['',[Validators.required]],
+          ref_name_num: [],
+          media_id:[],
       });
     }
 
@@ -81,6 +87,7 @@ export class GatePassComponent implements OnInit {
         searchParams['orderBy'] = this.sortField;
         searchParams['passType'] = this.passType;
         searchParams['branchId'] = this.branchId;
+        searchParams['term'] = this.jobIdUrl;
         this.mediaService.getGatepassList(searchParams).subscribe(
           data => {
             let res = data as any;
@@ -116,6 +123,7 @@ export class GatePassComponent implements OnInit {
     reset(){
       this.passType = null;
       this.branchId = null;
+      this.jobIdUrl = '';
       this.loadData();
     }
   
@@ -124,6 +132,10 @@ export class GatePassComponent implements OnInit {
         this.AddGatePassStyle='block';
         this.validateGatepass['transfer_id'].setValue(AppUtil.getObjtoId(this.selection.selected,'id'));
         for(let i= 0; i < (this.selection.selected.length); i++){
+          if(this.selection.selected[i]['media_id'] != 'undefined')
+          {
+            this.selectdMediaId.push(this.selection.selected[i]['media_id']);
+          }
           this.assets.push(
             this.formBuilder.group({
               only_assets:[false],
@@ -156,6 +168,7 @@ export class GatePassComponent implements OnInit {
       }
       
       let apiToCall: any;
+      this.validateGatepass['media_id'].setValue(this.selectdMediaId);
       apiToCall = this.mediaService.saveGatePass(this.gatepass.value);
       apiToCall.subscribe(
           data => {
@@ -175,6 +188,7 @@ export class GatePassComponent implements OnInit {
       this.gatepass.reset();
       this.assets.controls.length=0;
       this.selection.clear();
+      this.selectdMediaId = [];
     }
 
     checkGatepassType(event){

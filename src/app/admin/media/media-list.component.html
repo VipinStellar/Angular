@@ -26,7 +26,7 @@
                 </mat-form-field>
               </div>
               <div class="col-sm-2"> <mat-select [(value)]="selectedStatus" (selectionChange)="statusChange($event)"
-                  class="mt-2 table-search form-control form-control-sm" placeholder="Select Status">
+                  class="mt-2 table-search form-control form-control-sm" placeholder="Select Stage">
                   <mat-option *ngFor="let search of status" [value]="search['id']">
                     {{search['stage_name']}}
                   </mat-option>

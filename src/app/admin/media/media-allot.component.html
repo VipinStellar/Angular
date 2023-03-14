@@ -14,25 +14,29 @@
           <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
           </div> 
           <div class="col-12">
-          <table class="table table-striped table-bordered responsive" style="background-color: #fff !important;">
+          <table class="table table-striped table-bordered responsive count_table" style="background-color: #fff !important;">
+            <thead>
             <tr>
-              <th colspan="3" class="h6">Allot Job</th>
-              <th><a style="float:right" href="javascript:void(0)" (click)="changeUser()" class="btn btn-primary btn-sm">Allot Job</a></th>
+              <th colspan="3" class="h6">Assign Job</th>
+              <th><a style="float:right" href="javascript:void(0)" (click)="changeUser()" class="btn btn-primary btn-sm">Assign Job</a></th>
             </tr>
+            </thead>
             <tr>
               <th width="30">S.No</th>
-              <th width="200">Modify On</th>
-              <th width="200">Modify By</th>
-              <th>Reason</th>
+              <th width="200">Modified On</th>
+              <th width="200">Modified By</th>
+              <th>Remarks</th>
             </tr>
             <ng-container *ngFor="let item of _history; let i = index">
+              <tbody>
                 <tr mdbTableCol *ngIf="item['module_type'] == 'ASSIGN-CHANGE'">
-                  <td>{{i+1}}</td>
+                  <td class="inc-td"></td>
                   <td>{{item['added_on'] | date:'medium'}}</td>
                   <td>{{item['user_name'] ==null ? item['added_by'] :
                     item['user_name'] }}</td>
-                  <td>{{item['remarks']}}</td>
+                  <td [innerHtml]="item['remarks']"></td>
                 </tr>
+              </tbody>
               </ng-container>          
           </table>
         </div>
@@ -41,3 +45,12 @@
       </div>
     </section>
   </div>
+  <style>
+    table.count_table {
+      counter-reset: section;
+    }    
+    table.count_table tbody tr td.inc-td:after {
+      counter-increment: section;
+      content: counter(section) "";
+    }
+    </style>

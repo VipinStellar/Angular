@@ -246,7 +246,7 @@
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Inspection Due Reason:</label><br>
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
                     <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
@@ -254,13 +254,13 @@
                   <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
                 </div>
                 
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Extension Required:</label><br>
                   <select class="form-control form-control-sm" formControlName="extension_required">
                     <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5' && f['extension_required'].value == 'Yes')">
                   <label class="control-label">Extension Required Days:</label><br>
                   <select class="form-control form-control-sm" formControlName="extension_day">
                     <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -441,20 +441,20 @@
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Inspection Due Reason:</label><br>
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                   </mat-select>
                   <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Extension Required:</label><br>
                   <select class="form-control form-control-sm" formControlName="extension_required">
                     <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5' && f['extension_required'].value == 'Yes')">
                   <label class="control-label">Extension Required Days:</label><br>
                   <select class="form-control form-control-sm" formControlName="extension_day">
                     <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -610,20 +610,20 @@
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Inspection Due Reason:</label><br>
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                   </mat-select>
                   <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Extension Required:</label><br>
                   <select class="form-control form-control-sm" formControlName="extension_required">
                     <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                <div class="col-4 p-3" *ngIf="(f['stage'].value == '5' && f['extension_required'].value == 'Yes')">
                   <label class="control-label">Extension Required Days:</label><br>
                   <select class="form-control form-control-sm" formControlName="extension_day">
                     <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
@@ -828,20 +828,20 @@
                       <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                  <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                     <label class="control-label">Inspection Due Reason:</label><br>
                     <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
                       <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                     </mat-select>
                     <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
                   </div>
-                  <div class="col-4 p-3" *ngIf="(f['stage'].value == '4')">
+                  <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                     <label class="control-label">Extension Required:</label><br>
                     <select class="form-control form-control-sm" formControlName="extension_required">
                       <option *ngFor="let req of mediaObj['recoveryPos']" [value]="req">{{req}}</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3" *ngIf="(f['stage'].value == '4' && f['extension_required'].value == 'Yes')">
+                  <div class="col-4 p-3" *ngIf="(f['stage'].value == '5' && f['extension_required'].value == 'Yes')">
                     <label class="control-label">Extension Required Days:</label><br>
                     <select class="form-control form-control-sm" formControlName="extension_day">
                       <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>

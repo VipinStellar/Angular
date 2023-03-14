@@ -28,11 +28,11 @@
                         <mat-option value="Non-Returnable">Non-Returnable</mat-option>
                       </mat-select>
                   </div>
-                  <div class="col-sm-3">
-                      <button  class="btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button>
+                  <div class="col-sm-2">
+                    <input [(ngModel)]="jobIdUrl" type="text" class=" form-control-sm  form-control" placeholder="Enter Ref. Id"/>
                   </div>
-                  <div class="col-sm-3">
-                      <button class="btn btn-success btn-sm" (click)="addGatePass()"><i class="nav-icon fas fa-plus-circle"></i> Add Gate Pass</button>
+                  <div class="col-sm-4">
+                      <button  class="btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button> &nbsp;                       <button class="btn btn-success btn-sm" (click)="addGatePass()"><i class="nav-icon fas fa-plus-circle"></i> Add Gate Pass</button>
                   </div>
                 </div>
               </fieldset>
@@ -172,6 +172,23 @@
                 </div>
               </div>
              </div>
+             <div class="col-md-6">
+              <div class="form-group">
+                <mat-select formControlName="transfer_mode"  [ngClass]="{ 'is-invalid': submitted && validateGatepass['transfer_mode'].errors }"  class="form-control form-control-sm" placeholder="Select Transfer Mode">
+                  <mat-option value="Courier">Courier</mat-option>
+                  <mat-option value="By Hand">By Hand</mat-option>
+                  <mat-option value="Direct To Client">Direct To Client</mat-option>
+                </mat-select>
+                <div *ngIf="submitted && validateGatepass['transfer_mode'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['transfer_mode'].errors['required']">Please Select Transfer Mode</div>
+                </div>
+              </div>
+             </div>
+             <div class="col-md-6">
+              <div class="form-group">
+                <input formControlName="ref_name_num"  class="form-control form-control-sm" placeholder="Ref. Name/No.">
+                </div>
+              </div>
             </div>
             <div formArrayName="otherAssets">
              <div class="row" *ngFor="let otherAsset of assets.controls; let i=index" [formGroupName]="i">

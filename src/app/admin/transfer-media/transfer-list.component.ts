@@ -7,6 +7,7 @@ import { MediaService  } from './../../_services/media.service';
 import { MatDialog } from '@angular/material/dialog';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 @Component({
   selector: 'transfer-list-app',
   templateUrl: './transfer-list.component.html',
@@ -21,7 +22,7 @@ currentPage = 0;
 pageSizeOptions: number[] = [10, 25, 100];
 sortOrder = 'desc';
 sortField = 'id';
-pageTitle = "Job Status";
+pageTitle = "Transfer Media";
 displayedColumns: string[] = ['zoho_id','job_id', 'customer_id', 'branch_id','new_branch_id','media_type','stage_name','action'];
 mediaInList: MatTableDataSource<Media> = new MatTableDataSource();
 @ViewChild(MatSort) sort: MatSort;
@@ -29,12 +30,17 @@ mediaInList: MatTableDataSource<Media> = new MatTableDataSource();
 paginator!: MatPaginator;
 branchList:[];
 branchId=null;
-constructor(private mediaService: MediaService,public dialog: MatDialog,private toastrService: ToastrService) { }
+GatePass:FormGroup;
+AddGatePassStyle = "none";
+submitted:boolean = false;
+constructor(private mediaService: MediaService,public dialog: MatDialog,private toastrService: ToastrService,
+           private formBuilder: FormBuilder) { }
     ngOnInit(): void {
          this.mediaService.getAllBranch().subscribe( data => {
         this.branchList = data as any;
       }); 
       this.loadData();
+      this.updateGatePass();
     }
 
     loadData() {
@@ -87,15 +93,11 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
 
   generateCode(media)
     {
+      if(media.getpassId != null && media.ref_name != null)
+      {
         Swal.fire({
-            title: 'Do Media in',
-            icon: 'warning',
-            allowOutsideClick: false,
-            showCancelButton: true,
-            confirmButtonColor: "#007bff",
-            confirmButtonText: 'Yes',
-            cancelButtonText: 'No',
-          }).then((result) => {
+            title: 'Do Media in',icon: 'warning',allowOutsideClick: false,showCancelButton: true,
+            confirmButtonColor: "#007bff",confirmButtonText: 'Yes',cancelButtonText: 'No',}).then((result) => {
             if (result.value) {
               let apiToCall = this.mediaService.generateMediaCode(media.transfer_id);
               apiToCall.subscribe(
@@ -104,10 +106,50 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
                   this.loadData();
                 }
               );
-            } else if (result.dismiss === Swal.DismissReason.cancel) {
-      
-            }
+            } 
           });
     }
+    else
+    {
+        this.AddGatePassStyle = 'block';
+        this.fg['id'].setValue(media.getpassId);
+        this.fg['transfer_id'].setValue(media.transfer_id);
+    }
+  }
+
+  updateGatePass(){
+    this.GatePass = this.formBuilder.group({
+        ref_name_num: ['',[Validators.required]],
+        id:[],
+        transfer_id:[]
+    });
+  }
+
+  get fg() { return this.GatePass.controls; }
+ 
+  saveGatePass(){
+    this.submitted = true;
+      if (this.GatePass.invalid) {
+          return false;
+      }
+      let apiToCall: any;
+      apiToCall = this.mediaService.updateGatePassRef(this.GatePass.value);
+      apiToCall.subscribe(
+          data => {
+              this.cancelGatePass();
+              this.loadData();
+              this.toastrService.success('Gate Pass Created successfully!', 'Success!');
+          },
+          error=>{
+              console.log(error)
+          }
+      );
+  }
+
+  cancelGatePass(){
+    this.submitted = false;
+    this.AddGatePassStyle='none';
+    this.GatePass.reset();
+  }
 
 }
