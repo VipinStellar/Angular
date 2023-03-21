@@ -1,5 +1,5 @@
 import { Component, OnInit, Inject } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AppUtil } from 'src/app/_helpers/app.util';
@@ -14,6 +14,10 @@ export class RecoveryComponent implements OnInit {
     recovery: FormGroup;
     caseNotPossibleObj:any =[];
     recoveryData:[];
+    MediaCloneFormEny: FormGroup;
+    MediaCloneFormEnyValue = [];
+    MediaCloneFormRecver: FormGroup;
+    MediaCloneFormRecverValue = [];
     constructor(private formBuilder: FormBuilder,
         private toastrService: ToastrService,
         private recoveryService:RecoveryService,
@@ -23,10 +27,17 @@ export class RecoveryComponent implements OnInit {
             this.recoveryService.fatchRecovery(this.data['media_id']).subscribe( data => {
                 this.recoveryData = data as any;
                 if(this.recoveryData['recoveryObj'] != null)
-                this.modeltoForm(this.recoveryData);
+                {
+                    this.MediaCloneFormEnyValue = this.recoveryData['recoveryObj'].clone_required_encrypted_data;
+                    this.MediaCloneFormRecverValue = this.recoveryData['recoveryObj'].clone_required_recoverable_data;
+                    this.modeltoForm(this.recoveryData);
+                }
+                this.addMediaClone();
+                this.addMediaCloneRec();
               });
         }
     ngOnInit(): void {
+
         this.recovery = this.formBuilder.group({
             id:[],            
             media_id:[this.data['media_id']],            
@@ -44,9 +55,55 @@ export class RecoveryComponent implements OnInit {
             recoverable_data:[],
             clone_branch:[],
             clone_required_encrypted:[],
+            clone_required_encrypted_data:[],
+            clone_required_recoverable:[],
+            clone_required_recoverable_data:[],
             remarks:['', [Validators.required]]
           });
+          this.MediaCloneFormEny = this.formBuilder.group({
+            mediaCloneData: new FormArray([])
+        });
+        this.MediaCloneFormRecver = this.formBuilder.group({
+            mediaCloneDataRec: new FormArray([])
+        });
+
           this.caseNotPossibleObj = AppUtil.caseNotPossible('Hard Drive');
+    }
+
+    get mce() { return this.MediaCloneFormEny.controls; }
+    get tm() { return this.mce['mediaCloneData'] as FormArray; }
+
+    addMediaClone() {
+        const numberOfTickets = 2;
+        if (this.tm.length < numberOfTickets) {
+            for (let i = this.tm.length; i < numberOfTickets; i++) {
+                this.tm.push(this.formBuilder.group({
+                    client_media_sn: [(this.MediaCloneFormEnyValue != null && this.MediaCloneFormEnyValue[i] != undefined && this.MediaCloneFormEnyValue[i]['client_media_sn'] != null) ? this.MediaCloneFormEnyValue[i]['client_media_sn'] : ''],
+                    type_processing: [(this.MediaCloneFormEnyValue != null && this.MediaCloneFormEnyValue[i] != undefined && this.MediaCloneFormEnyValue[i]['type_processing'] != null) ? this.MediaCloneFormEnyValue[i]['type_processing'] : ''],
+                    stellar_make: [(this.MediaCloneFormEnyValue != null && this.MediaCloneFormEnyValue[i] != undefined && this.MediaCloneFormEnyValue[i]['stellar_make'] != null) ? this.MediaCloneFormEnyValue[i]['stellar_make'] : ''],
+                    stellar_media_sn: [(this.MediaCloneFormEnyValue != null && this.MediaCloneFormEnyValue[i] != undefined && this.MediaCloneFormEnyValue[i]['stellar_media_sn'] != null) ? this.MediaCloneFormEnyValue[i]['stellar_media_sn'] : ''],
+                    inventry_num: [(this.MediaCloneFormEnyValue != null && this.MediaCloneFormEnyValue[i] != undefined && this.MediaCloneFormEnyValue[i]['inventry_num'] != null) ? this.MediaCloneFormEnyValue[i]['inventry_num'] : '']
+                }));
+            }
+        }
+    }
+
+    get mre() { return this.MediaCloneFormRecver.controls; }
+    get trm() { return this.mre['mediaCloneDataRec'] as FormArray; }
+
+    addMediaCloneRec() {
+        const numberOfTickets = 2;
+        if (this.trm.length < numberOfTickets) {
+            for (let i = this.trm.length; i < numberOfTickets; i++) {
+                this.trm.push(this.formBuilder.group({
+                    client_media_sn: [(this.MediaCloneFormRecverValue != null && this.MediaCloneFormRecverValue[i] != undefined && this.MediaCloneFormRecverValue[i]['client_media_sn'] != null) ? this.MediaCloneFormRecverValue[i]['client_media_sn'] : ''],
+                    type_processing: [(this.MediaCloneFormRecverValue != null && this.MediaCloneFormRecverValue[i] != undefined && this.MediaCloneFormRecverValue[i]['type_processing'] != null) ? this.MediaCloneFormRecverValue[i]['type_processing'] : ''],
+                    stellar_make: [(this.MediaCloneFormRecverValue != null && this.MediaCloneFormRecverValue[i] != undefined && this.MediaCloneFormRecverValue[i]['stellar_make'] != null) ? this.MediaCloneFormRecverValue[i]['stellar_make'] : ''],
+                    stellar_media_sn: [(this.MediaCloneFormRecverValue != null && this.MediaCloneFormRecverValue[i] != undefined && this.MediaCloneFormRecverValue[i]['stellar_media_sn'] != null) ? this.MediaCloneFormRecverValue[i]['stellar_media_sn'] : ''],
+                    inventry_num: [(this.MediaCloneFormRecverValue != null && this.MediaCloneFormRecverValue[i] != undefined && this.MediaCloneFormRecverValue[i]['inventry_num'] != null) ? this.MediaCloneFormRecverValue[i]['inventry_num'] : '']
+                }));
+            }
+        }
     }
 
     modeltoForm(rec)
@@ -68,6 +125,9 @@ export class RecoveryComponent implements OnInit {
             recoverable_data:rec['recoveryObj'].recoverable_data,
             clone_branch:rec['recoveryObj'].clone_branch,
             clone_required_encrypted:rec['recoveryObj'].clone_required_encrypted,
+            clone_required_recoverable:rec['recoveryObj'].clone_required_recoverable,
+            clone_required_encrypted_data:null,
+            clone_required_recoverable_data:null,
             remarks:''
         });
     }
@@ -76,6 +136,10 @@ export class RecoveryComponent implements OnInit {
 
     hide() {
         this.dialogRef.close();
+        this.MediaCloneFormEny.reset();
+        this.MediaCloneFormRecver.reset();
+        this.tm.clear();
+        this.trm.clear();
     }
 
     onSubmit() {
@@ -83,6 +147,8 @@ export class RecoveryComponent implements OnInit {
         if (this.recovery.invalid) {
             return false;
         }
+        this.r['clone_required_encrypted_data'].setValue(this.tm.value);
+        this.r['clone_required_recoverable_data'].setValue(this.trm.value);
          let apiToCall: any;
          apiToCall = this.recoveryService.updateRecovery(this.recovery.value);
         apiToCall.subscribe(
