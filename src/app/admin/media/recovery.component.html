@@ -20,7 +20,7 @@
             <label class="control-label">Details of Cloned Sectors: </label>
             <input type="text" class="form-control form-control-sm" formControlName="cloned_sectors">
           </div>
-          <div class="col-4 pt-2" *ngIf="(r['clone_creation'].value == 'No')">
+          <div class="col-4 pt-2" *ngIf="(r['clone_creation'].value == 'No' && data['type'] == 'CLONECREATION')">
             <label class="control-label">Case Not Possible Reason:</label><br>
             <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
               <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
@@ -52,13 +52,27 @@
                 <option value="No">No</option>
             </select>
           </div>
-          <div class="col-4 pt-2" *ngIf="(r['decryption_data'].value == 'No' && data['type'] == 'DATA-ENCRYPTED')">
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && r['decryption_data'].value == 'No' && data['type'] == 'DATA-ENCRYPTED')">
             <label class="control-label">Correct Decryption Details: </label>
             <input type="text" class="form-control form-control-sm" formControlName="decryption_data_details">
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED'">
+            <label class="control-label">Clone Required: </label>
+            <select class="form-control form-control-sm" formControlName="clone_required_encrypted">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
           </div>
           <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA'">
             <label class="control-label">Client Data Recoverable: </label>
             <select class="form-control form-control-sm" formControlName="recoverable_data">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['recoverable_data'].value == 'Yes'">
+            <label class="control-label">Send Clone To Branch: </label>
+            <select class="form-control form-control-sm" formControlName="clone_branch">
                 <option value="Yes">Yes</option>
                 <option value="No">No</option>
             </select>
@@ -70,7 +84,7 @@
             </mat-select>
             <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
           </div>
-          <div class="col-4 pt-2" *ngIf="(r['decryption_data'].value == 'No' && data['type'] == 'DATA-ENCRYPTED')">
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && r['decryption_data'].value == 'No' && data['type'] == 'DATA-ENCRYPTED')">
             <label class="control-label">Case Not Possible Reason:</label><br>
             <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
               <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>

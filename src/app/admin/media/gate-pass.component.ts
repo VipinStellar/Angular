@@ -26,7 +26,7 @@ export class GatePassComponent implements OnInit {
     sortOrder = 'desc';
     sortField = 'id';
     pageTitle = "Gate Pass";
-    displayedColumns: string[] = ['id','zoho_id','gatepass_no','branch_id','media_type', 'customer_id','case_type','preview'];
+    displayedColumns: string[] = ['id','zoho_id','gatepass_no','branch_id','media_type', 'customer_id','case_type','createdon','preview'];
     gatePassList: MatTableDataSource<Media> = new MatTableDataSource();
     @ViewChild(MatSort) sort: MatSort;
     @ViewChild(MatPaginator)

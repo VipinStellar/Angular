@@ -8,6 +8,7 @@ import { AuthUser } from 'src/app/_models/authuser';
 import { RecoveryComponent } from './recovery.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CloneTransferComponenet } from './clone-transfer.component';
+import { ExtensionComponent } from './extension.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -18,6 +19,7 @@ export class MediaJobProcessComponent implements OnInit {
     activeLink = 'Job Process';
     _history:[];
     user: AuthUser;
+    isEdit:boolean=false;
     constructor(private mediaService: MediaService, private route: ActivatedRoute,
                 private accountService:AccountService,public dialog: MatDialog) {}
     
@@ -31,7 +33,21 @@ export class MediaJobProcessComponent implements OnInit {
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
+            this.buttonShow(this.mediaDetails['stage']);
           });                    
+    }
+
+    buttonShow(statua)
+    {
+      if((this.user.id == this.mediaDetails['user_id']) && (statua !=1 && statua !=2 && statua !=3 && statua !=4 &&
+        statua !=5 && statua !=6 && statua != 7 && statua !=9 && statua !=10 && statua != 11 ) )
+      {
+            this.isEdit = true;
+      }
+      else
+      {
+        this.isEdit = false;
+      }
     }
 
     loadMediaHistory()
@@ -66,6 +82,19 @@ export class MediaJobProcessComponent implements OnInit {
             this.loadMediaDetails();
             this.loadMediaHistory();
         }); 
+      }
+
+      editExtension(type)
+      {
+        const dialogRef = this.dialog.open(ExtensionComponent, {
+          data: {'media_id':this.mediaDetails['id'],'type':type},
+          disableClose: true,
+          autoFocus: true,
+          width: "30rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.loadMediaHistory();
+        });  
       }
 
 }

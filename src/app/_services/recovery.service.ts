@@ -34,4 +34,9 @@ export class RecoveryService {
     {
         return this.http.post(environment.apiUrl + 'recovery/update-branch-clone-user', data);
     }
+
+    updateExtension(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/update-extension', data);
+    }
 }

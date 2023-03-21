@@ -42,6 +42,8 @@ export class RecoveryComponent implements OnInit {
             decryption_data:[],
             decryption_data_details:[],
             recoverable_data:[],
+            clone_branch:[],
+            clone_required_encrypted:[],
             remarks:['', [Validators.required]]
           });
           this.caseNotPossibleObj = AppUtil.caseNotPossible('Hard Drive');
@@ -64,6 +66,8 @@ export class RecoveryComponent implements OnInit {
             decryption_data:rec['recoveryObj'].decryption_data,
             decryption_data_details:rec['recoveryObj'].decryption_data_details,
             recoverable_data:rec['recoveryObj'].recoverable_data,
+            clone_branch:rec['recoveryObj'].clone_branch,
+            clone_required_encrypted:rec['recoveryObj'].clone_required_encrypted,
             remarks:''
         });
     }

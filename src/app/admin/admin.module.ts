@@ -53,6 +53,7 @@ import { CloneTransferComponenet } from './media/clone-transfer.component';
 import { DailyStatusComponent  } from './media/daily-status.component';
 import { TransferListComponent } from './transfer-media/transfer-list.component';
 import { TransferEditComponent } from './transfer-media/transfer-edit.component';
+import { ExtensionComponent } from './media/extension.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -86,7 +87,8 @@ import { TransferEditComponent } from './transfer-media/transfer-edit.component'
     GatePassComponent,
     InventoryListComponent,
     InventoryAddComponent,
-    mediaTable
+    mediaTable,
+    ExtensionComponent
   ],
   imports: [
     CommonModule,
