@@ -9,6 +9,7 @@ import { RecoveryComponent } from './recovery.component';
 import { MatDialog } from '@angular/material/dialog';
 import { CloneTransferComponenet } from './clone-transfer.component';
 import { ExtensionComponent } from './extension.component';
+import { DirectoryListComponent } from './directory-list.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -20,6 +21,7 @@ export class MediaJobProcessComponent implements OnInit {
     _history:[];
     user: AuthUser;
     isEdit:boolean=false;
+    recListShow:boolean = false;
     constructor(private mediaService: MediaService, private route: ActivatedRoute,
                 private accountService:AccountService,public dialog: MatDialog) {}
     
@@ -34,13 +36,15 @@ export class MediaJobProcessComponent implements OnInit {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
             this.buttonShow(this.mediaDetails['stage']);
+            if(this.mediaDetails['stage'] == 8 || this.mediaDetails['stage'] == 9 || this.mediaDetails['stage'] == 10 || this.mediaDetails['stage'] == 11 || this.mediaDetails['stage'] == 12)
+            this.recListShow = true;
           });                    
     }
 
     buttonShow(statua)
     {
       if((this.user.id == this.mediaDetails['user_id']) && (statua !=1 && statua !=2 && statua !=3 && statua !=4 &&
-        statua !=5 && statua !=6 && statua != 7 && statua !=9 && statua !=10 && statua != 11 ) )
+        statua !=5 && statua !=6 && statua != 7 && statua !=9 && statua !=10 && statua != 11 && statua != 12) )
       {
             this.isEdit = true;
       }
@@ -93,6 +97,20 @@ export class MediaJobProcessComponent implements OnInit {
           width: "30rem"
         });
         dialogRef.afterClosed().subscribe(result => {
+            this.loadMediaHistory();
+        });  
+      }
+
+      editDirectory()
+      {
+        const dialogRef = this.dialog.open(DirectoryListComponent, {
+          data: {'media_id':this.mediaDetails['id'],'type':'DIRECTORY-LISTING'},
+          disableClose: true,
+          autoFocus: true,
+          width: "60rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.loadMediaDetails();
             this.loadMediaHistory();
         });  
       }

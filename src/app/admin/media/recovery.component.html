@@ -99,7 +99,7 @@
             <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
           </div>
           <div class="col-md-12 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED' && r['clone_required_encrypted'].value=='Yes'">
-            <h2>Stellar Destination Drives Details</h2>
+            <h2 class="text-center">Stellar Destination Drives Details</h2>
               <form [formGroup]="MediaCloneFormEny">
                 <div *ngFor="let test of tm.controls; let i = index">
                   <div class="row text-center" [formGroup]="test">
@@ -136,7 +136,7 @@
               </form>
             </div>
             <div class="col-md-12 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['clone_required_recoverable'].value=='Yes'">
-              <h2>Stellar Destination Drives Details</h2>
+              <h2 class="text-center">Stellar Destination Drives Details</h2>
                 <form [formGroup]="MediaCloneFormEny">
                   <div *ngFor="let fm of trm.controls; let i = index">
                     <div class="row text-center" [formGroup]="fm">

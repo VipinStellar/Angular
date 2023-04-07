@@ -15,6 +15,16 @@ export class RecoveryService {
         return this.http.get(environment.apiUrl + 'recovery/fatch-recovery/'+id);
     }
 
+    fatchDirectory(id)
+    {
+        return this.http.get(environment.apiUrl + 'recovery/fatch-directory/'+id);
+    }
+
+    updateDirectory(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/update-directory', data);
+    }
+
     updateRecovery(data)
     {
         return this.http.post(environment.apiUrl + 'recovery/update', data);

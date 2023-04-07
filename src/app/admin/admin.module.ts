@@ -54,6 +54,7 @@ import { DailyStatusComponent  } from './media/daily-status.component';
 import { TransferListComponent } from './transfer-media/transfer-list.component';
 import { TransferEditComponent } from './transfer-media/transfer-edit.component';
 import { ExtensionComponent } from './media/extension.component';
+import { DirectoryListComponent } from './media/directory-list.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -88,7 +89,8 @@ import { ExtensionComponent } from './media/extension.component';
     InventoryListComponent,
     InventoryAddComponent,
     mediaTable,
-    ExtensionComponent
+    ExtensionComponent,
+    DirectoryListComponent
   ],
   imports: [
     CommonModule,
