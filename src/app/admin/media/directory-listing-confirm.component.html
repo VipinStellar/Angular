@@ -1,0 +1,36 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="directory">
+    <div class="row">
+      <div class="col-12 pt-2">
+          <label class="control-label">Rework Required<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="rework" [ngClass]="{ 'is-invalid': submitted && tm['rework'].errors }">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+           </select>
+           <div *ngIf="submitted && tm['rework'].errors" class="invalid-feedback">
+            <div *ngIf="tm['rework'].errors['required']">Rework required is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2" *ngIf="(tm['rework'].value == 'No')">
+            <label class="control-label">Case Not Possible Reason:</label><br>
+            <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm ">
+              <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
+            </mat-select>
+            <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
+        </div>
+        <div class="col-lg-12 col-md-12 pt-2">
+            <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+            <textarea class="form-control form-control-sm" formControlName="remarks"
+              [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }"></textarea>
+            <div *ngIf="submitted && tm['remarks'].errors" class="invalid-feedback">
+              <div *ngIf="tm['remarks'].errors['required']">Remarks is required</div>
+            </div>
+          </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

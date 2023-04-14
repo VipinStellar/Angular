@@ -222,7 +222,7 @@
       <tbody>        
         <tr *ngFor="let key of Object.keys(resultWaitCase)">
           <td>{{key}}</td>
-          <td><a href="javascript:void(0)" (click)="viewDtails(resultWaitCase[key],'total')" >{{resultWaitCase[key]['totalMedia']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultWaitCase[key],'total')" >{{resultWaitCase[key]['totalMedia']}}</a></td>
         </tr>
       </tbody>
       </table>
@@ -246,7 +246,7 @@
       <tbody>        
         <tr *ngFor="let key of Object.keys(resultConfirmCase)">
           <td>{{key}}</td>
-          <td><a href="javascript:void(0)" (click)="viewDtails(resultConfirmCase[key],'total')" >{{resultConfirmCase[key]['totalMedia']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultConfirmCase[key],'total')" >{{resultConfirmCase[key]['totalMedia']}}</a></td>
         </tr>
       </tbody>
       </table>
@@ -270,7 +270,7 @@
       <tbody>        
         <tr *ngFor="let key of Object.keys(resultConfirmNotCase)">
           <td>{{key}}</td>
-          <td><a href="javascript:void(0)" (click)="viewDtails(resultConfirmNotCase[key],'total')" >{{resultConfirmNotCase[key]['totalMedia']}}</a></td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultConfirmNotCase[key],'total')" >{{resultConfirmNotCase[key]['totalMedia']}}</a></td>
         </tr>
       </tbody>
       </table>

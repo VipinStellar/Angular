@@ -250,7 +250,7 @@ table thead tr.table-title{
               <thead>
               <tr class="table-title">
                 <th colspan="3" class="h6">Directory Listing</th>
-                <th><a style="float:right" href="javascript:void(0)" (click)="editDirectory()" class="btn btn-primary btn-sm" *ngIf="user.id == mediaDetails['user_id']">Edit Details</a></th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editDirectory()" class="btn btn-primary btn-sm" *ngIf="user.id == mediaDetails['user_id']  &&  mediaDetails['stage'] !=9 &&  mediaDetails['stage'] !=10 &&  mediaDetails['stage'] !=11">Edit Details</a></th>
               </tr>
               <tr>
                 <th width="30">S.No</th>
@@ -269,6 +269,28 @@ table thead tr.table-title{
                 </tr>
                </tbody>
               </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['Directory_Listing'] !=null">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th  colspan="3" class="h6">Directory Listing Confirmation 
+                <a style="float:right" href="javascript:void(0)" (click)="directoryEdit(mediaDetails['Directory_Listing'])"  class="btn btn-primary btn-sm" *ngIf="user.id == mediaDetails['user_id'] && mediaDetails['Directory_Listing']['dl_status'] == 'No' &&  mediaDetails['stage'] !=9 &&  mediaDetails['stage'] !=10 &&  mediaDetails['stage'] !=11">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th>Dl Confirmation</th>
+                <th *ngIf="mediaDetails['Directory_Listing']['dl_status'] == 'No'">Rework Required</th>
+                <th>Copy Data In</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr mdbTableCol>
+                <td>{{mediaDetails['Directory_Listing']['dl_status']}}</td>
+                <td *ngIf="mediaDetails['Directory_Listing']['dl_status'] == 'No'">{{mediaDetails['Directory_Listing']['rework']}}</td>
+                <td>{{mediaDetails['Directory_Listing']['copyin']}}</td>
+              </tr>
+             </tbody>
             </table>
           </div>
         </div>

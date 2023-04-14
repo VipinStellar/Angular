@@ -10,6 +10,7 @@ import { MatDialog } from '@angular/material/dialog';
 import { CloneTransferComponenet } from './clone-transfer.component';
 import { ExtensionComponent } from './extension.component';
 import { DirectoryListComponent } from './directory-list.component';
+import { DirectoryConfirmComponent } from './directory-listing-confirm.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -113,6 +114,19 @@ export class MediaJobProcessComponent implements OnInit {
             this.loadMediaDetails();
             this.loadMediaHistory();
         });  
+      }
+
+      directoryEdit(element)
+      {
+        const dialogRef = this.dialog.open(DirectoryConfirmComponent, {
+          data: element,
+          disableClose: true,
+          autoFocus: true,
+          width: "30rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.loadMediaDetails();
+        });
       }
 
 }

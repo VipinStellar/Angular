@@ -47,8 +47,6 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'job/jobconfirm', searchParams);
     }
 
-
-
     getObservation(id)
     {
         return this.http.get(environment.apiUrl + 'job/getObservation/'+id);
@@ -57,9 +55,7 @@ export class MediaService {
     getMediaDetails(id)
     {
         return this.http.get(environment.apiUrl + 'mediain/getMediaDetails/'+id);
-    }
-
- 
+    } 
 
     mediauserlist(id)
     {
@@ -179,5 +175,12 @@ export class MediaService {
     {
         return this.http.get(environment.apiUrl + 'media/comman-history/'+id);
     }
+
+    updateMediaDl(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/update-media-dl', data);
+    }
+
+    
 
 }
