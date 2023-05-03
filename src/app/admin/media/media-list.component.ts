@@ -205,4 +205,11 @@ export class MediaListComponent implements OnInit {
     });
   }
 
+  changeDl(row)
+  {
+    this.mediaService.updateDummydl(row.id).subscribe(data => {
+      this.loadData();
+    });
+  }
+
 }

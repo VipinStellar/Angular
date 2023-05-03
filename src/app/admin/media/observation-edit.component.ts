@@ -173,9 +173,8 @@ export class ObservationEditComponent implements OnInit {
         apiToCall = this.mediaService.updateObservation(this.mediaEdit.value);
         apiToCall.subscribe(
             data => {
-                this.hide();
                 this.toastrService.success('Details Saved successfully!', 'Success!');
-                this.router.navigate(['admin/observation/' + this.mediaDetails['mediaId']]);
+                this.router.navigate(['admin/media/job-process/' + this.mediaDetails['mediaId']]);
             },
             error => {
                 this.loading= false;

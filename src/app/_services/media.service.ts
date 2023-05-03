@@ -152,6 +152,11 @@ export class MediaService {
         return this.http.get(environment.apiUrl + 'media/UpdateStausDummyMedia/'+id);
     }
 
+    updateDummydl(id)
+    {
+        return this.http.get(environment.apiUrl + 'media/UpdateStausDl/'+id);
+    }
+
     getGatepassList(searchParams: any) {
         return this.http.post(environment.apiUrl + 'job/gatepasslist', searchParams);
     }

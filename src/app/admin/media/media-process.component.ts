@@ -37,22 +37,17 @@ export class MediaJobProcessComponent implements OnInit {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
             this.buttonShow(this.mediaDetails['stage']);
-            if(this.mediaDetails['stage'] == 8 || this.mediaDetails['stage'] == 9 || this.mediaDetails['stage'] == 10 || this.mediaDetails['stage'] == 11 || this.mediaDetails['stage'] == 12)
+            if(this.mediaDetails['stage'] > 7 )
             this.recListShow = true;
           });                    
     }
 
-    buttonShow(statua)
+    buttonShow(status)
     {
-      if((this.user.id == this.mediaDetails['user_id']) && (statua !=1 && statua !=2 && statua !=3 && statua !=4 &&
-        statua !=5 && statua !=6 && statua != 7 && statua !=9 && statua !=10 && statua != 11 && statua != 12) )
-      {
+      if(this.user.id == this.mediaDetails['user_id'] && status == 8 )
             this.isEdit = true;
-      }
       else
-      {
         this.isEdit = false;
-      }
     }
 
     loadMediaHistory()
@@ -105,7 +100,7 @@ export class MediaJobProcessComponent implements OnInit {
       editDirectory()
       {
         const dialogRef = this.dialog.open(DirectoryListComponent, {
-          data: {'media_id':this.mediaDetails['id'],'type':'DIRECTORY-LISTING'},
+          data: {'media_id':this.mediaDetails['id'],'type':'DIRECTORY-LISTING','fileUpload':this.mediaDetails['fileUpload']},
           disableClose: true,
           autoFocus: true,
           width: "60rem"
