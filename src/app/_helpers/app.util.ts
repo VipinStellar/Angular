@@ -12,7 +12,7 @@ export class AppUtil {
         return {'mediaType':this.getMediaType(),'mediaClone':this.mediaClone(),'serviceType':this.getServiceType(),'serviceMode':this.getServiceMode(),'mediaSize':this.getMediaSize(),'mediaIferFace':this.getMediaInterFace(),'capacity':this.getMediaCapacity(),'condition':this.getmediaCondition(),'peripheralsMedia':this.getPeripheralsMedia(),'mediaStatus':this.getmediaStatus(),
                 'media_make':this.getMediaMake(),'casetype':this.getMediaCaseType(),'recoveryPos':this.getMediaRecoveryPos(),'mediaDamage':this.getMediaDamage(),'plattersCondition':this.plattersCondition(),'tamperingRequired':this.getTamperingRequired(),'encryptionStatus':this.encryptionStatus(),'encryptionName':this.encryptionName(),'encryptionType':this.encryptionType(),
                 'encryptionDetailsCorrect':this.encryptionDetailsCorrect(),'NoiceType':this.NoiceType(),'mediaRecevid':this.mediaRecevid(),'sparRequred':this.sparRequred(),'driveElectronic':this.driveElectronic(),'rotaryFunction':this.rotaryFunction(),'mediaOs':this.getMediaOs(),'compressionStatus':this.compressionStatus(),'furtherUse':this.furtherUse(),
-                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'HeadCount':this.HeadCount()};
+                'recoverableData':this.recoverableData(),'dataLossReason':this.dataLossReason(),'fileSystemInfo':this.fileSystemInfo(),'serverType':this.serverType(),'recoveryPercentage':this.recoveryPercentage(),'requiredDays':this.requiredDays(),'backupUtility':this.backupUtility(),'tapeDamage':this.tapeDamage(),'plattersCount':this.plattersCount(),'HeadCount':this.HeadCount(),'SSDInterFace':this.SSDInterFace()};
     }
 
     static getMediaType()
@@ -213,6 +213,11 @@ export class AppUtil {
         return [0,1,2,3,4,5,6,7,8,9,'N/A','Other'];
     }
 
+    static SSDInterFace()
+    {
+        return ['SATA','SATA M.2','NVME(M.2)','U.2 ACHI','muSATA','PCIe EXPRESS','USB/Onborad','Other'];
+    }
+
     static mediaStausList()
     {
         return ['Tempering Permission Required','Waiting  For Tempering Permission','Waiting For Confirmation','Required/ Waiting For  Original P.C.B/specific Chip (Bios)/missing Specific Chip (Bios)','In Analysis Process,________working Days Required',
@@ -339,6 +344,7 @@ export class AppUtil {
     }
 
     static caseNotPossible(media_type){
+        let type = this.checkMediaType(media_type);
         let notPossible = {
             "Hard Drive":["Corruption in specific chip","Corruption in service area","Non availabilty of similar spare","Non availability of original P.C.B.","Magnetic property of platter lost due to overheating","Heavy scratches on platter/s","Heavy scratches on both sides of the platter",
                 "Heavy scratches on both sides of the platter, Heads found broken","Heavy scratches on lower side of the platter","Light scratches on lower side of the platter","Heavy scratches on upper side of the platter","Light scratches on upper side of the platter","Heads found broken inside the hard drive",
@@ -354,7 +360,17 @@ export class AppUtil {
             "Other":["Required Data not Found","Data Overwritten","Most of the Sectors Internally Zero","Same pattern Written in most of the sectors","Most of the sectors are Garbage Sectors","Encryption Information Overwritten","Encryption Information not Found","CD/DVD disk not finalized",
             "File Severely Damaged","Wrong HDD Provided by Client","Sample Data not Provided by Client","Low Level Formatted","Unknown Encryption","Encryption Details not Received","Corruption was found in the required data","Zero MB data (Empty Data shown)","Solution not available at present"]
         }
-        return notPossible[media_type];
+        return notPossible[type];
+    }
+
+    static partialReason(media_type)
+    {
+        let type = this.checkMediaType(media_type);
+        let reason = {
+            "Solid State Drive":['Lots of bad sectors','Firmware issue','Physical Problem'],
+            "Hard Drive":['Due to corruption in service area Modules, solution not available this time','Due to scratches on platter','Image done with Lots of Bad sectors']
+         };
+        return reason[type];
     }
 
 

@@ -3,6 +3,18 @@
     <form [formGroup]="directory">
         <div class="row">
           <div class="col-4 pt-2">
+            <label class="control-label">Type of Data Recovered: </label>
+            <mat-select multiple formControlName="data_recovered" class="form-control form-control-sm" (selectionChange)="dataRecovered($event.value)">
+              <mat-option value="Audio">Audio</mat-option>
+              <mat-option value="Video">Video</mat-option>
+              <mat-option value="Photo">Photo</mat-option>
+              <mat-option value="Database">Database</mat-option>
+              <mat-option value="Mail">Mail</mat-option>
+              <mat-option value="Document">Document</mat-option>
+              <mat-option value="Other">Other</mat-option>
+            </mat-select>
+          </div>
+          <div class="col-4 pt-2">
             <label class="control-label">Total Number of Files: </label>
             <input type="text" class="form-control form-control-sm" formControlName="total_file">
           </div>
@@ -10,7 +22,7 @@
             <label class="control-label">Total Data Size: </label>
             <div class="d-flex">
             <input type="text" class="form-control form-control-sm" formControlName="total_data_size">
-            <select style="max-width: 20%;" class="form-control form-control-sm" formControlName="total_data_size_format">
+            <select style="max-width: 30%;" class="form-control form-control-sm" formControlName="total_data_size_format">
               <option value="KB">KB</option>
               <option value="MB">MB</option>
               <option value="GB">GB</option>
@@ -18,15 +30,15 @@
             </select>
             </div>
           </div>
-          <div class="col-4 pt-2">
+          <div class="col-4 pt-2" *ngIf="mailFieldShow">
             <label class="control-label">Total Mails: </label>
             <input type="text" class="form-control form-control-sm" formControlName="total_mail">
           </div>
-          <div class="col-4 pt-2">
+          <div class="col-4 pt-2" *ngIf="mailFieldShow">
             <label class="control-label">Total Mail Size: </label>
             <div class="d-flex">
             <input type="text" class="form-control form-control-sm" formControlName="total_mail_size">
-            <select style="max-width: 20%;" class="form-control form-control-sm" formControlName="total_mail_size_format">
+            <select style="max-width: 30%;" class="form-control form-control-sm" formControlName="total_mail_size_format">
               <option value="KB">KB</option>
               <option value="MB">MB</option>
               <option value="GB">GB</option>
@@ -34,7 +46,7 @@
             </select>
           </div>
           </div>
-          <div class="col-4 pt-2">
+          <div class="col-4 pt-2" *ngIf="mailFieldShow">
             <label class="control-label">Mail Data: </label>
             <select class="form-control form-control-sm" formControlName="mail_data">
               <option value="Partial">Partial</option>
@@ -60,7 +72,13 @@
               <option value="No">No</option>
             </select>
           </div>
-          <div class="col-4"><br><br>
+          <div class="col-4 p-2">
+            <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
+            <select class="form-control form-control-sm" formControlName="recoverable_data">
+              <option *ngFor="let recData of recoverData" [value]="recData">{{recData}}</option>
+            </select>
+          </div>
+          <div class="col-4 p-3"><br>
             <div class="form-group form-check">
               <label class="form-check-label">
                 <input type="checkbox" formControlName="email_notification" class="form-check-input"><strong>Email Notification</strong>

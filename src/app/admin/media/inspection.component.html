@@ -20,6 +20,7 @@
                 <th>Mode Of Service</th>
                 <th>Media Type</th>
                 <th>Media Capacity</th>
+                <th>Current Status</th>
                 <!-- <th>Tampered Status</th> -->
               </tr>
               <tr>
@@ -29,6 +30,7 @@
                 <td>{{mediaDetails['service_mode']}}</td>
                 <td>{{mediaDetails['media_type']}}</td>
                 <td>{{mediaDetails['media_capacity']}}</td>
+                <td>{{mediaDetails['stageName']}}</td>
                 <!-- <td>{{mediaDetails['tampered_status']}}</td> -->
               </tr>
             </table>
@@ -237,7 +239,7 @@
                   <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
                   </mat-select>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
                 </div>
                 <div class="col-4 p-3">
                   <label class="control-label">Inspection Status:</label><br>
@@ -251,7 +253,7 @@
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
                     <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                   </mat-select>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Other Reason" > 
                 </div>
                 
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
@@ -432,7 +434,7 @@
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
                   <label class="control-label">Case Not Possible Reason:</label><br>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
                 </div>
                 <div class="col-4 p-3">
                   <label class="control-label">Inspection Status:</label><br>
@@ -446,7 +448,7 @@
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                   </mat-select>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Other Reason" > 
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Extension Required:</label><br>
@@ -601,7 +603,7 @@
                   <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
                   </mat-select>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
                 </div>
                 <div class="col-4 p-3">
                   <label class="control-label">Inspection Status:</label><br>
@@ -615,7 +617,7 @@
                   <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                   </mat-select>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Other Reason" > 
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                   <label class="control-label">Extension Required:</label><br>
@@ -819,7 +821,7 @@
                   </div>
                   <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
                     <label class="control-label">Case Not Possible Reason:</label><br>                
-                    <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Reason" > 
+                    <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
                   </div>
                   <div class="col-4 p-3">
                     <label class="control-label">Inspection Status:</label><br>
@@ -833,7 +835,7 @@
                     <mat-select  multiple formControlName="assessment_due_reason" class="form-control form-control-sm mt-1 ">
                       <mat-option *ngFor="let res of inspectionObj" [value]="res">{{res}}</mat-option>
                     </mat-select>
-                    <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Reason" > 
+                    <input type="text" class="form-control form-control-sm mt-1" formControlName="assessment_due_reason_other"  placeholder="Please Enter Other Reason" > 
                   </div>
                   <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
                     <label class="control-label">Extension Required:</label><br>

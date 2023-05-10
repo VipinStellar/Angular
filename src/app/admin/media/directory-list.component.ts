@@ -7,6 +7,7 @@ import { environment } from './../../../environments/environment';
 import { MediaService } from './../../_services/media.service';
 import { HttpClient } from '@angular/common/http';
 import Swal from 'sweetalert2';
+import { AppUtil } from 'src/app/_helpers/app.util';
 @Component({
     selector: 'app-directory-list',
     templateUrl: './directory-list.component.html',
@@ -21,6 +22,8 @@ export class DirectoryListComponent implements OnInit {
     errorMsg :string = 'Please fill all required fields *';
     selectedFiles?: FileList;
     uploadedFile:[];
+    recoverData:any =[];
+    mailFieldShow:boolean;
     constructor(private formBuilder: FormBuilder,
         private toastrService: ToastrService,
         private recoveryService:RecoveryService,
@@ -29,6 +32,7 @@ export class DirectoryListComponent implements OnInit {
         private dialogRef: MatDialogRef<DirectoryListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.diaTitle= 'Directory Listing';
+            this.recoverData = AppUtil.recoverableData();
             this.recoveryService.fatchDirectory(this.data['media_id']).subscribe( data => {
                 this.directoryList = data as any;
                 if(this.directoryList.length !=0)
@@ -43,6 +47,7 @@ export class DirectoryListComponent implements OnInit {
             id:[],            
             media_id:[this.data['media_id']],            
             type: [this.data['type']],
+            data_recovered:[],
             total_file: [],
             total_data_size: [],
             total_mail: [],
@@ -54,6 +59,7 @@ export class DirectoryListComponent implements OnInit {
             email_notification: [],
             total_data_size_format:[],
             total_mail_size_format:[],
+            recoverable_data:[],
             remarks:['', [Validators.required]]
           });
     }
@@ -99,6 +105,8 @@ export class DirectoryListComponent implements OnInit {
             email_notification:(dir.email_notification == 1)?true:false,
             total_data_size_format:dir.total_data_size_format,
             total_mail_size_format:dir.total_mail_size_format,
+            recoverable_data:dir.recoverable_data,
+            data_recovered:JSON.parse(dir.data_recovered),
             remarks:''
         });
     }
@@ -163,5 +171,13 @@ export class DirectoryListComponent implements OnInit {
               );
             } 
           });
+    }
+
+    dataRecovered(event)
+    {
+        this.mailFieldShow = false;
+        const result = event.filter(element => element == 'Mail');
+        if(result.length == 1)
+            this.mailFieldShow = true;
     }
 }

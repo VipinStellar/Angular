@@ -15,8 +15,8 @@ export class mediaTable implements PipeTransform  {
         media['zoho_id'] = media['job_id'];
     }
    let html ='<table class="table table-striped table-bordered responsive " style="background-color: #fff !important;">'+
-            '<tr style="background-color: #f2f2f2 !important;"><th>Client Name</th><th>'+title+'</th><th>Media Type</th></tr>'+
-            '<tr><td>'+media['customer_name']+'</td><td>'+media['zoho_id']+'</td><td>'+media['media_type']+'</td></tr></table>';
+            '<tr style="background-color: #f2f2f2 !important;"><th>Client Name</th><th>'+title+'</th><th>Media Type</th><th>Current Status</th></tr>'+
+            '<tr><td>'+media['customer_name']+'</td><td>'+media['zoho_id']+'</td><td>'+media['media_type']+'</td><td>'+media['stageName']+'</td></tr></table>';
     return this._sanitizer.bypassSecurityTrustHtml(html);
   }
   

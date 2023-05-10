@@ -49,6 +49,7 @@ export class ObservationEditComponent implements OnInit {
         this.appendOption(media.total_number_of_platters, 'plattersCount');
         this.appendOption(media.number_of_working_heads, 'HeadCount');
         this.appendOption(media.number_of_non_working_heads, 'HeadCount');
+        this.appendOption(media.media_interface, 'SSDInterFace');
         this.mediaEdit.setValue({
             id:media.id,
             media_id:media.mediaId,
@@ -87,12 +88,10 @@ export class ObservationEditComponent implements OnInit {
             recovery_percentage:media.recovery_percentage,
             recoverable_data:media.recoverable_data,
             required_days:media.required_days,
-            label1:media.label1,      
-            label2:media.label2,      
-            label3:media.label3,      
-            label4:media.label4,
+            label1:media.label1,   
             architacture:media.architacture,
-            internal_damage:media.internal_damage
+            internal_damage:media.internal_damage,
+            media_interface_other:''
         });
     }
 
@@ -138,12 +137,10 @@ export class ObservationEditComponent implements OnInit {
             recovery_percentage:[],       
             recoverable_data:[],       
             required_days:[], 
-            label1:[],      
-            label2:[],      
-            label3:[],      
-            label4:[], 
+            label1:[],  
             architacture:[],
-            internal_damage:[]     
+            internal_damage:[],
+            media_interface_other:[]     
         });
     }
 
@@ -169,6 +166,9 @@ export class ObservationEditComponent implements OnInit {
         }
         if (this.f['number_of_non_working_heads'].value == 'Other') {
             this.f['number_of_non_working_heads'].setValue(this.f['number_of_non_working_heads_other'].value)
+        }
+        if (this.f['media_interface'].value == 'Other') {
+            this.f['media_interface'].setValue(this.f['media_interface_other'].value)
         }
         apiToCall = this.mediaService.updateObservation(this.mediaEdit.value);
         apiToCall.subscribe(

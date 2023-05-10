@@ -1,9 +1,13 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import {  MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { ToastrService } from 'ngx-toastr';
 import { AppUtil } from 'src/app/_helpers/app.util';
 import { RecoveryService } from './../../_services/recovery.service';
+import { HttpClient } from '@angular/common/http';
+import Swal from 'sweetalert2';
+import { environment } from './../../../environments/environment';
+import { MediaService } from './../../_services/media.service';
 @Component({
     selector: 'app-recovery',
     templateUrl: './recovery.component.html',
@@ -13,19 +17,30 @@ export class RecoveryComponent implements OnInit {
     submitted: boolean;
     recovery: FormGroup;
     caseNotPossibleObj:any =[];
+    partialObj:any =[];
     recoveryData:[];
     MediaCloneFormEny: FormGroup;
     MediaCloneFormEnyValue = [];
     MediaCloneFormRecver: FormGroup;
     MediaCloneFormRecverValue = [];
+    @ViewChild('fileUploader') fileUploader:ElementRef;
+    uploadUrl: string;
+    errorMsg :string = 'Please fill all required fields *';
+    selectedFiles?: FileList;
+    uploadedFile:[];
     constructor(private formBuilder: FormBuilder,
         private toastrService: ToastrService,
         private recoveryService:RecoveryService,
+        private http: HttpClient,
+        private mediaService: MediaService,
         private dialogRef: MatDialogRef<RecoveryComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
             this.diaTitle= 'Recovery Process';
             this.recoveryService.fatchRecovery(this.data['media_id']).subscribe( data => {
                 this.recoveryData = data as any;
+                this.uploadedFile = this.recoveryData['fileUpload'];
+                this.caseNotPossibleObj = AppUtil.caseNotPossible(this.recoveryData['media_type']);
+                this.partialObj = AppUtil.partialReason(this.recoveryData['media_type']);
                 if(this.recoveryData['recoveryObj'] != null)
                 {
                     this.MediaCloneFormEnyValue = this.recoveryData['recoveryObj'].clone_required_encrypted_data;
@@ -37,7 +52,7 @@ export class RecoveryComponent implements OnInit {
               });
         }
     ngOnInit(): void {
-
+        this.uploadUrl = environment.apiUrl;
         this.recovery = this.formBuilder.group({
             id:[],            
             media_id:[this.data['media_id']],            
@@ -51,13 +66,16 @@ export class RecoveryComponent implements OnInit {
             decryption_details:[],
             decryption_details_send:[],
             decryption_data:[],
-            decryption_data_details:[],
             recoverable_data:[],
             clone_branch:[],
             clone_required_encrypted:[],
             clone_required_encrypted_data:[],
             clone_required_recoverable:[],
             clone_required_recoverable_data:[],
+            start_date:[],
+            end_date:[],
+            partial_reason:[],
+            partial_reason_other:[],
             remarks:['', [Validators.required]]
           });
           this.MediaCloneFormEny = this.formBuilder.group({
@@ -67,7 +85,6 @@ export class RecoveryComponent implements OnInit {
             mediaCloneDataRec: new FormArray([])
         });
 
-          this.caseNotPossibleObj = AppUtil.caseNotPossible('Hard Drive');
     }
 
     get mce() { return this.MediaCloneFormEny.controls; }
@@ -121,13 +138,16 @@ export class RecoveryComponent implements OnInit {
             decryption_details:rec['recoveryObj'].decryption_details,
             decryption_details_send:rec['recoveryObj'].decryption_details_send,
             decryption_data:rec['recoveryObj'].decryption_data,
-            decryption_data_details:rec['recoveryObj'].decryption_data_details,
             recoverable_data:rec['recoveryObj'].recoverable_data,
             clone_branch:rec['recoveryObj'].clone_branch,
             clone_required_encrypted:rec['recoveryObj'].clone_required_encrypted,
             clone_required_recoverable:rec['recoveryObj'].clone_required_recoverable,
             clone_required_encrypted_data:null,
             clone_required_recoverable_data:null,
+            end_date:rec['recoveryObj'].end_date,
+            start_date:rec['recoveryObj'].start_date,
+            partial_reason:rec['recoveryObj'].partial_reason,
+            partial_reason_other:rec['recoveryObj'].partial_reason_other,
             remarks:''
         });
     }
@@ -161,4 +181,67 @@ export class RecoveryComponent implements OnInit {
             }
         );
     }
+
+    onSelectFile(event) {
+        this.selectedFiles = event.target.files;
+        let totalSize = 0;
+        if (this.selectedFiles) 
+        {
+            for (let i = 0; i < this.selectedFiles.length; i++) {
+                totalSize = totalSize + this.selectedFiles[i]['size'];
+                if(this.selectedFiles[i]['type'] != 'application/x-zip-compressed' && this.selectedFiles[i]['type'] != 'image/png' && this.selectedFiles[i]['type'] != 'image/jpeg')
+                {
+                    this.toastrService.error('Only  allow  JPG,PNG,ZIP', 'Error!');
+                    this.fileUploader.nativeElement.value = null;
+                    this.selectedFiles = undefined;
+                    return 
+                }
+            }
+        }
+        if(totalSize  > 4000000)
+        {
+         this.toastrService.error('File size should not be grater then 4Mb', 'Error!');
+         this.fileUploader.nativeElement.value = null;
+        }
+
+    }
+
+    uploadFiles(): void {
+        if (this.selectedFiles) {
+              const formData = new FormData();
+              formData.append('media_id', this.data['media_id']);
+            for (let i = 0; i < this.selectedFiles.length; i++) {
+                formData.append('files', this.selectedFiles[i]);
+                this.http.post(this.uploadUrl + 'media/upload', formData).subscribe(data => { this.uploadedFile=  data['data'];
+                });
+            }
+            this.fileUploader.nativeElement.value = null;
+            this.selectedFiles = undefined;
+            
+        }
+    }
+
+    deleteFile(file)
+    {
+        Swal.fire({
+            title: 'Are you sure want to remove? ' + file.name,
+            //text: 'You will not be able to recover this file!.',
+            icon: 'warning',
+            allowOutsideClick: false,
+            showCancelButton: true,
+            confirmButtonText: 'Yes, go ahead.',
+            cancelButtonText: 'No, let me think',
+          }).then((result) => {
+            if (result.value) {
+              let apiToCall = this.mediaService.deleteFile(file.id);
+              apiToCall.subscribe(
+                data => {
+                  this.toastrService.success('File delete successfully!', 'Success!');
+                  this.uploadedFile =  data['data'];
+                 }
+              );
+            } 
+          });
+    }
+
 }

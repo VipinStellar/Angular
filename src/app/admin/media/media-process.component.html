@@ -2,6 +2,9 @@
 table.count_table {
   counter-reset: section;
 }
+table.count_table th{
+  font-weight: 500;
+}
 
 table.count_table tbody tr td.inc-td:after {
   counter-increment: section;
@@ -280,7 +283,7 @@ table thead tr.table-title{
               </tr>
               <tr>
                 <th>Dl Confirmation</th>
-                <th *ngIf="mediaDetails['Directory_Listing']['dl_status'] == 'No'">Rework Required</th>
+                <th *ngIf="mediaDetails['Directory_Listing']['dl_status'] == 'No'">Rework Possible</th>
                 <th>Copy Data In</th>
               </tr>
             </thead>
