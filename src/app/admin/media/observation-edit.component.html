@@ -33,7 +33,7 @@
                     <input *ngIf="f['media_interface'].value == 'Other'" type="text" class="form-control form-control-sm mt-1" formControlName="media_interface_other" [ngClass]="{ 'is-invalid': submitted && f['media_interface_other'].errors }" placeholder="Please Enter Other Interface" maxlength="50"> 
                   </div>
                   <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Solid State Drive'">
-                    <label class="control-label">SSD Found Tempered:</label><br>
+                    <label class="control-label">SSD Found Tampered:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
                         <option value="Physical Damage">Physical Damage</option>
                         <option value="Broken">Broken</option>
@@ -44,7 +44,7 @@
                     </select>
                   </div>
                   <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Flash Media'">
-                    <label class="control-label">NAND  Chip Found Tempered:</label><br>
+                    <label class="control-label">NAND  Chip Found Tampered:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
@@ -162,7 +162,7 @@
                     </select>
                   </div>
                   <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Hard Drive'  ||  mediaDetails['media_type'] == 'External Hard Drive'">
-                    <label class="control-label">P.C.B. Found Tempered:</label><br>
+                    <label class="control-label">P.C.B. Found Tampered:</label><br>
                     <select class="form-control form-control-sm" formControlName="p_c_b_found_tempered">
                         <option value="Yes">Yes</option>
                         <option value="No">No</option>
