@@ -44,7 +44,7 @@ export class MediaJobProcessComponent implements OnInit {
 
     buttonShow(status)
     {
-      if(this.user.id == this.mediaDetails['user_id'] && status == 8 )
+      if(this.user.id == this.mediaDetails['user_id'] && (status == 8 || status==14) )
             this.isEdit = true;
       else
         this.isEdit = false;
@@ -94,6 +94,7 @@ export class MediaJobProcessComponent implements OnInit {
         });
         dialogRef.afterClosed().subscribe(result => {
             this.loadMediaHistory();
+            this.loadMediaDetails();
         });  
       }
 
@@ -122,6 +123,14 @@ export class MediaJobProcessComponent implements OnInit {
         dialogRef.afterClosed().subscribe(result => {
             this.loadMediaDetails();
         });
+      }
+
+      updateExtension()
+      {
+        this.mediaService.updateExtension(this.route.snapshot.params['id']).subscribe( data => {
+          this.loadMediaDetails();
+          this.loadMediaHistory();
+        }); 
       }
 
 }

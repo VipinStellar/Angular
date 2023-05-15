@@ -186,6 +186,11 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'recovery/update-media-dl', data);
     }
 
+    updateExtension(mediaId)
+    {
+        return this.http.get(environment.apiUrl + 'media/extension-update-dummy/'+mediaId);
+    }
+
     
 
 }

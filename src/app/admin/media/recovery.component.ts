@@ -85,6 +85,11 @@ export class RecoveryComponent implements OnInit {
             mediaCloneDataRec: new FormArray([])
         });
 
+        this.recovery.get("decryption_details")?.valueChanges.subscribe(x => {
+                this.r['decryption_data'].reset();
+                this.r['decryption_details_send'].reset();
+          });
+
     }
 
     get mce() { return this.MediaCloneFormEny.controls; }
