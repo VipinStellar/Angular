@@ -19,10 +19,14 @@ export class TransferEditComponent implements OnInit {
                 private route: ActivatedRoute,private toastrService: ToastrService) {
     }
     ngOnInit(): void {
-        this.loadMediaDetails();
-        this.loadTransferHistory();
-        this.mediaService.gettransferbranch().subscribe( data => {this.branchList = data as any;});
+        this.mediaService.gettransferbranch().subscribe( data => {
+            this.branchList = data as any;
+            this.loadMediaDetails();
+            this.loadTransferHistory();
+
+        });
         this.loadFrom();
+
     }
 
     loadFrom()
@@ -46,8 +50,14 @@ export class TransferEditComponent implements OnInit {
     loadMediaDetails()
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
-            this.mediaDetails = data as any;
-          });                    
+            this.mediaDetails = data as any;console.log(this.mediaDetails)
+            for(var i = 0; i < this.branchList.length; i++) {
+                if(this.mediaDetails['new_branch_id'] != null && this.branchList[i]['id'] === this.mediaDetails['new_branch_id'])
+                   this.branchList.splice(i, 1);
+                else if(this.mediaDetails['new_branch_id'] == null && this.branchList[i]['id'] === this.mediaDetails['branch_id'])
+                    this.branchList.splice(i, 1);
+             }
+          }); 
     }
 
     loadTransferHistory()
