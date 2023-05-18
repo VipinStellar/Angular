@@ -50,7 +50,7 @@ export class TransferEditComponent implements OnInit {
     loadMediaDetails()
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
-            this.mediaDetails = data as any;console.log(this.mediaDetails)
+            this.mediaDetails = data as any;
             for(var i = 0; i < this.branchList.length; i++) {
                 if(this.mediaDetails['new_branch_id'] != null && this.branchList[i]['id'] === this.mediaDetails['new_branch_id'])
                    this.branchList.splice(i, 1);

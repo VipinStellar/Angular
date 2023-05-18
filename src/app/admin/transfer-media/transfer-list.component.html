@@ -69,7 +69,8 @@
                     <td mat-cell *matCellDef="let element"> 
                       <a  [routerLink]="['./../gate-pass']" [queryParams]="{ job_id: (element.job_id==null)?element.zoho_id:element.job_id}" *ngIf="element.genPassCheck && element.getpasStatus ==0">Generate GatePass</a>
                       <a href="javascript:void(0)" *ngIf="element.getpasStatus ==1 && element.transfer_code == null &&  element.mediaInCheck" (click)="generateCode(element)">Media In</a>
-                      <a [routerLink]="['./../transfer-media', element['id']]"  *ngIf="((element.transfer_id == null && element.mediaTransCheck) || (element.transfer_id !=null && element.transfer_code !=null && element.mediaTransCheck))">Transfer</a>
+                      <a [routerLink]="['./../transfer-media', element['id']]"  *ngIf="(((element.transfer_id == null && element.mediaTransCheck) || (element.transfer_id !=null && element.transfer_code !=null && element.mediaTransCheck)) && element.client_media_send !=1)">Transfer</a>
+                      &nbsp;<a [routerLink]="['./../transfer-media', element['id']]" *ngIf="(((element.transfer_id == null && element.mediaTransCheck) || (element.transfer_id !=null && element.transfer_code !=null && element.mediaTransCheck)) && element.client_media_send ==1)">View</a>
                     </td>
                   </ng-container>
       
