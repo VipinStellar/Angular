@@ -181,6 +181,12 @@
                 <p>Gate Pass</p>
               </a>
           </li>
+          <li class="nav-item">
+            <a routerLink="./media-out" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-sign-out-alt"></i>
+            <p>Media Out</p>
+            </a>
+          </li>
           <li class="nav-item" *ngIf="permission.PermissionForAccess('inventory')">
             <a routerLink="./inventory" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-building"></i>

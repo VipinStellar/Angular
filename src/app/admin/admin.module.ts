@@ -56,6 +56,7 @@ import { TransferEditComponent } from './transfer-media/transfer-edit.component'
 import { ExtensionComponent } from './media/extension.component';
 import { DirectoryListComponent } from './media/directory-list.component';
 import { DirectoryConfirmComponent } from './media/directory-listing-confirm.component';
+import { MediaOutComponent } from './media-out/media-out.component'
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -92,7 +93,8 @@ import { DirectoryConfirmComponent } from './media/directory-listing-confirm.com
     mediaTable,
     ExtensionComponent,
     DirectoryListComponent,
-    DirectoryConfirmComponent
+    DirectoryConfirmComponent,
+    MediaOutComponent
   ],
   imports: [
     CommonModule,

@@ -27,6 +27,7 @@ import { ObservationEditComponent } from './media/observation-edit.component';
 import { DailyStatusComponent } from './media/daily-status.component';
 import { TransferListComponent } from './transfer-media/transfer-list.component';
 import { TransferEditComponent } from './transfer-media/transfer-edit.component';
+import { MediaOutComponent } from './media-out/media-out.component';
 const routes: Routes = [
   {
     path: '',
@@ -74,7 +75,8 @@ const routes: Routes = [
       { path: 'transfer-media', component: TransferListComponent},
       { path: 'transfer-media/:id', component: TransferEditComponent},
       //////////////
-     
+     ////Media Out  
+      { path: 'media-out', component: MediaOutComponent},
       { path: 'gate-pass', component: GatePassComponent},
       { path: 'inventory', component: InventoryListComponent},
       { path: 'inventory/edit/:id', component: InventoryAddComponent},

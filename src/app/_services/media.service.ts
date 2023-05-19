@@ -191,6 +191,10 @@ export class MediaService {
         return this.http.get(environment.apiUrl + 'media/extension-update-dummy/'+mediaId);
     }
 
+    getMediaOutList(searchParams: any) {
+        return this.http.post(environment.apiUrl + 'media/mediaoutlist', searchParams);
+    }
+
     
 
 }
