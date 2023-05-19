@@ -12,8 +12,6 @@ export class MediaViewComponent implements OnInit {
     pageTitle:string ="Case Details";
     isLoading:boolean;
     mediaDetails : Media[] = [];
-    tabItems = AppUtil.MediaTab();
-    activeLink = 'Case Details';
     mediaModel = "none";
     mediaFieldShow:boolean;
     constructor(private mediaService: MediaService,
@@ -27,10 +25,6 @@ export class MediaViewComponent implements OnInit {
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
-            if(this.mediaDetails['transfer_id'] !=null && this.mediaDetails['transfer_code'] ==null)
-            {
-              this.tabItems.splice(1);
-            }
             this.mediaFieldShow = AppUtil.CheckMediaTypeFields(this.mediaDetails['media_type']);
             this.isLoading = true;
           });

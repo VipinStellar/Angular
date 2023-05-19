@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MediaService } from './../../_services/media.service';
-import { AppUtil } from 'src/app/_helpers/app.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Media } from  './../../_models/media';
 import { AccountService } from './../../_services/account.service';
@@ -17,8 +16,6 @@ import { DirectoryConfirmComponent } from './directory-listing-confirm.component
 })
 export class MediaJobProcessComponent implements OnInit {
     mediaDetails : Media[] = [];
-    tabItems = AppUtil.MediaTab();
-    activeLink = 'Job Process';
     _history:[];
     user: AuthUser;
     isEdit:boolean=false;

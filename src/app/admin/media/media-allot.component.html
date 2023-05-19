@@ -1,11 +1,7 @@
 <div class="content-wrapper">
     <div class="content-header" style="margin-top: 57px;">
       <div class="container-fluid">
-        <nav mat-tab-nav-bar>
-            <a mat-tab-link *ngFor="let tab of tabItems" [routerLink]="['../../',tab['url'], mediaDetails['id']]" [active]="activeLink == tab['name']">
-                {{tab['name']}}
-              </a>
-        </nav><br>
+        <app-tab [mediaDetails]="mediaDetails" ></app-tab>
       </div>
     </div>
     <section class="content">

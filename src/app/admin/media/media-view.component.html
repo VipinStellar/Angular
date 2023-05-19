@@ -1,13 +1,7 @@
 <div class="content-wrapper">
     <div class="content-header" style="margin-top: 57px;">
-      <div class="container-fluid">
-        <nav mat-tab-nav-bar *ngIf="isLoading">
-          <ng-container *ngFor="let tab of tabItems" >
-            <a mat-tab-link  [routerLink]="['../../',tab['url'], mediaDetails['id']]" [active]="activeLink == tab['name']">
-              {{tab['name']}}
-            </a>
-          </ng-container>
-        </nav><br>
+      <div class="container-fluid" *ngIf="isLoading">
+        <app-tab [mediaDetails]="mediaDetails" ></app-tab>
         <div class="row mb-2" >
           <div class="col-xl-9 col-sm-9">
             <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['zoho_id']}} &nbsp;&nbsp;&nbsp;<span

@@ -1,0 +1,7 @@
+<nav mat-tab-nav-bar >
+    <ng-container *ngFor="let tab of tabItems" >
+      <a mat-tab-link  [routerLink]="['../../',tab['url'], mediaDetails['id']]" [active]="activeLink == tab['url']">
+        {{tab['name']}}
+      </a>
+    </ng-container>
+  </nav><br>

@@ -15,8 +15,6 @@ export class DailyStatusComponent implements OnInit {
     pageTitle: string = "Media Daily Status";
     isLoading: boolean;
     mediaDetails: Media[] = [];
-    tabItems = AppUtil.MediaTab();
-    activeLink = 'Media Daily Status';
     mediaEditHistory:[];
     submitted: boolean;
     loading:boolean;
