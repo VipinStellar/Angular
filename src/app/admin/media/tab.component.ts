@@ -7,7 +7,7 @@ import { ActivatedRoute } from '@angular/router';
   templateUrl: './tab.component.html'
 })
 export class TabComponent implements OnInit {
- tabItems = AppUtil.MediaTab();
+ tabItems =   AppUtil.MediaTab();
  activeLink:string;
   @Input() mediaDetails: Media;
 
@@ -15,9 +15,23 @@ export class TabComponent implements OnInit {
   constructor(private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
-    this.activeLink = this.activatedRoute.snapshot.url.join().split(',')[1];
+      this.activeLink = this.activatedRoute.snapshot.url.join().split(',')[1];
     if(this.mediaDetails['transfer_id'] !=null && this.mediaDetails['transfer_code'] ==null)
-      this.tabItems.splice(1);
+        this.removeTab();
+        
+  }
+
+  removeTab()
+  { 
+    let toremove= ["daily-status","allot-job","job-process"];
+    Object.keys(toremove).forEach( (value) => {  
+      let indexOfObject=this.tabItems.findIndex((object) => {
+        return object.url === toremove[value];
+        });
+        if (indexOfObject !== -1) {
+        this.tabItems.splice(indexOfObject, 1);
+        }
+    });
   }
 
 }

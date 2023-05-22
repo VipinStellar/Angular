@@ -15,6 +15,7 @@ export class TransferEditComponent implements OnInit {
     public media: FormGroup;
     branchList:[];
     submitted:boolean=false;
+    loading:boolean = true;
     constructor(private mediaService: MediaService,private formBuilder: FormBuilder,
                 private route: ActivatedRoute,private toastrService: ToastrService) {
     }
@@ -51,6 +52,7 @@ export class TransferEditComponent implements OnInit {
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
+            this.loading = false;
             for(var i = 0; i < this.branchList.length; i++) {
                 if(this.mediaDetails['new_branch_id'] != null && this.branchList[i]['id'] === this.mediaDetails['new_branch_id'])
                    this.branchList.splice(i, 1);

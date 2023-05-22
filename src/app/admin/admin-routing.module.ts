@@ -73,7 +73,7 @@ const routes: Routes = [
       { path: 'media/observation/:id', component: ObservationEditComponent},
       { path: 'media/daily-status/:id', component: DailyStatusComponent},
       { path: 'transfer-media', component: TransferListComponent},
-      { path: 'transfer-media/:id', component: TransferEditComponent},
+      { path: 'media/transfer-media/:id', component: TransferEditComponent},
       //////////////
      ////Media Out  
       { path: 'media-out', component: MediaOutComponent},
