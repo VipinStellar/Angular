@@ -16,8 +16,8 @@ export class TabComponent implements OnInit {
 
   ngOnInit() {
       this.activeLink = this.activatedRoute.snapshot.url.join().split(',')[1];
-    if(this.mediaDetails['transfer_id'] !=null && this.mediaDetails['transfer_code'] ==null)
-        this.removeTab();
+    // if(this.mediaDetails['transfer_id'] !=null && this.mediaDetails['transfer_code'] ==null)
+    //     this.removeTab();
         
   }
 

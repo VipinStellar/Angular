@@ -19,6 +19,11 @@ export class MediaService {
         return this.http.get(environment.apiUrl + 'media/getmedia/'+mediaId);
     }
 
+    getOriginalMedia(mediaId)
+    {
+        return this.http.get(environment.apiUrl + 'media/original-media/'+mediaId);
+    }
+
     getTransferHistory(mediaId)
     {
         return this.http.get(environment.apiUrl + 'media/transfer-history/'+mediaId);
@@ -29,9 +34,9 @@ export class MediaService {
         return this.http.get(environment.apiUrl + 'media/all-history/'+mediaId);
     }
 
-    deptUser(id)
+    deptUser(teamid,branchId)
     {
-        return this.http.get(environment.apiUrl + 'media/dept-user/'+id);
+        return this.http.get(environment.apiUrl + 'media/dept-user/'+teamid+'/'+branchId);
     }
 
     updateAllotJob(data)

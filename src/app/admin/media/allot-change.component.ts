@@ -21,7 +21,7 @@ export class AllotChangeComponent implements OnInit {
         }
        ngOnInit(): void {
         this.teamFrom = this.formBuilder.group({ 
-            media_id:[this.data['mediaId']],            
+            media_id:[this.data['mediaId']['id']],            
             team_id: ['',[Validators.required]],
             user_id: ['',[Validators.required]],
             remarks:['', [Validators.required]]
@@ -52,9 +52,10 @@ export class AllotChangeComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    deptChange(id)
+    deptChange(teamId)
     {
-        this.mediaService.deptUser(id).subscribe( data => {
+        let branchId = (this.data['mediaId']['new_branch_id']==null)?this.data['mediaId']['branch_id']:this.data['mediaId']['new_branch_id'];
+        this.mediaService.deptUser(teamId,branchId).subscribe( data => {
             this.deptUser = data as any;
         });
     }

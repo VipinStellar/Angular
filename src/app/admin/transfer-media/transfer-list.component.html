@@ -22,8 +22,9 @@
                       </mat-option>
                     </mat-select>
                   </div>
-                  <div class="col-sm-2 pb-2">
-                      <button  class="btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button>
+                  <div class="col-sm-4 pb-2">
+                      <button  class="btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp; <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button>&nbsp;
+                      <button class="btn btn-success btn-sm" (click)="addGatePass()"><i class="nav-icon fas fa-plus-circle"></i> Add Gate Pass</button>
                     </div>
                     </div>
               </fieldset>
@@ -33,7 +34,16 @@
                 <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
                   [dataSource]="mediaInList" style="width: 100%;">
       
-      
+                  <ng-container matColumnDef="id">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element">
+                      <mat-checkbox *ngIf="element.getpasStatus =='0' && element.genPassCheck" 
+                        (click)="$event.stopPropagation()" 
+                        (change)="$event ? selection.toggle(element) : null" 
+                        [checked]="selection.isSelected(element)">
+                      </mat-checkbox>
+                    </td>
+                  </ng-container>
                   <ng-container matColumnDef="zoho_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Zoho Record Id</th>
                     <td mat-cell *matCellDef="let element">{{element?.zoho_id}} </td>
@@ -49,11 +59,11 @@
                     <td mat-cell *matCellDef="let element"> {{element?.customer_name}} </td>
                   </ng-container>
                   <ng-container matColumnDef="branch_id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Base Name</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Base Branch</th>
                     <td mat-cell *matCellDef="let element"> {{element?.branch_name}} </td>
                   </ng-container>
                   <ng-container matColumnDef="new_branch_id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer Branch</th>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Branch</th>
                     <td mat-cell *matCellDef="let element"> {{element?.new_branch_id}} </td>
                   </ng-container>
                   <ng-container matColumnDef="media_type">
@@ -64,13 +74,14 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Status </th>
                     <td mat-cell *matCellDef="let element"> {{element.stage_name}} </td>
                   </ng-container>
+                  <ng-container matColumnDef="assets_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Asset Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element.assets_type}} </td>
+                  </ng-container>
                   <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef>Action </th>
                     <td mat-cell *matCellDef="let element"> 
-                      <a  [routerLink]="['./../gate-pass']" [queryParams]="{ job_id: (element.job_id==null)?element.zoho_id:element.job_id}" *ngIf="element.genPassCheck && element.getpasStatus ==0">Generate GatePass</a>
-                      <a href="javascript:void(0)" *ngIf="element.getpasStatus ==1 && element.transfer_code == null &&  element.mediaInCheck" (click)="generateCode(element)">Media In</a>
-                      <a [routerLink]="['./../transfer-media', element['id']]"  *ngIf="(((element.transfer_id == null && element.mediaTransCheck) || (element.transfer_id !=null && element.transfer_code !=null && element.mediaTransCheck)) && element.client_media_send !=1)">Transfer</a>
-                      &nbsp;<a [routerLink]="['./../transfer-media', element['id']]" *ngIf="(((element.transfer_id == null && element.mediaTransCheck) || (element.transfer_id !=null && element.transfer_code !=null && element.mediaTransCheck)) && element.client_media_send ==1)">View</a>
+                      <a href="javascript:void(0)" *ngIf="element.getpasStatus ==1 && element.transfer_code == null &&  element.mediaInCheck" (click)="generateCode(element)">Receive Media</a>
                     </td>
                   </ng-container>
       
@@ -87,14 +98,178 @@
         </div>
     </section>
 </div>
+
 <div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':AddGatePassStyle}" style="z-index: 1000;">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header" style="background: #dddddd;">
+        <h4 class="modal-title mb-0"><strong>Add Material Gate Pass</strong></h4>
+      </div>
+      <div class="modal-body">
+      <form [formGroup]="gatepass">
+        <div class="container">
+          <div class="row">
+          <div class="col-md-12">
+            <p class="text-center" *ngIf="selection['selected'].length > 0"><strong>Job ID - </strong><span *ngFor="let select of selection['selected']">{{ (select.job_id !='' && select.job_id != null) ? select.job_id+', '  : select.zoho_id+', ' }}</span></p>
+          </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <mat-select formControlName="gatepass_type" (selectionChange)="checkGatepassType($event)" [ngClass]="{ 'is-invalid': submitted && validateGatepass['gatepass_type'].errors }"  class="form-control form-control-sm" placeholder="Select Gate Pass Type">
+                <mat-option value="Returnable">Returnable</mat-option>
+                <mat-option value="Non-Returnable">Non-Returnable</mat-option>
+              </mat-select>
+              <div *ngIf="submitted && validateGatepass['gatepass_type'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['gatepass_type'].errors['required']">Please select Gate Pass Type</div>
+              </div>
+            </div>
+           </div>
+            <div class="col-md-6" *ngIf="validateGatepass['gatepass_type'].value == 'Returnable'">
+              <div class="form-group ">
+                <input type="date" formControlName="expected_return_date" [ngClass]="{ 'is-invalid':submitted && validateGatepass['expected_return_date'].errors }" class="form-control form-control-sm">
+                 <div *ngIf="submitted && validateGatepass['expected_return_date'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['expected_return_date'].errors['required']">Please Enter Expected Return Date</div>
+                </div>
+              </div>
+            </div>
+           <div class="col-md-6">
+            <div class="form-group">
+             <mat-select formControlName="requester_deptt" [ngClass]="{ 'is-invalid':submitted && validateGatepass['requester_deptt'].errors }" class="form-control form-control-sm" placeholder="Requester Deptt.">
+               <mat-option value="DRS">DRS</mat-option>
+             </mat-select>
+              <div *ngIf="submitted && validateGatepass['requester_deptt'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['requester_deptt'].errors['required']">Please select Requester Deptt.</div>
+              </div>
+            </div>
+           </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <input formControlName="sender_name" [ngClass]="{ 'is-invalid':submitted && validateGatepass['sender_name'].errors }" class="form-control form-control-sm" placeholder="Sender Name">
+              <div *ngIf="submitted && validateGatepass['sender_name'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['sender_name'].errors['required']">Please Enter Sender Name</div>
+              </div>
+            </div>
+           </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <mat-select formControlName="dispatch_branch_id" (selectionChange)="checkDispatchBranch($event)" [ngClass]="{ 'is-invalid': submitted && validateGatepass['dispatch_branch_id'].errors }" class="form-control form-control-sm" placeholder="Dispatch to Branch">
+                <mat-option [value]="0">Client</mat-option>
+                <mat-option *ngFor="let branch of branchList" [value]="branch['id']">{{ branch['branch_name'] }}</mat-option>
+              </mat-select>
+              <div *ngIf="submitted && validateGatepass['dispatch_branch_id'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['dispatch_branch_id'].errors['required']">Please select Dispatch to Branch</div>
+              </div>
+            </div>
+           </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <input formControlName="dispatch_name" [ngClass]="{ 'is-invalid':submitted && validateGatepass['dispatch_name'].errors }" class="form-control form-control-sm" placeholder="Dispatch To - Name">
+              <div *ngIf="submitted && validateGatepass['dispatch_name'].errors" class="invalid-feedback">
+                <div *ngIf="validateGatepass['dispatch_name'].errors['required']">Please Enter Dispatch to Name</div>
+              </div>
+            </div>
+           </div>
+           <div class="col-md-6" *ngIf="validateGatepass['dispatch_branch_id'].value == '0' ">
+            <div class="form-group">
+              <input formControlName="client_address" [ngClass]="{ 'is-invalid':submitted && validateGatepass['client_address'].errors }" class="form-control form-control-sm" placeholder="Client Address">
+              <div *ngIf="submitted && validateGatepass['client_address'].errors" class="invalid-feedback">
+                <div *ngIf="validateGatepass['client_address'].errors['required']">Please Enter Client Address</div>
+              </div>
+            </div>
+           </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <mat-select formControlName="transfer_mode"  [ngClass]="{ 'is-invalid': submitted && validateGatepass['transfer_mode'].errors }"  class="form-control form-control-sm" placeholder="Select Transfer Mode">
+                <mat-option value="Courier">Courier</mat-option>
+                <mat-option value="By Hand">By Hand</mat-option>
+                <mat-option value="Direct To Client">Direct To Client</mat-option>
+              </mat-select>
+              <div *ngIf="submitted && validateGatepass['transfer_mode'].errors" class="invalid-feedback">
+                <div *ngIf="validateGatepass['transfer_mode'].errors['required']">Please Select Transfer Mode</div>
+              </div>
+            </div>
+           </div>
+           <div class="col-md-6">
+            <div class="form-group">
+              <input formControlName="ref_name_num"  class="form-control form-control-sm" placeholder="Ref. Name/No.">
+              </div>
+            </div>
+          </div>
+          <div formArrayName="otherAssets">
+           <div class="row" *ngFor="let otherAsset of assets.controls; let i=index" [formGroupName]="i">
+            <div class="col-md-12">
+              <div class="row">
+                <div class="col-md-3">
+                  <p><strong>Job ID - </strong>{{ otherAsset.controls.assets_job_id.value }}</p>
+                </div>
+                <div class="col-md-4">
+                  <div class="form-group form-check">
+                    <label class="form-check-label">
+                      <input type="checkbox" formControlName="only_media" class="form-check-input"><strong>Media</strong>
+                    </label>
+                  </div>
+                </div>
+                <div class="col-md-5">
+                  <div class="form-group form-check">
+                    <label class="form-check-label">
+                      <input type="checkbox" formControlName="only_assets" class="form-check-input" (change)="showAssets($event,i)"><strong>Other Assets</strong>
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-12">
+             <div class="row" *ngIf="otherAsset.controls.only_assets.value == true">
+             <div class="col-md-4">
+              <div class="form-group">
+                <input type="text" formControlName="assets_name" [ngClass]="{ 'is-invalid':submitted && otherAsset.controls.assets_name.errors }" class="form-control form-control-sm mb-1" placeholder="Assets Name">
+                <div *ngIf="submitted && otherAsset.controls.assets_name.errors" class="invalid-feedback">
+                  <div *ngIf="otherAsset.controls.assets_name.errors['required']">Please Enter Assets Name</div>
+              </div>
+              </div>
+            </div>
+            <div class="col-md-8">
+              <div class="form-group">
+                <textarea formControlName="assets_description" [ngClass]="{ 'is-invalid':submitted && otherAsset.controls.assets_description.errors }" class="form-control form-control-sm" placeholder="Enter Assets Description Here" rows="2"></textarea>
+                <div *ngIf="submitted && otherAsset.controls.assets_description.errors" class="invalid-feedback">
+                  <div *ngIf="otherAsset.controls.assets_description.errors['required']">Please Enter Assets Description</div>
+                </div>
+              </div>
+            </div>
+           </div>
+          </div>
+          </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea formControlName="remarks" [ngClass]="{ 'is-invalid':submitted && validateGatepass['remarks'].errors }" class="form-control form-control-sm" placeholder="Enter Remarks Here" rows="2"></textarea>
+                <div *ngIf="submitted && validateGatepass['remarks'].errors" class="invalid-feedback">
+                  <div *ngIf="validateGatepass['remarks'].errors['required']">Please Enter Remarks</div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+      </form>
+      </div>
+      <div class="modal-footer border-top-0">
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveGatePass()" >Save </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="cancelGatePass()">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':MediaInStyle}" style="z-index: 1000;">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header" style="background: #dddddd;">
         <h4 class="modal-title mb-0"><strong>Update Gate Pass</strong></h4>
       </div>
       <div class="modal-body">
-      <form [formGroup]="GatePass">
+      <form [formGroup]="MediaPass">
         <div class="container">
           <div class="row">
            <div class="col-md-12">
@@ -111,8 +286,8 @@
       </form>
       </div>
       <div class="modal-footer border-top-0">
-        <button type="button" class="btn btn-primary btn-sm" (click)="saveGatePass()" >Save </button>
-        <button type="button" class="btn btn-danger btn-sm" (click)="cancelGatePass()">Close</button>
+        <button type="button" class="btn btn-primary btn-sm" (click)="saveMediapass()" >Save </button>
+        <button type="button" class="btn btn-danger btn-sm" (click)="cancelMediapass()">Close</button>
       </div>
     </div>
   </div>

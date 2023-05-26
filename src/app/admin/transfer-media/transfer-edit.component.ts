@@ -4,11 +4,14 @@ import { ActivatedRoute } from '@angular/router';
 import { Media } from  './../../_models/media';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthUser } from 'src/app/_models/authuser';
+import { AccountService } from 'src/app/_services/account.service';
 @Component({
     selector: 'app-transfer-edit',
     templateUrl: './transfer-edit.component.html',
 })
 export class TransferEditComponent implements OnInit {
+    user: AuthUser;
     pageTitle:string ="Case Details";
     mediaDetails : Media[] = [];
     _history:[];
@@ -16,18 +19,20 @@ export class TransferEditComponent implements OnInit {
     branchList:[];
     submitted:boolean=false;
     loading:boolean = true;
+    originalMedia:boolean;
+    showOriginalOption:boolean;
     constructor(private mediaService: MediaService,private formBuilder: FormBuilder,
-                private route: ActivatedRoute,private toastrService: ToastrService) {
+                private route: ActivatedRoute,private toastrService: ToastrService,private accountService:AccountService,) {
     }
     ngOnInit(): void {
+        this.user =  this.accountService.userValue;
         this.mediaService.gettransferbranch().subscribe( data => {
             this.branchList = data as any;
             this.loadMediaDetails();
+            this.loadOriginalMedia();
             this.loadTransferHistory();
-
         });
         this.loadFrom();
-
     }
 
     loadFrom()
@@ -37,7 +42,9 @@ export class TransferEditComponent implements OnInit {
             branch_id: ['',[Validators.required]],
             reason: ['',[Validators.required]],
             extension_required:[],
-            extension_day:[]
+            extension_day:[],
+            assets_type:['',[Validators.required]],
+            assets_type_other:[],
           });
     }
 
@@ -46,6 +53,13 @@ export class TransferEditComponent implements OnInit {
     cancle() {
         this.submitted = false;
         this.media.reset();
+    }
+
+    loadOriginalMedia()
+    {
+        this.mediaService.getOriginalMedia(this.route.snapshot.params['id']).subscribe( data => {
+            this.originalMedia = data as any;
+        }); 
     }
 
     loadMediaDetails()
@@ -75,11 +89,15 @@ export class TransferEditComponent implements OnInit {
             return false;
         }
         this.f['media_id'].setValue(this.mediaDetails['id']);
+        if (this.f['assets_type'].value == 'Other') {
+            this.f['assets_type'].setValue(this.f['assets_type_other'].value)
+        }
          let apiToCall: any;
          apiToCall = this.mediaService.saveMediatransfer(this.media.value);
         apiToCall.subscribe(
             data => {
                 this.cancle();
+                this.loadOriginalMedia();
                 this.loadTransferHistory();
                 this.loadMediaDetails();
                 this.toastrService.success('Details Saved successfully!', 'Success!');

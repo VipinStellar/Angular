@@ -1,6 +1,6 @@
 <div class="content-wrapper">
   <div class="content-header" style="margin-top: 57px;">
-    <div class="container-fluid">
+    <div class="container-fluid"  *ngIf="!loading">
       <app-tab [mediaDetails]="mediaDetails" ></app-tab>
     </div>
   </div>
@@ -9,7 +9,7 @@
       <div class="row">
         <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
         </div>
-        <div class="col-md-8">
+        <div class="col-md-8" *ngIf="this.user.id == this.mediaDetails['user_id']">
           <form [formGroup]="media">
             <div class="form-group">
                 <label for="uname">Transfer to:<sup class="text-danger">*</sup></label>
@@ -24,15 +24,27 @@
                 </div>
             </div>
             <div class="form-group">
-                <label for="uname">Select Reason:<sup class="text-danger">*</sup></label>
+              <label>Asset Type</label>
+            <select class="form-control" formControlName="assets_type" [ngClass]="{ 'is-invalid': submitted && f['assets_type'].errors }">
+              <option value="">Select</option>
+              <option value="Original Media" *ngIf="originalMedia">Original Media</option>
+              <option value="Clone">Clone</option>
+              <option value="Data">Data</option>
+              <option value="Other">Other</option>
+            </select>
+            <input type="text" *ngIf="f['assets_type'].value =='Other'" class="form-control form-control-sm mt-1" formControlName="assets_type_other"  placeholder="Please Enter Other" > 
+          </div>
+            <div class="form-group">
+                <label for="uname">Reason for transfer:<sup class="text-danger">*</sup></label>
                 <mat-select formControlName="reason" [ngClass]="{ 'is-invalid': submitted && f['reason'].errors }"
                     class="form-control">
-                    <mat-option value="Need to send to HO for Pre-Inspection">Need to send to HO for Pre-Inspection</mat-option>
-                    <mat-option value="Need to send to HO for Inspection">Need to send to HO for Inspection</mat-option>                
-                    <mat-option value="Need to send to Other Branch for Inspection">Need to send to Other Branch for Inspection</mat-option>
-                    <mat-option value="Need to send to HO for Recovery">Need to send to HO for Recovery</mat-option>
-                    <mat-option value=">Need to send to Other Branch for Recovery">Need to send to Other Branch for Recovery</mat-option>
-                    <mat-option value="Need to send to other Branch for Pre-Inspection Recovery">Need to send to other Branch for Pre-Inspection Recovery</mat-option>
+                    <mat-option value="For Pre Inspection">For Pre Inspection</mat-option>
+                    <mat-option value="For Inspection">For Inspection</mat-option>                
+                    <mat-option value="For Recovery">For Recovery</mat-option>
+                    <mat-option value="For Data Verification process">For Data Verification process</mat-option>
+                    <mat-option value="For Data Out to client" *ngIf="f['branch_id'].value =='Client'">For Data Out to client</mat-option>
+                    <mat-option value="For Media Out to client">For Media Out to client</mat-option>
+                    <mat-option value="For Media Out for Junk">For Media Out for Junk</mat-option>
                      </mat-select>
                 <div *ngIf="submitted && f['reason'].errors" class="invalid-feedback">
                     <div *ngIf="f['reason'].errors['required']">Reason is required</div>

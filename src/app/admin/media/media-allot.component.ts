@@ -39,7 +39,7 @@ export class MediaAllotComponent implements OnInit {
     changeUser()
     {
         const dialogRef = this.dialog.open(AllotChangeComponent, {
-            data: {mediaId:this.mediaDetails['id'],'teamList':this.teamList},
+            data: {mediaId:this.mediaDetails,'teamList':this.teamList},
             disableClose: true,
             autoFocus: true,
             width: "30rem"
