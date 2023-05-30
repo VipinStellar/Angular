@@ -58,6 +58,7 @@ import { DirectoryListComponent } from './media/directory-list.component';
 import { DirectoryConfirmComponent } from './media/directory-listing-confirm.component';
 import { MediaOutComponent } from './media-out/media-out.component';
 import { TabComponent } from './media/tab.component';
+import { CopyDataComponent } from './media/copy-data.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -96,7 +97,8 @@ import { TabComponent } from './media/tab.component';
     DirectoryListComponent,
     DirectoryConfirmComponent,
     MediaOutComponent,
-    TabComponent
+    TabComponent,
+    CopyDataComponent
   ],
   imports: [
     CommonModule,

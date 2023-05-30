@@ -18,9 +18,7 @@
   
               <ng-container matColumnDef="zoho_id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Zoho Record Id</th>
-                <td [ngClass]="element.stage_name == 'Pre Inspection Done' ? 'stage green-stage' : 'stage orange-stage'"
-                  mat-cell *matCellDef="let element"><a [routerLink]="['./view/', element.id]"
-                    title="View Case Details">{{element?.zoho_id}} </a></td>
+                <td mat-cell *matCellDef="let element">{{element?.zoho_id}}</td>
               </ng-container>
               <ng-container matColumnDef="job_id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
@@ -42,14 +40,17 @@
               <ng-container matColumnDef="stage_name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                 <td mat-cell *matCellDef="let element"> {{element.stage_name}}&nbsp;&nbsp; 
-                <a href="javascript:void(0)" (click)="MediaIndata(element)" class="text-danger" *ngIf="element.stage == 3"><strong>(Media In)</strong></a>
-                <a href="javascript:void(0)" class="text-danger" (click)="changeStatusMEdia(element)" *ngIf="element.stage == 7"><strong>(Confirm Media)</strong></a>
-                <a href="javascript:void(0)" class="text-danger" (click)="changeDl(element)" *ngIf="element.stage == 12"><strong>(DL Confirm)</strong></a>
               </td>              
               </ng-container>
               <ng-container matColumnDef="transfer_id">
                 <th mat-header-cell *matHeaderCellDef>Transfer media</th>
                 <td mat-cell *matCellDef="let element"> {{ element.new_branch_id }} </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action </th>
+                <td mat-cell *matCellDef="let element"> 
+                  <a href="javascript:void(0)" *ngIf="element.media_out_id == null" (click)="requestMediaOut(element)">Request For Media Out</a>
+                </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

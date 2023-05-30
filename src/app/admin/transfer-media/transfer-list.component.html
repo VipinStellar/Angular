@@ -63,8 +63,8 @@
                     <td mat-cell *matCellDef="let element"> {{element?.branch_name}} </td>
                   </ng-container>
                   <ng-container matColumnDef="new_branch_id">
-                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Current Branch</th>
-                    <td mat-cell *matCellDef="let element"> {{element?.new_branch_id}} </td>
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer To</th>
+                    <td mat-cell *matCellDef="let element"> {{(element.client_media_send ==0)?element.new_branch_id:'Client'}} </td>
                   </ng-container>
                   <ng-container matColumnDef="media_type">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Media Type </th>
@@ -81,7 +81,7 @@
                   <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef>Action </th>
                     <td mat-cell *matCellDef="let element"> 
-                      <a href="javascript:void(0)" *ngIf="element.getpasStatus ==1 && element.transfer_code == null &&  element.mediaInCheck" (click)="generateCode(element)">Receive Media</a>
+                      <a href="javascript:void(0)" *ngIf="element.client_media_send !=1 && element.getpasStatus ==1 && element.transfer_code == null &&  element.mediaInCheck" (click)="generateCode(element)">Receive Media</a>
                     </td>
                   </ng-container>
       

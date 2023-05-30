@@ -290,5 +290,11 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
     this.MediaPass.reset();
   }
 
+  _test(ele)
+  {
+    console.log(ele)
+    return "DDDDD";
+  }
+
   
 }

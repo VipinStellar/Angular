@@ -24,7 +24,7 @@ export class MediaOutComponent implements OnInit {
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
     mediaList: MatTableDataSource<Media> = new MatTableDataSource();
-    displayedColumns: string[] = ['zoho_id','job_id', 'customer_id', 'branch_id','media_type','stage_name'];
+    displayedColumns: string[] = ['zoho_id','job_id', 'customer_id', 'branch_id','media_type','stage_name','action'];
     constructor(private mediaService: MediaService){}
     ngOnInit(): void {
         this.loadData();
@@ -56,6 +56,10 @@ export class MediaOutComponent implements OnInit {
     this.loadData();
   }
 
+  requestMediaOut(element)
+  {
+    console.log(element);
+  }
 
 
  

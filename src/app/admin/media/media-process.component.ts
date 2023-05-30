@@ -10,6 +10,7 @@ import { CloneTransferComponenet } from './clone-transfer.component';
 import { ExtensionComponent } from './extension.component';
 import { DirectoryListComponent } from './directory-list.component';
 import { DirectoryConfirmComponent } from './directory-listing-confirm.component';
+import { CopyDataComponent } from './copy-data.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -128,6 +129,20 @@ export class MediaJobProcessComponent implements OnInit {
           this.loadMediaDetails();
           this.loadMediaHistory();
         }); 
+      }
+
+      dataOutRequest(element)
+      {
+        const dialogRef = this.dialog.open(CopyDataComponent, {
+          data: element,
+          disableClose: true,
+          autoFocus: true,
+          width: "45rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.loadMediaDetails();
+          this.loadMediaHistory();
+        });
       }
 
 }

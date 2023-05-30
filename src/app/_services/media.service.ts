@@ -200,6 +200,11 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'media/mediaoutlist', searchParams);
     }
 
+    dataout(data)
+    {
+        return this.http.post(environment.apiUrl + 'media/data-out', data);
+    }
+
     
 
 }
