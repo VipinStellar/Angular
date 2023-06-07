@@ -148,6 +148,7 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
             only_assets:[false],
             only_media:[true],
             assets_job_id: [(this.selection.selected[i]['job_id'] !='' &&  this.selection.selected[i]['job_id'] != null)?this.selection.selected[i]['job_id']:this.selection.selected[i]['zoho_id']],
+            mediaType: [this.selection.selected[i]['assets_type']],
             assets_name: [],
             assets_description: [],  
           })

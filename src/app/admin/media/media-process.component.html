@@ -280,7 +280,8 @@ table thead tr.table-title{
               <tr class="table-title">
                 <th  colspan="3" class="h6">Directory Listing Confirmation 
                 <a style="float:right" href="javascript:void(0)" (click)="directoryEdit(mediaDetails['Directory_Listing'])"  class="btn btn-primary btn-sm" *ngIf="user.id == mediaDetails['user_id'] && mediaDetails['Directory_Listing']['dl_status'] == 'No' &&  mediaDetails['stage'] !=9 &&  mediaDetails['stage'] !=10 &&  mediaDetails['stage'] !=11">Edit Details</a>
-                <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'])" class="btn btn-primary btn-sm" *ngIf="mediaDetails['Directory_Listing']['dl_status']== 'Yes'">{{(mediaDetails['Directory_Listing']['frontdisk_out_req'] == 0?'Data out':'Preview')}}</a>
+                <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'])" class="btn btn-primary btn-sm" *ngIf="mediaDetails['Directory_Listing']['dl_status']== 'Yes' && user.id == mediaDetails['user_id'] && mediaDetails['Directory_Listing']['frontdisk_out_req'] == 0">Data out</a>
+                <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'])" class="btn btn-primary btn-sm" *ngIf="mediaDetails['Directory_Listing']['dl_status']== 'Yes'  && mediaDetails['Directory_Listing']['frontdisk_out_req'] == 1">Preview</a>
               </th>
               </tr>
               <tr>

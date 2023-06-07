@@ -27,7 +27,7 @@
               <label>Asset Type</label>
             <select class="form-control" formControlName="assets_type" [ngClass]="{ 'is-invalid': submitted && f['assets_type'].errors }">
               <option value="">Select</option>
-              <option value="Original Media" *ngIf="originalMedia">Original Media</option>
+              <option value="Original Media">Original Media</option>
               <option value="Clone">Clone</option>
               <option value="Data">Data</option>
               <option value="Other">Other</option>
@@ -50,7 +50,7 @@
                     <div *ngIf="f['reason'].errors['required']">Reason is required</div>
                 </div>
             </div>
-            <div class="form-group" *ngIf="f['branch_id'].value !='Client'">
+            <div class="form-group" *ngIf="f['branch_id'].value !='Client' && f['assets_type'].value =='Original Media'">
                 <label>Extension Required</label>
               <select class="form-control" formControlName="extension_required">
                 <option value="">Select</option>
@@ -58,7 +58,7 @@
                 <option value="No">No</option>
               </select>
             </div>
-            <div class="form-group" *ngIf="f['extension_required'].value == 'Yes' ">
+            <div class="form-group" *ngIf="f['extension_required'].value == 'Yes' && f['assets_type'].value =='Original Media' ">
                 <label>Extension Required Days</label>
                 <select class="form-control" formControlName="extension_day">
                   <option value="">Select</option>

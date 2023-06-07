@@ -20,7 +20,6 @@ export class TransferEditComponent implements OnInit {
     submitted:boolean=false;
     loading:boolean = true;
     originalMedia:boolean;
-    showOriginalOption:boolean;
     constructor(private mediaService: MediaService,private formBuilder: FormBuilder,
                 private route: ActivatedRoute,private toastrService: ToastrService,private accountService:AccountService,) {
     }
