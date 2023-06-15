@@ -174,8 +174,9 @@
             <a routerLink="./job-confirm" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-check-circle"></i>
               <p>Job Confirmation</p>
+              *ngIf="permission.PermissionForAccess('gate-pass')"
             </a> -->
-            <li class="nav-item" *ngIf="permission.PermissionForAccess('gate-pass')">
+            <li class="nav-item" >
               <a routerLink="./gate-pass" class="nav-link" routerLinkActive="active">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>Gate Pass</p>
@@ -186,8 +187,9 @@
               <i class="nav-icon fas fa-sign-out-alt"></i>
             <p>Media Out</p>
             </a>
+            *ngIf="permission.PermissionForAccess('inventory')"
           </li> -->
-          <li class="nav-item" *ngIf="permission.PermissionForAccess('inventory')">
+          <li class="nav-item" >
             <a routerLink="./inventory" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-building"></i>
               <p>Inventory</p>

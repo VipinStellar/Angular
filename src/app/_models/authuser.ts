@@ -9,6 +9,7 @@
     refreshToken: string;
     refreshTokenExpiresIn: number;
     role: number;
+    team_id: number;
     status: string;
     storageTime:number;
     redirectToUrl:string;

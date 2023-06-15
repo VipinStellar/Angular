@@ -205,6 +205,16 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'media/data-out', data);
     }
 
+    requsetmediaout(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/requsetmediaout', data);
+    }
+
+    responcemediaout(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/responcemediaout', data);
+    }
+
     
 
 }

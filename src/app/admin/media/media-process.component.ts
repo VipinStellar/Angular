@@ -11,6 +11,8 @@ import { ExtensionComponent } from './extension.component';
 import { DirectoryListComponent } from './directory-list.component';
 import { DirectoryConfirmComponent } from './directory-listing-confirm.component';
 import { CopyDataComponent } from './copy-data.component';
+import {RequestMediaOutComponenet }  from './request-media-out.component';
+import { ResponceMediaOutComponenet } from './responce-media-out.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -135,6 +137,34 @@ export class MediaJobProcessComponent implements OnInit {
       {
         const dialogRef = this.dialog.open(CopyDataComponent, {
           data: element,
+          disableClose: true,
+          autoFocus: true,
+          width: "45rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.loadMediaDetails();
+          this.loadMediaHistory();
+        });
+      }
+
+      mediaOutRequest()
+      {
+        const dialogRef = this.dialog.open(RequestMediaOutComponenet, {
+          data: this.mediaDetails,
+          disableClose: true,
+          autoFocus: true,
+          width: "45rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.loadMediaDetails();
+          this.loadMediaHistory();
+        });
+      }
+
+      mediaOutResponce(row)
+      {
+        const dialogRef = this.dialog.open(ResponceMediaOutComponenet, {
+          data: row,
           disableClose: true,
           autoFocus: true,
           width: "45rem"

@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="mediaout ">
+    <div class="row">
+      <div class="col-12 pt-2">
+          <label class="control-label">Request Type<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="request_type" [ngClass]="{ 'is-invalid': submitted && f['request_type'].errors }">
+              <option value="Client">Client</option>
+              <option value="Junk">Junk</option>
+           </select>
+           <div *ngIf="submitted && f['request_type'].errors" class="invalid-feedback">
+            <div *ngIf="f['request_type'].errors['required']">Request Type is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+          <label class="control-label">Reason<sup class="text-danger">*</sup> : </label>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+          [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+           <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Reason is required</div>
+          </div>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

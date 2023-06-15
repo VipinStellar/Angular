@@ -27,6 +27,8 @@ export class PreInspectionComponenet implements OnInit {
     dynamicButton:boolean;
     previewType:boolean = true;
     errorMsg :string = 'Please fill all required fields *';
+    mediaCapacityList: string[] = [];
+    mediaCapacityOption: string[] = [];
     constructor(private formBuilder: FormBuilder,
                 private mediaService: MediaService,
                 private router: Router,
@@ -96,6 +98,9 @@ export class PreInspectionComponenet implements OnInit {
                 this.mediaEdit.get('media_make_other')?.clearValidators();
             this.mediaEdit.get('media_make_other')?.updateValueAndValidity();
           });
+
+          this.mediaCapacityList = AppUtil.getMediaCapacity();
+          this.mediaCapacityOption = this.mediaCapacityList;
 
     }
 

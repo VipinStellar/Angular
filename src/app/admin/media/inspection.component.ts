@@ -135,8 +135,7 @@ export class InspectionComponent implements OnInit {
                 this.mediaObj['casetype'].splice('Logical',1);
                 this.mediaObj['casetype'].splice('Logical Complex',1);
                 this.mediaObj['casetype'].splice('Most Complex',1);
-            }
-            
+            }            
             this.dueReason();
         });
 
@@ -145,6 +144,7 @@ export class InspectionComponent implements OnInit {
                 this.caseType = true;
             else
                 this.caseType = false;
+                this.dueReason();
         });
 
         this.mediaEdit.get("media_group")?.valueChanges.subscribe(x => {
@@ -520,6 +520,10 @@ export class InspectionComponent implements OnInit {
         let media_type:any = this.mediaDetails['media_type'];
         let mediaType = AppUtil.checkMediaType(media_type);
         this.inspectionObj = AppUtil.InspectionDueReason(mediaType);
+        let x = this.f['case_type'].value;
+        if(x == 'Logical' || x == 'Logical Complex' || x=='Most Complex')
+        this.caseNotPossibleObj = AppUtil.caseNotPossible('Other');
+        else
         this.caseNotPossibleObj = AppUtil.caseNotPossible(mediaType);
     }
     

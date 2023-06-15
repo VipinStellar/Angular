@@ -358,7 +358,7 @@ export class AppUtil {
                 "Solution not available at present"],
             "CD/DVD":["CD/DVD surface not Readable","Heavy Scratches on the Surface of CD/DVD"],
             "RAID":["Solution not available at present"],
-            "Other":["Required Data not Found","Data Overwritten","Most of the Sectors Internally Zero","Same pattern Written in most of the sectors","Most of the sectors are Garbage Sectors","Encryption Information Overwritten","Encryption Information not Found","CD/DVD disk not finalized",
+            "Other":["Required Data not Found","Data Overwritten","Most of the Sectors Internally Zero","Same pattern Written in most of the sectors","Most of the sectors are Garbage Sectors","Encryption Information Overwritten","Encryption Information not Found","CD/DVD disk not finalized",
             "File Severely Damaged","Wrong HDD Provided by Client","Sample Data not Provided by Client","Low Level Formatted","Unknown Encryption","Encryption Details not Received","Corruption was found in the required data","Zero MB data (Empty Data shown)","Solution not available at present"]
         }
         return notPossible[type];

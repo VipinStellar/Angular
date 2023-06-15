@@ -86,20 +86,24 @@
                   </div>
                 <div class="col-4 p-3" *ngIf="mediaFieldShow">
                   <label class="control-label">Media Capacity : </label>
+                 
+
                   <mat-select class="form-control form-control-sm" formControlName="media_capacity">
-                    <mat-option *ngFor="let capacity of mediaOption['capacity']" [value]="capacity">{{capacity}}
+                    <mat-select-filter [array]="mediaCapacityList" (filteredReturn)="mediaCapacityOption =$event"></mat-select-filter>
+                    <mat-option *ngFor="let type of mediaCapacityOption" [value]="type">{{type}}
                     </mat-option>
                   </mat-select>
+
                   <input *ngIf="f['media_capacity'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_capacity_other" [ngClass]="{ 'is-invalid': submitted && f['media_capacity_other'].errors }" placeholder="Please Enter Others Media Capacity" maxlength="50"> 
                 </div>
                 <div class="col-4 p-3"  *ngIf="mediaFieldShow && f['media_type'].value != 'Flash Media'">
                   <label class="control-label">Media Model : </label>
-                  <input type="text" class="form-control form-control-sm " formControlName="media_model" placeholder=""
+                  <input type="text" #Model (input)="Model.value = Model.value.toUpperCase()" class="form-control form-control-sm " formControlName="media_model" placeholder=""
                     maxlength="50">
                 </div>
                 <div class="col-4 p-3"  *ngIf="mediaFieldShow">
                   <label class="control-label">Media Serial : </label>
-                  <input type="text" class="form-control form-control-sm" formControlName="media_serial" placeholder=""
+                  <input type="text"  #Serial (input)="Serial.value = Serial.value.toUpperCase()" class="form-control form-control-sm" formControlName="media_serial" placeholder=""
                     maxlength="50">
                 </div>
                 <div class="col-4 p-3" *ngIf="mediaFieldShow">
