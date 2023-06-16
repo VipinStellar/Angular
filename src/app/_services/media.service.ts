@@ -34,9 +34,9 @@ export class MediaService {
         return this.http.get(environment.apiUrl + 'media/all-history/'+mediaId);
     }
 
-    deptUser(teamid,branchId)
+    deptUser(teamid,mediaId)
     {
-        return this.http.get(environment.apiUrl + 'media/dept-user/'+teamid+'/'+branchId);
+        return this.http.get(environment.apiUrl + 'media/dept-user/'+teamid+'/'+mediaId);
     }
 
     updateAllotJob(data)

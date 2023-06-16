@@ -54,8 +54,7 @@ export class AllotChangeComponent implements OnInit {
 
     deptChange(teamId)
     {
-        let branchId = (this.data['mediaId']['new_branch_id']==null)?this.data['mediaId']['branch_id']:this.data['mediaId']['new_branch_id'];
-        this.mediaService.deptUser(teamId,branchId).subscribe( data => {
+        this.mediaService.deptUser(teamId,this.data['mediaId']['id']).subscribe( data => {
             this.deptUser = data as any;
         });
     }

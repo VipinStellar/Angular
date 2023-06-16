@@ -144,7 +144,7 @@ table thead tr.table-title{
               </ng-container>
             </table>
           </div>
-          <div class="col-12" *ngIf="recListShow && mediaDetails['media_clone']=='Yes'">
+          <div class="col-12" *ngIf="recListShow">
             <table class="table table-striped table-bordered responsive count_table" >
               <thead>
               <tr class="table-title">
@@ -222,7 +222,7 @@ table thead tr.table-title{
               </ng-container>
             </table> 
           </div>
-          <div class="col-12" *ngIf="recListShow">
+          <!--<div class="col-12" *ngIf="recListShow">
             <table class="table table-striped table-bordered responsive count_table" >
               <thead>
               <tr class="table-title">
@@ -247,7 +247,7 @@ table thead tr.table-title{
                </tbody>
               </ng-container>
             </table>
-          </div>
+          </div>-->
           <div class="col-12" *ngIf="mediaDetails['rec_recoverable_data']=='Yes' && mediaDetails['rec_clone_branch'] !=null">
             <table class="table table-striped table-bordered responsive count_table" >
               <thead>
@@ -305,7 +305,7 @@ table thead tr.table-title{
               <tr class="table-title">
                 <th  colspan="6" class="h6">Media Out
                   <a style="float:right" href="javascript:void(0)" *ngIf="user.team_id == 10 && (mediaDetails['stage'] == 9 || mediaDetails['stage'] == 10 
-                   || mediaDetails['stage'] == 11 || mediaDetails['stage'] == 15) && mediaDetails['mediaout'] ==null"  (click)="mediaOutRequest()">Request for Media Out</a>
+                   || mediaDetails['stage'] == 11 || mediaDetails['stage'] == 15) "  (click)="mediaOutRequest()">Request for Media Out</a>
                   <!-- <a style="float:right" href="javascript:void(0)" *ngIf="user.id == mediaDetails['user_id'] && user.team_id != 10 && ">Send Media to Front Desk</a> -->
                 </th>
               </tr>
