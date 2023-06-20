@@ -92,6 +92,13 @@
                 <option value="No">No</option>
             </select>
           </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['recoverable_data'].value == 'Yes' && r['clone_branch'].value == 'No'">
+            <label class="control-label">Share With Branch: </label>
+            <select class="form-control form-control-sm" formControlName="shared_with_branch">
+                <option value="Server">Server</option>
+                <option value="Email">Email</option>
+            </select>
+          </div>
           <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['recoverable_data'].value == 'Yes'">
             <label class="control-label">Clone Required: </label>
             <select class="form-control form-control-sm" formControlName="clone_required_recoverable">

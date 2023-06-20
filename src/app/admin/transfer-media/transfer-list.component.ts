@@ -235,13 +235,13 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
       if(media.getpassId != null && media.ref_name != null)
       {
         Swal.fire({
-            title: 'Do Media in',icon: 'warning',allowOutsideClick: false,showCancelButton: true,
+            title: 'Receive '+media['assets_type'],icon: 'warning',allowOutsideClick: false,showCancelButton: true,
             confirmButtonColor: "#007bff",confirmButtonText: 'Yes',cancelButtonText: 'No',}).then((result) => {
             if (result.value) {
               let apiToCall = this.mediaService.generateMediaCode(media.transferId);
               apiToCall.subscribe(
                 data => {
-                  this.toastrService.success('Media In successfully!', 'Success!');
+                  this.toastrService.success('Media Receive successfully!', 'Success!');
                   this.loadData();
                 }
               );

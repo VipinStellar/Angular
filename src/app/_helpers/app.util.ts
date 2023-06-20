@@ -35,7 +35,7 @@ export class AppUtil {
 
     static mediaClone()
     {
-        return['Yes','No','Not Aplicable'];
+        return['Yes','No','Not Applicable'];
     }
 
     static requiredDays()
@@ -98,7 +98,7 @@ export class AppUtil {
     }
     static encryptionDetailsCorrect()
     {
-        return ['Correct','Incorrect','Not Aplicable','Not Received at Present Stage','Not Determined  at Present Stage'];
+        return ['Correct','Incorrect','Not Applicable','Not Received at Present Stage','Not Determined  at Present Stage'];
     }
 
     static encryptionStatus()
@@ -153,7 +153,7 @@ export class AppUtil {
 
     static getPeripheralsMedia()
     {
-        return ['Not Applicable','With Storage Box','With Casing','Storage Box or Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','With Tape Drive','Without Tape Drive'];
+        return ['Not Applicable','With Storage Box','With Casing','Storage Box  Without Casing','Storage box','DAS/NAS/SAN With Bay','DAS/NAS/SAN Without Bay','With Tape Drive','Without Tape Drive'];
     }
 
     static getmediaStatus()
@@ -183,7 +183,7 @@ export class AppUtil {
 
     static plattersCondition()
     {
-        return ['Heavy Light Scratches on Upper Side of the Platter','Heavy Light Scratches on Lower Side of the Platter','Normal','Not Determined at Present Stage'];
+        return ['Heavy Scratches on Upper Side of the Platter','Light Scratches on Upper Side of the Platter','Heavy Scratches on Lower Side of the Platter','Light Scratches on Lower Side of the Platter','Normal','Not Determined at Present Stage'];
     }
 
     static backupUtility()

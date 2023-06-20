@@ -76,6 +76,7 @@ export class RecoveryComponent implements OnInit {
             end_date:[],
             partial_reason:[],
             partial_reason_other:[],
+            shared_with_branch:[],
             remarks:['', [Validators.required]]
           });
           this.MediaCloneFormEny = this.formBuilder.group({
@@ -152,6 +153,7 @@ export class RecoveryComponent implements OnInit {
             end_date:rec['recoveryObj'].end_date,
             start_date:rec['recoveryObj'].start_date,
             partial_reason:rec['recoveryObj'].partial_reason,
+            shared_with_branch:rec['recoveryObj'].shared_with_branch,
             partial_reason_other:rec['recoveryObj'].partial_reason_other,
             remarks:''
         });

@@ -209,13 +209,7 @@
                     <option *ngFor="let losData of mediaObj['dataLossReason']" [value]="losData">{{losData}}</option>
                   </select>
                   <input *ngIf="f['data_loss_reason'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="data_loss_reason_other"  placeholder="Please Enter"> 
-                </div>            
-                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
-                  <label class="control-label">Recovery Possibility:</label><br>
-                  <select class="form-control form-control-sm" formControlName="recovery_possibility">
-                    <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
-                  </select>
-                </div>
+                </div> 
                 <div class="col-4 p-3" *ngIf="f['recovery_possibility'].value != 'No'">
                   <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                   <select class="form-control form-control-sm" formControlName="recoverable_data">
@@ -246,6 +240,12 @@
                   <select class="form-control form-control-sm" formControlName="stage">
                     <option value="">Select</option>
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                  <label class="control-label">Recovery Possibility:</label><br>
+                  <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                    <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
@@ -408,13 +408,7 @@
                     <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
                   </select>
                 </div> 
-                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
-                  <label class="control-label">Recovery Possibility:</label><br>
-                  <select class="form-control form-control-sm" formControlName="recovery_possibility">
-                    <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
-                  </select>
-                </div>
-                <div class="col-4 p-3" *ngIf="f['recovery_possibility'].value != 'No'">
+               <div class="col-4 p-3" *ngIf="f['recovery_possibility'].value != 'No'">
                   <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                   <select class="form-control form-control-sm" formControlName="recoverable_data">
                     <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
@@ -441,6 +435,12 @@
                   <select class="form-control form-control-sm" formControlName="stage">
                     <option value="">Select</option>
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                  <label class="control-label">Recovery Possibility:</label><br>
+                  <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                    <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
@@ -574,13 +574,7 @@
                     <option *ngFor="let com of mediaObj['compressionStatus']" [value]="com">{{com}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
-                  <label class="control-label">Recovery Possibility:</label><br>
-                  <select class="form-control form-control-sm" formControlName="recovery_possibility">
-                    <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
-                  </select>
-                </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No')">
+               <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No')">
                   <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                   <select class="form-control form-control-sm" formControlName="recoverable_data">
                     <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
@@ -610,6 +604,12 @@
                   <select class="form-control form-control-sm" formControlName="stage">
                     <option value="">Select</option>
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                  <label class="control-label">Recovery Possibility:</label><br>
+                  <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                    <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
@@ -795,12 +795,6 @@
                     </select>
                     <input *ngIf="f['data_loss_reason'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="data_loss_reason_other"  placeholder="Please Enter" > 
                   </div>
-                  <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
-                    <label class="control-label">Recovery Possibility:</label><br>
-                    <select class="form-control form-control-sm" formControlName="recovery_possibility">
-                      <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
-                    </select>
-                  </div>
                   <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No')">
                     <label class="control-label">Recovered Data Files and Folder’s Structure:</label><br>
                     <select class="form-control form-control-sm" formControlName="recoverable_data">
@@ -828,6 +822,12 @@
                     <select class="form-control form-control-sm" formControlName="stage">
                       <option value="">Select</option>
                       <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                    </select>
+                  </div>
+                  <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
+                    <label class="control-label">Recovery Possibility:</label><br>
+                    <select class="form-control form-control-sm" formControlName="recovery_possibility">
+                      <option *ngFor="let rec of mediaObj['recoveryPos']" [value]="rec">{{rec}}</option>
                     </select>
                   </div>
                   <div class="col-4 p-3" *ngIf="(f['stage'].value == '5')">
