@@ -216,19 +216,7 @@
                     <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No'&& f['stage'].value != '4')">
-                  <label class="control-label">Recovery Percentage:</label><br>
-                  <select class="form-control form-control-sm" formControlName="recovery_percentage">
-                    <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
-                  </select>
-                </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
-                  <label class="control-label">Required Days:</label><br>
-                  <select class="form-control form-control-sm" formControlName="required_days">
-                    <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
-                  </select>
-                </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
+               <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
                   <label class="control-label">Case Not Possible Reason:</label><br>
                   <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
                     <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
@@ -240,6 +228,18 @@
                   <select class="form-control form-control-sm" formControlName="stage">
                     <option value="">Select</option>
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
+                  <label class="control-label">Recovery Percentage:</label><br>
+                  <select class="form-control form-control-sm" formControlName="recovery_percentage">
+                    <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
+                  <label class="control-label">Required Days:</label><br>
+                  <select class="form-control form-control-sm" formControlName="required_days">
+                    <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -414,6 +414,18 @@
                     <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                   </select>
                 </div>
+                
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
+                  <label class="control-label">Case Not Possible Reason:</label><br>
+                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
+                </div>
+                <div class="col-4 p-3">
+                  <label class="control-label">Inspection Status:</label><br>
+                  <select class="form-control form-control-sm" formControlName="stage">
+                    <option value="">Select</option>
+                    <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                  </select>
+                </div>
                 <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                   <label class="control-label">Recovery Percentage:</label><br>
                   <select class="form-control form-control-sm" formControlName="recovery_percentage">
@@ -424,17 +436,6 @@
                   <label class="control-label">Required Days:</label><br>
                   <select class="form-control form-control-sm" formControlName="required_days">
                     <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
-                  </select>
-                </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
-                  <label class="control-label">Case Not Possible Reason:</label><br>
-                  <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
-                </div>
-                <div class="col-4 p-3">
-                  <label class="control-label">Inspection Status:</label><br>
-                  <select class="form-control form-control-sm" formControlName="stage">
-                    <option value="">Select</option>
-                    <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -580,18 +581,7 @@
                     <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
-                  <label class="control-label">Recovery Percentage:</label><br>
-                  <select class="form-control form-control-sm" formControlName="recovery_percentage">
-                    <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
-                  </select>
-                </div>
-                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
-                  <label class="control-label">Required Days:</label><br>
-                  <select class="form-control form-control-sm" formControlName="required_days">
-                    <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
-                  </select>
-                </div>
+                
                 <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
                   <label class="control-label">Case Not Possible Reason:</label><br>
                   <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
@@ -604,6 +594,18 @@
                   <select class="form-control form-control-sm" formControlName="stage">
                     <option value="">Select</option>
                     <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
+                  <label class="control-label">Recovery Percentage:</label><br>
+                  <select class="form-control form-control-sm" formControlName="recovery_percentage">
+                    <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
+                  </select>
+                </div>
+                <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
+                  <label class="control-label">Required Days:</label><br>
+                  <select class="form-control form-control-sm" formControlName="required_days">
+                    <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
                   </select>
                 </div>
                 <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">
@@ -801,6 +803,18 @@
                       <option *ngFor="let recData of mediaObj['recoverableData']" [value]="recData">{{recData}}</option>
                     </select>
                   </div>
+                  
+                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
+                    <label class="control-label">Case Not Possible Reason:</label><br>                
+                    <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
+                  </div>
+                  <div class="col-4 p-3">
+                    <label class="control-label">Inspection Status:</label><br>
+                    <select class="form-control form-control-sm" formControlName="stage">
+                      <option value="">Select</option>
+                      <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
+                    </select>
+                  </div>
                   <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No' && f['stage'].value != '4')">
                     <label class="control-label">Recovery Percentage:</label><br>
                     <select class="form-control form-control-sm" formControlName="recovery_percentage">
@@ -811,17 +825,6 @@
                     <label class="control-label">Required Days:</label><br>
                     <select class="form-control form-control-sm" formControlName="required_days">
                       <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
-                    </select>
-                  </div>
-                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
-                    <label class="control-label">Case Not Possible Reason:</label><br>                
-                    <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
-                  </div>
-                  <div class="col-4 p-3">
-                    <label class="control-label">Inspection Status:</label><br>
-                    <select class="form-control form-control-sm" formControlName="stage">
-                      <option value="">Select</option>
-                      <option *ngFor="let stage of stages" [value]="stage['id']">{{stage['stage_name']}}</option>
                     </select>
                   </div>
                   <div class="col-4 p-3" *ngIf="(f['stage'].value != '4')">

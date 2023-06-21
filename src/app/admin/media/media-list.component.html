@@ -103,8 +103,8 @@
             </td>              
             </ng-container>
             <ng-container matColumnDef="transfer_id">
-              <th mat-header-cell *matHeaderCellDef>Media Location</th>
-              <td mat-cell *matCellDef="let element"> {{ (element.new_branch_id==null)?element.branch_name:element.new_branch_id }} </td>
+              <th mat-header-cell *matHeaderCellDef>Job Processing</th>  
+              <td mat-cell *matCellDef="let element"> {{ (element.user_id==null)?element.branch_name:element.currentlocation }} </td>
             </ng-container>
             <ng-container matColumnDef="created_on">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Added On </th>
