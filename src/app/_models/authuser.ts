@@ -10,6 +10,7 @@
     refreshTokenExpiresIn: number;
     role: number;
     team_id: number;
+    branch_id:number;
     status: string;
     storageTime:number;
     redirectToUrl:string;

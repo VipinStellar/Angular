@@ -22,14 +22,15 @@ pageSize = 10;
 currentPage = 0;
 pageSizeOptions: number[] = [10, 25, 100];
 sortOrder = 'desc';
-sortField = 'id';
+sortField = 'transPrimaryId';
 pageTitle = "Transfer Media";
-displayedColumns: string[] = ['id','zoho_id','job_id', 'customer_id', 'branch_id','new_branch_id','media_type','assets_type','stage_name','media_in_date','action'];
+displayedColumns: string[] = ['transPrimaryId','zoho_id','job_id', 'customer_id', 'branch_id','new_branch_id','media_type','assets_type','stage_name','media_in_date','action'];
 mediaInList: MatTableDataSource<Media> = new MatTableDataSource();
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator)
 paginator!: MatPaginator;
 branchList:[];
+getPassBranchList:[];
 branchId=null;
 //////GatePass
 submitted:boolean;
@@ -48,6 +49,7 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
     ngOnInit(): void {
          this.mediaService.getAllBranch().subscribe( data => {
         this.branchList = data as any;
+        this.getPassBranchList = this.branchList;
       }); 
       this.loadData();
       this.loadformGatePass();
@@ -109,7 +111,7 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
         transfer_id: [],          
         gatepass_type: ['',[Validators.required]],
         expected_return_date:[],
-        requester_deptt: ['',[Validators.required]],
+        requester_deptt: ['DRS'],
         sender_name: ['',[Validators.required]],
         dispatch_branch_id: ['',[Validators.required]],
         client_address: [],
@@ -133,10 +135,12 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
   }
 
   addGatePass(){
+    this.validateGatepass['requester_deptt'].setValue('DRS');
     let temp = [] as any
     if((this.selection.selected.length) > 0){
       this.AddGatePassStyle='block';
       this.validateGatepass['transfer_id'].setValue(AppUtil.getObjtoId(this.selection.selected,'transferId'));
+      this.setBranchList(this.selection.selected[0]);
       for(let i= 0; i < (this.selection.selected.length); i++){
         if(this.selection.selected[i]['transfer_media_id'] != 'undefined')
         {
@@ -153,8 +157,10 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
             assets_description: [],  
           })
         );
+        
       }
       this.checkDuplicateBranchName(temp);
+      
     } else {
       this.toastrService.error('Please select atleast one check box in table for create gate pass', 'Error!');
     }
@@ -198,10 +204,12 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
     this.assets.controls.length=0;
     this.selection.clear();
     this.selectdMediaId = [];
+    this.getPassBranchList = this.branchList;
   }
 
   checkGatepassType(event){
     if(event.value == 'Returnable'){
+      //let cudate = new Date().toLocaleDateString();
       this.validateGatepass['expected_return_date'].setValidators([Validators.required]);
     }else{
       this.validateGatepass['expected_return_date'].clearValidators();
@@ -291,10 +299,17 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
     this.MediaPass.reset();
   }
 
-  _test(ele)
+  setBranchList(ele)
   {
-    console.log(ele)
-    return "DDDDD";
+      if(ele.client_media_send == 1)
+      {
+        this.validateGatepass['dispatch_branch_id'].setValue(0);
+      }
+      else
+      {
+        let obj:any = this.getPassBranchList.find(o => o['branch_name'] === ele['new_branch_id']);
+        this.validateGatepass['dispatch_branch_id'].setValue(obj['id']);
+      }
   }
 
   

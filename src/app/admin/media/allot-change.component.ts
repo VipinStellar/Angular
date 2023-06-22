@@ -54,7 +54,7 @@ export class AllotChangeComponent implements OnInit {
 
     deptChange(teamId)
     {
-        this.tm['user_id'].reset();
+        this.deptUser = [];
         this.mediaService.deptUser(teamId,this.data['mediaId']['id']).subscribe( data => {
             this.deptUser = data as any;
         });

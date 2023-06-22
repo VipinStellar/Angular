@@ -303,16 +303,17 @@ table thead tr.table-title{
             <table class="table table-striped table-bordered responsive " >
               <thead>
               <tr class="table-title">
-                <th  colspan="6" class="h6">Media Out
-                  <a style="float:right" href="javascript:void(0)" *ngIf="user.team_id == 10 && (mediaDetails['stage'] == 9 || mediaDetails['stage'] == 10 
-                   || mediaDetails['stage'] == 11 || mediaDetails['stage'] == 15) "  (click)="mediaOutRequest()">Request for Media Out</a>
+                <th  colspan="7" class="h6">Media Out
+                  <a style="float:right" href="javascript:void(0)" *ngIf="user.team_id == 10 && mediaDetails['branch_id'] == user.branch_id && (mediaDetails['stage'] == 9 || mediaDetails['stage'] == 10 
+                   || mediaDetails['stage'] == 11 || mediaDetails['stage'] == 15) && (mediaDetails['media_out_type']==null || mediaDetails['media_out_type']=='Partial') && mediaDetails['media_out_status']==null"  (click)="mediaOutRequest()">Request for Media Out</a>
                   <!-- <a style="float:right" href="javascript:void(0)" *ngIf="user.id == mediaDetails['user_id'] && user.team_id != 10 && ">Send Media to Front Desk</a> -->
                 </th>
               </tr>
               <tr>
                 <th>S.No.</th>
                 <th>Request Type</th>
-                <th>User Name</th>
+                <th>Requested By</th>
+                <th>Requested To</th>
                 <th>Date</th>
                 <th>Remarks</th>
                 <th>Status</th>
@@ -320,11 +321,12 @@ table thead tr.table-title{
                   <tr *ngFor="let item of mediaDetails['mediaout']; let i = index" >
                   <td>{{i+1}}</td>
                   <td>{{item['request_type']}}</td>
-                  <td>{{item['name']}}</td>
+                  <td>{{item['resBy']}}</td>
+                  <td>{{item['resTo']}}</td>
                   <td>{{item['request_date'] | date:'medium'}}</td>
                   <td>{{item['remarks']}}</td>
                   <td>{{(item['status_type'] == '0')?'Pending':(item['status_type'] == '1')?'Approve':'Media Out'}}
-                    <br><a href="javascript:void(0)" *ngIf="item['status_type'] == '0' && user.id == mediaDetails['user_id'] && user.team_id != 10" (click)="mediaOutResponce(item)">Send Media to Front Desk</a>
+                    <br><a href="javascript:void(0)" *ngIf="item['status_type'] == '0' && user.id == item['user_id_to'] && user.team_id != 10" (click)="mediaOutResponce(item)">Send Media to Front Desk</a>
                   </td>
                 </tr>
             </thead>

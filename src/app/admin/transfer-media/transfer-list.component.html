@@ -34,7 +34,7 @@
                 <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="desc"
                   [dataSource]="mediaInList" style="width: 100%;">
       
-                  <ng-container matColumnDef="id">
+                  <ng-container matColumnDef="transPrimaryId">
                     <th mat-header-cell *matHeaderCellDef></th>
                     <td mat-cell *matCellDef="let element">
                       <mat-checkbox *ngIf="element.getpasStatus =='0' && element.genPassCheck" 
@@ -157,9 +157,9 @@
            </div>
            <div class="col-md-6">
             <div class="form-group">
-              <mat-select formControlName="dispatch_branch_id" (selectionChange)="checkDispatchBranch($event)" [ngClass]="{ 'is-invalid': submitted && validateGatepass['dispatch_branch_id'].errors }" class="form-control form-control-sm" placeholder="Dispatch to Branch">
+              <mat-select  formControlName="dispatch_branch_id" (selectionChange)="checkDispatchBranch($event)" [ngClass]="{ 'is-invalid': submitted && validateGatepass['dispatch_branch_id'].errors }" class="form-control form-control-sm" placeholder="Dispatch to Branch">
                 <mat-option [value]="0">Client</mat-option>
-                <mat-option *ngFor="let branch of branchList" [value]="branch['id']">{{ branch['branch_name'] }}</mat-option>
+                <mat-option *ngFor="let branch of getPassBranchList" [value]="branch['id']">{{ branch['branch_name'] }}</mat-option>
               </mat-select>
               <div *ngIf="submitted && validateGatepass['dispatch_branch_id'].errors" class="invalid-feedback">
                   <div *ngIf="validateGatepass['dispatch_branch_id'].errors['required']">Please select Dispatch to Branch</div>
