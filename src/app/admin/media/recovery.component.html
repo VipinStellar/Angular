@@ -132,8 +132,45 @@
           </div>
          </fieldset>
           </div>
+          <div class="col-md-12 pt-2" *ngIf="data['type'] == 'CLONECREATION' && r['clone_creation'].value=='Yes'">
+            <h2 class="text-center">Stellar Destination Drives </h2>
+              <form [formGroup]="MediaCloneForm">
+                <div *ngFor="let test1 of tc.controls; let i = index">
+                  <div class="row text-center" [formGroup]="test1">
+                    <div class="form-group col-1">
+                      <label class="control-label">S.N:</label>
+                      <span class="form-control form-control-sm">{{i+1}}</span>
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Client Media S/N:</label>
+                      <input type="text" formControlName="client_media_sn" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Type of Processing:</label>
+                      <select formControlName="type_processing" class="form-control form-control-sm">
+                        <option  value="Clone">Clone</option>
+                        <option  value="Image">Image</option>
+                        <option  value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Stellar Media Make:</label>
+                      <input type="text" formControlName="stellar_make" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Stellar Media S/N:</label>
+                      <input type="text" formControlName="stellar_media_sn" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Inventory No:</label>
+                      <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
           <div class="col-md-12 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED' && r['clone_required_encrypted'].value=='Yes'">
-            <h2 class="text-center">Stellar Destination Drives Details</h2>
+            <h2 class="text-center">Stellar Destination Drives Details For Dispatch To Branch</h2>
               <form [formGroup]="MediaCloneFormEny">
                 <div *ngFor="let test of tm.controls; let i = index">
                   <div class="row text-center" [formGroup]="test">
@@ -170,7 +207,7 @@
               </form>
             </div>
             <div class="col-md-12 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['clone_required_recoverable'].value=='Yes'">
-              <h2 class="text-center">Stellar Destination Drives Details</h2>
+              <h2 class="text-center">Stellar Destination Drives Details For Dispatch To Branch</h2>
                 <form [formGroup]="MediaCloneFormEny">
                   <div *ngFor="let fm of trm.controls; let i = index">
                     <div class="row text-center" [formGroup]="fm">

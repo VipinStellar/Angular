@@ -185,6 +185,9 @@ export class ObservationEditComponent implements OnInit {
     dueReason(){
         let media_type:any = this.mediaDetails['media_type'];
         let mediaType = AppUtil.checkMediaType(media_type);
+        if(this.mediaDetails['caseType'] == 'Logical' || this.mediaDetails['caseType'] == 'Logical Complex' || this.mediaDetails['caseType']=='Most Complex')
+        this.caseNotPossibleObj = AppUtil.caseNotPossible('Other');
+        else
         this.caseNotPossibleObj = AppUtil.caseNotPossible(mediaType);
     }
 }

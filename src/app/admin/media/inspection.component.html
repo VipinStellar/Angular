@@ -44,7 +44,7 @@
                     <option *ngFor="let dmg of mediaObj['mediaRecevid']" [value]="dmg">{{dmg}}</option>
                   </select>
                 </div>
-                <div class="col-4 p-3" *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Flash Media'">
+                <div class="col-4 p-3" *ngIf="(mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive' || mediaDetails['media_type'] == 'Flash Media') && f['media_received'].value == 'With Laptop'">
                   <label class="control-label">Media `s Laptop/MacBook Condition wrt any Apparent External Physical Damage to it:</label><br>
                   <select class="form-control form-control-sm" formControlName="media_damage_physical">
                     <option *ngFor="let dmg of mediaObj['mediaDamage']" [value]="dmg">{{dmg}}</option>
@@ -66,6 +66,7 @@
                     <option value="Controller Chips">Controller Chips</option>
                     <option value="SMD Parts">SMD Parts</option>
                     <option value="Others">Others</option>
+                    <option value="Not Applicable">Not Applicable</option>
                   </select>
                 </div>
                 <div class="col-4 p-3">

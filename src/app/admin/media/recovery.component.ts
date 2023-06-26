@@ -21,8 +21,10 @@ export class RecoveryComponent implements OnInit {
     recoveryData:[];
     MediaCloneFormEny: FormGroup;
     MediaCloneFormEnyValue = [];
+    MediaCloneFormValue = [];
     MediaCloneFormRecver: FormGroup;
     MediaCloneFormRecverValue = [];
+    MediaCloneForm:FormGroup;
     @ViewChild('fileUploader') fileUploader:ElementRef;
     uploadUrl: string;
     errorMsg :string = 'Please fill all required fields *';
@@ -39,15 +41,22 @@ export class RecoveryComponent implements OnInit {
             this.recoveryService.fatchRecovery(this.data['media_id']).subscribe( data => {
                 this.recoveryData = data as any;
                 this.uploadedFile = this.recoveryData['fileUpload'];
-                this.caseNotPossibleObj = AppUtil.caseNotPossible(this.recoveryData['media_type']);
+                let mediaType = AppUtil.checkMediaType(this.recoveryData['media_type']);
+                if(this.recoveryData['caseType'] == 'Logical' || this.recoveryData['caseType'] == 'Logical Complex' || this.recoveryData['caseType']=='Most Complex')
+                this.caseNotPossibleObj = AppUtil.caseNotPossible('Other');
+                else
+                this.caseNotPossibleObj = AppUtil.caseNotPossible(mediaType);
+
                 this.partialObj = AppUtil.partialReason(this.recoveryData['media_type']);
                 if(this.recoveryData['recoveryObj'] != null)
                 {
+                    this.MediaCloneFormValue = this.recoveryData['recoveryObj'].clone_required;
                     this.MediaCloneFormEnyValue = this.recoveryData['recoveryObj'].clone_required_encrypted_data;
                     this.MediaCloneFormRecverValue = this.recoveryData['recoveryObj'].clone_required_recoverable_data;
                     this.modeltoForm(this.recoveryData);
                 }
                 this.addMediaClone();
+                this.addMediaCloneCreate();
                 this.addMediaCloneRec();
               });
         }
@@ -72,6 +81,7 @@ export class RecoveryComponent implements OnInit {
             clone_required_encrypted_data:[],
             clone_required_recoverable:[],
             clone_required_recoverable_data:[],
+            clone_required:[],
             start_date:[],
             end_date:[],
             partial_reason:[],
@@ -85,6 +95,9 @@ export class RecoveryComponent implements OnInit {
         this.MediaCloneFormRecver = this.formBuilder.group({
             mediaCloneDataRec: new FormArray([])
         });
+        this.MediaCloneForm = this.formBuilder.group({
+            mediaClone: new FormArray([])
+        });
 
         this.recovery.get("decryption_details")?.valueChanges.subscribe(x => {
                 this.r['decryption_data'].reset();
@@ -95,6 +108,24 @@ export class RecoveryComponent implements OnInit {
 
     get mce() { return this.MediaCloneFormEny.controls; }
     get tm() { return this.mce['mediaCloneData'] as FormArray; }
+
+    get mc() { return this.MediaCloneForm.controls; }
+    get tc() { return this.mc['mediaClone'] as FormArray; }
+
+    addMediaCloneCreate() {
+        const numberOfTickets = 2;
+        if (this.tc.length < numberOfTickets) {
+            for (let i = this.tc.length; i < numberOfTickets; i++) {
+                this.tc.push(this.formBuilder.group({
+                    client_media_sn: [(this.MediaCloneFormValue != null && this.MediaCloneFormValue[i] != undefined && this.MediaCloneFormValue[i]['client_media_sn'] != null) ? this.MediaCloneFormValue[i]['client_media_sn'] : ''],
+                    type_processing: [(this.MediaCloneFormValue != null && this.MediaCloneFormValue[i] != undefined && this.MediaCloneFormValue[i]['type_processing'] != null) ? this.MediaCloneFormValue[i]['type_processing'] : ''],
+                    stellar_make: [(this.MediaCloneFormValue != null && this.MediaCloneFormValue[i] != undefined && this.MediaCloneFormValue[i]['stellar_make'] != null) ? this.MediaCloneFormValue[i]['stellar_make'] : ''],
+                    stellar_media_sn: [(this.MediaCloneFormValue != null && this.MediaCloneFormValue[i] != undefined && this.MediaCloneFormValue[i]['stellar_media_sn'] != null) ? this.MediaCloneFormValue[i]['stellar_media_sn'] : ''],
+                    inventry_num: [(this.MediaCloneFormValue != null && this.MediaCloneFormValue[i] != undefined && this.MediaCloneFormValue[i]['inventry_num'] != null) ? this.MediaCloneFormValue[i]['inventry_num'] : '']
+                }));
+            }
+        }
+    }
 
     addMediaClone() {
         const numberOfTickets = 2;
@@ -150,6 +181,7 @@ export class RecoveryComponent implements OnInit {
             clone_required_recoverable:rec['recoveryObj'].clone_required_recoverable,
             clone_required_encrypted_data:null,
             clone_required_recoverable_data:null,
+            clone_required:null,
             end_date:rec['recoveryObj'].end_date,
             start_date:rec['recoveryObj'].start_date,
             partial_reason:rec['recoveryObj'].partial_reason,
@@ -164,8 +196,10 @@ export class RecoveryComponent implements OnInit {
     hide() {
         this.dialogRef.close();
         this.MediaCloneFormEny.reset();
+        this.MediaCloneForm.reset();
         this.MediaCloneFormRecver.reset();
         this.tm.clear();
+        this.tc.clear();
         this.trm.clear();
     }
 
@@ -176,6 +210,7 @@ export class RecoveryComponent implements OnInit {
         }
         this.r['clone_required_encrypted_data'].setValue(this.tm.value);
         this.r['clone_required_recoverable_data'].setValue(this.trm.value);
+        this.r['clone_required'].setValue(this.tc.value);
          let apiToCall: any;
          apiToCall = this.recoveryService.updateRecovery(this.recovery.value);
         apiToCall.subscribe(
@@ -209,6 +244,7 @@ export class RecoveryComponent implements OnInit {
         {
          this.toastrService.error('File size should not be grater then 4Mb', 'Error!');
          this.fileUploader.nativeElement.value = null;
+         this.selectedFiles = undefined;
         }
 
     }
