@@ -21,7 +21,6 @@ export class MediaJobProcessComponent implements OnInit {
     mediaDetails : Media[] = [];
     _history:[];
     user: AuthUser;
-    isEdit:boolean=false;
     recListShow:boolean = false;
     constructor(private mediaService: MediaService, private route: ActivatedRoute,
                 private accountService:AccountService,public dialog: MatDialog) {}
@@ -36,18 +35,9 @@ export class MediaJobProcessComponent implements OnInit {
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
-            this.buttonShow(this.mediaDetails['stage']);
             if(this.mediaDetails['stage'] > 7 )
             this.recListShow = true;
           });                    
-    }
-
-    buttonShow(status)
-    {
-      if(this.user.id == this.mediaDetails['user_id'] && (status == 8 || status==14) )
-            this.isEdit = true;
-      else
-        this.isEdit = false;
     }
 
     loadMediaHistory()
@@ -173,6 +163,31 @@ export class MediaJobProcessComponent implements OnInit {
           this.loadMediaDetails();
           this.loadMediaHistory();
         });
+      }
+
+      editButton(type,userId,stage)
+      {
+        
+        if(type == 'Pre-Inspection' && userId == this.user.id && (stage ==1 || stage == 2))
+        {
+            return true;
+        }
+        else if(type == 'Inspection' && userId == this.user.id && (stage ==4 || stage == 5))
+        {
+          return true;
+        }
+        else if(type == 'Recovery' && userId == this.user.id && (stage ==9 || stage == 22))
+        {
+          return true;
+        }
+        else if(type == 'DLCONFIRM' && userId == this.user.id && stage !=10 && stage !=7 &&  stage != 14 &&  stage != 15)
+        {
+          return true;
+        }
+        else
+        {
+          return false;
+        }
       }
 
 }
