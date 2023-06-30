@@ -190,4 +190,12 @@ export class MediaJobProcessComponent implements OnInit {
         }
       }
 
+  wipingRequest()
+  {
+    this.mediaService.requestWiping(this.route.snapshot.params['id']).subscribe( data => {
+      this.loadMediaDetails();
+      this.loadMediaHistory();
+    });
+  }
+
 }

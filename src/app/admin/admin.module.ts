@@ -61,6 +61,8 @@ import { TabComponent } from './media/tab.component';
 import { CopyDataComponent } from './media/copy-data.component';
 import { RequestMediaOutComponenet } from './media/request-media-out.component';
 import { ResponceMediaOutComponenet } from './media/responce-media-out.component';
+import { WipingList } from './media-wiping/wiping-list.component';
+import { WipingEditComponent } from './media-wiping/wiping-edit.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -102,7 +104,9 @@ import { ResponceMediaOutComponenet } from './media/responce-media-out.component
     TabComponent,
     CopyDataComponent,
     RequestMediaOutComponenet,
-    ResponceMediaOutComponenet
+    ResponceMediaOutComponenet,
+    WipingList,
+    WipingEditComponent
   ],
   imports: [
     CommonModule,

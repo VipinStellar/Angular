@@ -215,6 +215,24 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'recovery/responcemediaout', data);
     }
 
+    wipinglist(searchParams: any) {
+        return this.http.post(environment.apiUrl + 'job/wiping-list', searchParams);
+    }
+
+    requestWiping(mediaId)
+    {
+        return this.http.get(environment.apiUrl + 'job/request-wiping/'+mediaId);
+    }
+
+    updateWipeStatus(data)
+    {
+        return this.http.post(environment.apiUrl + 'job/update-wipe-status', data);
+    }
+
+    addDummyWiping(data)
+    {
+        return this.http.post(environment.apiUrl + 'job/addwiping', data);
+    }
     
 
 }
