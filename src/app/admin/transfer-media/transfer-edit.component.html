@@ -13,7 +13,7 @@
         mediaDetails['stage'] != 17 && mediaDetails['stage'] != 18 && mediaDetails['stage'] != 19 && mediaDetails['stage'] != 20 && mediaDetails['stage'] != 21">
           <form [formGroup]="media">
             <div class="form-group">
-                <label for="uname">Transfer to:<sup class="text-danger">*</sup></label>
+                <label >Transfer to:<sup class="text-danger">*</sup></label>
                 <mat-select formControlName="branch_id"
                     [ngClass]="{ 'is-invalid': submitted && f['branch_id'].errors }" class="form-control">
                     <mat-option *ngFor="let ban of branchList" [value]="ban['id']">{{ban['branch_name']}}
@@ -36,7 +36,7 @@
             <input type="text" *ngIf="f['assets_type'].value =='Other'" class="form-control form-control-sm mt-1" formControlName="assets_type_other"  placeholder="Please Enter Other" > 
           </div>
             <div class="form-group">
-                <label for="uname">Reason for transfer:<sup class="text-danger">*</sup></label>
+                <label >Reason for transfer:<sup class="text-danger">*</sup></label>
                 <mat-select formControlName="reason" [ngClass]="{ 'is-invalid': submitted && f['reason'].errors }"
                     class="form-control">
                     <mat-option value="For Pre Inspection">For Pre Inspection</mat-option>

@@ -6,6 +6,8 @@ import { Media } from 'src/app/_models/media';
 import { MediaService  } from './../../_services/media.service';
 import { WipingEditComponent } from './wiping-edit.component';
 import { MatDialog } from '@angular/material/dialog';
+import { AuthUser } from 'src/app/_models/authuser';
+import { AccountService } from './../../_services/account.service';
 
 @Component({
   selector: 'wiping-list',
@@ -13,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class WipingList implements OnInit {
     pageTitle = "Wiping List";
+    user: AuthUser;
     AddMediaStyle = "none";
     jobidfield=null;
     ELEMENT_DATA: Media[] = [];
@@ -27,9 +30,10 @@ export class WipingList implements OnInit {
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
     wipingList: MatTableDataSource<Media> = new MatTableDataSource();
-    displayedColumns: string[] = ['job_id', 'customer_id','media_type','stage_name','request_wiping_date','expected_wiping_date','approve_wiping_date','wiping_status','action'];
-    constructor(private mediaService: MediaService,public dialog: MatDialog){}
+    displayedColumns: string[] = ['job_id', 'customer_id','media_type','stage_name','request_wiping_date','expected_wiping_date','approve_wiping_date','name','action'];
+    constructor(private mediaService: MediaService,public dialog: MatDialog,private accountService:AccountService){}
     ngOnInit(): void {
+      this.user =  this.accountService.userValue;
         this.loadData();
   }
 

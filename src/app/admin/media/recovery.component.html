@@ -170,7 +170,7 @@
               </form>
             </div>
           <div class="col-md-12 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED' && r['clone_required_encrypted'].value=='Yes'">
-            <h2 class="text-center">Stellar Destination Drives Details For Dispatch To Branch</h2>
+            <h2 class="text-center">Stellar Destination Drives Details</h2>
               <form [formGroup]="MediaCloneFormEny">
                 <div *ngFor="let test of tm.controls; let i = index">
                   <div class="row text-center" [formGroup]="test">

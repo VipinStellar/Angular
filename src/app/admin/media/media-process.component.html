@@ -337,21 +337,23 @@ table thead tr.table-title{
             <table class="table table-striped table-bordered responsive " >
               <thead>
               <tr class="table-title">
-                <th  colspan="5" class="h6">Wiping
-                  <a style="float:right" (click)="wipingRequest()" href="javascript:void(0)" *ngIf="mediaDetails['branch_id'] == user.branch_id && mediaDetails['transfer_id'] !=null && mediaDetails['wiping_request'] ==null">Request for Wiping</a>
+                <th  colspan="6" class="h6">Wiping
+                  <a style="float:right" (click)="wipingRequest()" href="javascript:void(0)" *ngIf="mediaDetails['branch_id'] == user.branch_id && mediaDetails['transfer_id'] !=null && mediaDetails['wiping_request'] ==null">Request for Wiping To Another Branch</a>
                 </th>
               </tr>
               <tr>
                 <th>S.No.</th>
                 <th>Request Wiping Date</th>
                 <th>Expected Wiping Date</th>
-                <th>Wiping Date</th>
+                <th>Assigned</th>
+                <th>Wiping Done</th>
                 <th>Status</th>
               </tr>
                   <tr *ngFor="let item of mediaDetails['wiping']; let i = index" >
                   <td>{{i+1}}</td>
                   <td>{{item['request_wiping_date'] | date}}</td>
                   <td>{{item['expected_wiping_date'] | date}}</td>
+                  <td>{{item['username']}}</td>
                   <td>{{item['approve_wiping_date'] | date}}</td>
                   <td>{{(item['status'] == '0')?'Pending':"Done"}}</td>
                 </tr>

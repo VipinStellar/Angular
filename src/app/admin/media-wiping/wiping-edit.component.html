@@ -13,6 +13,13 @@
             <div *ngIf="tm['wiping_status'].errors['required']">Wiping Status is required</div>
           </div>
         </div>
+        <div class="col-12 pt-2" *ngIf="tm['wiping_status'].value =='Yes'">
+          <label class="control-label">Upload Certificate<sup class="text-danger">*</sup> : </label>
+            <input formControlName="file"  type="file" class="form-control form-control-sm" (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submitted && tm['file'].errors }">
+           <div *ngIf="submitted && tm['file'].errors" class="invalid-feedback">
+            <div *ngIf="tm['file'].errors['required']">Certificate is required</div>
+          </div>
+        </div>
         <div class="col-12 pt-2">
             <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
             <textarea class="form-control form-control-sm" formControlName="remarks"

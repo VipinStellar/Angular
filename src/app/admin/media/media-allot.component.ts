@@ -1,7 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MediaService } from './../../_services/media.service';
-import { AppUtil } from 'src/app/_helpers/app.util';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Media } from  './../../_models/media';
 import { MatDialog } from '@angular/material/dialog';
 import { AllotChangeComponent } from './allot-change.component';
