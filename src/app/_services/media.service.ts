@@ -233,6 +233,10 @@ export class MediaService {
     {
         return this.http.post(environment.apiUrl + 'job/addwiping', data);
     }
+
+    wipingduelist(searchParams: any) {
+        return this.http.post(environment.apiUrl + 'job/wiping-due-list', searchParams);
+    }
     
 
 }

@@ -63,6 +63,7 @@ import { RequestMediaOutComponenet } from './media/request-media-out.component';
 import { ResponceMediaOutComponenet } from './media/responce-media-out.component';
 import { WipingList } from './media-wiping/wiping-list.component';
 import { WipingEditComponent } from './media-wiping/wiping-edit.component';
+import { WipingDueList } from './media-wiping/wiping-due-list.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -106,7 +107,8 @@ import { WipingEditComponent } from './media-wiping/wiping-edit.component';
     RequestMediaOutComponenet,
     ResponceMediaOutComponenet,
     WipingList,
-    WipingEditComponent
+    WipingEditComponent,
+    WipingDueList
   ],
   imports: [
     CommonModule,
