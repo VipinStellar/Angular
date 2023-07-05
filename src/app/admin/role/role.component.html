@@ -6,7 +6,7 @@
                     <h1 class="m-0 text-dark">{{pageTitle}}</h1>
                 </div>
                 <div class="col-sm-2 ">
-                    <button class="btn btn-primary" style="float: right;" (click)="openRole()"  *ngIf="_isAsscessDenied('modify')">Add Role</button>
+                    <button class="btn btn-primary" style="float: right;" (click)="openRole()" *ngIf="permission.editPermission('role')">Add Role</button>
                 </div>
 
             </div>
@@ -55,7 +55,7 @@
 
 <mat-menu #menu="matMenu">
     <ng-template matMenuContent let-role="role">
-        <button mat-menu-item (click)="editRole(role);" *ngIf="_isAsscessDenied('modify')">
+        <button mat-menu-item (click)="editRole(role);"  *ngIf="permission.editPermission('role')">
             <mat-icon>edit</mat-icon><span>Edit</span>
         </button>
     </ng-template>

@@ -10,14 +10,26 @@ import { RoleResolver } from './role/role.resolver';
 import { CountryResolver } from './branch/country.resolver';
 import { StateResolver} from './branch/state.resolver';
 import { ModuleResolver } from './role/module.resolver';
-import { ProfileResolver } from './user/profile.resolver';
 import { TeamResolver } from './user/teamresolver';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
 import { RoleAddComponent } from './role/role-add.component';
-import { MediaInComponent } from './media-in/media-in.component';
-import { MediaCaseDetail } from './media-in/media-case-details.component';
-import { MediaAssessmentView } from  './media-in/media-assessment-view.component';
-import{MediaPreComponent} from './media-in/media-pre.component';
+import { UserChangePassword } from './user/user-change-password.component';
+import { GatePassComponent } from './media/gate-pass.component';
+import { InventoryListComponent } from './inventory/inventory-list.component';
+import { InventoryAddComponent } from './inventory/inventory-add-component';
+import { MediaListComponent } from './media/media-list.component';
+import { MediaViewComponent } from './media/media-view.component';
+import { MediaAllotComponent } from './media/media-allot.component';
+import { MediaJobProcessComponent } from './media/media-process.component';
+import { PreInspectionComponenet } from './media/pre-inspection.component';
+import { InspectionComponent } from './media/inspection.component';
+import { ObservationEditComponent } from './media/observation-edit.component';
+import { DailyStatusComponent } from './media/daily-status.component';
+import { TransferListComponent } from './transfer-media/transfer-list.component';
+import { TransferEditComponent } from './transfer-media/transfer-edit.component';
+import { MediaOutComponent } from './media-out/media-out.component';
+import { WipingList } from './media-wiping/wiping-list.component';
+import { WipingDueList } from './media-wiping/wiping-due-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -28,67 +40,52 @@ const routes: Routes = [
            resolve:{
             branchList:BranchResolver,
             roleList:RoleResolver,
-            teamList:TeamResolver,
-            profileResolver:ProfileResolver
+            teamList:TeamResolver
            }
       },
-      { path: 'role', component: RoleComponent,
-            resolve:{
-              profileResolver:ProfileResolver
-            }
-      },
+      {path:'user/change-password',component: UserChangePassword},
+      { path: 'role', component: RoleComponent},
       { path: 'role/edit/:id', component: RoleAddComponent,
         resolve:{
               moduleList:ModuleResolver,
-              profileResolver:ProfileResolver,
               roleList:RoleResolver,
         }        
       },
       { path: 'role/add', component: RoleAddComponent,
           resolve:{
                 moduleList:ModuleResolver,
-                profileResolver:ProfileResolver,
                 roleList:RoleResolver,
-          }        
+            }        
       },
       { path: 'branch', component: BranchComponent,
           resolve:{
             countryList:CountryResolver,
             stateList:StateResolver,
-            profileResolver:ProfileResolver
-          } 
-          
+          }           
       },
-      { path: 'media', component: MediaInComponent,
-          resolve:{
-            profileResolver:ProfileResolver,
-            
-          } 
-          
+      //////Start Media
+      { path: 'media', component: MediaListComponent},
+      { path: 'media/view/:id', component: MediaViewComponent},
+      { path: 'media/allot-job/:id', component: MediaAllotComponent,
+             resolve:{ teamList:TeamResolver} 
       },
-      { path: 'case-details/:id', component: MediaCaseDetail,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
-      { path: 'pre-analysis/:id', component: MediaPreComponent,
-        resolve:{
-              profileResolver:ProfileResolver,
-              teamList:TeamResolver,
-        }        
-      },
-      { path: 'transfer-media/:id', component: MediaPreComponent,
-      resolve:{
-            profileResolver:ProfileResolver,
-            teamList:TeamResolver,
-      }        
-      },
-      { path: 'media-assessment/:id', component: MediaAssessmentView,
-        resolve:{
-              profileResolver:ProfileResolver,
-        }        
-      },
+      { path: 'media/job-process/:id', component: MediaJobProcessComponent},
+      { path: 'media/pre-inspection/:id', component: PreInspectionComponenet},
+      { path: 'media/inspection/:id', component: InspectionComponent},
+      { path: 'media/observation/:id', component: ObservationEditComponent},
+      { path: 'media/daily-status/:id', component: DailyStatusComponent},
+      { path: 'transfer-media', component: TransferListComponent},
+      { path: 'media/transfer-media/:id', component: TransferEditComponent},
+      //////////////
+     ////Media Out  
+      { path: 'media-out', component: MediaOutComponent},
+      { path: 'gate-pass', component: GatePassComponent},
+      { path: 'inventory', component: InventoryListComponent},
+      { path: 'inventory/edit/:id', component: InventoryAddComponent},
+      { path: 'inventory/add', component: InventoryAddComponent},
       { path: 'access-denied',component:AccessDeniedComponent },
+      { path: 'wiping-list', component: WipingList},
+      { path: 'wiping-due-list', component: WipingDueList},
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
     
     ],
@@ -98,6 +95,6 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule],
-  providers:[BranchResolver,RoleResolver,TeamResolver,CountryResolver,StateResolver,ModuleResolver,ProfileResolver]
+  providers:[BranchResolver,RoleResolver,TeamResolver,CountryResolver,StateResolver,ModuleResolver]
 })
 export class AdminRoutingModule { }

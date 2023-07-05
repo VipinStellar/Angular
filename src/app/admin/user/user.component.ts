@@ -10,14 +10,17 @@ import { UserService } from './../../_services/user.service';
 import { UseriewComponent } from './user-view.component';
 import Swal from 'sweetalert2';
 import { ToastrService } from 'ngx-toastr';
-import { AppUtil } from './../../_helpers/app.util'
+import { Permission } from './../../_helpers/permission';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
-  styleUrls: ['./user.component.sass']
+  styleUrls: ['./user.component.sass'],
+  providers:[Permission]
 })
 export class UserComponent {
-  constructor(private toastrService: ToastrService, private userService: UserService, private router: Router, private route: ActivatedRoute, public dialog: MatDialog) { }
+  constructor(public permission:Permission,private toastrService: ToastrService, 
+              private userService: UserService, private router: Router, private route: ActivatedRoute,
+              public dialog: MatDialog) { }
   ELEMENT_DATA: User[] = [];
   selected: User;
   isLoading = false;
@@ -39,18 +42,10 @@ export class UserComponent {
   branchList: [];
   roleList: [];
   teamList: [];
-  assignedRole: [];
-  isAsscessDenied: boolean;
-  currentUrl: string;
   ngOnInit(): void {
-    this.currentUrl = this.router.url.split('/')[2];
     this.branchList = this.route.snapshot.data['branchList'];
     this.roleList = this.route.snapshot.data['roleList'];
     this.teamList = this.route.snapshot.data['teamList'];
-    this.assignedRole = this.route.snapshot.data['profileResolver'];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-    if (!this.isAsscessDenied)
-      this.router.navigate(['admin/access-denied']);
     this.loadData();
   }
 
@@ -150,14 +145,6 @@ export class UserComponent {
 
       }
     });
-  }
-
-  _isAsscessDenied(type) {
-    let isAccess = AppUtil._getPageAccess(this.assignedRole, type, this.currentUrl);
-    if (isAccess)
-      return true;
-    else
-      return false;
   }
 
 }

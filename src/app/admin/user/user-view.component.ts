@@ -11,7 +11,6 @@ export class UseriewComponent implements OnInit {
     constructor( private dialogRef: MatDialogRef<UseriewComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
         this.diaTitle = "User Details";
-        console.log(data);
        
     }
 

@@ -54,3 +54,6 @@ fieldset.scheduler-border {
     bottom: 0;
     margin: auto;
     }
+    .is-invalid{
+        background-image : none !important;
+    }

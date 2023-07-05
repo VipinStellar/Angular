@@ -1,0 +1,367 @@
+<style>
+table.count_table {
+  counter-reset: section;
+}
+table.count_table th{
+  font-weight: 500;
+}
+
+table.count_table tbody tr td.inc-td:after {
+  counter-increment: section;
+  content: counter(section) "";
+}
+table thead tr.table-title{ 
+  background-color: #f2f2f2 !important;
+}
+::ng-deep table tr{ 
+  background-color: #ffffff !important;
+}
+</style>
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <app-tab [mediaDetails]="mediaDetails" ></app-tab>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
+          </div>
+          <div class="col-12">
+            <table class="table table-striped table-bordered responsive count_table">
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Pre Inspection</th>
+                <th>
+                  <a style="float:right" [routerLink]="['../../pre-inspection', mediaDetails['id']]" class="btn btn-primary btn-sm" *ngIf="editButton('Pre-Inspection',mediaDetails['user_id'],mediaDetails['stage'])">
+                    Edit Details</a>
+                  </th>
+              </tr>
+              
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Remarks</th>
+              </tr>
+             </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr *ngIf="item['module_type'] == 'PRE-ANALYSIS'">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :
+                    item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['job_id'] != null">
+            <table class="table table-striped table-bordered responsive count_table">
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Media Inspection</th>
+                <th>
+                  <a style="float:right" [routerLink]="['../../inspection', mediaDetails['id']]" class="btn btn-primary btn-sm"
+                    *ngIf="editButton('Inspection',mediaDetails['user_id'],mediaDetails['stage'])">
+                    Edit Details</a>
+                </th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Remarks</th>
+              </tr>
+             </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                 <tr mdbTableCol *ngIf="item['module_type'] == 'INSPECTION';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="recListShow">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="4" class="h6">New Extension Day</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editExtension('EXTENSION-DAY')" class="btn btn-primary btn-sm" *ngIf="editButton('Recovery',mediaDetails['user_id'],mediaDetails['stage']) && mediaDetails['extension_approve'] !=1">Edit Details</a>
+                  <a style="float:right" href="javascript:void(0)" (click)="updateExtension()" class="btn btn-primary btn-sm" *ngIf="mediaDetails['extension_approve'] ==1">Approved Extension</a>
+                </th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th width="100">Status</th>
+                <th>Reason</th>
+              </tr>
+              </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'EXTENSION-DAY';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['ext_status']}} </td>
+                  <td [innerHtml]="item['remarks']"></td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="recListShow">
+            <table class="table table-striped table-bordered responsive count_table">
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">{{(mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive')?'Initial Observation':'Recovery Process'}}</th>
+                <th><a style="float:right"  [routerLink]="['../../observation', mediaDetails['id']]"  class="btn btn-primary btn-sm" *ngIf="editButton('Recovery',mediaDetails['user_id'],mediaDetails['stage'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'OBSERVATION';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="recListShow">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Clone Creation</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery('CLONECREATION')" class="btn btn-primary btn-sm" *ngIf="editButton('Recovery',mediaDetails['user_id'],mediaDetails['stage'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Remarks</th>
+              </tr>
+              </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'CLONECREATION';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="recListShow">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Data Encrypted</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery('DATA-ENCRYPTED')" class="btn btn-primary btn-sm" *ngIf="editButton('Recovery',mediaDetails['user_id'],mediaDetails['stage'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+              <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'DATA-ENCRYPTED';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="recListShow">
+            <table class="table table-striped table-bordered responsive count_table" >
+            <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Client Data Recoverable</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editRecovery('RECOVERABLE-DATA')" class="btn btn-primary btn-sm" *ngIf="editButton('Recovery',mediaDetails['user_id'],mediaDetails['stage'])">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Remarks</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'RECOVERABLE-DATA';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+              </tbody>
+              </ng-container>
+            </table> 
+          </div>
+          <!--<div class="col-12" *ngIf="recListShow">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Transfer Clone</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="branchClone()" class="btn btn-primary btn-sm" *ngIf="isEdit">Transfer</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'CLONE-TRANSFER';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+               </tbody>
+              </ng-container>
+            </table>
+          </div>-->
+          <div class="col-12" *ngIf="mediaDetails['rec_recoverable_data']=='Yes' && mediaDetails['rec_clone_branch'] !=null">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th colspan="3" class="h6">Directory Listing</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editDirectory()" class="btn btn-primary btn-sm" *ngIf="user.id == mediaDetails['user_id']  &&  (mediaDetails['Directory_Listing'] ==null || mediaDetails['stage'] == 22)">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Modified On</th>
+                <th width="200">Modified By</th>
+                <th>Reason</th>
+              </tr>
+            </thead>
+              <ng-container *ngFor="let item of _history; let i = index" >
+                <tbody>
+                <tr mdbTableCol *ngIf="item['module_type'] == 'DIRECTORY-LISTING';">
+                  <td class="inc-td"></td>
+                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
+                  <td>{{item['remarks']}}</td>
+                </tr>
+               </tbody>
+              </ng-container>
+            </table>
+          </div>
+          <div class="col-12" *ngIf="mediaDetails['Directory_Listing'] !=null">
+            <table class="table table-striped table-bordered responsive count_table" >
+              <thead>
+              <tr class="table-title">
+                <th  colspan="3" class="h6">Directory Listing Confirmation 
+                <a style="float:right" href="javascript:void(0)" (click)="directoryEdit(mediaDetails['Directory_Listing'])"  class="btn btn-primary btn-sm" *ngIf="editButton('DLCONFIRM',mediaDetails['user_id'],mediaDetails['stage']) && mediaDetails['Directory_Listing']['dl_status'] == 'No'">Edit Details</a>
+                <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'])" class="btn btn-primary btn-sm" *ngIf="mediaDetails['Directory_Listing']['dl_status']== 'Yes' && user.id == mediaDetails['user_id'] && mediaDetails['Directory_Listing']['frontdisk_out_req'] == 0">Data out</a>
+                <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'])" class="btn btn-primary btn-sm" *ngIf="mediaDetails['Directory_Listing']['dl_status']== 'Yes'  && mediaDetails['Directory_Listing']['frontdisk_out_req'] == 1">Preview</a>
+              </th>
+              </tr>
+              <tr>
+                <th>Dl Confirmation</th>
+                <th *ngIf="mediaDetails['Directory_Listing']['dl_status'] == 'No'">Rework Possible</th>
+                <th>Copy Data In</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr mdbTableCol>
+                <td>{{mediaDetails['Directory_Listing']['dl_status']}}</td>
+                <td *ngIf="mediaDetails['Directory_Listing']['dl_status'] == 'No'">{{mediaDetails['Directory_Listing']['rework']}}</td>
+                <td>{{mediaDetails['Directory_Listing']['copyin']}}</td>
+              </tr>
+             </tbody>
+            </table>
+          </div>
+          <div class="col-12">
+            <table class="table table-striped table-bordered responsive " >
+              <thead>
+              <tr class="table-title">
+                <th  colspan="7" class="h6">Media Out
+                  <a style="float:right" href="javascript:void(0)" *ngIf="user.team_id == 10 && mediaDetails['branch_id'] == user.branch_id && (mediaDetails['stage'] == 7 || mediaDetails['stage'] == 10 
+                   || mediaDetails['stage'] == 14 || mediaDetails['stage'] == 15 || mediaDetails['stage'] == 16) && (mediaDetails['media_out_type']==null || mediaDetails['media_out_type']=='Partial') && mediaDetails['media_out_status']==null"  (click)="mediaOutRequest()">Request for Media Out</a>
+                  <!-- <a style="float:right" href="javascript:void(0)" *ngIf="user.id == mediaDetails['user_id'] && user.team_id != 10 && ">Send Media to Front Desk</a> -->
+                </th>
+              </tr>
+              <tr>
+                <th>S.No.</th>
+                <th>Request Type</th>
+                <th>Requested By</th>
+                <th>Requested To</th>
+                <th>Date</th>
+                <th>Remarks</th>
+                <th>Status</th>
+              </tr>
+                  <tr *ngFor="let item of mediaDetails['mediaout']; let i = index" >
+                  <td>{{i+1}}</td>
+                  <td>{{item['request_type']}}</td>
+                  <td>{{item['resBy']}}</td>
+                  <td>{{item['resTo']}}</td>
+                  <td>{{item['request_date'] | date}}</td>
+                  <td>{{item['remarks']}}</td>
+                  <td>{{(item['status_type'] == '0')?'Pending':(item['status_type'] == '1')?'Approve':'Media Out'}}
+                    <br><a href="javascript:void(0)" *ngIf="item['status_type'] == '0' && user.id == item['user_id_to'] && user.team_id != 10" (click)="mediaOutResponce(item)">Send Media to Front Desk</a>
+                  </td>
+                </tr>
+            </thead>
+            </table>
+          </div>
+          <div class="col-12">
+            <table class="table table-striped table-bordered responsive " >
+              <thead>
+              <tr class="table-title">
+                <th  colspan="6" class="h6">Wiping
+                  <a style="float:right" (click)="wipingRequest()" href="javascript:void(0)" *ngIf="mediaDetails['branch_id'] == user.branch_id && mediaDetails['transfer_id'] !=null && mediaDetails['wiping_request'] ==null">Request for Wiping To Another Branch</a>
+                </th>
+              </tr>
+              <tr>
+                <th>S.No.</th>
+                <th>Request Wiping Date</th>
+                <th>Expected Wiping Date</th>
+                <th>Assigned</th>
+                <th>Wiping Date</th>
+                <th>Status</th>
+              </tr>
+                  <tr *ngFor="let item of mediaDetails['wiping']; let i = index" >
+                  <td>{{i+1}}</td>
+                  <td>{{item['request_wiping_date'] | date}}</td>
+                  <td>{{item['expected_wiping_date'] | date}}</td>
+                  <td>{{item['username']}}</td>
+                  <td>{{item['approve_wiping_date'] | date}}</td>
+                  <td>{{(item['status'] == '0')?'Pending':"Done"}}</td>
+                </tr>
+            </thead>
+            </table>
+          </div>
+        </div>
+  
+      </div>
+    </section>
+  </div>

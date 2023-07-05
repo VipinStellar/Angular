@@ -1,0 +1,37 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="wipingFrom">
+    <div class="row">
+     
+        <div class="col-12 pt-2">
+          <label class="control-label">Wiping Status<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="wiping_status" [ngClass]="{ 'is-invalid': submitted && tm['wiping_status'].errors }">
+            <option value="Yes">Yes</option>
+            <option value="No">No</option>
+           </select>
+           <div *ngIf="submitted && tm['wiping_status'].errors" class="invalid-feedback">
+            <div *ngIf="tm['wiping_status'].errors['required']">Wiping Status is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2" *ngIf="tm['wiping_status'].value =='Yes'">
+          <label class="control-label">Upload Certificate<sup class="text-danger">*</sup> : </label>
+            <input formControlName="file"  type="file" class="form-control form-control-sm" (change)="onFileChange($event)" [ngClass]="{ 'is-invalid': submitted && tm['file'].errors }">
+           <div *ngIf="submitted && tm['file'].errors" class="invalid-feedback">
+            <div *ngIf="tm['file'].errors['required']">Certificate is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+            <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+            <textarea class="form-control form-control-sm" formControlName="remarks"
+              [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }"></textarea>
+            <div *ngIf="submitted && tm['remarks'].errors" class="invalid-feedback">
+              <div *ngIf="tm['remarks'].errors['required']">Remarks is required</div>
+            </div>
+          </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

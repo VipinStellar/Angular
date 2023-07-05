@@ -16,8 +16,7 @@
           <div class="card">
             <div class="card-header border-0">
             <h3 class="card-title"><strong>Pre Inspection Pending</strong></h3>
-            <div class="spinner-border tableLoader" role="status"*ngIf="preloader"></div>
-            <table class="table  table-valign-middle" *ngIf="resultPre != undefined">              
+             <table class="table  table-valign-middle table-sm" *ngIf="resultPre != undefined">              
               <thead>
                 
               <tr>
@@ -47,8 +46,7 @@
     <div class="card">
       <div class="card-header border-0">
       <h3 class="card-title"><strong>Pre Inspection Done</strong></h3>
-      <div class="spinner-border tableLoader" role="status"*ngIf="preInloader"></div>
-      <table class="table table-valign-middle" *ngIf="resultPreDone != undefined">
+      <table class="table table-valign-middle table-sm" *ngIf="resultPreDone != undefined">
         <thead>
         <tr>
           <th></th>
@@ -75,8 +73,7 @@
   <div class="card">
     <div class="card-header border-0">
     <h3 class="card-title"><strong>Media In</strong></h3>
-    <div class="spinner-border tableLoader" role="status"*ngIf="MedInloader"></div>
-    <table class="table table-valign-middle" *ngIf="resultMediaIn != undefined">
+    <table class="table table-valign-middle table-sm" *ngIf="resultMediaIn != undefined">
       <thead>
       <tr>
         <th></th>
@@ -107,8 +104,7 @@
   <div class="card">
     <div class="card-header border-0">
     <h3 class="card-title"><strong>Inspection In Process</strong></h3>
-    <div class="spinner-border tableLoader" role="status"*ngIf="inPreloader"></div>
-    <table class="table table-valign-middle" *ngIf="resultAssProcess != undefined">
+    <table class="table table-valign-middle table-sm" *ngIf="resultAssProcess != undefined">
       <thead>
       <tr>
         <th></th>
@@ -136,8 +132,7 @@
   <div class="card">
     <div class="card-header border-0">
     <h3 class="card-title"><strong>Inspection Done</strong></h3>
-    <div class="spinner-border tableLoader" role="status"*ngIf="inDoneloader"></div>
-    <table class="table  table-valign-middle" *ngIf="resultAssDone != undefined">
+    <table class="table  table-valign-middle table-sm" *ngIf="resultAssDone != undefined">
       <thead>
       <tr>
         <th></th>
@@ -164,8 +159,7 @@
   <div class="card">
     <div class="card-header border-0">
     <h3 class="card-title"><strong>Case Possible</strong></h3>
-    <div class="spinner-border tableLoader" role="status"*ngIf="casePoloader"></div>
-    <table class="table  table-valign-middle" *ngIf="resultCasePossible != undefined">
+    <table class="table  table-valign-middle table-sm" *ngIf="resultCasePossible != undefined">
       <thead>
       <tr>
         <th></th>
@@ -192,8 +186,7 @@
   <div class="card">
     <div class="card-header border-0">
     <h3 class="card-title"><strong>Case Not Possible</strong></h3>
-    <div class="spinner-border tableLoader" role="status"*ngIf="caseNoloader"></div>
-    <table class="table  table-valign-middle" *ngIf="resultCaseNotPossible != undefined">
+    <table class="table  table-valign-middle table-sm" *ngIf="resultCaseNotPossible != undefined">
       <thead>
       <tr>
         <th></th>
@@ -206,6 +199,78 @@
           <td>{{key}}</td>
           <td><a href="javascript:void(0)" (click)="viewResult(resultCaseNotPossible[key],'total')" >{{resultCaseNotPossible[key]['total']}}</a></td>
           <td><a href="javascript:void(0)" (click)="viewResult(resultCaseNotPossible[key],'my_assigned')" >{{resultCaseNotPossible[key]['my_assigned']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+<!--Case Confirm Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Waiting for Confirmation</strong></h3>
+    <table class="table  table-valign-middle table-sm" *ngIf="resultWaitCase != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultWaitCase)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultWaitCase[key],'total')" >{{resultWaitCase[key]['totalMedia']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+<!--Case Confirm Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Confirmed Case</strong></h3>
+    <table class="table  table-valign-middle table-sm" *ngIf="resultConfirmCase != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultConfirmCase)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultConfirmCase[key],'total')" >{{resultConfirmCase[key]['totalMedia']}}</a></td>
+        </tr>
+      </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!--End-->
+<!--Case Confirm Start-->
+<div class="col-md-6">
+  <div class="card">
+    <div class="card-header border-0">
+    <h3 class="card-title"><strong>Not Confirmed Case</strong></h3>
+    <table class="table  table-valign-middle table-sm" *ngIf="resultConfirmNotCase != undefined">
+      <thead>
+      <tr>
+        <th></th>
+        <th>Total</th>
+      </tr>
+      </thead>
+      <tbody>        
+        <tr *ngFor="let key of Object.keys(resultConfirmNotCase)">
+          <td>{{key}}</td>
+          <td><a href="javascript:void(0)" (click)="viewResult(resultConfirmNotCase[key],'total')" >{{resultConfirmNotCase[key]['totalMedia']}}</a></td>
         </tr>
       </tbody>
       </table>

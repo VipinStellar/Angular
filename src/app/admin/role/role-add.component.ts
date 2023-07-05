@@ -10,9 +10,6 @@ import { Location } from '@angular/common';
     templateUrl: './role-add.component.html',
 })
 export class RoleAddComponent implements OnInit {
-    currentUrl: string;
-    assignedRole: [];
-    isAsscessDenied: boolean;
     pageTitle: string;
     submitted: boolean;
     loading: boolean;
@@ -34,13 +31,7 @@ export class RoleAddComponent implements OnInit {
     ngOnInit() {
         this.moduleList = this.route.snapshot.data['moduleList'];
         this.roleList = this.route.snapshot.data['roleList'];
-        this.currentUrl = this.router.url.split('/')[2];
-        this.assignedRole = this.route.snapshot.data['profileResolver'];
-        this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'modify', this.currentUrl);
-        if (!this.isAsscessDenied)
-            this.router.navigate(['admin/access-denied']);
         this.loadForm();
-
         if(this.isEdit)
         {
         this.roleService.getRole(this.route.snapshot.params['id']).subscribe( data => {
@@ -93,7 +84,7 @@ export class RoleAddComponent implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.loading = false;
-                this.toastrService.success('Role Save successfully!', 'Success!');
+                this.toastrService.success('Role Saved successfully!', 'Success!');
                 this.router.navigate(['/admin/role']);
             },
             error => {

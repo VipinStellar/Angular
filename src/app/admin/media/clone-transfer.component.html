@@ -1,0 +1,28 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="userFrom">
+    <div class="row">
+        <div class="col-12 pt-2">
+          <label class="control-label">Select User<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="user_id" [ngClass]="{ 'is-invalid': submitted && uf['user_id'].errors }">
+              <option *ngFor="let user of userList" [value]="user.id">{{user.name}}</option>
+           </select>
+           <div *ngIf="submitted && uf['user_id'].errors" class="invalid-feedback">
+            <div *ngIf="uf['user_id'].errors['required']">User is required</div>
+          </div>
+        </div>
+        <div class="col-12 pt-2">
+            <label class="control-label">Reason For Transfer<sup class="text-danger"> *</sup> : </label>
+                <textarea class="form-control form-control-sm" formControlName="remarks"
+                  [ngClass]="{ 'is-invalid': submitted && uf['remarks'].errors }"></textarea>
+                <div *ngIf="submitted && uf['remarks'].errors" class="invalid-feedback">
+                  <div *ngIf="uf['remarks'].errors['required']">Reason is required</div>
+                </div>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

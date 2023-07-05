@@ -11,7 +11,9 @@ import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
 import { MatProgressBarModule } from '@angular/material/progress-bar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -27,19 +29,41 @@ import {MatDividerModule} from '@angular/material/divider';
 import { MatSelectFilterModule } from 'mat-select-filter';
 import { UseriewComponent } from './user/user-view.component';
 import { AccessDeniedComponent } from './access-denied/access-denied.component';
-import { MediaInComponent } from './media-in/media-in.component';
-import { MediaCaseDetail } from './media-in/media-case-details.component';
+import { MediaListComponent } from './media/media-list.component';
 import {MatTabsModule} from '@angular/material/tabs';
-import { MediaPreComponent } from './media-in/media-pre.component';
 import { MatProgressSpinnerModule  } from '@angular/material/progress-spinner';
-import { MediaAssignToAdd } from './media-in/media-assign-to-add.component';
-import { MediaEdit}  from './media-in/media-edit.component';
-import { MediaAssessmentView }  from './media-in/media-assessment-view.component';
-import { MediaAssessmentEdit } from './media-in/media-edit-assessment.component';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatNativeDateModule} from '@angular/material/core';
-import { MediaTransfer } from './media-in/media-transfer.component';
-import {MediaTeam } from './media-in/media-team.component';
+import { UserChangePassword } from './user/user-change-password.component';
+import { GatePassComponent } from './media/gate-pass.component';
+import { InventoryListComponent } from './inventory/inventory-list.component';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { InventoryAddComponent } from './inventory/inventory-add-component';
+import { mediaTable  } from './../_helpers/commanHtmlMedia';
+import { MediaViewComponent } from './media/media-view.component';
+import { MediaAllotComponent } from './media/media-allot.component';
+import { MediaJobProcessComponent } from './media/media-process.component';
+import { AllotChangeComponent } from './media/allot-change.component';
+import { PreInspectionComponenet } from './media/pre-inspection.component';
+import { InspectionComponent } from './media/inspection.component';
+import { ObservationEditComponent  } from './media/observation-edit.component';
+import { RecoveryComponent } from './media/recovery.component';
+import { CloneTransferComponenet } from './media/clone-transfer.component';
+import { DailyStatusComponent  } from './media/daily-status.component';
+import { TransferListComponent } from './transfer-media/transfer-list.component';
+import { TransferEditComponent } from './transfer-media/transfer-edit.component';
+import { ExtensionComponent } from './media/extension.component';
+import { DirectoryListComponent } from './media/directory-list.component';
+import { DirectoryConfirmComponent } from './media/directory-listing-confirm.component';
+import { MediaOutComponent } from './media-out/media-out.component';
+import { TabComponent } from './media/tab.component';
+import { CopyDataComponent } from './media/copy-data.component';
+import { RequestMediaOutComponenet } from './media/request-media-out.component';
+import { ResponceMediaOutComponenet } from './media/responce-media-out.component';
+import { WipingList } from './media-wiping/wiping-list.component';
+import { WipingEditComponent } from './media-wiping/wiping-edit.component';
+import { WipingDueList } from './media-wiping/wiping-due-list.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -56,15 +80,35 @@ import {MediaTeam } from './media-in/media-team.component';
     BranchviewComponent,
     UseriewComponent,
     AccessDeniedComponent,
-    MediaInComponent,
-    MediaCaseDetail,
-    MediaPreComponent,
-    MediaAssignToAdd,
-    MediaEdit,
-    MediaAssessmentView,
-    MediaAssessmentEdit,
-    MediaTransfer,
-    MediaTeam
+    MediaListComponent,
+    MediaViewComponent,
+    MediaAllotComponent,
+    MediaJobProcessComponent,
+    AllotChangeComponent,
+    PreInspectionComponenet,
+    InspectionComponent,
+    ObservationEditComponent,
+    RecoveryComponent,
+    CloneTransferComponenet,
+    DailyStatusComponent,
+    TransferListComponent,
+    TransferEditComponent,
+    UserChangePassword,
+    GatePassComponent,
+    InventoryListComponent,
+    InventoryAddComponent,
+    mediaTable,
+    ExtensionComponent,
+    DirectoryListComponent,
+    DirectoryConfirmComponent,
+    MediaOutComponent,
+    TabComponent,
+    CopyDataComponent,
+    RequestMediaOutComponenet,
+    ResponceMediaOutComponenet,
+    WipingList,
+    WipingEditComponent,
+    WipingDueList
   ],
   imports: [
     CommonModule,
@@ -72,8 +116,10 @@ import {MediaTeam } from './media-in/media-team.component';
     MatPaginatorModule,
     MatSortModule,
     MatProgressBarModule,
+    MatTooltipModule,
     AdminRoutingModule,
     MatMenuModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatIconModule,
     FormsModule,
@@ -85,7 +131,10 @@ import {MediaTeam } from './media-in/media-team.component';
     MatTabsModule,
     MatProgressSpinnerModule,
     MatDatepickerModule,
-    MatNativeDateModule 
+    MatNativeDateModule,
+    MatFormFieldModule,
+    MatInputModule 
   ],
+  exports: [ MatInputModule ]
 })
 export class AdminModule { }

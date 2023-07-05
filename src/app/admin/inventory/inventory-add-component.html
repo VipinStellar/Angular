@@ -1,0 +1,188 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="inventoryForm">
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="control-label">Inventory Type: </label>
+                                <select class="form-control form-control-sm" formControlName="inventory_type"  [ngClass]="{ 'is-invalid': submitted && Invalidate['inventory_type'].errors }">
+                                    <option value="CR">CR</option>
+                                    <option value="BR">BR</option>
+                                    <option value="CRI">CRI</option>
+                                    <option value="SP">SP</option>
+                                    <option value="RAID">RAID</option>
+                                    <option value="SSD">SSD</option>
+                                  </select>
+                                <div *ngIf="submitted && Invalidate['inventory_type'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['inventory_type'].errors['required']">Inventory Type is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['inventory_type'].errors['message']">{{Invalidate['inventory_type'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label class="control-label">Capacity: </label>
+                                <div class="d-flex">
+                                    <input type="number" min="1" formControlName="numsize" [ngClass]="{ 'is-invalid': submitted && Invalidate['numsize'].errors }" class="form-control form-control-sm">
+                                    <select class="form-control form-control-sm" style="max-width: 20%;" formControlName="size" [ngClass]="{ 'is-invalid': submitted && Invalidate['size'].errors }">
+                                        <option value="GB">GB</option>
+                                        <option value="TB">TB</option>
+                                    </select>
+                                </div>
+                                <div *ngIf="submitted && Invalidate['numsize'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['numsize'].errors['required']">Capacity is required</div>
+                                    <small class="p-error" *ngIf="Invalidate['numsize'].errors['message']">{{Invalidate['numsize'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4">
+                                <label class="control-label">Model Number: </label>
+                                <input type="text" formControlName="model_num"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['model_num'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['model_num'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['model_num'].errors['required']">Model Number is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['model_num'].errors['message']">{{Invalidate['model_num'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Serial Number: </label>
+                                <input type="text" formControlName="serial_num"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['serial_num'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['serial_num'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['serial_num'].errors['required']">Serial Number is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['serial_num'].errors['message']">{{Invalidate['serial_num'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">PCB Number: </label>
+                                <input type="text" formControlName="pcb_num"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['pcb_num'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['pcb_num'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['pcb_num'].errors['required']">PCB Number is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['pcb_num'].errors['message']">{{Invalidate['pcb_num'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Interface: </label>
+                                <select class="form-control form-control-sm" formControlName="interface"  [ngClass]="{ 'is-invalid': submitted && Invalidate['interface'].errors }">
+                                    <option value="SATA">SATA</option>
+                                    <option value="PATA">PATA</option>
+                                    <option value="USB">USB</option>
+                                    <option value="SAS">SAS</option>
+                                    <option value="SCSI">SCSI</option>
+                                  </select>
+                                <div *ngIf="submitted && Invalidate['interface'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['interface'].errors['required']">Interface is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['interface'].errors['message']">{{Invalidate['interface'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Type: </label>
+                                <select class="form-control form-control-sm" formControlName="type"  [ngClass]="{ 'is-invalid': submitted && Invalidate['type'].errors }">
+                                    <option value="HDD LT">HDD LT</option>
+                                    <option value="HDD DT">HDD DT</option>
+                                  </select>
+                                <div *ngIf="submitted && Invalidate['type'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['type'].errors['required']">Type is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['type'].errors['message']">{{Invalidate['type'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Firmware: </label>
+                                <input type="text" formControlName="firmware"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['firmware'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['firmware'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['firmware'].errors['required']">Firmware is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['firmware'].errors['message']">{{Invalidate['firmware'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Rack Number: </label>
+                                <input type="text" formControlName="rack_num"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['rack_num'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['rack_num'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['rack_num'].errors['required']">Rack Number is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['rack_num'].errors['message']">{{Invalidate['rack_num'].errors['message']}}</small>
+                                </div>
+                            </div>                            
+                            
+                            <div class="col-4 p-2">
+                                <label class="control-label">Purchase Date: </label>
+                                <input type="date" formControlName="date_purchase" class="form-control form-control-sm" [ngClass]="{ 'is-invalid': submitted && Invalidate['date_purchase'].errors }">
+                                <div *ngIf="submitted && Invalidate['date_purchase'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['date_purchase'].errors['required']">Purchase Date is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['date_purchase'].errors['message']">{{Invalidate['date_purchase'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4 p-2">
+                                <label class="control-label">Received From: </label>
+                                <select class="form-control form-control-sm" formControlName="received_from"  [ngClass]="{ 'is-invalid': submitted && Invalidate['received_from'].errors }">
+                                    <option value="Stellar Inventory">Stellar Inventory</option>
+                                    <option value="Branch Inventory">Branch Inventory</option>
+                                    <option value="Junk">Junk</option>
+                                  </select>
+                                <div *ngIf="submitted && Invalidate['received_from'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['received_from'].errors['required']">Received From is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['received_from'].errors['message']">{{Invalidate['received_from'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-4  p-2" *ngIf="Invalidate['received_from'].value != null && Invalidate['received_from'].value != 'Stellar Inventory'">
+                                <label class="control-label">Branch: </label>
+                                <select class="form-control form-control-sm" formControlName="branch_id"  [ngClass]="{ 'is-invalid': submitted && Invalidate['branch_id'].errors }">
+                                    <option *ngFor="let search of branchList" [value]="search['id']">{{search['branch_name']}}</option>
+                                  </select>
+                            </div>
+                            <div class="col-4  p-2" *ngIf="Invalidate['received_from'].value != null && Invalidate['received_from'].value != 'Stellar Inventory'">
+                                <label class="control-label">Job Id: </label>
+                                <input type="text" formControlName="job_id"
+                                    [ngClass]="{ 'is-invalid': submitted && Invalidate['job_id'].errors }"
+                                    class="form-control form-control-sm">
+                                <div *ngIf="submitted && Invalidate['job_id'].errors" class="invalid-feedback">
+                                    <div *ngIf="Invalidate['job_id'].errors['required']">Job Id is required</div>
+                                    <small class="p-error"
+                                        *ngIf="Invalidate['job_id'].errors['message']">{{Invalidate['job_id'].errors['message']}}</small>
+                                </div>
+                            </div>
+                            <div class="col-12  p-2">
+                                <label class="control-label">Add Your Remarks<sup class="text-danger"> *</sup> : </label>
+                                <textarea class="form-control form-control-sm" formControlName="remarks"
+                                  [ngClass]="{ 'is-invalid': submitted && Invalidate['remarks'].errors }"></textarea>
+                                <div *ngIf="submitted && Invalidate['remarks'].errors" class="invalid-feedback">
+                                  <div *ngIf="Invalidate['remarks'].errors['required']">Remarks is required</div>
+                                </div>
+                            </div>
+                            <div class="col-12 text-right">
+                                <button class="btn btn-default" (click)="cancel();">Close</button>&nbsp;
+                                <button type="buttun" class="btn btn-primary" (click)="onSubmit()">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

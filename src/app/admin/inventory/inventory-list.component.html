@@ -1,0 +1,85 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-xl-4 col-sm-4">
+            <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+          <div class="row">          
+            <div class="col-12">
+              <fieldset class="scheduler-border">
+                <legend class="scheduler-border">Advance Search</legend>
+                <form [formGroup]="filterForm">
+                <div class="row">
+                <div class="col-sm-2 pb-2"  *ngFor="let search of filterArray">          
+                  <input type="text" formControlName="{{search.filed}}"  class="form-control form-control-sm" placeholder="{{search['label']}}">
+                  </div>                
+                  <div class="col-sm-3 pb-2">
+                      <button  class="btn btn-primary btn-sm" (click)="loadData()">Search</button>&nbsp; 
+                      <button  class="btn btn-default btn-sm" (click)="reset()">Reset</button>&nbsp;
+                      <a [routerLink]="['./../inventory/add/']" class="btn btn-danger btn-sm">Add Item</a>
+                    </div>
+                  </div>
+                </form>
+              </fieldset>
+            </div>
+            <div class="col-12">
+                <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
+                  [dataSource]="mediaInList" style="width: 100%;">
+                  <ng-container matColumnDef="inventory_type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Inventory Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.inventory_type}} </td>
+                  </ng-container> 
+                  <ng-container matColumnDef="model_num">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Model No.</th>
+                    <td mat-cell *matCellDef="let element">{{element?.model_num}}</td>
+                  </ng-container>      
+                  <ng-container matColumnDef="serial_num">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Serial No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.serial_num}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="pcb_num">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>P.B.C No.</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.pcb_num}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="interface">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Interface</th>
+                    <td mat-cell *matCellDef="let element"> {{element?.interface}} </td>
+                  </ng-container>
+                  <ng-container matColumnDef="firmware">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Firmware </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.firmware}} </td>
+                  </ng-container> 
+                  <ng-container matColumnDef="capacity">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Capacity </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.capacity}} </td>
+                  </ng-container>   
+                  <ng-container matColumnDef="type">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Type </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.type}} </td>
+                  </ng-container>      
+                  <ng-container matColumnDef="rack_num">
+                    <th mat-header-cell *matHeaderCellDef mat-sort-header>Rack No. </th>
+                    <td mat-cell *matCellDef="let element"> {{element?.rack_num}} </td>
+                  </ng-container>    
+                  <ng-container matColumnDef="action">
+                    <th mat-header-cell *matHeaderCellDef></th>
+                    <td mat-cell *matCellDef="let element"><a [routerLink]="['./../inventory/edit/', element.id]"><i class="fas fa-edit"></i></a> </td>
+                  </ng-container>                     
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                </table>      
+                <mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+                  [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+                </mat-paginator>
+      
+              </div>
+            </div>
+        </div>
+    </section>
+</div>

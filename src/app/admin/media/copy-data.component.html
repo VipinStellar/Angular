@@ -1,0 +1,49 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+    <form [formGroup]="copydata">
+        <div class="row">
+            <div class="col-12 pt-2">
+                <form [formGroup]="copydata">
+                    <form [formGroup]="dataoutDetails">
+                    <div *ngFor="let test of formDteails.controls; let i = index">
+                      <div class="row text-center" [formGroup]="test">
+                       <div class="form-group col">
+                          <label class="control-label">Media S/N:</label>
+                          <input type="text" formControlName="media_sn" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
+                        </div>
+                        <div class="form-group col">
+                          <label class="control-label">Media Model:</label>
+                          <input type="text" formControlName="media_model" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
+                        </div>
+                        <div class="form-group col">
+                          <label class="control-label">Capacity:</label>
+                          <input type="text" formControlName="capacity" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
+                        </div>
+                        <div class="form-group col">
+                          <label class="control-label">Media Make:</label>
+                          <input type="text" formControlName="media_make" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
+                        </div>
+                        <div class="form-group col">
+                          <label class="control-label">Inventory No:</label>
+                          <input type="text" formControlName="inventry_num" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
+                        </div>
+                      </div>
+                    </div>
+                </form>
+                <div class="col-lg-12 col-md-12 pt-2">
+                    <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="remarks"
+                      [ngClass]="{ 'is-invalid': submitted && copy['remarks'].errors }" ></textarea>
+                    <div *ngIf="submitted && copy['remarks'].errors" class="invalid-feedback">
+                      <div *ngIf="copy['remarks'].errors['required']">Remarks is required</div>
+                    </div>
+                  </div>
+                  </form>
+                </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()" *ngIf="!disFieldName">Data Out</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

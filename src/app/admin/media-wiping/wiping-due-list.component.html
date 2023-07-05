@@ -1,0 +1,62 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-xl-12 col-sm-12">
+            <h1 class="m-0 text-dark">{{pageTitle}}</h1> 
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-12">
+            <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
+              [dataSource]="wipingDueList" style="width: 100%;">
+  
+              <ng-container matColumnDef="job_id">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
+                <td mat-cell *matCellDef="let element">
+                    <a [routerLink]="['../media/job-process/', element.media_id]"
+                  title="View Case Details">{{(element.job_id ==null)?element.zoho_id:element.job_id}}</a></td>
+              </ng-container>
+  
+
+              <ng-container matColumnDef="assets_type">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header>Media Type</th>
+                <td mat-cell *matCellDef="let element"> {{element?.assets_type}} </td>
+              </ng-container>
+              <ng-container matColumnDef="stage_name">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
+                <td mat-cell *matCellDef="let element"> {{element.stage_name}}&nbsp;&nbsp; 
+              </td>              
+              </ng-container>
+              <ng-container matColumnDef="media_in_date">
+                <th mat-header-cell *matHeaderCellDef mat-sort-header> Expected Wiping Date </th>
+                <td mat-cell *matCellDef="let element"> {{addDate(element.media_in_date) | date}}&nbsp;&nbsp; 
+              </td>              
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action </th>
+                <td mat-cell *matCellDef="let element"> 
+                 <a href="javascript:void(0)" *ngIf="user.id == element.user_id" (click)="wipingRequest(element.media_id)">Request For Wiping</a>
+                </td>
+              </ng-container>
+              <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+              <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+  
+            <mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+              [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+            </mat-paginator>
+  
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  
+
+  

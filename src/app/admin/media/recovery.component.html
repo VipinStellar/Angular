@@ -1,0 +1,260 @@
+<h2 mat-dialog-title>{{(data['type'] == 'CLONECREATION')?'Clone Creation':(data['type'] == 'DATA-ENCRYPTED')?'Data Encrypted':(data['type'] == 'RECOVERABLE-DATA')?'Client Data Recoverable':diaTitle}}</h2>
+<mat-dialog-content >
+    <form [formGroup]="recovery">
+        <div class="row">
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'CLONECREATION'">
+            <label class="control-label">Clone Creation Completed: </label>
+            <select class="form-control form-control-sm" formControlName="clone_creation">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'CLONECREATION' && r['clone_creation'].value == 'Yes'">
+            <label class="control-label">Start Date: </label>
+            <input type="date" class="form-control form-control-sm" formControlName="start_date">
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'CLONECREATION' && r['clone_creation'].value == 'Yes'">
+            <label class="control-label">End Date: </label>
+            <input type="date" class="form-control form-control-sm" formControlName="end_date">
+          </div>
+          <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes' && data['type'] == 'CLONECREATION'">
+            <label class="control-label">Information Related to Clone: </label>
+            <select class="form-control form-control-sm" formControlName="cloned_done">
+                <option value="Complete">Complete</option>
+                <option value="Partial">Partial</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes' && r['cloned_done'].value == 'Partial' && data['type'] == 'CLONECREATION'">
+            <label class="control-label">Partial Recovery Reason: </label>
+            <select class="form-control form-control-sm" formControlName="partial_reason">
+                <option *ngFor="let resson of partialObj" [value]="resson">{{resson}}</option>
+            </select>
+            <input type="text" class="form-control form-control-sm mt-1" formControlName="partial_reason_other"  placeholder="Please Enter Other Reason" > 
+          </div>
+          <div class="col-4 pt-2" *ngIf="r['clone_creation'].value == 'Yes'  && data['type'] == 'CLONECREATION'">
+            <label class="control-label">Details of Cloned Sectors: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="cloned_sectors">
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['clone_creation'].value == 'No' && data['type'] == 'CLONECREATION')">
+            <label class="control-label">Case Not Possible Reason:</label><br>
+            <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+              <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
+            </mat-select>
+            <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED'">
+            <label class="control-label">Data Encrypted: </label>
+            <select class="form-control form-control-sm" formControlName="data_encrypted">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED'">
+            <label class="control-label">Clone Required: </label>
+            <select class="form-control form-control-sm" formControlName="clone_required_encrypted">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && data['type'] == 'DATA-ENCRYPTED')">
+            <label class="control-label">Decryption Details Received: </label>
+            <select class="form-control form-control-sm" formControlName="decryption_details">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && r['decryption_details'].value == 'Yes' && data['type'] == 'DATA-ENCRYPTED')">
+            <label class="control-label">Data Decrytion Successful: </label>
+            <select class="form-control form-control-sm" formControlName="decryption_data">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="((r['decryption_data'].value == 'No' || r['decryption_details'].value == 'No') && r['data_encrypted'].value == 'Yes' && data['type'] == 'DATA-ENCRYPTED')">
+            <label class="control-label">Request for Correct Encryption details: </label>
+              <select class="form-control form-control-sm" formControlName="decryption_details_send">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div> 
+        
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA'">
+            <label class="control-label">Client Data Recoverable: </label>
+            <select class="form-control form-control-sm" formControlName="recoverable_data">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['recoverable_data'].value == 'Yes'">
+            <label class="control-label">Send Clone To Branch: </label>
+            <select class="form-control form-control-sm" formControlName="clone_branch">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['recoverable_data'].value == 'Yes' && r['clone_branch'].value == 'No'">
+            <label class="control-label">Share With Branch: </label>
+            <select class="form-control form-control-sm" formControlName="shared_with_branch">
+                <option value="Server">Server</option>
+                <option value="Email">Email</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['recoverable_data'].value == 'Yes'">
+            <label class="control-label">Clone Required: </label>
+            <select class="form-control form-control-sm" formControlName="clone_required_recoverable">
+                <option value="Yes">Yes</option>
+                <option value="No">No</option>
+            </select>
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['recoverable_data'].value == 'No' && data['type'] == 'RECOVERABLE-DATA')">
+            <label class="control-label">Case Not Possible Reason:</label><br>
+            <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+              <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
+            </mat-select>
+            <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
+          </div>
+          <div class="col-4 pt-2" *ngIf="(r['data_encrypted'].value == 'Yes' && r['decryption_details_send'].value == 'No' && data['type'] == 'DATA-ENCRYPTED')">
+            <label class="control-label">Case Not Possible Reason:</label><br>
+            <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
+              <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
+            </mat-select>
+            <input type="text" class="form-control form-control-sm mt-1" formControlName="no_recovery_reason_other"  placeholder="Please Enter Other Reason" > 
+          </div>
+          <div class="col-12" *ngIf="(r['data_encrypted'].value == 'Yes' && r['decryption_details_send'].value == 'Yes' && data['type'] == 'DATA-ENCRYPTED')"><br>
+            <fieldset class="p-2 scheduler-border">
+              <legend class="scheduler-border">Upload Sample File:</legend>
+          <input type='file' #fileUploader (change)="onSelectFile($event)" multiple accept=".jpg,.png,.zip,.jpeg">
+          <button class="btn btn-success btn-sm"  (click)="uploadFiles()" [disabled]="!selectedFiles"> Upload</button>
+          <div class="row mt-3">
+            <div class="col-md-4 p-2" *ngFor="let upload of uploadedFile">
+              <a target="_blank" [href]="upload['store_path']">{{upload['name']}}</a><span class="text-red ml-2" style="cursor: pointer;" (click)="deleteFile(upload)"><i class="nav-icon fas fa-trash"></i></span>
+            </div>
+          </div>
+         </fieldset>
+          </div>
+          <div class="col-md-12 pt-2" *ngIf="data['type'] == 'CLONECREATION' && r['clone_creation'].value=='Yes'">
+            <h2 class="text-center">Stellar Destination Drives </h2>
+              <form [formGroup]="MediaCloneForm">
+                <div *ngFor="let test1 of tc.controls; let i = index">
+                  <div class="row text-center" [formGroup]="test1">
+                    <div class="form-group col-1">
+                      <label class="control-label">S.N:</label>
+                      <span class="form-control form-control-sm">{{i+1}}</span>
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Client Media S/N:</label>
+                      <input type="text" formControlName="client_media_sn" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Type of Processing:</label>
+                      <select formControlName="type_processing" class="form-control form-control-sm">
+                        <option  value="Clone">Clone</option>
+                        <option  value="Image">Image</option>
+                        <option  value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Stellar Media Make:</label>
+                      <input type="text" formControlName="stellar_make" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Stellar Media S/N:</label>
+                      <input type="text" formControlName="stellar_media_sn" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Inventory No:</label>
+                      <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+          <div class="col-md-12 pt-2" *ngIf="data['type'] == 'DATA-ENCRYPTED' && r['clone_required_encrypted'].value=='Yes'">
+            <h2 class="text-center">Stellar Destination Drives Details</h2>
+              <form [formGroup]="MediaCloneFormEny">
+                <div *ngFor="let test of tm.controls; let i = index">
+                  <div class="row text-center" [formGroup]="test">
+                    <div class="form-group col-1">
+                      <label class="control-label">S.N:</label>
+                      <span class="form-control form-control-sm">{{i+1}}</span>
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Client Media S/N:</label>
+                      <input type="text" formControlName="client_media_sn" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Type of Processing:</label>
+                      <select formControlName="type_processing" class="form-control form-control-sm">
+                        <option  value="Clone">Clone</option>
+                        <option  value="Image">Image</option>
+                        <option  value="Other">Other</option>
+                      </select>
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Stellar Media Make:</label>
+                      <input type="text" formControlName="stellar_make" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Stellar Media S/N:</label>
+                      <input type="text" formControlName="stellar_media_sn" class="form-control form-control-sm" />
+                    </div>
+                    <div class="form-group col">
+                      <label class="control-label">Inventory No:</label>
+                      <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
+                    </div>
+                  </div>
+                </div>
+              </form>
+            </div>
+            <div class="col-md-12 pt-2" *ngIf="data['type'] == 'RECOVERABLE-DATA' && r['clone_required_recoverable'].value=='Yes'">
+              <h2 class="text-center">Stellar Destination Drives Details For Dispatch To Branch</h2>
+                <form [formGroup]="MediaCloneFormEny">
+                  <div *ngFor="let fm of trm.controls; let i = index">
+                    <div class="row text-center" [formGroup]="fm">
+                      <div class="form-group col-1">
+                        <label class="control-label">S.N:</label>
+                        <span class="form-control form-control-sm">{{i+1}}</span>
+                      </div>
+                      <div class="form-group col">
+                        <label class="control-label">Client Media S/N:</label>
+                        <input type="text" formControlName="client_media_sn" class="form-control form-control-sm" />
+                      </div>
+                      <div class="form-group col">
+                        <label class="control-label">Type of Processing:</label>
+                        <select formControlName="type_processing" class="form-control form-control-sm">
+                          <option  value="Clone">Clone</option>
+                          <option  value="Image">Image</option>
+                          <option  value="Other">Other</option>
+                        </select>
+                      </div>
+                      <div class="form-group col">
+                        <label class="control-label">Stellar Media Make:</label>
+                        <input type="text" formControlName="stellar_make" class="form-control form-control-sm" />
+                      </div>
+                      <div class="form-group col">
+                        <label class="control-label">Stellar Media S/N:</label>
+                        <input type="text" formControlName="stellar_media_sn" class="form-control form-control-sm" />
+                      </div>
+                      <div class="form-group col">
+                        <label class="control-label">Inventory No:</label>
+                        <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+          <div class="col-lg-12 col-md-12 pt-2">
+            <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+            <textarea class="form-control form-control-sm" formControlName="remarks"
+              [ngClass]="{ 'is-invalid': submitted && r['remarks'].errors }"></textarea>
+            <div *ngIf="submitted && r['remarks'].errors" class="invalid-feedback">
+              <div *ngIf="r['remarks'].errors['required']">Remarks is required</div>
+            </div>
+          </div>
+        </div>      
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

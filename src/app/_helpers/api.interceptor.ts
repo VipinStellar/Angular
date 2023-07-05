@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpRequest, HttpHandler, HttpEvent, HttpInterceptor, HttpErrorResponse } from '@angular/common/http';
 import { BehaviorSubject, Observable, throwError } from 'rxjs';
-import { catchError, filter, switchMap, take } from 'rxjs/operators';
+import { catchError, filter, finalize, switchMap, take } from 'rxjs/operators';
 import { AccountService } from '../_services/account.service';
 import { AuthUser } from '../_models/authuser';
 
@@ -13,7 +13,8 @@ export class APIInterceptor implements HttpInterceptor {
     private refreshTokenSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
   
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-  
+      const loader = Array.from(document.getElementsByClassName('loader-main-page'));
+      loader.forEach((element) => {element['style'].display = 'block';});
       if (this.accountService.getJwtToken()) {
         request = this.addToken(request, this.accountService.getJwtToken());
       }
@@ -24,6 +25,9 @@ export class APIInterceptor implements HttpInterceptor {
         } else {
           return throwError(error);
         }
+      }),
+      finalize(()=>{
+        loader.forEach((element) => {element['style'].display = 'none';});
       }));
     }
   

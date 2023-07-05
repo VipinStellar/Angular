@@ -4,17 +4,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { Role } from './../../_models/role';
 import { BranchService } from './../../_services/branch.service';
-import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
+import { MatDialog } from '@angular/material/dialog';
 import { BranchAddComponent } from './branch-add.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { BranchviewComponent } from './branch-view.component';
-import { AppUtil } from 'src/app/_helpers/app.util';
-
+import { Permission } from './../../_helpers/permission';
 
 @Component({
   selector: 'app-branch',
   templateUrl: './branch.component.html',
-  styleUrls: ['./branch.component.sass']
+  styleUrls: ['./branch.component.sass'],
+  providers:[Permission]
 })
 export class BranchComponent implements OnInit {
 
@@ -36,17 +36,11 @@ export class BranchComponent implements OnInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  assignedRole: [];
-  isAsscessDenied: boolean;
-  currentUrl: string;
-  constructor(private branchService: BranchService,private router: Router, public dialog: MatDialog,private route: ActivatedRoute,) { }
+
+  constructor(private branchService: BranchService,private router: Router, public dialog: MatDialog,
+              public  permission:Permission,private route: ActivatedRoute,) { }
 
   ngOnInit(): void {
-    this.currentUrl = this.router.url.split('/')[2];
-    this.assignedRole = this.route.snapshot.data['profileResolver'];
-    this.isAsscessDenied = AppUtil._getPageAccess(this.assignedRole, 'access', this.currentUrl);
-    if (!this.isAsscessDenied)
-      this.router.navigate(['admin/access-denied']);
     this.loadData();
     this.countryList = this.route.snapshot.data['countryList'];
     this.stateList = this.route.snapshot.data['stateList'];
@@ -121,14 +115,6 @@ export class BranchComponent implements OnInit {
       autoFocus: true,
       width:"500px"
     });
-  }
-
-  _isAsscessDenied(type) {
-    let isAccess = AppUtil._getPageAccess(this.assignedRole, type, this.currentUrl);
-    if (isAccess)
-      return true;
-    else
-      return false;
   }
 
 }
