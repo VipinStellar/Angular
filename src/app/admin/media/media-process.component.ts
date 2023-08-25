@@ -115,14 +115,6 @@ export class MediaJobProcessComponent implements OnInit {
         });
       }
 
-      updateExtension()
-      {
-        this.mediaService.updateExtension(this.route.snapshot.params['id']).subscribe( data => {
-          this.loadMediaDetails();
-          this.loadMediaHistory();
-        }); 
-      }
-
       dataOutRequest(element)
       {
         const dialogRef = this.dialog.open(CopyDataComponent, {
@@ -165,6 +157,14 @@ export class MediaJobProcessComponent implements OnInit {
         });
       }
 
+      extensionButton(userId,stage)
+      {
+        if(userId == this.user.id && (stage ==4 || stage == 4 ||stage == 9 ||stage == 22 ))
+        return true
+        else 
+        return false
+      }
+      
       editButton(type,userId,stage)
       {
         

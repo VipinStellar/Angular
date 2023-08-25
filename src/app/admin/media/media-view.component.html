@@ -42,7 +42,7 @@
             <span class="ml-2">{{mediaDetails['media_category']}}</span>
           </div>
           <div class="col-lg-6 col-md-6 mb-3"
-            *ngIf="mediaDetails['media_type'] !='Tape Standalone' && mediaDetails['media_type'] !='Tape Library'">
+            *ngIf="mediaDetails['media_type'] !='Tape Stand Alone' && mediaDetails['media_type'] !='Tape Library'">
             <label class="control-label">Type of Interface : </label>
             <span class="ml-2">{{mediaDetails['media_interface']}}</span>
           </div>
@@ -135,9 +135,9 @@
             <h2>Inspection Details</h2>
           </div>
         </div>
-        <!-- Start Tape Library    Tape Standalone-->
+        <!-- Start Tape Library    Tape Stand Alone-->
         <div class="row"
-          *ngIf="mediaDetails['media_type'] == 'Tape Library' || mediaDetails['media_type'] == 'Tape Standalone'">
+          *ngIf="mediaDetails['media_type'] == 'Tape Library' || mediaDetails['media_type'] == 'Tape Stand Alone'">
           <div class="col-lg-6 col-md-6 mb-3">
             <label class="control-label">Case Type : </label>
             <span class="ml-2">{{mediaDetails['case_type']}}</span>
@@ -215,7 +215,7 @@
             <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
           </div>
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'Yes'">
-            <label class="control-label">Required Days : </label>
+            <label class="control-label">Days required for Recovery : </label>
             <span class="ml-2">{{mediaDetails['required_days']}}</span>
           </div>
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'Yes'">
@@ -249,7 +249,7 @@
               null)?'':mediaDetails['assHis'][0]['user_name']}}</span>
           </div>
         </div>
-        <!-- End Tape Library Tape Standalone-->
+        <!-- End Tape Library Tape Stand Alone-->
         <!-- Start CD/DVD Floppy Disk    -->
         <div class="row" *ngIf="mediaDetails['media_type'] == 'CD/DVD' || mediaDetails['media_type'] == 'Floppy Disk'">
           <div class="col-lg-6 col-md-6 mb-3">
@@ -480,7 +480,7 @@
         <!-- Start  Other Media -->
         <div class="row"
           *ngIf="mediaDetails['media_type'] != 'RAID' && mediaDetails['media_type'] !=  'NVR Media' && mediaDetails['media_type'] !='Fusion IO Drive'
-                           && mediaDetails['media_type'] !='Fusion Drive' && mediaDetails['media_type'] !='CD/DVD' && mediaDetails['media_type'] !='Floppy Disk' && mediaDetails['media_type'] !='Tape Library' && mediaDetails['media_type'] !='Tape Standalone'">
+                           && mediaDetails['media_type'] !='Fusion Drive' && mediaDetails['media_type'] !='CD/DVD' && mediaDetails['media_type'] !='Floppy Disk' && mediaDetails['media_type'] !='Tape Library' && mediaDetails['media_type'] !='Tape Stand Alone'">
   
           <div class="col-lg-6 col-md-6 mb-3"
             *ngIf="mediaDetails['media_type'] == 'Solid State Drive' || mediaDetails['media_type'] == 'External Solid State Drive'">

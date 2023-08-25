@@ -51,7 +51,7 @@
                     <div *ngIf="f['reason'].errors['required']">Reason is required</div>
                 </div>
             </div>
-            <div class="form-group" *ngIf="f['branch_id'].value !='Client' && f['assets_type'].value =='Original Media'">
+            <div class="form-group" *ngIf="f['branch_id'].value !='Client' && f['assets_type'].value =='Original Media' && mediaDetails['stage'] !=1 && mediaDetails['stage'] !=2 && mediaDetails['stage'] !=3 && mediaDetails['extension_approve'] !=1">
                 <label>Extension Required</label>
               <select class="form-control" formControlName="extension_required">
                 <option value="">Select</option>

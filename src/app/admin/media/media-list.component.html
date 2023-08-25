@@ -61,7 +61,6 @@
               <div class="col-sm-3">
                 <button class="mt-2 btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp;
                 <button class="mt-2 btn btn-default btn-sm" (click)="reset()">Reset</button>&nbsp;
-                <button class="mt-2 btn btn-danger btn-sm" (click)="addMedia()">Add Test Media</button>
               </div>
             </div>
           </fieldset>
@@ -97,9 +96,6 @@
             <ng-container matColumnDef="stage_name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
               <td mat-cell *matCellDef="let element"> {{element.stage_name}}&nbsp;&nbsp; 
-              <a href="javascript:void(0)" (click)="MediaIndata(element)" class="text-danger" *ngIf="element.stage == 3"><strong>(Media In)</strong></a>
-              <a href="javascript:void(0)" class="text-danger" (click)="changeStatusMEdia(element)" *ngIf="element.stage == 8"><strong>(Confirm Media)</strong></a>
-              <a href="javascript:void(0)" class="text-danger" (click)="changeDl(element)" *ngIf="element.stage == 11"><strong>(DL Confirm)</strong></a>
             </td>              
             </ng-container>
             <ng-container matColumnDef="transfer_id">
@@ -122,35 +118,4 @@
       </div>
     </div>
   </section>
-</div>
-
-<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':AddMediaStyle}" style="z-index: 1000;">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="background: #dddddd;">
-        <h4 class="modal-title mb-0"><strong> Media For Testing Purpose</strong></h4>
-      </div>
-      <div class="modal-body">
-        <div class="col-sm-12">
-          <mat-select (selectionChange)="selectMediaType($event)" class="mt-2 table-search form-control form-control-sm"
-            placeholder="Select Media Type">
-            <mat-option *ngFor="let search of mediaType" [value]="search">
-              {{search}}
-            </mat-option>
-          </mat-select>
-        </div>
-        <div class="col-sm-12">
-          <mat-select (selectionChange)="selectBranchType($event)" class="mt-2 table-search form-control form-control-sm" placeholder="Select branch List">
-            <mat-option *ngFor="let search of branchList" [value]="search['id']">
-              {{search['branch_name']}}
-            </mat-option>
-          </mat-select>
-        </div>
-      </div>
-      <div class="modal-footer border-top-0">
-        <button type="button" class="btn btn-primary btn-sm" (click)="SaveMedia()">Save</button>
-        <button type="button" class="btn btn-danger btn-sm" (click)="CloseMedia()">Close</button>
-      </div>
-    </div>
-  </div>
 </div>

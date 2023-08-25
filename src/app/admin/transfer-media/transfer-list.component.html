@@ -185,9 +185,10 @@
            <div class="col-md-6">
             <div class="form-group">
               <mat-select formControlName="transfer_mode"  [ngClass]="{ 'is-invalid': submitted && validateGatepass['transfer_mode'].errors }"  class="form-control form-control-sm" placeholder="Select Transfer Mode">
+                <mat-option value="Direct to Client">Direct to Client</mat-option>
+                <mat-option value="On behalf of Client">On behalf of Client</mat-option>
                 <mat-option value="Courier">Courier</mat-option>
-                <mat-option value="By Hand">By Hand</mat-option>
-                <mat-option value="Direct To Client">Direct To Client</mat-option>
+                <mat-option value="Through Runner">Through Runner</mat-option>
               </mat-select>
               <div *ngIf="submitted && validateGatepass['transfer_mode'].errors" class="invalid-feedback">
                 <div *ngIf="validateGatepass['transfer_mode'].errors['required']">Please Select Transfer Mode</div>

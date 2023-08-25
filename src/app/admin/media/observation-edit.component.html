@@ -253,8 +253,11 @@
                     </select>
                   </div>
                   <div class="col-4 p-3">
-                    <label class="control-label">Similar Spare Required:</label><br>
-                    <select class="form-control form-control-sm" formControlName="spare_required">
+                    <label class="control-label">Similar Spare Required:
+                    <span *ngIf="this.f['spare_required'].value == 'Yes'"
+                    style="font-size: 16px; color: #ec2728; cursor: pointer;"><i class="fa fa-eye" aria-hidden="true"
+                      matTooltip="Add Media Part Details" (click)="mediaSpare()"></i></span></label><br>
+                    <select class="form-control form-control-sm" formControlName="spare_required" (change)="dropDownChange('spare')">
                       <option value="Yes">Yes</option>
                       <option value="No">No</option>
                     </select>
@@ -291,13 +294,7 @@
                       <option *ngFor="let recPer of mediaObj['recoveryPercentage']" [value]="recPer">{{recPer}}</option>
                     </select>
                   </div>
-                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value != 'No') && (mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive')">
-                    <label class="control-label">Required Days:</label><br>
-                    <select class="form-control form-control-sm" formControlName="required_days">
-                      <option *ngFor="let day of mediaObj['requiredDays']" [value]="day">{{day}}</option>
-                    </select>
-                  </div>
-                  <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
+                 <div class="col-4 p-3" *ngIf="(f['recovery_possibility'].value == 'No')">
                     <label class="control-label">Case Not Possible Reason:</label><br>
                       <mat-select multiple formControlName="no_recovery_reason" class="form-control form-control-sm mt-1">
                         <mat-option *ngFor="let caseno of caseNotPossibleObj" [value]="caseno">{{caseno}}</mat-option>
@@ -308,18 +305,7 @@
                     <label class="control-label">SSD Case Details: </label><br>
                     <textarea class="form-control form-control-sm" formControlName="label1"></textarea>
                   </div>
-                  <!--<div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
-                    <label class="control-label">Field 2:</label><br>
-                    <textarea class="form-control form-control-sm" formControlName="label2"></textarea>
-                  </div>
-                  <div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
-                    <label class="control-label">Field 3:</label><br>
-                    <textarea class="form-control form-control-sm" formControlName="label3"></textarea>
-                  </div>
-                  <div class="col-lg-12 col-md-12 p-3" *ngIf="mediaDetails['media_type'] != 'Hard Drive'  &&  mediaDetails['media_type'] != 'External Hard Drive'">
-                    <label class="control-label">Field 4:</label><br>
-                    <textarea class="form-control form-control-sm" formControlName="label4"></textarea>
-                  </div> -->
+                  
                   <div class="col-lg-12 col-md-12 p-3">
                     <label class="control-label">Notes For Customer:</label><br>
                     <textarea class="form-control form-control-sm" formControlName="notes"
@@ -347,3 +333,98 @@
     </section>
 
     </div>
+
+    
+  <div class="modal" tabindex="-1" role="dialog" [ngStyle]="{'display':mediaSpareModel}" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-scrollable modal-xl" role="document">
+      <div class="modal-content">
+        <div class="modal-header" style="background: #ddd;">
+          <h2 class="modal-title mb-0">Similar Spare Details</h2>
+        </div>
+        <div class="modal-body">
+          <div class="row text-center">
+            <div class="form-group col" *ngIf="mediaDetails['media_type']=='Tape Library' || mediaDetails['media_type']=='Tape Stand Alone'">
+              <label>Media Category</label>
+            </div>
+           <div class="form-group col">
+              <label>Media Make</label>
+            </div>
+            <div class="form-group col">
+              <label>Media Model</label>
+            </div>
+            <div class="form-group col">
+              <label>Media Capacity</label>
+            </div>
+            <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+              <label>Controller Model No</label>
+            </div>
+            <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+              <label>No Of Data CHIP</label>
+            </div>
+            <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+              <label>Controller Make</label>
+            </div>
+            <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Stand Alone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
+              <label>Firmware</label>
+            </div>
+            <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Stand Alone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
+              <label>Site Code</label>
+            </div>
+            <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Stand Alone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
+              <label>PCB No</label>
+            </div>
+            <div class="form-group col" *ngIf="this.f['spare_required'].value == 'Available in Stellar Inventory'">
+              <label>Inventory No</label>
+            </div>
+          </div>
+          <form [formGroup]="MediaSpareForm">
+            <div *ngFor="let test of ts.controls; let i = index">
+              <div class="row text-center" [formGroup]="test">
+                <div class="form-group col" *ngIf="mediaDetails['media_type'] =='Tape Library' || mediaDetails['media_type'] =='Tape Stand Alone'">
+                  <select formControlName="media_category" class="form-control form-control-sm" >
+                    <option *ngFor="let size of mediaObj['mediaSize']['Tape Stand Alone']" [value]="size">{{size}}</option>
+                  </select>
+                  <input type="text" formControlName="media_category_other" class="form-control form-control-sm" *ngIf="test.controls.media_category.value == 'Others'">
+                </div>
+                  <div class="form-group col">
+                  <input type="text" formControlName="media_make" class="form-control form-control-sm">
+                </div>
+                <div class="form-group col">
+                  <input type="text" formControlName="model_model" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col">
+                  <select formControlName="media_capacity" class="form-control form-control-sm">
+                    <option *ngFor="let capacity of mediaObj['capacity']" [value]="capacity">{{capacity}}</option>
+                  </select>
+                </div>
+                <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+                  <input type="text" formControlName="controller_model" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+                  <input type="text" formControlName="nom_of_data" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col" *ngIf="mediaDetails['media_type']=='External Solid State Drive' || mediaDetails['media_type']=='Solid State Drive'">
+                  <input type="text" formControlName="controller_make" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Stand Alone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
+                  <input type="text" formControlName="firmware" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Stand Alone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
+                  <input type="text" formControlName="site_code" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col" *ngIf="mediaDetails['media_type']!='Tape Library' && mediaDetails['media_type']!='Tape Stand Alone' && mediaDetails['media_type']!='External Solid State Drive' && mediaDetails['media_type']!='Solid State Drive'">
+                  <input type="text" formControlName="pcb_num" class="form-control form-control-sm" />
+                </div>
+                <div class="form-group col" *ngIf="this.f['spare_required'].value == 'Available in Stellar Inventory'">
+                  <input type="text" formControlName="inventry_num" class="form-control form-control-sm" />
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary btn-sm" (click)="saveMediaSpare()">Done</button>
+        </div>
+      </div>
+    </div>
+  </div>

@@ -3,8 +3,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-xl-12 col-sm-12">
-            <h1 class="m-0 text-dark">{{pageTitle}}
-            <button type="button" class="btn btn-danger btn-sm" style="float: right;" (click)="addMedia()">Add Test Media For Wiping</button></h1> 
+            <h1 class="m-0 text-dark">{{pageTitle}}</h1> 
           </div>
         </div>
       </div>
@@ -56,11 +55,6 @@
                 <td mat-cell *matCellDef="let element"> {{element.name}}&nbsp;&nbsp; 
               </td>              
               </ng-container>
-              <!-- <ng-container matColumnDef="wiping_status">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Wiping Status </th>
-                <td mat-cell *matCellDef="let element"> {{element.wiping_status}}&nbsp;&nbsp; 
-              </td>              
-              </ng-container> -->
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef>Action </th>
                 <td mat-cell *matCellDef="let element"> 
@@ -79,24 +73,4 @@
         </div>
       </div>
     </section>
-  </div>
-
-  
-<div class="modal " tabindex="-1" role="dialog" [ngStyle]="{'display':AddMediaStyle}" style="z-index: 1000;">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header" style="background: #dddddd;">
-        <h4 class="modal-title mb-0"><strong> Add Test Media For Wiping</strong></h4>
-      </div>
-      <div class="modal-body">
-        <div class="col-sm-12">
-          <input type="text" [(ngModel)]="jobidfield" class="mt-2 table-search form-control form-control-sm" placeholder="Please Enter the Job Id">        </div>
-      </div>
-      <div class="modal-footer border-top-0">
-        <button type="button" class="btn btn-primary btn-sm" (click)="SaveMedia()">Save</button>
-        <button type="button" class="btn btn-danger btn-sm" (click)="CloseMedia()">Close</button>
-      </div>
-    </div>
-  </div>
-</div>
-  
+  </div>  

@@ -45,9 +45,6 @@ export class MediaListComponent implements OnInit {
   selectedType :string;
   selectedBranch  =null;
   searchType:string;
-  AddMediaStyle = "none";
-  selectedMedia: null;
-  selectedAddBranch:null
   constructor(private dataService:DataService,private mediaService: MediaService,public dialog: MatDialog) { }
 
   ngOnInit(): void {  
@@ -146,70 +143,6 @@ export class MediaListComponent implements OnInit {
     this.range.controls['start'].reset();
     this.range.controls['end'].reset();
     this.loadData();
-  }
-
-  addMedia()
-  {
-    this.AddMediaStyle = "block";
-  }
-
-  SaveMedia()
-  {
-    if(this.selectedMedia != null && this.selectedAddBranch != null)
-    {
-      let dataToPost = {'media_type': this.selectedMedia,'branch_id' :this.selectedAddBranch};
-      this.mediaService.addDummyMedia(dataToPost).subscribe(
-        data => {
-          this.loadData();
-          this.selectedMedia = null;
-          this.selectedAddBranch = null;
-          this.AddMediaStyle = "none";
-        });
-
-    }
-    else
-    {
-      alert("Please Select Media Type And Branch");
-    }
-    
-  }
-  
-  CloseMedia()
-  {
-    this.AddMediaStyle = "none";
-  }
-
-  selectMediaType(event)
-  {
-    this.selectedMedia = event.value;
-  }
-
-  selectBranchType(event)
-  {
-    this.selectedAddBranch  = event.value;
-  }
-
-  MediaIndata(media)
-  {
-    let dataToPost = {'id': media.id,'branch_name' :media.branch_name};
-    this.mediaService.updateDummyMedia(dataToPost).subscribe(
-      data => {
-        this.loadData();
-      });
-  }
-
-  changeStatusMEdia(row)
-  {
-    this.mediaService.updateDummyStatus(row.id).subscribe(data => {
-      this.loadData();
-    });
-  }
-
-  changeDl(row)
-  {
-    this.mediaService.updateDummydl(row.id).subscribe(data => {
-      this.loadData();
-    });
   }
 
 }

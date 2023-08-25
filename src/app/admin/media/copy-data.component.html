@@ -4,7 +4,7 @@
         <div class="row">
             <div class="col-12 pt-2">
                 <form [formGroup]="copydata">
-                    <form [formGroup]="dataoutDetails">
+                    <form [formGroup]="dataoutDetails" *ngIf="data['copyin'] !='Online Transfer'">
                     <div *ngFor="let test of formDteails.controls; let i = index">
                       <div class="row text-center" [formGroup]="test">
                        <div class="form-group col">

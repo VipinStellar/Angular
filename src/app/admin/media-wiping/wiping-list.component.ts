@@ -16,8 +16,6 @@ import { AccountService } from './../../_services/account.service';
 export class WipingList implements OnInit {
     pageTitle = "Wiping List";
     user: AuthUser;
-    AddMediaStyle = "none";
-    jobidfield=null;
     ELEMENT_DATA: Media[] = [];
     selected: Media;
     totalRows = 0;
@@ -76,35 +74,5 @@ export class WipingList implements OnInit {
         this.loadData();
       });
     }
-
-    CloseMedia()
-    {
-      this.AddMediaStyle = "none";
-      this.jobidfield = null;
-    }
-
-    addMedia()
-    {
-      this.AddMediaStyle = "block";
-    }
-
-    SaveMedia()
-    {
-      if(this.jobidfield != null && this.jobidfield != undefined)
-    {
-      let dataToPost = {'job_id': this.jobidfield};
-      this.mediaService.addDummyWiping(dataToPost).subscribe(
-        data => {
-          this.loadData();
-          this.CloseMedia();
-        });
-    }
-    else
-    {
-        alert("Please Enter Job Id");
-    }
-       
-    }
-
  
 }

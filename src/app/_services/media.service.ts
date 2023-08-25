@@ -142,26 +142,6 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'job/updateMediaStatus', data);
     }
 
-    addDummyMedia(data)
-    {
-        return this.http.post(environment.apiUrl + 'media/addDummy', data);
-    }
-
-    updateDummyMedia(data)
-    {
-        return this.http.post(environment.apiUrl + 'media/updateDummy', data);
-    }
-
-    updateDummyStatus(id)
-    {
-        return this.http.get(environment.apiUrl + 'media/UpdateStausDummyMedia/'+id);
-    }
-
-    updateDummydl(id)
-    {
-        return this.http.get(environment.apiUrl + 'media/UpdateStausDl/'+id);
-    }
-
     getGatepassList(searchParams: any) {
         return this.http.post(environment.apiUrl + 'job/gatepasslist', searchParams);
     }
@@ -189,11 +169,6 @@ export class MediaService {
     updateMediaDl(data)
     {
         return this.http.post(environment.apiUrl + 'recovery/update-media-dl', data);
-    }
-
-    updateExtension(mediaId)
-    {
-        return this.http.get(environment.apiUrl + 'media/extension-update-dummy/'+mediaId);
     }
 
     getMediaOutList(searchParams: any) {
@@ -227,11 +202,6 @@ export class MediaService {
     updateWipeStatus(data)
     {
         return this.http.post(environment.apiUrl + 'job/update-wipe-status', data);
-    }
-
-    addDummyWiping(data)
-    {
-        return this.http.post(environment.apiUrl + 'job/addwiping', data);
     }
 
     wipingduelist(searchParams: any) {

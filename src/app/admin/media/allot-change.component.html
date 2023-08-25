@@ -22,25 +22,37 @@
         </div>
         <div class="col-12 pt-2">
           <label class="control-label">Reason For Assigned To<sup class="text-danger">*</sup> : </label>
-           <select class="form-control form-control-sm" formControlName="remarks" [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }">
-            <option value="For Pre Inspection">For Pre Inspection</option>
+           <select class="form-control form-control-sm" formControlName="remarks" [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }" *ngIf="tm['team_id'].value == '10'">
+            <option value="Dispatch for Pre-inspection to HO">Dispatch for Pre-inspection to HO</option>
+            <option value="Dispatch for Inspection to HO">Dispatch for Inspection to HO</option>
+            <option value="Dispatch for Recovery to HO">Dispatch for Recovery to HO</option>
+            <option value="Dispatch Clone/data for Verification to Branch">Dispatch Clone/data for Verification to Branch</option>
+            <option value="Data Delivery to Client">Data Delivery to Client</option>
+            <option value="Media Delivery to Client">Media Delivery to Client</option>
+            <option value="Return Clone Hard Drive to HO">Return Clone Hard Drive to HO</option>
+            <option value="Media to HO for Junk">Media to HO for Junk</option>            
+           </select>
+           <select class="form-control form-control-sm" formControlName="remarks" [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }" *ngIf="tm['team_id'].value != '10'">
+            <option value="For Pre-Inspection">For Pre-Inspection</option>
             <option value="For Inspection">For Inspection</option>
             <option value="For Recovery">For Recovery</option>
-            <option value="For Data Dispatch to client">For Data Dispatch to client</option>
-            <option value="For Media Dispatch to Client">For Media Dispatch to Client</option>
-            <option value="For Media Dispatch to HO/other Branch">For Media Dispatch to HO/other Branch</option>
+            <option value="For Data Verification">For Data Verification</option>
+            <option value="For Data Copy">For Data Copy</option>
+            <option value="For Wipe">For Wipe</option>
+            <option value="Firmware Checking">Firmware Checking</option>
             <option value="Firmware Done">Firmware Done</option>
-            <option value="Firmware Not Done">Firmware Not Done</option>
-            <option value="For Imaging">For Imaging</option>
+            <option value="For Imaging/Cloning">For Imaging/Cloning</option>
             <option value="For Checking">For Checking</option>
-            <option value="Image Not Done Return To CR">Image Not Done Return To CR</option>
-            <option selected="selected" value="Image Done Return To CR">Image Done Return To CR</option>
-            <option value="Partial Image Done Return To CR">Partial Image Done Return To CR</option>
-            <option value="Not Repairable">Not Repairable</option>
+            <option value="Image not done return to CR">Image not done return to CR</option>
+            <option value="Image done return to CR">Image done return to CR</option>
+            <option value="Partial Image done return to CR">Partial Image done return to CR</option>
+            <option value="Not repairable">Not repairable</option>
             <option value="Tampered Media">Tampered Media</option>
             <option value="Making Noise">Making Noise</option>
             <option value="No Movement">No Movement</option>
-            <option value="Head Stuck">Head Stuck</option>
+            <option value="Head Check">Head Check</option>
+            <option value="For Data Verification Process">For Data Verification Process</option>
+            <option value="For Wipe">For Wipe</option>
            </select>
            <div *ngIf="submitted && tm['remarks'].errors" class="invalid-feedback">
             <div *ngIf="tm['remarks'].errors['required']">Reason is required</div>

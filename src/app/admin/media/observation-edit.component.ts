@@ -4,7 +4,7 @@ import { MediaService } from './../../_services/media.service';
 import { AppUtil } from 'src/app/_helpers/app.util';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AccountService } from 'src/app/_services/account.service';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
+import { FormGroup, Validators, FormBuilder, FormArray } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 @Component({
@@ -20,6 +20,9 @@ export class ObservationEditComponent implements OnInit {
     loading: boolean;
     mediaObj: any = [];
     caseNotPossibleObj:any =[];
+    mediaSpareModelValue = [];
+    mediaSpareModel = "none";
+    MediaSpareForm: FormGroup;
     constructor(private mediaService: MediaService,private router: Router, private route: ActivatedRoute,
               private toastrService: ToastrService ,private _location: Location, private formBuilder: FormBuilder,private accountService: AccountService) {}    
     ngOnInit(): void {
@@ -27,11 +30,16 @@ export class ObservationEditComponent implements OnInit {
         this.loadForm();  
         this.mediaService.getObservation(this.route.snapshot.params['id']).subscribe(data => {
             this.mediaDetails = data as any;    
+            this.mediaSpareModelValue = this.mediaDetails['media_sapre_detail'];
             this.modeltoForm(this.mediaDetails); 
             if(this.mediaDetails['media_type'] != 'Hard Drive' && this.mediaDetails['media_type'] != 'External Hard Drive')
             this.pageTitle = "Recovery";       
             this.loading = false;
             this.dueReason();
+        });
+
+        this.MediaSpareForm = this.formBuilder.group({
+            mediaSpareData: new FormArray([])
         });
     }
 
@@ -91,7 +99,8 @@ export class ObservationEditComponent implements OnInit {
             label1:media.label1,   
             architacture:media.architacture,
             internal_damage:media.internal_damage,
-            media_interface_other:''
+            media_interface_other:'',
+            media_sapre_detail:''
         });
     }
 
@@ -140,7 +149,8 @@ export class ObservationEditComponent implements OnInit {
             label1:[],  
             architacture:[],
             internal_damage:[],
-            media_interface_other:[]     
+            media_interface_other:[],
+            media_sapre_detail: [],     
         });
     }
 
@@ -170,6 +180,7 @@ export class ObservationEditComponent implements OnInit {
         if (this.f['media_interface'].value == 'Other') {
             this.f['media_interface'].setValue(this.f['media_interface_other'].value)
         }
+        this.f['media_sapre_detail'].setValue(this.mediaSpareModelValue);
         apiToCall = this.mediaService.updateObservation(this.mediaEdit.value);
         apiToCall.subscribe(
             data => {
@@ -190,4 +201,47 @@ export class ObservationEditComponent implements OnInit {
         else
         this.caseNotPossibleObj = AppUtil.caseNotPossible(mediaType);
     }
+
+    get fs() { return this.MediaSpareForm.controls; }
+    get ts() { return this.fs['mediaSpareData'] as FormArray; }
+
+    saveMediaSpare() {
+        this.mediaSpareModelValue = this.fs['mediaSpareData'].value;
+        this.mediaSpareModel = "none";
+    }
+
+    mediaSpare() {
+        this.MediaSpareForm.reset();
+        this.ts.clear();
+        this.addMediaSpare();
+        this.mediaSpareModel = "block";
+    }
+
+    addMediaSpare() {
+        const numberOfTickets = 2;
+        if (this.ts.length < numberOfTickets) {
+            for (let i = this.ts.length; i < numberOfTickets; i++) {
+                this.ts.push(this.formBuilder.group({
+                    media_category: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_category'] != null) ? this.mediaSpareModelValue[i]['media_category'] : ''],
+                    media_category_other: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_category_other'] != null) ? this.mediaSpareModelValue[i]['media_category_other'] : ''],
+                    media_make: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_make'] != null) ? this.mediaSpareModelValue[i]['media_make'] : ''],
+                    model_model: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['model_model'] != null) ? this.mediaSpareModelValue[i]['model_model'] : ''],
+                    media_capacity: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['media_capacity'] != null) ? this.mediaSpareModelValue[i]['media_capacity'] : ''],
+                    firmware: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['firmware'] != null) ? this.mediaSpareModelValue[i]['firmware'] : ''],
+                    site_code: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['site_code'] != null) ? this.mediaSpareModelValue[i]['site_code'] : ''],
+                    pcb_num: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['pcb_num'] != null) ? this.mediaSpareModelValue[i]['pcb_num'] : ''],
+                    inventry_num: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['inventry_num'] != null) ? this.mediaSpareModelValue[i]['inventry_num'] : ''],
+                    controller_model: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['controller_model'] != null) ? this.mediaSpareModelValue[i]['controller_model'] : ''],
+                    nom_of_data: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['nom_of_data'] != null) ? this.mediaSpareModelValue[i]['nom_of_data'] : ''],
+                    controller_make: [(this.mediaSpareModelValue != null && this.mediaSpareModelValue[i] != undefined && this.mediaSpareModelValue[i]['controller_make'] != null) ? this.mediaSpareModelValue[i]['controller_make'] : ''],
+                }));
+            }
+        }
+    }
+
+    dropDownChange(type) {
+        if (type == 'spare' && this.f['spare_required'].value == 'Yes')
+            this.mediaSpare();
+    }
+    
 }

@@ -31,7 +31,7 @@ export class DirectoryListComponent implements OnInit {
         private mediaService: MediaService,
         private dialogRef: MatDialogRef<DirectoryListComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any) {
-            this.diaTitle= 'Directory Listing';
+            this.diaTitle= 'Directory Listing Details';
             this.recoverData = AppUtil.recoverableData();
             this.recoveryService.fatchDirectory(this.data['media_id']).subscribe( data => {
                 this.directoryList = data as any;
