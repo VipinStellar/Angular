@@ -67,6 +67,8 @@ import { WipingDueList } from './media-wiping/wiping-due-list.component';
 import { NgSelect2Module } from 'ng-select2';
 import { CompanyComponent } from './company/company.component';
 import { CompanyViewComponent } from './company/company-view.component';
+import { ContactComponent } from './contact/contact.component';
+import { ContactViewComponent } from './contact/contact-view.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -113,7 +115,9 @@ import { CompanyViewComponent } from './company/company-view.component';
     WipingEditComponent,
     WipingDueList,
     CompanyComponent,
-    CompanyViewComponent
+    CompanyViewComponent,
+    ContactComponent,
+    ContactViewComponent
   ],
   imports: [
     CommonModule,

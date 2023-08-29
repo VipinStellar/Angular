@@ -31,6 +31,7 @@ import { MediaOutComponent } from './media-out/media-out.component';
 import { WipingList } from './media-wiping/wiping-list.component';
 import { WipingDueList } from './media-wiping/wiping-due-list.component';
 import { CompanyComponent } from './company/company.component';
+import { ContactComponent } from './contact/contact.component';
 const routes: Routes = [
   {
     path: '',
@@ -89,6 +90,7 @@ const routes: Routes = [
       { path: 'wiping-due-list', component: WipingDueList},
       ///Company
       { path: 'company', component: CompanyComponent},
+      { path: 'contact', component: ContactComponent},
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
     
     ],
