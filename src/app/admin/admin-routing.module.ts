@@ -30,6 +30,7 @@ import { TransferEditComponent } from './transfer-media/transfer-edit.component'
 import { MediaOutComponent } from './media-out/media-out.component';
 import { WipingList } from './media-wiping/wiping-list.component';
 import { WipingDueList } from './media-wiping/wiping-due-list.component';
+import { CompanyComponent } from './company/company.component';
 const routes: Routes = [
   {
     path: '',
@@ -86,6 +87,8 @@ const routes: Routes = [
       { path: 'access-denied',component:AccessDeniedComponent },
       { path: 'wiping-list', component: WipingList},
       { path: 'wiping-due-list', component: WipingDueList},
+      ///Company
+      { path: 'company', component: CompanyComponent},
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
     
     ],

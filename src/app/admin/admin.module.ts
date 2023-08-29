@@ -64,6 +64,9 @@ import { ResponceMediaOutComponenet } from './media/responce-media-out.component
 import { WipingList } from './media-wiping/wiping-list.component';
 import { WipingEditComponent } from './media-wiping/wiping-edit.component';
 import { WipingDueList } from './media-wiping/wiping-due-list.component';
+import { NgSelect2Module } from 'ng-select2';
+import { CompanyComponent } from './company/company.component';
+import { CompanyViewComponent } from './company/company-view.component';
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -108,7 +111,9 @@ import { WipingDueList } from './media-wiping/wiping-due-list.component';
     ResponceMediaOutComponenet,
     WipingList,
     WipingEditComponent,
-    WipingDueList
+    WipingDueList,
+    CompanyComponent,
+    CompanyViewComponent
   ],
   imports: [
     CommonModule,
@@ -133,7 +138,8 @@ import { WipingDueList } from './media-wiping/wiping-due-list.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule 
+    MatInputModule,
+    NgSelect2Module 
   ],
   exports: [ MatInputModule ]
 })
