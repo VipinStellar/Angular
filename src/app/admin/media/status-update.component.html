@@ -1,0 +1,75 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="statusFrom ">
+    <div class="row">
+      <div class="col-12 pt-2">
+        <label class="control-label">Select Status<sup class="text-danger">*</sup> : </label>
+        <select (change)="statusChange($event.target.value)" class="form-control form-control-sm"
+          formControlName="status" [ngClass]="{ 'is-invalid': submitted && ts['status'].errors }">
+          <option *ngFor="let st of stages" [value]="st.id">{{st.stage_name}}</option>
+        </select>
+        <div *ngIf="submitted && ts['status'].errors" class="invalid-feedback">
+          <div *ngIf="ts['status'].errors['required']">Status is required</div>
+          <div class="p-error" *ngIf="ts['status'].errors['message']">
+            {{ts['status'].errors['message']}}</div>
+        </div>
+      </div>
+      <div class="col-12" *ngIf="((ts['status'].value ==4 && data['tampered_status'] == 'Tampered' && (data['paid_amount'] == null || data['paid_amount'] == 0)) || (ts['status'].value ==9 && data['mode_of_confirmation'] == null))">
+        <div class="row">
+          <div class="col-12 pt-2">
+            <label class="control-label">Mode Of Confirmation<sup class="text-danger">*</sup> : </label>
+            <select class="form-control form-control-sm" formControlName="mode_of_confirmation"
+              [ngClass]="{ 'is-invalid': submitted && ts['mode_of_confirmation'].errors }">
+              <option value="Email">Email</option>
+              <option value="Quotation Print">Quotation Print</option>
+            </select>
+            <div *ngIf="submitted && ts['mode_of_confirmation'].errors" class="invalid-feedback">
+              <div *ngIf="ts['mode_of_confirmation'].errors['required']">Mode Of Confirmation is required</div>
+            </div>
+          </div>
+          <div class="col-12 pt-2">
+            <label class="control-label">Mode Of Order<sup class="text-danger">*</sup> : </label>
+            <select (change)="OrderChange($event.target.value)" class="form-control form-control-sm"
+              formControlName="mode_of_order" [ngClass]="{ 'is-invalid': submitted && ts['mode_of_order'].errors }">
+              <option value="On Advance">On Advance</option>
+              <option value="Purchase Order (P.O)">Purchase Order (P.O)</option>
+              <option value="As per RC Terms">As per RC Terms</option>
+              <option value="Advance Waive off">Advance Waive off</option>
+              <option value="Free Of Cost Recovery">Free Of Cost Recovery</option>
+            </select>
+            <div *ngIf="submitted && ts['mode_of_order'].errors" class="invalid-feedback">
+              <div *ngIf="ts['mode_of_order'].errors['required']">Mode Of Order is required</div>
+              <div class="p-error" *ngIf="ts['mode_of_order'].errors['message']">
+                {{ts['mode_of_order'].errors['message']}}</div>
+            </div>
+          </div>
+          <div class="col-12 pt-2" *ngIf="ts['mode_of_order'].value =='Purchase Order (P.O)'">
+            <label class="control-label">P.O Number: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="po_number"
+              [ngClass]="{ 'is-invalid': submitted && ts['po_number'].errors }">
+            <div *ngIf="submitted && ts['po_number'].errors" class="invalid-feedback">
+              <div *ngIf="ts['po_number'].errors['required']">P.O Number is required</div>
+            </div>
+          </div>
+          <div class="col-12 pt-2" *ngIf="ts['mode_of_order'].value =='Purchase Order (P.O)'">
+            <label class="control-label">P.O Date: </label>
+            <input type="date" class="form-control form-control-sm" formControlName="po_date"
+              [ngClass]="{ 'is-invalid': submitted && ts['po_date'].errors }">
+            <div *ngIf="submitted && ts['po_date'].errors" class="invalid-feedback">
+              <div *ngIf="ts['po_date'].errors['required']">P.O Date is required</div>
+            </div>
+          </div>
+        </div>
+      </div>
+     <div class="col-12 pt-2" *ngIf="ts['status'].value ==14 || ts['status'].value ==15 || ts['status'].value ==10">
+        <label class="control-label">Reason: </label>
+        <textarea class="form-control form-control-sm" formControlName="reason"></textarea>
+      </div>
+
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+  <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

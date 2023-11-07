@@ -45,8 +45,24 @@ export class RecoveryService {
         return this.http.post(environment.apiUrl + 'recovery/update-branch-clone-user', data);
     }
 
+    requestExtension(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/request-extension', data);
+    }
+
     updateExtension(data)
     {
         return this.http.post(environment.apiUrl + 'recovery/update-extension', data);
     }
+
+    updatePrice(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/update-price', data);
+    }
+
+    addQuotation(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/add-quotation', data);
+    }
+
 }

@@ -13,6 +13,8 @@ import { DirectoryConfirmComponent } from './directory-listing-confirm.component
 import { CopyDataComponent } from './copy-data.component';
 import {RequestMediaOutComponenet }  from './request-media-out.component';
 import { ResponceMediaOutComponenet } from './responce-media-out.component';
+import { StatusUpdateComponent } from './status-update.component';
+import { ExtensionUpdateComponent } from './extension-update.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -77,6 +79,20 @@ export class MediaJobProcessComponent implements OnInit {
       editExtension(type)
       {
         const dialogRef = this.dialog.open(ExtensionComponent, {
+          data: {'media_id':this.mediaDetails['id'],'type':type},
+          disableClose: true,
+          autoFocus: true,
+          width: "30rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.loadMediaHistory();
+            this.loadMediaDetails();
+        });  
+      }
+
+      updateExtension(type)
+      {
+        const dialogRef = this.dialog.open(ExtensionUpdateComponent, {
           data: {'media_id':this.mediaDetails['id'],'type':type},
           disableClose: true,
           autoFocus: true,
@@ -157,9 +173,23 @@ export class MediaJobProcessComponent implements OnInit {
         });
       }
 
+      statusUpdate()
+      {
+        const dialogRef = this.dialog.open(StatusUpdateComponent, {
+          data: this.mediaDetails,
+          disableClose: true,
+          autoFocus: true,
+          width: "45rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+          this.loadMediaDetails();
+          this.loadMediaHistory();
+        });
+      }
+
       extensionButton(userId,stage)
       {
-        if(userId == this.user.id && (stage ==4 || stage == 4 ||stage == 9 ||stage == 22 ))
+        if(userId == this.user.id && (stage ==4 || stage ==5 ||stage == 9 ||stage == 22 ))
         return true
         else 
         return false
@@ -197,5 +227,4 @@ export class MediaJobProcessComponent implements OnInit {
       this.loadMediaHistory();
     });
   }
-
 }

@@ -8,7 +8,7 @@
     token_validity: number;
     refreshToken: string;
     refreshTokenExpiresIn: number;
-    role: number;
+    role_id: number;
     team_id: number;
     branch_id:number;
     status: string;

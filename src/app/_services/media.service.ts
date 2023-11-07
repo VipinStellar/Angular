@@ -19,6 +19,11 @@ export class MediaService {
         return this.http.get(environment.apiUrl + 'media/getmedia/'+mediaId);
     }
 
+    getRecoveryCharges(mediaId)
+    {
+        return this.http.get(environment.apiUrl + 'media/recovery-charges/'+mediaId);
+    }
+
     getOriginalMedia(mediaId)
     {
         return this.http.get(environment.apiUrl + 'media/original-media/'+mediaId);
@@ -206,6 +211,11 @@ export class MediaService {
 
     wipingduelist(searchParams: any) {
         return this.http.post(environment.apiUrl + 'job/wiping-due-list', searchParams);
+    }
+
+    updateStatus(data)
+    {
+        return this.http.post(environment.apiUrl + 'media/media-status-update', data);
     }
     
 

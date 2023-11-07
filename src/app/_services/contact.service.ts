@@ -13,4 +13,13 @@ export class ContactService {
     getcontactList(searchParams: any) {
         return this.http.post(environment.apiUrl + 'contact/contact-list', searchParams);
     }
+
+    updateContact(data) {
+        return this.http.post(environment.apiUrl + 'contact/update-contact', data);
+    }
+
+    getContact(id)
+    {
+        return this.http.get(environment.apiUrl + 'contact/'+id);
+    }
 }

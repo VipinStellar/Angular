@@ -159,24 +159,25 @@
             </a>
           </li>
           <li class="nav-item">
-            <a routerLink="./company" class="nav-link" routerLinkActive="active">
-              <i class="nav-icon fas fa-building"></i>
-              <p>Company</p>
-            </a>
-          </li>
-          <li class="nav-item">
-            <a routerLink="./contact" class="nav-link" routerLinkActive="active">
-              <i class="nav-icon fas fa-address-book"></i>
-              <p>Contact</p>
-            </a>
-          </li>
-          <li class="nav-item">
             <a routerLink="./media" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-hdd"></i>
               <p>Media List</p>
             </a>
           </li>
-          <li class="nav-item">
+          <li class="nav-item"  *ngIf="user.role_id == 10">
+            <a routerLink="./company" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-building"></i>
+              <p>Company</p>
+            </a>
+          </li>
+          <li class="nav-item"  *ngIf="user.role_id == 10">
+            <a routerLink="./contact" class="nav-link" routerLinkActive="active">
+              <i class="nav-icon fas fa-address-book"></i>
+              <p>Contact</p>
+            </a>
+          </li>
+          
+          <li class="nav-item" *ngIf="user.role_id != 10">
             <a routerLink="./transfer-media" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-tasks"></i>
             <p>Transfer Media</p>
@@ -188,19 +189,19 @@
               <p>Job Confirmation</p>
               *ngIf="permission.PermissionForAccess('gate-pass')"
             </a> -->
-            <li class="nav-item" >
+            <li class="nav-item" *ngIf="user.role_id != 10">
               <a routerLink="./gate-pass" class="nav-link" routerLinkActive="active">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>Gate Pass</p>
               </a>
           </li>
-          <li class="nav-item" >
+          <li class="nav-item" *ngIf="user.role_id != 10">
             <a routerLink="./wiping-list" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Wiping List</p>
             </a>
         </li>
-        <li class="nav-item" >
+        <li class="nav-item" *ngIf="user.role_id != 10">
           <a routerLink="./wiping-due-list" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-calendar"></i>
             <p>Wiping Due List</p>
@@ -213,11 +214,17 @@
             </a>
             *ngIf="permission.PermissionForAccess('inventory')"
           </li> -->
-          <li class="nav-item" >
+          <li class="nav-item" *ngIf="user.role_id != 10">
             <a routerLink="./inventory" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-building"></i>
               <p>Inventory</p>
             </a>
+        </li>
+        <li class="nav-item" *ngIf="user.role_id == 10">
+          <a routerLink="./payment-list" class="nav-link" routerLinkActive="active">
+            <i class="nav-icon fas fa-rupee-sign"></i>
+            <p>Payment List</p>
+          </a>
         </li>
         </ul>
       </nav>

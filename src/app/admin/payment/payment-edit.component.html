@@ -1,0 +1,97 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content>
+    <form [formGroup]="paymnetFrom">
+        <div class="row">
+            <div class="col-6 pt-2">
+                <label class="control-label">Payment Amount <sup class="text-danger">*</sup> : </label>
+                <input type="number" (change)="validateAmount()" [min]="1" [max]="9999999999" minMax class="form-control form-control-sm" formControlName="paid_amount" [ngClass]="{ 'is-invalid': submitted && pf['paid_amount'].errors }">
+                <div *ngIf="submitted && pf['paid_amount'].errors" class="invalid-feedback">
+                 <div *ngIf="pf['paid_amount'].errors['message']">{{ pf['paid_amount'].errors['message'] }}</div>
+                 <div *ngIf="pf['paid_amount'].errors['required']">Payment Amount is required</div>
+               </div>
+            </div>
+            <div class="col-6 pt-2">
+                <label class="control-label">Create Invoice For <sup class="text-danger">*</sup> : </label>
+                <select (change)="CreateInvoice($event.target.value)"  class="form-control form-control-sm" formControlName="existing_payment" [ngClass]="{ 'is-invalid': submitted && pf['existing_payment'].errors }">
+                    <option value="Existing Payment">Existing Payment</option>
+                    <option value="Credit">Credit</option>
+                </select>
+                <div *ngIf="submitted && pf['existing_payment'].errors" class="invalid-feedback">
+                 <div *ngIf="pf['existing_payment'].errors['required']">Create Invoice For is required</div>
+               </div>
+            </div>
+            <div class="col-6 pt-2" *ngIf="pf['existing_payment'].value !='Credit'">
+                <label class="control-label">Txn/Ref No. <sup class="text-danger">*</sup> : </label>
+                <input type="text" class="form-control form-control-sm" formControlName="txn_no" [ngClass]="{ 'is-invalid': submitted && pf['txn_no'].errors }">
+                <div *ngIf="submitted && pf['txn_no'].errors" class="invalid-feedback">
+                 <div *ngIf="pf['txn_no'].errors['required']">Txn/Ref No. is required</div>
+               </div>
+            </div>            
+            <div class="col-6 pt-2" *ngIf="pf['existing_payment'].value !='Credit'">
+                <label class="control-label">Payment Date <sup class="text-danger">*</sup> : </label>
+                <div class="input-group date" id="dateTimeCalendar" data-target-input="nearest" >
+                    <input type="text" readonly class="form-control form-control-sm datetimepicker-input" #calRefference  data-target="#dateTimeCalendar" formControlName="payment_date" [ngClass]="{ 'is-invalid': submitted && pf['payment_date'].errors }"/>
+                    <div class="input-group-append" data-target="#dateTimeCalendar" data-toggle="datetimepicker">
+                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                    </div>
+                </div>
+                <div *ngIf="submitted && pf['payment_date'].errors" class="invalid-feedback">
+                    <div *ngIf="pf['payment_date'].errors['required']">Payment Date is required</div>
+                  </div>
+                <!-- <label class="control-label">Payment Date <sup class="text-danger">*</sup> : </label>
+                <input type="datetime-local" class="form-control form-control-sm" >
+                <div *ngIf="submitted && pf['payment_date'].errors" class="invalid-feedback">
+                 <div *ngIf="pf['payment_date'].errors['required']">Payment Date is required</div>
+               </div> -->
+            </div>
+            
+            <div class="col-6 pt-2">
+                <label class="control-label">Payment Channel <sup class="text-danger">*</sup> : </label>
+                <select  class="form-control form-control-sm" formControlName="payment_channel" [ngClass]="{ 'is-invalid': submitted && pf['payment_channel'].errors }">
+                    <!-- <option value="Online">Online</option> -->
+                    <option value="Offline">Offline</option>
+                </select>
+                <div *ngIf="submitted && pf['payment_channel'].errors" class="invalid-feedback">
+                 <div *ngIf="pf['payment_channel'].errors['required']">Payment Channel is required</div>
+               </div>
+            </div>
+            <div class="col-6 pt-2" *ngIf="pf['existing_payment'].value !='Credit'">
+                <label class="control-label">Payment Mode <sup class="text-danger">*</sup> : </label>
+                <select  class="form-control form-control-sm" formControlName="payment_mode" [ngClass]="{ 'is-invalid': submitted && pf['payment_mode'].errors }">
+                    <option value="Payu">Payu</option>
+                    <option value="Paytm">Paytm</option>
+                    <option value="RTGS">RTGS</option>
+                    <option value="POS">POS</option>
+                    <option value="UPI">UPI</option>
+                    <option value="NEFT">NEFT</option>
+                    <option value="Cheque">Cheque</option>
+                    <option value="Cash">Cash</option>
+                </select>
+                <div *ngIf="submitted && pf['payment_mode'].errors" class="invalid-feedback">
+                 <div *ngIf="pf['payment_mode'].errors['required']">Payment Mode is required</div>
+               </div>
+            </div>
+            <div class="col-6 pt-2" *ngIf="pf['existing_payment'].value =='Credit'">
+                <label class="control-label">P.O Number <sup class="text-danger">*</sup> : </label>
+                <input type="text" formControlName="po_number" readonly class="form-control form-control-sm" [ngClass]="{ 'is-invalid': submitted && pf['po_number'].errors }">
+                <div *ngIf="submitted && pf['po_number'].errors" class="invalid-feedback">
+                    <div *ngIf="pf['po_number'].errors['required']">P.O Number is required</div>
+                  </div>
+            </div>
+            <div class="col-12 mt-3" *ngIf="serverErrorShow">
+                <div class="alert alert-danger py-2" style="font-size: 12px;">
+                    <div>{{serverError}}</div>
+                </div>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm"(click)="onSubmit()">Save</button> 
+ <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>
+<style>
+    ::ng-deep .bootstrap-datetimepicker-widget{
+        z-index: 999999999999 !important;
+    }
+</style>

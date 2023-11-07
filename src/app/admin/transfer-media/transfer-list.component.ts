@@ -24,7 +24,7 @@ pageSizeOptions: number[] = [10, 25, 100];
 sortOrder = 'desc';
 sortField = 'transPrimaryId';
 pageTitle = "Transfer Media";
-displayedColumns: string[] = ['transPrimaryId','zoho_id','job_id', 'customer_id', 'branch_id','new_branch_id','media_type','assets_type','stage_name','media_in_date','action'];
+displayedColumns: string[] = ['transPrimaryId','deal_id','job_id', 'customer_id', 'branch_id','new_branch_id','media_type','assets_type','stage_name','media_in_date','action'];
 mediaInList: MatTableDataSource<Media> = new MatTableDataSource();
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator)
@@ -151,7 +151,7 @@ constructor(private mediaService: MediaService,public dialog: MatDialog,private 
           this.formBuilder.group({
             only_assets:[false],
             only_media:[true],
-            assets_job_id: [(this.selection.selected[i]['job_id'] !='' &&  this.selection.selected[i]['job_id'] != null)?this.selection.selected[i]['job_id']:this.selection.selected[i]['zoho_id']],
+            assets_job_id: [(this.selection.selected[i]['job_id'] !='' &&  this.selection.selected[i]['job_id'] != null)?this.selection.selected[i]['job_id']:this.selection.selected[i]['deal_id']],
             mediaType: [this.selection.selected[i]['assets_type']],
             assets_name: [],
             assets_description: [],  

@@ -1,0 +1,86 @@
+<style>
+::ng-deep .mat-checkbox-checked .mat-checkbox-background{ 
+  background-color: blue !important;
+}
+</style>
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+
+    <form [formGroup]="priceForm">
+        <div class="row text-center">
+            <div class="form-group col" >
+              <label>Plan Type</label>
+            </div>
+            <div class="form-group col" style="text-align: left;"> 
+              <label>Service Fee</label>
+            </div>
+            <div class="form-group col"> 
+              <label>Additional Charges</label>
+            </div>
+            <div class="form-group col">
+              <label>Total Service Fee</label>
+            </div>
+            <div class="form-group col">
+              <label>Advance %</label>
+            </div>
+            <div class="form-group col">
+              <label>Advance Payment</label>
+            </div>            
+            <div class="form-group col">
+                <label>Show Plan </label>
+            </div>
+            <div class="form-group col">
+              <label>Selected Plan </label>
+          </div>
+        </div>
+        <ng-container formArrayName='dataset'>
+        <div class="row text-center" *ngFor="let c of documentsControl.controls; let index = index" [formGroupName]='index'>
+            <div class="form-group col">
+                <input type="text" formControlName="plan_type" readonly class="form-control form-control-sm">
+            </div>
+            <div class="form-group col"> 
+                <input type="text" formControlName="plan_amount" readonly class="form-control form-control-sm">
+            </div>
+            <div class="form-group col"> 
+              <input type="number" formControlName="additional_charges" (change)="additionalcharges(index)"  class="form-control form-control-sm">
+          </div>
+          <div class="form-group col"> 
+            <input type="text" formControlName="total_fee" readonly  class="form-control form-control-sm">
+        </div>
+            <div class="form-group col">
+                <select formControlName="advance_percent"   #currentVal (change)="percentageChange(index)" class="form-control form-control-sm">
+                    <option value="20">20%</option>
+                    <option value="25">25%</option>
+                    <option value="30">30%</option>
+                    <option value="35">35%</option>
+                    <option value="40">40%</option>
+                    <option value="45">45%</option>
+                    <option value="50">50%</option>
+                    <option value="55">55%</option>
+                    <option value="60">60%</option>
+                </select>
+            </div>
+            <div class="form-group col">
+                <input type="text" formControlName="advance_amount" readonly class="form-control form-control-sm">
+            </div>
+            
+            <div class="form-group col">
+                <mat-checkbox formControlName="is_visible" class="form-control-sm mat-primary"></mat-checkbox>
+            </div>
+            <div class="form-group col">
+              <input type="radio" [value]="true || false" (change) ="selectdPlanChange(index)" formControlName="selected_plan" class="form-control-sm mat-primary">
+          </div>
+        </div>
+    </ng-container>
+    <div class="row">
+      <div class="form-group col" >
+        <label>Tax Applicable</label>   
+            <mat-checkbox formControlName="tax" class="form-control-sm mat-primary"></mat-checkbox>
+      </div>
+    </div>
+      </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

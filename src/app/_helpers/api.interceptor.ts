@@ -20,7 +20,8 @@ export class APIInterceptor implements HttpInterceptor {
       }
   
       return next.handle(request).pipe(catchError(error => {
-        if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 500 || error.status === 409)) {
+        //if (error instanceof HttpErrorResponse && (error.status === 401 || error.status === 500 || error.status === 409)) {
+          if (error instanceof HttpErrorResponse && (error.status === 401  || error.status === 409)) {
           return this.handle401Error(request, next,error);
         } else {
           return throwError(error);

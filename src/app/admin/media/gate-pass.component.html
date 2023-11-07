@@ -41,9 +41,9 @@
                 <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
                   [dataSource]="gatePassList" style="width: 100%;">
 
-                  <ng-container matColumnDef="zoho_id">
+                  <ng-container matColumnDef="deal_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Ref. Id</th>
-                    <td mat-cell *matCellDef="let element">{{(element.job_id !=null)? element.job_id:element.zoho_id}}</td>
+                    <td mat-cell *matCellDef="let element">{{(element.job_id !=null)? element.job_id:element.deal_id}}</td>
                   </ng-container>
                   <ng-container matColumnDef="gatepass_no">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Gate Pass No. </th>

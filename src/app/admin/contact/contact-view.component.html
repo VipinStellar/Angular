@@ -1,49 +1,76 @@
 <h2 mat-dialog-title>{{diaTitle}}</h2>
 <div class=" row ">
     <div class="col-12">
-        <table class="table table-striped table-bordered responsive mat-table " style="background-color: #fff !important;">
+        <table class="table  table-bordered responsive mat-table " style="background-color: #fff !important;">
             <tr>
-                <th width="20%">Company Name</th>
-                <td width="30%">{{data.company_name}}</td>
-                <th width="20%">GST Number</th>
-                <td width="30%">{{data.gst_number}}</td>
+                <th width="20%">First Name</th>
+                <td width="30%">{{data.first_name}}</td>
+                <th width="20%">Last Name</th>
+                <td width="30%">{{data.last_name}}</td>
             </tr>
             <tr>
-                <th>Billing Street</th>
-                <td>{{data.billing_street}}</td>
-                <th>Billing City</th>
-                <td>{{data.billing_city}}</td>
+                <th>Email</th>
+                <td>{{data.email}}</td>
+                <th>Mobile</th>
+                <td>{{data.mobile}}</td>
             </tr>
             <tr>
-                <th>Billing State</th>
-                <td>{{data.billing_state}}</td>
-                <th>Billing Code</th>
-                <td>{{data.billing_code}}</td>
+                <th>Account Name</th>
+                <td>{{data.company_name}}</td>
+                <th>Branch Name</th>
+                <td>{{data.branch_name}}</td>
             </tr>
             <tr>
-                <th>Billing Country</th>
-                <td>{{data.billing_country}}</td>
-                <th>Shipping Street</th>
-                <td>{{data.shipping_street}}</td>
+                <th>Mailing Street</th>
+                <td>{{data.mailing_street}}</td>
+                <th>Mailing Landmark</th>
+                <td>{{data.mailing_region}}</td>
             </tr>
             <tr>
-                <th>Shipping City</th>
-                <td>{{data.shipping_city}}</td>
-                <th>Shipping State</th>
-                <td>{{data.shipping_state}}</td>
+                <th>Mailing City</th>
+                <td>{{data.mailing_city}}</td>
+                <th>Mailing State Code</th>
+                <td>{{data.mailing_state_code}}</td>
             </tr>
             <tr>
-                <th>Shipping Code</th>
-                <td>{{data.shipping_code}}</td>
-                <th>Shipping Country</th>
-                <td>{{data.shipping_country}}</td>
+                <th>Mailing Country</th>
+                <td>{{data.mailing_country}}</td>
+                <th>Mailing State UT</th>
+                <td>{{data.mailing_state_ut}}</td>
             </tr>
-            <tr>
-                <th>Description Information</th>
-                <td colspan="3">{{data.description_information}}</td>
+             <tr>
+                <th>Mailing Zip</th>
+                <td>{{data.mailing_zip}}</td>
+                <th>Use Billing Address</th>
+                <td>{{data.use_billing_address}}</td>
             </tr>
-
-             
+            <tbody *ngIf="data.use_billing_address == 'Custom Billing Address'">
+                <tr>
+                    <th>Billing Name</th>
+                    <td>{{data.billing_name}}</td>
+                    <th>Billing Email</th>
+                    <td>{{data.billing_email}}</td>
+                </tr>
+                <tr>
+                    <th>Billing Phone</th>
+                    <td>{{data.billing_phone}}</td>
+                    <th>Billing Street</th>
+                    <td>{{data.billing_street}}</td>
+                </tr>
+                <tr>
+                    <th>Billing City</th>
+                    <td>{{data.billing_city}}</td>
+                    <th>Billing State</th>
+                    <td>{{data.billing_state}}</td>
+                </tr>
+                <tr>
+                    <th>Billing State Code </th>
+                    <td>{{data.billing_state_code}}</td>
+                    <th>Billing Zip</th>
+                    <td>{{data.billing_zip}}</td>
+                </tr>
+            </tbody>
+               
         </table>
     </div>
 </div>

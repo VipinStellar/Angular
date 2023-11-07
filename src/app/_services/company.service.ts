@@ -13,4 +13,8 @@ export class CompanyService {
     getcompanyList(searchParams: any) {
         return this.http.post(environment.apiUrl + 'company/company-list', searchParams);
     }
+
+    updateCompany(data) {
+        return this.http.post(environment.apiUrl + 'company/update-company', data);
+    }
 }

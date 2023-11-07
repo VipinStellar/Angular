@@ -1,0 +1,218 @@
+<style>
+  table.count_table {
+    counter-reset: section;
+  }
+
+  table.count_table th {
+    font-weight: 500;
+  }
+
+  table.count_table tbody tr td.inc-td:after {
+    counter-increment: section;
+    content: counter(section) "";
+  }
+
+  table thead tr.table-title {
+    background-color: #f2f2f2 !important;
+  }
+
+  ::ng-deep table tr {
+    background-color: #ffffff !important;
+  }
+</style>
+<div class="content-wrapper">
+  <div class="content-header" style="margin-top: 57px;">
+    <div class="container-fluid">
+      <app-tab [mediaDetails]="mediaDetails"></app-tab>
+    </div>
+  </div>
+  <section class="content">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-12" [innerHtml]="mediaDetails|mediaTable">
+        </div>
+        <div class="col-12" *ngIf="mediaDetails['mode_of_confirmation'] != null">
+          <table class="table table-striped table-bordered responsive count_table">
+            <thead>
+              <tr class="table-title">
+                <th colspan="4" class="h6">Job Confirmation Mode
+                  <a style="float:right" href="javascript:void(0)" (click)="editPO()"
+                    class="btn btn-primary btn-sm" *ngIf="mediaDetails['mode_of_order']=='Purchase Order (P.O)'">Edit Details</a>
+                </th>
+              </tr>
+                <tr>
+                  <th width="200">Mode Of Confirmation</th>
+                  <th width="200">Mode Of Order</th>
+                  <th width="200" *ngIf="mediaDetails['mode_of_order'] == 'Purchase Order (P.O)'">P.O Number</th>
+                  <th width="200" *ngIf="mediaDetails['mode_of_order'] == 'Purchase Order (P.O)'">P.O Date</th>
+                </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>{{mediaDetails['mode_of_confirmation']}}</td>
+                <td>{{mediaDetails['mode_of_order']}}</td>
+                <td *ngIf="mediaDetails['mode_of_order'] == 'Purchase Order (P.O)'">{{mediaDetails['po_number']}}</td>
+                <td *ngIf="mediaDetails['mode_of_order'] == 'Purchase Order (P.O)'"> {{mediaDetails['po_date'] | date}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="col-12"
+          *ngIf="mediaDetails['price'] != null && mediaDetails['price'].length >0 && user.role_id == 10 && user.id == mediaDetails['ise_user_id']">
+          <table class="table table-striped table-bordered responsive count_table"
+            *ngIf="mediaDetails['FinalPrice']==null">
+            <thead>
+              <tr class="table-title">
+                <th colspan="7" class="h6">Recovery Charges</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="editPrice()"
+                    class="btn btn-primary btn-sm" *ngIf="mediaDetails['FinalPrice']==null">Edit Details</a></th>
+              </tr>
+              <tr>
+                <th width="30">S.No</th>
+                <th width="200">Plan Type</th>
+                <th width="200">Service Fee</th>
+                <th width="200">Additional Charges</th>
+                <th width="200">Total Service Fee</th>
+                <th width="200">Advance %</th>
+                <th width="200">Advance Amount</th>
+                <th width="200">Show Plan</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mediaDetails['price']; let i = index">
+                <td class="inc-td"></td>
+                <td>{{item['plan_type']}}</td>
+                <td>Rs. {{item['plan_amount']}}</td>
+                <td>Rs. {{item['additional_charges']}}</td>
+                <td>Rs. {{item['total_fee']}}</td>
+                <td>{{item['advance_percent']+'%'}}</td>
+                <td>Rs. {{ _percentage(item['total_fee'],item['advance_percent'])}}</td>
+                <td>{{(item['is_visible']=='1'?'Yes':'No')}}</td>
+              </tr>
+            </tbody>
+            <tr class="table-title">
+              <td colspan="8" class="h6">Tax Applicable: {{(mediaDetails['tax_applicable']=='1')?'Yes':'No'}}
+                <a href="{{backEndUrl}}{{mediaDetails['payLink']}}" target="_blank" style="float: right;">Pay Link</a>
+              </td>
+            </tr>
+          </table>
+          <table class="table table-striped table-bordered responsive count_table"
+            *ngIf="mediaDetails['FinalPrice'] !=null">
+            <thead>
+              <tr class="table-title">
+                <th colspan="8" class="h6">Recovery Charges</th>
+              </tr>
+              <tr>
+                <th width="10">S.No</th>
+                <th width="200">Plan Type</th>
+                <th width="200">Base Service Fee</th>
+                <th width="200">Advance %</th>
+                <th width="200">Tax Rate</th>
+                <th width="200">Total Service Fee</th>
+                <th width="200">Paid Amount</th>
+                <th width="200">Balance Amount</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="inc-td"></td>
+                <td>{{mediaDetails['FinalPrice']['plan_type']}}</td>
+                <td>Rs. {{mediaDetails['FinalPrice']['base_amount']}}</td>
+                <td> {{mediaDetails['FinalPrice']['advance_percent']}}%</td>
+                <td> {{mediaDetails['FinalPrice']['tax_rate']}}%</td>
+                <td>Rs. {{mediaDetails['FinalPrice']['total_amount']}}</td>
+                <td>Rs. {{mediaDetails['FinalPrice']['paid_amount']}}</td>
+                <td>Rs. {{mediaDetails['FinalPrice']['balance_amount']}}</td>
+              </tr>
+            </tbody>
+            <tr class="table-title">
+              <td colspan="8" class="h6">Tax Applicable: {{(mediaDetails['tax_applicable']=='1')?'Yes':'No'}}
+                <a href="{{backEndUrl}}{{mediaDetails['payLink']}}" target="_blank" style="float: right;">Pay Link</a>
+              </td>
+            </tr>
+          </table>
+          <table class="table table-striped table-bordered responsive count_table"
+            *ngIf="mediaDetails['FinalPrice'] !=null">
+            <thead>
+              <tr class="table-title">
+                <th colspan="8" class="h6">Quotation Overview</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="newQuotation()"
+                    class="btn btn-primary btn-sm"
+                    *ngIf="mediaDetails['FinalPrice']['quotation_id'] == null && (mediaDetails['FinalPrice']['paid_amount'] == null || mediaDetails['FinalPrice']['paid_amount']==0) && QuotationShow">New
+                    Quotation</a></th>
+              </tr>
+              <tr>
+                <th width="50">Quotation.No</th>
+                <th width="200">Plan Type</th>
+                <th width="200">Base Service Fee</th>
+                <th width="200">Discount %</th>
+                <th width="200">Amount After Discount</th>
+                <th width="200">Tax Amount </th>
+                <th width="200">Total Service Fee</th>
+                <th width="200">Status</th>
+                <th width="200">Created On</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mediaDetails['Quotation']; let i = index">
+                <td>{{item['quotation_no']}}</td>
+                <td>{{item['plan_type']}}</td>
+                <td>{{item['base_amount']}}</td>
+                <td> {{item['discount']}} %</td>
+                <td>Rs. {{(item['base_amount']-item['discount_amount'])}}</td>
+                <td>Rs. {{item['tax_amount']}}</td>
+                <td>Rs. {{item['new_total_amount']}}</td>
+                <td> {{item['status']}}</td>
+                <td> {{item['created_on'] | date:'medium'}}</td>
+
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-striped table-bordered responsive count_table"
+            *ngIf="mediaDetails['FinalPrice'] != null">
+            <thead>
+              <tr class="table-title">
+                <th colspan="6" class="h6">Payment Details</th>
+                <th><a style="float:right" href="javascript:void(0)" (click)="addPayment(1)"
+                    class="btn btn-primary btn-sm"
+                    *ngIf="mediaDetails['FinalPrice']['balance_amount'] != null && mediaDetails['FinalPrice']['balance_amount'] !=0 && paymentAddShow">Add
+                    Payment</a></th>
+              </tr>
+              <tr>
+                <th width="10">S.No</th>
+                <th width="200">Channel</th>
+                <th width="200">Order No.</th>
+                <th width="200">Payment Txnid/Ref.No.</th>
+                <th width="200">Payment Amount</th>
+                <th width="200">Payment Date</th>
+                <th width="200">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mediaDetails['AllPayment']; let i = index">
+                <td class="inc-td"></td>
+                <td>{{item['payment_channel']}}</td>
+                <td>{{item['order_no']}}</td>
+                <td>{{item['payment_txnid']}}</td>
+                <td>Rs. {{item['payment_amount']}}</td>
+                <td> {{item['payment_timestamp'] | date:'medium'}}</td>
+                <td>
+                  <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="addPayment(item)"
+                    class="btn btn-primary btn-sm mb-1 mr-1">Edit Payment</a>
+                  <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="generateInvoice(item)"
+                    class="btn btn-primary btn-sm">Generate Invoice</a>
+                  <p *ngIf="item['invoice_no'] != null">{{item['invoice_no']}}</p>
+                  <a href="javascript:void(0)" *ngIf="item['invoice_no'] != null && item['irn_status'] == 0" (click)="generateIrn(item)"
+                    class="btn btn-primary btn-sm">Generate Irn</a>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+</div>

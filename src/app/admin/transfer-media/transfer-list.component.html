@@ -44,9 +44,9 @@
                       </mat-checkbox>
                     </td>
                   </ng-container>
-                  <ng-container matColumnDef="zoho_id">
+                  <ng-container matColumnDef="deal_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Zoho Record Id</th>
-                    <td mat-cell *matCellDef="let element">{{element?.zoho_id}} </td>
+                    <td mat-cell *matCellDef="let element">{{element?.deal_id}} </td>
                   </ng-container>
                   <ng-container matColumnDef="job_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
@@ -116,7 +116,7 @@
         <div class="container">
           <div class="row">
           <div class="col-md-12">
-            <p class="text-center" *ngIf="selection['selected'].length > 0"><strong>Job ID - </strong><span *ngFor="let select of selection['selected']">{{ (select.job_id !='' && select.job_id != null) ? select.job_id+', '  : select.zoho_id+', ' }}</span></p>
+            <p class="text-center" *ngIf="selection['selected'].length > 0"><strong>Job ID - </strong><span *ngFor="let select of selection['selected']">{{ (select.job_id !='' && select.job_id != null) ? select.job_id+', '  : select.deal_id+', ' }}</span></p>
           </div>
            <div class="col-md-6">
             <div class="form-group">

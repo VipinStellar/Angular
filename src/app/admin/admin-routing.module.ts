@@ -32,6 +32,8 @@ import { WipingList } from './media-wiping/wiping-list.component';
 import { WipingDueList } from './media-wiping/wiping-due-list.component';
 import { CompanyComponent } from './company/company.component';
 import { ContactComponent } from './contact/contact.component';
+import { RecoveryChargesComponent } from './media/recovery-charges.component';
+import { PaymentListComponent } from './payment/payment-list.component';
 const routes: Routes = [
   {
     path: '',
@@ -78,6 +80,7 @@ const routes: Routes = [
       { path: 'media/daily-status/:id', component: DailyStatusComponent},
       { path: 'transfer-media', component: TransferListComponent},
       { path: 'media/transfer-media/:id', component: TransferEditComponent},
+      { path: 'media/recovery-charges/:id', component: RecoveryChargesComponent},
       //////////////
      ////Media Out  
       { path: 'media-out', component: MediaOutComponent},
@@ -88,11 +91,15 @@ const routes: Routes = [
       { path: 'access-denied',component:AccessDeniedComponent },
       { path: 'wiping-list', component: WipingList},
       { path: 'wiping-due-list', component: WipingDueList},
-      ///Company
-      { path: 'company', component: CompanyComponent},
-      { path: 'contact', component: ContactComponent},
       { path: '', redirectTo: '/admin/home', pathMatch: 'full' },
-    
+            ///Company
+      { path: 'company', component: CompanyComponent,
+          resolve:{
+            stateList:StateResolver,
+          } 
+      },
+	  { path: 'contact', component: ContactComponent},
+    { path: 'payment-list', component: PaymentListComponent},
     ],
   },
 ];

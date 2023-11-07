@@ -64,11 +64,23 @@ import { ResponceMediaOutComponenet } from './media/responce-media-out.component
 import { WipingList } from './media-wiping/wiping-list.component';
 import { WipingEditComponent } from './media-wiping/wiping-edit.component';
 import { WipingDueList } from './media-wiping/wiping-due-list.component';
-import { NgSelect2Module } from 'ng-select2';
 import { CompanyComponent } from './company/company.component';
 import { CompanyViewComponent } from './company/company-view.component';
 import { ContactComponent } from './contact/contact.component';
 import { ContactViewComponent } from './contact/contact-view.component';
+import { StatusUpdateComponent } from './media/status-update.component';
+import { ExtensionUpdateComponent} from './media/extension-update.component';
+import { PriceEditComponent } from './media//price-edit.component';
+import { RecoveryChargesComponent } from './media/recovery-charges.component';
+import { ContactEditComponent } from './contact/contact-edit.component';
+import { CompanyEditComponent } from './company/company-edit.component';
+import { NewQuotationComponent } from './media/new-quotation.component';
+import { MinMaxDirective } from './../_helpers/min-max.directive';
+import { PaymentEditComponent } from './payment/payment-edit.component'
+import { PaymentListComponent } from './payment/payment-list.component';
+import { PaymentViewComponent } from './payment/payment-view.component';
+import { PoEditComponent } from './payment/po-edit.component';
+
 @NgModule({
   declarations: [
     HeaderComponent,
@@ -116,8 +128,20 @@ import { ContactViewComponent } from './contact/contact-view.component';
     WipingDueList,
     CompanyComponent,
     CompanyViewComponent,
-    ContactComponent,
-    ContactViewComponent
+	  ContactComponent,
+    ContactViewComponent,
+    StatusUpdateComponent,
+    ExtensionUpdateComponent,
+    PriceEditComponent,
+    RecoveryChargesComponent,
+    ContactEditComponent,
+    CompanyEditComponent,
+    NewQuotationComponent,
+    MinMaxDirective,
+    PaymentEditComponent,
+    PaymentListComponent,
+    PaymentViewComponent,
+    PoEditComponent    
   ],
   imports: [
     CommonModule,
@@ -142,8 +166,7 @@ import { ContactViewComponent } from './contact/contact-view.component';
     MatDatepickerModule,
     MatNativeDateModule,
     MatFormFieldModule,
-    MatInputModule,
-    NgSelect2Module 
+    MatInputModule 
   ],
   exports: [ MatInputModule ]
 })

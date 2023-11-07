@@ -4,46 +4,56 @@
         <table class="table table-striped table-bordered responsive mat-table " style="background-color: #fff !important;">
             <tr>
                 <th width="20%">Company Name</th>
-                <td width="30%">{{data.company_name}}</td>
-                <th width="20%">GST Number</th>
-                <td width="30%">{{data.gst_number}}</td>
+                <td colspan="3">{{data.company_name}}</td>
+            </tr>
+            <tr>
+                <th>Branch Name</th>
+                <td>{{data.branch_name}}</td>
+                <th>GST Number</th>
+                <td>{{data.gst_number}}</td> 
             </tr>
             <tr>
                 <th>Billing Street</th>
                 <td>{{data.billing_street}}</td>
-                <th>Billing City</th>
-                <td>{{data.billing_city}}</td>
-            </tr>
-            <tr>
-                <th>Billing State</th>
-                <td>{{data.billing_state}}</td>
-                <th>Billing Code</th>
-                <td>{{data.billing_code}}</td>
-            </tr>
-            <tr>
-                <th>Billing Country</th>
-                <td>{{data.billing_country}}</td>
                 <th>Shipping Street</th>
                 <td>{{data.shipping_street}}</td>
             </tr>
             <tr>
-                <th>Shipping City</th>
-                <td>{{data.shipping_city}}</td>
-                <th>Shipping State</th>
-                <td>{{data.shipping_state}}</td>
+                <th>Billing Landmark</th>
+                <td>{{data.billing_landmark}}</td>
+                <th>Shipping Landmark</th>
+                <td>{{data.shipping_landmark}}</td>
             </tr>
             <tr>
-                <th>Shipping Code</th>
+                <th>Billing City</th>
+                <td>{{data.billing_city}}</td>
+                <th>Shipping City</th>
+                <td>{{data.shipping_city}}</td>
+            </tr>
+            <tr>
+                <th>Billing State/UT</th>
+                <td>{{data.billing_state_ut}}</td>
+                <th>Shipping State/UT</th>
+                <td>{{data.shipping_state_ut}}</td>
+            </tr>
+            <tr>
+                <th>Billing State Code</th>
+                <td>{{data.billing_state_code}}</td>
+                <th>Shipping State Code</th>
+                <td>{{data.shipping_state_code}}</td>
+            </tr>
+            <tr>
+                <th>Billing Zip Code</th>
+                <td>{{data.billing_code}}</td>
+                <th>Shipping Zip Code</th>
                 <td>{{data.shipping_code}}</td>
+            </tr>
+            <tr>
+                <th>Billing Country</th>
+                <td>{{data.billing_country}}</td>
                 <th>Shipping Country</th>
                 <td>{{data.shipping_country}}</td>
             </tr>
-            <tr>
-                <th>Description Information</th>
-                <td colspan="3">{{data.description_information}}</td>
-            </tr>
-
-             
         </table>
     </div>
 </div>

@@ -5,6 +5,7 @@ import { AuthGuard } from './_helpers/auth.guard';
 import { ForgotPasswordComponent } from './login/forgot-password.component';
 const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
+  { path: '/', redirectTo: '/login', pathMatch: 'full' },
   { path: 'login', component: LoginComponent },
   { path: 'forgot-password', component: ForgotPasswordComponent },
   {
@@ -13,6 +14,7 @@ const routes: Routes = [
     loadChildren: () =>
       import('./admin/admin.module').then((m) => m.AdminModule),
   },
+  {path: '**', redirectTo: '/login'}
 ];
 
 @NgModule({

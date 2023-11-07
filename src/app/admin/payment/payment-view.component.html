@@ -1,0 +1,74 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<div class="row">
+    <div class="col-12">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Customer Details</legend>
+            <div class="row">
+                <div class="col-6">
+                    <p><strong>Name : </strong> {{data.firstname}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Email : </strong> {{data.email}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Phone : </strong> {{data.phone}}</p>
+                </div>
+                <div class="col-6" *ngIf="data.gst_no !=null && data.gst_no !=''">
+                    <p><strong>GST : </strong> {{data.phone}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>City : </strong> {{data.city}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>State : </strong> {{data.state}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Zipcode : </strong> {{data.zipcode}}</p>
+                </div>
+                <div class="col-12">
+                    <p><strong>Address : </strong> {{data.address}}</p>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+    <div class="col-12">
+        <fieldset class="scheduler-border">
+            <legend class="scheduler-border">Payment Details</legend>
+            <div class="row">
+                <div class="col-6">
+                    <p><strong>Job ID : </strong> {{data.job_id}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Branch Name : </strong> {{data.branch_name}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Plan Type : </strong> {{data.plan_type}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Payment Type : </strong>{{ (data.payment_type == "ADVC") ? 'Advanced Amount' : (data.payment_type == "RECV") ? 'Recovery Amount' : 'Full Amount' }}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Txn ID : </strong> {{data.payment_txnid}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Order No : </strong> {{data.order_no}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Invoice No : </strong> {{data.invoice_no}}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Total Amount : </strong> {{ data.payment_amount | currency:"INR":"symbol" }}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Base Amount : </strong> {{ data.total_amount | currency:"INR":"symbol" }}</p>
+                </div>
+                <div class="col-6">
+                    <p><strong>Tax Amount : </strong> {{ data.total_tax | currency:"INR":"symbol" }}</p>
+                </div>
+            </div>
+        </fieldset>
+    </div>
+</div>
+<div class="row" style="float: right;">
+    <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+</div>

@@ -1,0 +1,133 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="companyFrom">
+    <div class="row">
+      <div class="col-6 pt-2">
+        <label class="control-label">Company Name <sup class="text-danger">*</sup> : </label>
+        <input type="text" class="form-control form-control-sm" formControlName="company_name" [ngClass]="{ 'is-invalid': submitted && tc['company_name'].errors }">
+        <div *ngIf="submitted && tc['company_name'].errors" class="invalid-feedback">
+         <div *ngIf="tc['company_name'].errors['required']">Company Name is required</div>
+       </div>
+        </div>   
+        <div class="col-6 pt-2">
+            <label class="control-label">GST Number <sup class="text-danger">*</sup> : </label>
+            <input type="text" class="form-control form-control-sm uppercase"  formControlName="gst_number" [ngClass]="{ 'is-invalid': submitted && tc['gst_number'].errors }">
+            <div *ngIf="submitted && tc['gst_number'].errors" class="invalid-feedback">
+             <div *ngIf="tc['gst_number'].errors['required']">GST Number is required</div>
+             <div *ngIf="tc['gst_number'].errors['gstInvalid']">{{tc['gst_number'].errors['gstInvalid']}} </div>
+           </div>
+        </div> 
+        <div class="col-6 pt-2">
+            <label class="control-label">Billing Street <sup class="text-danger">*</sup> : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="billing_street" [ngClass]="{ 'is-invalid': submitted && tc['billing_street'].errors }">
+            <div *ngIf="submitted && tc['billing_street'].errors" class="invalid-feedback">
+             <div *ngIf="tc['billing_street'].errors['required']">Billing Street is required</div>
+           </div>
+        </div>   
+        <div class="col-6 pt-2">
+            <label class="control-label">Shipping Street: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="shipping_street" [ngClass]="{ 'is-invalid': submitted && tc['shipping_street'].errors }">
+            <div *ngIf="submitted && tc['shipping_street'].errors" class="invalid-feedback">
+             <div *ngIf="tc['shipping_street'].errors['required']">Shipping Street is required</div>
+           </div>
+        </div> 
+        <div class="col-6 pt-2">
+            <label class="control-label">Billing Landmark : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="billing_landmark" [ngClass]="{ 'is-invalid': submitted && tc['billing_landmark'].errors }">
+            <div *ngIf="submitted && tc['billing_landmark'].errors" class="invalid-feedback">
+             <div *ngIf="tc['billing_landmark'].errors['required']">Billing Landmark is required</div>
+           </div>
+        </div>   
+        <div class="col-6 pt-2">
+            <label class="control-label">Shipping Landmark : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="shipping_landmark" [ngClass]="{ 'is-invalid': submitted && tc['shipping_landmark'].errors }">
+            <div *ngIf="submitted && tc['shipping_landmark'].errors" class="invalid-feedback">
+             <div *ngIf="tc['shipping_landmark'].errors['required']">Shipping Landmark is required</div>
+           </div>
+        </div> 
+        <div class="col-6 pt-2">
+            <label class="control-label">Billing City <sup class="text-danger">*</sup> : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="billing_city" [ngClass]="{ 'is-invalid': submitted && tc['billing_city'].errors }">
+            <div *ngIf="submitted && tc['billing_city'].errors" class="invalid-feedback">
+             <div *ngIf="tc['billing_city'].errors['required']">Billing City is required</div>
+           </div>
+        </div>
+        <div class="col-6 pt-2">
+            <label class="control-label">Shipping City : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="shipping_city" [ngClass]="{ 'is-invalid': submitted && tc['shipping_city'].errors }">
+            <div *ngIf="submitted && tc['shipping_city'].errors" class="invalid-feedback">
+             <div *ngIf="tc['shipping_city'].errors['required']">Shipping City is required</div>
+           </div>
+        </div>
+        <div class="col-6 pt-2">
+            <label class="control-label">Billing State/UT <sup class="text-danger">*</sup> : </label>
+            <select class="form-control form-control-sm" (change)="stateChange($event.target.value,1)" formControlName="billing_state_ut" [ngClass]="{ 'is-invalid': submitted && tc['billing_state_ut'].errors }">
+              <option *ngFor="let stage of stateData" [value]="stage['state_name']">{{stage['state_name']}}</option>
+            </select>
+            <div *ngIf="submitted && tc['billing_state_ut'].errors" class="invalid-feedback">
+             <div *ngIf="tc['billing_state_ut'].errors['required']">Billing State/UT is required</div>
+           </div>
+       </div>
+  <div class="col-6 pt-2">
+            <label class="control-label">Shipping State/UT : </label>
+            <select class="form-control form-control-sm" (change)="stateChange($event.target.value,2)" formControlName="shipping_state_ut" [ngClass]="{ 'is-invalid': submitted && tc['shipping_state_ut'].errors }">
+              <option *ngFor="let stage of stateData" [value]="stage['state_name']">{{stage['state_name']}}</option>
+            </select>
+            <div *ngIf="submitted && tc['shipping_state_ut'].errors" class="invalid-feedback">
+             <div *ngIf="tc['shipping_state_ut'].errors['required']">Shipping State/UT is required</div>
+           </div>
+        </div>
+        <div class="col-6 pt-2">
+            <label class="control-label">Billing State Code <sup class="text-danger">*</sup> : </label>
+            <input type="text" readonly class="form-control form-control-sm" formControlName="billing_state_code" [ngClass]="{ 'is-invalid': submitted && tc['billing_state_code'].errors }">
+            <div *ngIf="submitted && tc['billing_state_code'].errors" class="invalid-feedback">
+             <div *ngIf="tc['billing_state_code'].errors['required']">Billing State Code is required</div>
+           </div>
+        </div>
+        <div class="col-6 pt-2">
+            <label class="control-label">Shipping State Code : </label>
+            <input type="text" readonly class="form-control form-control-sm" formControlName="shipping_state_code" [ngClass]="{ 'is-invalid': submitted && tc['shipping_state_code'].errors }">
+            <div *ngIf="submitted && tc['shipping_state_code'].errors" class="invalid-feedback">
+             <div *ngIf="tc['shipping_state_code'].errors['required']">Shipping State Code is required</div>
+           </div>
+        </div>
+               <div class="col-6 pt-2">
+            <label class="control-label">Billing Zip Code <sup class="text-danger">*</sup> : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="billing_code" [ngClass]="{ 'is-invalid': submitted && tc['billing_code'].errors }">
+            <div *ngIf="submitted && tc['billing_code'].errors" class="invalid-feedback">
+             <div *ngIf="tc['billing_code'].errors['required']">Billing Code is required</div>
+           </div>
+        </div>
+        <div class="col-6 pt-2">
+            <label class="control-label">Shipping Zip Code : </label>
+            <input type="text" class="form-control form-control-sm" formControlName="shipping_code" [ngClass]="{ 'is-invalid': submitted && tc['shipping_code'].errors }">
+            <div *ngIf="submitted && tc['shipping_code'].errors" class="invalid-feedback">
+             <div *ngIf="tc['shipping_code'].errors['required']">Shipping Code is required</div>
+           </div>
+        </div>
+        <div class="col-6 pt-2">
+          <label class="control-label">Billing Country : </label>
+          <input type="text" readonly class="form-control form-control-sm" formControlName="billing_country" [ngClass]="{ 'is-invalid': submitted && tc['billing_country'].errors }">
+          <div *ngIf="submitted && tc['billing_country'].errors" class="invalid-feedback">
+           <div *ngIf="tc['billing_country'].errors['required']">Billing Country is required</div>
+         </div>
+      </div>
+      <div class="col-6 pt-2">
+        <label class="control-label">Shipping Country : </label>
+        <input type="text" readonly class="form-control form-control-sm" formControlName="shipping_country" [ngClass]="{ 'is-invalid': submitted && tc['shipping_country'].errors }">
+        <div *ngIf="submitted && tc['shipping_country'].errors" class="invalid-feedback">
+         <div *ngIf="tc['shipping_country'].errors['required']">Shipping Country is required</div>
+       </div>
+    </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+     <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button> 
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>
+<style>
+  .uppercase{
+  text-transform: uppercase;
+}
+</style>

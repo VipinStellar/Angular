@@ -39,7 +39,7 @@ export class ExtensionComponent implements OnInit {
             return false;
         }
          let apiToCall: any;
-         apiToCall = this.recoveryService.updateExtension(this.recovery.value);
+         apiToCall = this.recoveryService.requestExtension(this.recovery.value);
         apiToCall.subscribe(
             data => {
                 this.hide();

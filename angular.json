@@ -43,7 +43,8 @@
               "node_modules/admin-lte/docs_html/assets/css/adminlte.css",
               "node_modules/ngx-toastr/toastr.css",
               "node_modules/sweetalert2/src/sweetalert2.scss",
-              "node_modules/select2/dist/css/select2.min.css"
+              "node_modules/select2/dist/css/select2.min.css",
+			  "node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css"
             ],
             "scripts": [
               "node_modules/admin-lte/plugins/jquery/jquery.js",
@@ -56,7 +57,9 @@
               "node_modules/admin-lte/plugins/jquery-mapael/jquery.mapael.js",
               "node_modules/admin-lte/plugins/jquery-mapael/maps/usa_states.js",
               "node_modules/admin-lte/plugins/chart.js/Chart.js",
-              "node_modules/select2/dist/js/select2.min.js"
+              "node_modules/select2/dist/js/select2.min.js",
+			  "node_modules/admin-lte/plugins/moment/moment.min.js",
+              "node_modules/admin-lte/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js"
             ]
           },
           "configurations": {

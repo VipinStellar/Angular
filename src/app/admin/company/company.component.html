@@ -12,10 +12,35 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Advance Search</legend>
+                        <div class="row">
+                          <div class="col-sm-3"> 
+                            <mat-select [(value)]="selectedType" (selectionChange)="selectOnChange($event)" class="mt-2 table-search form-control form-control-sm" placeholder="Search For">
+                              <mat-option *ngFor="let search of searchField" [value]="search.value">
+                                {{search.name}}
+                              </mat-option>
+                            </mat-select>
+                          </div>
+                          <div class="col-sm-3" *ngIf="searchfieldName !=null && searchfieldName !='' &&  searchfieldName !='branch_id'">
+                            <input [(ngModel)]="term" type="text" class="mt-2 form-control-sm table-search form-control" />
+                          </div><br><br>
+                          
+                          <div class="col-sm-3">
+                            <button class="mt-2 btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp;
+                            <button class="mt-2 btn btn-default btn-sm" (click)="reset()">Reset</button>&nbsp;
+                          </div>
+                        </div>
+                      </fieldset>
+                  </div>
+                <div class="col-12">
                     <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
                     <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)"
-                        matSortActive="company_name" matSortDirection="asc" [dataSource]="companyList" style="width: 100%;">
-
+                        matSortActive="zoho_company_id" matSortDirection="asc" [dataSource]="companyList" style="width: 100%;">
+                        <ng-container matColumnDef="zoho_company_id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >Record ID</th>
+                            <td mat-cell *matCellDef="let element"> {{element?.zoho_company_id}} </td>
+                        </ng-container>
                         <ng-container matColumnDef="company_name">
                             <th mat-header-cell *matHeaderCellDef mat-sort-header >Company Name</th>
                             <td mat-cell *matCellDef="let element"> {{element?.company_name}} </td>
@@ -24,14 +49,16 @@
                             <th mat-header-cell *matHeaderCellDef mat-sort-header> GST Number </th>
                             <td mat-cell *matCellDef="let element"> {{element?.gst_number}} </td>
                         </ng-container>
-                        <ng-container matColumnDef="status">
-                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
-                            <td mat-cell *matCellDef="let element"> {{(element.status == 1)?'Active':'In active'}} </td>
+                        <ng-container matColumnDef="branch_name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Branch Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.branch_name}} </td>
                         </ng-container>
                         <ng-container matColumnDef="action">
                             <th mat-header-cell *matHeaderCellDef> Action </th>
                             <td mat-cell *matCellDef="let element">
-                                <a href="javascript:void(0)" (click)="viewDetails(element)" >View Details </a></td>
+                                <a href="javascript:void(0)" (click)="viewDetails(element)" >View</a> || 
+                                <a href="javascript:void(0)" (click)="EditDetails(element)" >Edit</a>
+                            </td>
                         </ng-container>
                         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
                         <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

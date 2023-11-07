@@ -24,8 +24,8 @@ export class MediaListComponent implements OnInit {
   sortOrder = 'desc';
   sortField = 'id';
   pageTitle = "Media List";
-  displayedColumns: string[] = ['zoho_id','job_id', 'customer_id', 'branch_id','media_type','stage_name','transfer_id','created_on'];
-  searchField = [{ value: 'zoho_id', name: 'Zoho Id' }, { value: 'customer_name', name: 'Client Name' }, { value: 'branch_id', name: 'Branch name' },
+  displayedColumns: string[] = ['deal_id','job_id', 'customer_id', 'branch_id','media_type','stage_name','transfer_id','created_on'];
+  searchField = [{ value: 'deal_id', name: 'Deal Id' }, { value: 'customer_name', name: 'Client Name' }, { value: 'branch_id', name: 'Branch name' },
                  {value: 'media_type', name: 'Media Type'},{value: 'job_id', name: 'Job Id'}];
   term: string;
   searchfieldName: string;

@@ -4,7 +4,7 @@
         <app-tab [mediaDetails]="mediaDetails" ></app-tab>
         <div class="row mb-2" >
           <div class="col-xl-9 col-sm-9">
-            <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['zoho_id']}} &nbsp;&nbsp;&nbsp;<span
+            <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['deal_id']}} &nbsp;&nbsp;&nbsp;<span
                 *ngIf="mediaDetails['job_id'] !=null">Job Id : {{mediaDetails['job_id']}}</span></h2>
           </div>
         </div>
@@ -15,11 +15,11 @@
         <div class="row" *ngIf="isLoading">
           <div class="col-lg-6 col-md-6 mb-3">
             <label class="control-label">Client Name : </label>
-            <span class="ml-2">{{mediaDetails['customer_name']}}</span>
+            <span class="ml-2"><a [routerLink]="'../../../contact'" [queryParams]="{record:mediaDetails['zoho_contact_id']}">{{mediaDetails['customer_name']}}</a></span>
           </div>
           <div class="col-lg-6 col-md-6 mb-3">
             <label class="control-label">Zoho Record Id : </label>
-            <span class="ml-2">{{mediaDetails['zoho_id']}}</span>
+            <span class="ml-2">{{mediaDetails['deal_id']}}</span>
           </div>
           <div class="col-lg-6 col-md-6 mb-3">
             <label class="control-label">Branch Name : </label>
@@ -86,6 +86,10 @@
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaFieldShow">
             <label class="control-label">Peripherals Details : </label>
             <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
+          </div>
+          <div class="col-lg-6 col-md-6 mb-3">
+            <label class="control-label">Problem Type : </label>
+            <span class="ml-2">{{mediaDetails['media_problem']}}</span>
           </div>
           <div class="col-lg-6 col-md-6 mb-3">
             <label class="control-label">Important Data : </label>
@@ -232,7 +236,7 @@
           </div>
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'No'">
             <label class="control-label">Case Not Possible Reason : </label>
-            <span class="ml-2">{{mediaDetails['no_recovery_reason_other']}}</span>
+            <span class="ml-2">{{mediaDetails['no_recovery_reason'] + " " + mediaDetails['no_recovery_reason_other']}}</span>
           </div>
           <div class="col-lg-6 col-md-6">
             <label class="control-label">Inspection Status : </label>
@@ -334,7 +338,7 @@
           </div>
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'No'">
             <label class="control-label">Case Not Possible Reason : </label>
-            <span class="ml-2">{{mediaDetails['no_recovery_reason_other']}}</span>
+            <span class="ml-2">{{mediaDetails['no_recovery_reason'] + " " + mediaDetails['no_recovery_reason_other']}}</span>
           </div>
           <div class="col-lg-6 col-md-6">
             <label class="control-label">Inspection Status : </label>
@@ -458,7 +462,7 @@
           </div>
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'No'">
             <label class="control-label">Case Not Possible Reason : </label>
-            <span class="ml-2">{{mediaDetails['no_recovery_reason_other']}}</span>
+            <span class="ml-2">{{mediaDetails['no_recovery_reason'] + " " + mediaDetails['no_recovery_reason_other']}}</span>
           </div>
           <div class="col-lg-6 col-md-6">
             <label class="control-label">Inspection Status : </label>
@@ -617,7 +621,7 @@
           </div>
           <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'No'">
             <label class="control-label">Case Not Possible Reason : </label>
-            <span class="ml-2">{{mediaDetails['no_recovery_reason_other']}}</span>
+            <span class="ml-2">{{mediaDetails['no_recovery_reason'] + " " + mediaDetails['no_recovery_reason_other']}}</span>
           </div>
          <!-- <div class="col-lg-6 col-md-6">
             <label class="control-label">Inspection Status : </label>

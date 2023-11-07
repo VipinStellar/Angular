@@ -12,6 +12,7 @@ import {HttpClientModule} from '@angular/common/http';
 import { ToastrModule } from 'ngx-toastr';
 import { CommonModule } from '@angular/common';
 import { ForgotPasswordComponent } from './login/forgot-password.component';
+
 @NgModule({
   declarations: [
     AppComponent,

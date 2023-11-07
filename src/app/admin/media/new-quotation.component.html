@@ -1,0 +1,80 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="Quotation ">
+    <div class="row ">
+        <div class="form-group col" >
+          <label>Plan Type</label>
+        </div>
+        <div class="form-group col"> 
+          <label>Service Fee</label>
+        </div>
+        <div class="form-group col"> 
+          <label>Total Amount</label>
+        </div>
+        <div class="form-group col"> 
+          <label>Discount Type</label>
+        </div>
+        <div class="form-group col">
+          <label>Discount </label>
+        </div>
+        <div class="form-group col">
+          <label>Service Fee After Discount</label>
+        </div>
+        <div class="form-group col">
+          <label>Tax Amount</label>
+        </div>
+        <div class="form-group col">
+          <label>Total Amount After Discount</label>
+        </div>  
+    </div>
+    <div class="row ">
+        <div class="form-group col">
+            <input type="text" formControlName="plan_type" readonly class="form-control form-control-sm">
+        </div>
+        <div class="form-group col">
+            <input type="text" formControlName="base_amount" readonly class="form-control form-control-sm">
+        </div>
+        <div class="form-group col">
+          <input type="text" formControlName="total_amount" readonly class="form-control form-control-sm">
+      </div>
+      <div class="form-group col">
+        <select  formControlName="discount_type"  class="form-control form-control-sm" (change)="discountTypeChange()">
+            <option value="Percentage">Percentage</option>
+            <option value="Fixed Amount">Fixed Amount</option>
+        </select>
+        <div *ngIf="submitted && tm['discount_type'].errors" class="invalid-feedback">
+          <div *ngIf="tm['discount_type'].errors['required']">Discount Type is required</div>
+        </div>
+    </div>
+        <div class="form-group col">
+            <input type="number" formControlName="discount"  (change)="discountChange()"    class="number-selector-input form-control form-control-sm" [ngClass]="{ 'is-invalid': submitted && tm['discount'].errors }">
+            <div *ngIf="submitted && tm['discount'].errors" class="invalid-feedback">
+                <div *ngIf="tm['discount'].errors['required']">Discount is required</div>
+                <div class="p-error" *ngIf="tm['discount'].errors['message']">{{tm['discount'].errors['message']}}</div>
+              </div>
+        </div>
+        <div class="form-group col">
+          <input type="text" formControlName="new_basePrice" readonly class="form-control form-control-sm">
+      </div>
+      <div class="form-group col">
+        <input type="text" formControlName="tax_amount" readonly class="form-control form-control-sm">
+    </div>
+        <div class="form-group col">
+            <input type="text" formControlName="new_total_price" readonly class="form-control form-control-sm">
+        </div>
+    </div>
+    <div class="row ">
+      <div class="col-12">
+        <textarea class="form-control form-control-sm" formControlName="description" placeholder="Description"
+        [ngClass]="{ 'is-invalid': submitted && tm['description'].errors }"></textarea>
+         <div *ngIf="submitted && tm['description'].errors" class="invalid-feedback">
+          <div *ngIf="tm['description'].errors['required']">Description is required</div>
+        </div>
+      </div>
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

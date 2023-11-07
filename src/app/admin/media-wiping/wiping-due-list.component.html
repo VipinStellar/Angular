@@ -19,7 +19,7 @@
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
                 <td mat-cell *matCellDef="let element">
                     <a [routerLink]="['../media/job-process/', element.media_id]"
-                  title="View Case Details">{{(element.job_id ==null)?element.zoho_id:element.job_id}}</a></td>
+                  title="View Case Details">{{(element.job_id ==null)?element.deal_id:element.job_id}}</a></td>
               </ng-container>
   
 

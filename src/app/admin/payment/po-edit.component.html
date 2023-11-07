@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content>
+  <form [formGroup]="poFrom ">
+    <div class="row">
+        <div class="col-12 pt-2">
+            <label class="control-label">P.O Number: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="po_number"
+              [ngClass]="{ 'is-invalid': submitted && po['po_number'].errors }">
+            <div *ngIf="submitted && po['po_number'].errors" class="invalid-feedback">
+              <div *ngIf="po['po_number'].errors['required']">P.O Number is required</div>
+            </div>
+          </div>
+          <div class="col-12 pt-2">
+            <label class="control-label">P.O Date: </label>
+            <input type="date" class="form-control form-control-sm" formControlName="po_date"
+              [ngClass]="{ 'is-invalid': submitted && po['po_date'].errors }">
+            <div *ngIf="submitted && po['po_date'].errors" class="invalid-feedback">
+              <div *ngIf="po['po_date'].errors['required']">P.O Date is required</div>
+            </div>
+          </div>
+      
+
+    </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+  <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>
