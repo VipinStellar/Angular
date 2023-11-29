@@ -31,4 +31,8 @@ export class PaymentService {
     generateIrn(id){
         return this.http.get(environment.apiUrl + 'payment/generate-irn/'+id);
     }
+
+    generateInvoicePDF(pdfParams){
+        return this.http.post(environment.apiUrl + 'auth/generate-pdf', pdfParams);
+    }
 }

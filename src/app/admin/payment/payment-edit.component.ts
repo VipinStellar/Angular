@@ -25,7 +25,7 @@ export class PaymentEditComponent implements OnInit {
     }
     ngAfterViewInit() {
         $(this.el.nativeElement).find('#dateTimeCalendar').datetimepicker(
-            { timePicker: true,format: 'DD-MM-YYYY hh:mm A',       
+            {sideBySide: true,allowInputToggle :true, timePicker: true,format: 'DD-MM-YYYY hh:mm A',icons: { time: 'far fa-clock' }       
         });
       }
     ngOnInit(): void {

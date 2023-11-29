@@ -55,6 +55,12 @@ export class StatusUpdateComponent implements OnInit {
             data => {
                 this.hide();
                 this.toastrService.success('Details Saved successfully!', 'Success!');
+                if(data['stage'] == 4 || data['stage'] == 9)
+                {
+                this.toastrService.info('<a href="https://crmplus.zoho.com/stellardatarecoveryin/index.do/cxapp/crm/org732911979/tab/Potentials/'+data["deal_id"]+'" target=\"_blank\" class=\"toastr-link\">Click here to Send Mail To client</a>',
+                'Send Mail' , {enableHtml: true,disableTimeOut: true,closeButton: false});
+                }
+               
             },
             error=>{
                 this.ts['status'].setErrors({ 'message':  error.error});
@@ -80,9 +86,9 @@ export class StatusUpdateComponent implements OnInit {
         {
             this.stages = [{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
         }
-        else if(this.data['stage'] == 8)
+        else if(this.data['stage'] == 6)
         {
-            this.stages = [{ id: 9, stage_name: 'Confirmed' },{ id: 10, stage_name: 'Not Confirmed' },{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
+            this.stages = [{ id: 8, stage_name: 'Waiting for Confirmation' },{ id: 9, stage_name: 'Confirmed' },{ id: 10, stage_name: 'Not Confirmed' },{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
         }
         else if(this.data['stage'] == 9)
         {

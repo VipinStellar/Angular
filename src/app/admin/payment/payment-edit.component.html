@@ -30,7 +30,7 @@
             <div class="col-6 pt-2" *ngIf="pf['existing_payment'].value !='Credit'">
                 <label class="control-label">Payment Date <sup class="text-danger">*</sup> : </label>
                 <div class="input-group date" id="dateTimeCalendar" data-target-input="nearest" >
-                    <input type="text" readonly class="form-control form-control-sm datetimepicker-input" #calRefference  data-target="#dateTimeCalendar" formControlName="payment_date" [ngClass]="{ 'is-invalid': submitted && pf['payment_date'].errors }"/>
+                    <input type="text"  class="form-control form-control-sm datetimepicker-input" #calRefference  data-target="#dateTimeCalendar" formControlName="payment_date" [ngClass]="{ 'is-invalid': submitted && pf['payment_date'].errors }"/>
                     <div class="input-group-append" data-target="#dateTimeCalendar" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
@@ -91,7 +91,10 @@
  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
 </mat-dialog-actions>
 <style>
-    ::ng-deep .bootstrap-datetimepicker-widget{
-        z-index: 999999999999 !important;
+    ::ng-deep .mat-dialog-content {
+      overflow: visible !important;
     }
+    ::ng-deep  .mat-dialog-container{
+        overflow: visible !important;
+     }
 </style>

@@ -197,13 +197,21 @@
                 <td>Rs. {{item['payment_amount']}}</td>
                 <td> {{item['payment_timestamp'] | date:'medium'}}</td>
                 <td>
+                  <p *ngIf="item['invoice_no'] != null">{{item['invoice_no']}}</p>
                   <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="addPayment(item)"
-                    class="btn btn-primary btn-sm mb-1 mr-1">Edit Payment</a>
+                    class="btn btn-primary btn-sm mb-1 mr-1" title="Edit Payment"><i class="nav-icon fas fa-edit"></i>
+                  </a>
+                  <a href="{{ PDFurl }}{{item['reqId']}}/view" title="Preview Invoice" target="_blank" *ngIf="item['invoice_no'] == null" 
+                    class="btn btn-primary btn-sm"><i class="nav-icon fas fa-eye"></i>
+                  </a>
                   <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="generateInvoice(item)"
                     class="btn btn-primary btn-sm">Generate Invoice</a>
-                  <p *ngIf="item['invoice_no'] != null">{{item['invoice_no']}}</p>
+                
                   <a href="javascript:void(0)" *ngIf="item['invoice_no'] != null && item['irn_status'] == 0" (click)="generateIrn(item)"
-                    class="btn btn-primary btn-sm">Generate Irn</a>
+                  class="btn btn-primary btn-sm mb-1">Generate Irn</a>
+
+                  <a target="_blank"  href="{{ PDFurl }}{{item['invoice_no'].split('/').join('-')}}/preview" *ngIf="item['invoice_no'] != null && item['irn_status'] != 0"  class="btn btn-primary btn-sm mb-1"><i class="nav-icon fas fa-solid fa-file-invoice"></i></a>
+
                 </td>
               </tr>
             </tbody>
