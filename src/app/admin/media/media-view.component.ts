@@ -13,7 +13,6 @@ export class MediaViewComponent implements OnInit {
     isLoading:boolean;
     mediaDetails : Media[] = [];
     mediaModel = "none";
-    mediaFieldShow:boolean;
     constructor(private mediaService: MediaService,
                 private route: ActivatedRoute) {
     }
@@ -25,7 +24,6 @@ export class MediaViewComponent implements OnInit {
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
-            this.mediaFieldShow = AppUtil.CheckMediaTypeFields(this.mediaDetails['media_type']);
             this.isLoading = true;
           });
                     

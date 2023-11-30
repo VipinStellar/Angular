@@ -1,0 +1,377 @@
+<section class="content mb-3">
+    <div class="container-fluid border p-4">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Client Name : </label>
+                <span class="ml-2"><a [routerLink]="'../../../contact'"
+                        [queryParams]="{record:mediaDetails['zoho_contact_id']}">{{mediaDetails['customer_name']}}</a></span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Zoho Record Id : </label>
+                <span class="ml-2">{{mediaDetails['deal_id']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Branch Name : </label>
+                <span class="ml-2">{{mediaDetails['branch_name']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Type of Service : </label>
+                <span class="ml-2">{{mediaDetails['service_type']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Mode Of Service : </label>
+                <span class="ml-2">{{mediaDetails['service_mode']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Type : </label>
+                <span class="ml-2">{{mediaDetails['media_type']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Category : </label>
+                <span class="ml-2">{{mediaDetails['media_category']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3"
+                *ngIf="mediaDetails['media_type'] !='Tape Stand Alone' && mediaDetails['media_type'] !='Tape Library'">
+                <label class="control-label">Type of Interface : </label>
+                <span class="ml-2">{{mediaDetails['media_interface']}}</span>
+            </div>
+
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Make : </label>
+                <span class="ml-2">{{mediaDetails['media_make']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Capacity : </label>
+                <span class="ml-2">{{mediaDetails['media_capacity']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Model : </label>
+                <span class="ml-2">{{mediaDetails['media_model']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Serial : </label>
+                <span class="ml-2">{{mediaDetails['media_serial']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Status : </label>
+                <span class="ml-2">{{mediaDetails['media_status']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Condition : </label>
+                <span class="ml-2">{{mediaDetails['media_condition']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Tampered Status : </label>
+                <span class="ml-2">{{mediaDetails['tampered_status']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Peripherals With Media : </label>
+                <span class="ml-2">{{mediaDetails['media_casing']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Peripherals Details : </label>
+                <span class="ml-2">{{mediaDetails['peripherals_details']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Problem Type : </label>
+                <span class="ml-2">{{mediaDetails['media_problem']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Important Data : </label>
+                <span class="ml-2">{{mediaDetails['important_data']}}</span>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content mb-3" *ngIf="mediaDetails['job_id'] != null">
+    <div class="container-fluid border p-4">
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <h2>Inspection Details</h2>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Condition WRT any Apparent External Physical Damage to it : </label>
+                <span class="ml-2">{{mediaDetails['media_damage']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Case Type : </label>
+                <span class="ml-2">{{mediaDetails['case_type']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Type of Noise Identified while the Drive is Powered-on : </label>
+                <span class="ml-2">{{mediaDetails['noise_type']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Drive Electronics & Control Systems : </label>
+                <span class="ml-2">{{mediaDetails['drive_electronics']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Rotatory Function : </label>
+                <span class="ml-2">{{mediaDetails['rotary_function']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Internal Condition of Platters : </label>
+                <span class="ml-2">{{mediaDetails['platters_condition']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Tamper/Open Permission : </label>
+                <span class="ml-2">{{mediaDetails['tampering_required']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Further use of Media : </label>
+                <span class="ml-2">{{mediaDetails['further_use']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Similar Spare : </label>
+                <span class="ml-2">{{mediaDetails['spare_required']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Clone Required : </label>
+                <span class="ml-2">{{mediaDetails['media_clone']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Media Found Encrypted : </label>
+                <span class="ml-2">{{mediaDetails['encryption_status']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['encryption_status'] == 'Yes'">
+                <label class="control-label">Encryption Name : </label>
+                <span class="ml-2">{{mediaDetails['encryption_name']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['encryption_status'] == 'Yes'">
+                <label class="control-label">Encryption Level Identified on the Media : </label>
+                <span class="ml-2">{{mediaDetails['encryption_type']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['encryption_status'] == 'Yes'">
+                <label class="control-label">Details Provided For Decryption are up to Mark : </label>
+                <span class="ml-2">{{mediaDetails['encryption_details_correct']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Type of Operating System Identified : </label>
+                <span class="ml-2">{{mediaDetails['media_os']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Data Status Identified : </label>
+                <span class="ml-2">{{mediaDetails['compression_status']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">File System Consistency Check for Required Data : </label>
+                <span class="ml-2">{{mediaDetails['file_system_info']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Cause of Data Loss : </label>
+                <span class="ml-2">{{mediaDetails['data_loss_reason']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Recovery Possibility : </label>
+                <span class="ml-2">{{mediaDetails['recovery_possibility']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'Yes'">
+                <label class="control-label">Recovered Data Files and Folder’s Structure : </label>
+                <span class="ml-2">{{mediaDetails['recoverable_data']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'Yes'">
+                <label class="control-label">Recovery Percentage : </label>
+                <span class="ml-2">{{mediaDetails['recovery_percentage']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'Yes'">
+                <label class="control-label">Required Days : </label>
+                <span class="ml-2">{{mediaDetails['required_days']}}</span>
+            </div>
+
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'Yes'">
+                <label class="control-label">Inspection Due Reason : </label>
+                <span class="ml-2">{{mediaDetails['assessment_due_reason']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3" *ngIf="mediaDetails['recovery_possibility'] == 'No'">
+                <label class="control-label">Case Not Possible Reason : </label>
+                <span class="ml-2">{{mediaDetails['no_recovery_reason'] + " " +
+                    mediaDetails['no_recovery_reason_other']}}</span>
+            </div>
+        </div>
+    </div>
+</section>
+<section class="content mb-3" *ngIf="mediaDetails['job_id'] != null">
+    <div class="container-fluid border p-4">
+        <!-- <div class="row ">
+            <div class="col-lg-12 col-md-12">
+                <h2>Recovery</h2>
+            </div>
+        </div> -->
+        <div class="row" *ngIf="mediaDetails['Observation'] != null">
+            <div class="col-lg-12 col-md-12">
+              <h2>Initial Observation</h2><hr>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B. Found Faulty: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['p_c_b_found_faulty']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Unique Rom Chip: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['unique_rom_chip']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B. Original: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['p_c_b_original']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Motor ( Rotational System ) Found Faulty: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['motor_found_faulty']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B. Found Tampered: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['p_c_b_found_tempered']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Head Stack Assembly: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['head_stack_assembly']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Found Foreign Particles On Platters: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['found_foreign_particles_on_platters']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Total Numbers Of Heads: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['total_numbers_of_heads']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Total Number Of Platters: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['total_number_of_platters']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Number Of Working Heads: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['number_of_working_heads']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Number Of Non Working Heads: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['number_of_non_working_heads']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Condition Of Platter Surface: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['condition_of_platter_surface']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Condition Of Multiple Platter Surface: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['condition_of_multiple_platter_surface']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Platter Cleaning Required At Initial Stage: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['platter_cleaning_required_at_initial_stage']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">P.C.B Rom Is Corrupted: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['p_c_b_rom_is_corrupted']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">The Modules In The Service Area Are Corrupted: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['service_area_are_corrupted']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Imaging Process At Initial Stage: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['imaging_process_at_initial_stage']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Similar Spare Required: </label>
+                <span class="ml-2">{{mediaDetails['Observation']['spare_required']}}</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="mediaDetails['Recovery'] != null">
+            <div class="col-lg-12 col-md-12">
+              <h2>Clone Creation</h2><hr>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Clone Creation Completed: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['clone_creation']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Start Date:  </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['start_date']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">End Date: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['end_date']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Information Related to Clone: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['cloned_done']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Details of Cloned Sectors: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['cloned_sectors']}}</span>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <h2>Data Encrypted</h2><hr>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Data Encrypted: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['data_encrypted']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Clone Required: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['clone_required_encrypted']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Decryption Details Received: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['decryption_details']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Data Decrytion Successful: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['decryption_data']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Request for Correct Encryption details: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['decryption_details_send']}}</span>
+            </div>
+            <div class="col-lg-12 col-md-12">
+                <h2>Client Data Recoverable</h2><hr>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Data Verifcation: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['recoverable_data']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Send Clone To Branch: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['clone_branch']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Clone Required: </label>
+                <span class="ml-2">{{mediaDetails['Recovery']['clone_required_recoverable']}}</span>
+            </div>
+        </div>
+        <div class="row" *ngIf="mediaDetails['Directory_Listing'] != null">
+            <div class="col-lg-12 col-md-12">
+                <h2>Directory Listing Details</h2><hr>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Type of Data Recovered: </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['data_recovered']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Total Number of Files: </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['total_file']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Total Data Size: </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['total_data_size']}}</span>
+            </div>
+     
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Data Stored on Media: </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['data_store_media']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Uplaod Directory Listing: </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['directory_listing']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Data Ready for Delivery:  </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['data_delivery']}}</span>
+            </div>
+            <div class="col-lg-6 col-md-6 mb-3">
+                <label class="control-label">Recovered Data Files and Folder’s Structure: </label>
+                <span class="ml-2">{{mediaDetails['Directory_Listing']['recoverable_data']}}</span>
+            </div>
+        </div>
+    </div>
+</section>

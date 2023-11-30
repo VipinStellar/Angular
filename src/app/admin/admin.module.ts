@@ -80,6 +80,8 @@ import { PaymentEditComponent } from './payment/payment-edit.component'
 import { PaymentListComponent } from './payment/payment-list.component';
 import { PaymentViewComponent } from './payment/payment-view.component';
 import { PoEditComponent } from './payment/po-edit.component';
+import { HddViewDeatils } from './media/hdd-view.component';
+import { SddViewDeatils} from './media/sdd-view.component';
 
 @NgModule({
   declarations: [
@@ -141,7 +143,9 @@ import { PoEditComponent } from './payment/po-edit.component';
     PaymentEditComponent,
     PaymentListComponent,
     PaymentViewComponent,
-    PoEditComponent    
+    PoEditComponent,
+    HddViewDeatils,
+    SddViewDeatils    
   ],
   imports: [
     CommonModule,

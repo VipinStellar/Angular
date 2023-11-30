@@ -85,13 +85,12 @@
                    <input *ngIf="f['media_make'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_make_other" [ngClass]="{ 'is-invalid': submitted && f['media_make_other'].errors }" placeholder="Please Enter Others Media Make" maxlength="50"> 
                   </div>
                 <div class="col-4 p-3" *ngIf="mediaFieldShow">
-                  <label class="control-label">Media Capacity : </label>
-                 
-
+                  <label class="control-label">Media Capacity : </label>             
                   <mat-select class="form-control form-control-sm" formControlName="media_capacity">
-                    <mat-select-filter [array]="mediaCapacityList" (filteredReturn)="mediaCapacityOption =$event"></mat-select-filter>
+                    <!-- <mat-select-filter [array]="mediaCapacityList" (filteredReturn)="mediaCapacityOption =$event"></mat-select-filter>
                     <mat-option *ngFor="let type of mediaCapacityOption" [value]="type">{{type}}
-                    </mat-option>
+                    </mat-option> -->
+                    <mat-option *ngFor="let type of mediaOption['capacity']" [value]="type">{{type}}</mat-option>
                   </mat-select>
 
                   <input *ngIf="f['media_capacity'].value == 'Others'" type="text" class="form-control form-control-sm mt-1" formControlName="media_capacity_other" [ngClass]="{ 'is-invalid': submitted && f['media_capacity_other'].errors }" placeholder="Please Enter Others Media Capacity" maxlength="50"> 
