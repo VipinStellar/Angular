@@ -10,7 +10,7 @@
        </div>
         </div>   
         <div class="col-6 pt-2">
-            <label class="control-label">GST Number <sup class="text-danger">*</sup> : </label>
+            <label class="control-label">GST Number <sup class="text-danger">*</sup> : </label>&nbsp;<a target="_blank" href="https://services.gst.gov.in/services/searchtp">Click Here To Authenticate GSTIN</a>
             <input type="text" class="form-control form-control-sm uppercase"  formControlName="gst_number" [ngClass]="{ 'is-invalid': submitted && tc['gst_number'].errors }">
             <div *ngIf="submitted && tc['gst_number'].errors" class="invalid-feedback">
              <div *ngIf="tc['gst_number'].errors['required']">GST Number is required</div>

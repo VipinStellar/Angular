@@ -46,18 +46,18 @@
                   </ng-container>
                   <ng-container matColumnDef="deal_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Zoho Record Id</th>
-                    <td mat-cell *matCellDef="let element">{{element?.deal_id}} </td>
+                    <td mat-cell *matCellDef="let element">{{(element.job_id==null)?element?.deal_id:element?.job_id}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="job_id">
+                  <!-- <ng-container matColumnDef="job_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
                     <td mat-cell *matCellDef="let element">
                         {{element?.job_id}}</td>
-                  </ng-container>
+                  </ng-container> -->
       
-                  <ng-container matColumnDef="customer_id">
+                  <!-- <ng-container matColumnDef="customer_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
                     <td mat-cell *matCellDef="let element"> {{element?.customer_name}} </td>
-                  </ng-container>
+                  </ng-container> -->
                   <ng-container matColumnDef="branch_id">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Base Branch</th>
                     <td mat-cell *matCellDef="let element"> {{element?.branch_name}} </td>
@@ -66,10 +66,10 @@
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Transfer To</th>
                     <td mat-cell *matCellDef="let element"> {{(element.client_media_send ==0)?element.new_branch_id:'Client'}} </td>
                   </ng-container>
-                  <ng-container matColumnDef="media_type">
+                  <!-- <ng-container matColumnDef="media_type">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Media Type </th>
                     <td mat-cell *matCellDef="let element"> {{element?.media_type}} </td>
-                  </ng-container>
+                  </ng-container> -->
                   <ng-container matColumnDef="stage_name">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Status </th>
                     <td mat-cell *matCellDef="let element"> {{element.stage_name}} </td>
@@ -80,7 +80,7 @@
                   </ng-container>
                   <ng-container matColumnDef="media_in_date">
                     <th mat-header-cell *matHeaderCellDef mat-sort-header>Media Receive Date</th>
-                    <td mat-cell *matCellDef="let element"> {{element?.media_in_date | date:'medium'}} </td>
+                    <td mat-cell *matCellDef="let element"> {{element?.media_in_date | date:'MMM dd, yyyy  hh:mm a'}} </td>
                   </ng-container>
                   <ng-container matColumnDef="action">
                     <th mat-header-cell *matHeaderCellDef>Action </th>

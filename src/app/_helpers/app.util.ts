@@ -374,6 +374,36 @@ export class AppUtil {
         return reason[type];
     }
 
+    static getStatus(data)
+    {
+        let stages = [];
+        if(data['stage'] == 1 || data['stage'] == 2)
+        {
+            stages = [{ id: 15, stage_name: 'Not Interested' }] as any;
+        }
+        else if(data['stage'] == 3)
+        {
+            stages = [{ id: 4, stage_name: 'Media In' },{ id: 15, stage_name: 'Not Interested' }] as any;
+        }
+        else if(data['stage'] == 4 || data['stage'] == 5)
+        {
+            stages = [{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
+        }
+        else if(data['stage'] == 6)
+        {
+            stages = [{ id: 8, stage_name: 'Waiting for Confirmation' },{ id: 9, stage_name: 'Confirmed' },{ id: 10, stage_name: 'Not Confirmed' },{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
+        }
+        else if(data['stage'] == 8)
+        {
+            stages = [{id: 9, stage_name: 'Confirmed' },{ id: 10, stage_name: 'Not Confirmed' },{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
+        }
+        else if(data['stage'] == 9)
+        {
+            stages = [{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
+        }
+        return stages;
+    }
+
 
 
 

@@ -100,7 +100,7 @@
             *ngIf="mediaDetails['FinalPrice'] !=null">
             <thead>
               <tr class="table-title">
-                <th colspan="8" class="h6">Recovery Charges</th>
+                <th colspan="9" class="h6">Recovery Charges</th>
               </tr>
               <tr>
                 <th width="10">S.No</th>
@@ -109,6 +109,7 @@
                 <th width="200">Advance %</th>
                 <th width="200">Tax Rate</th>
                 <th width="200">Total Service Fee</th>
+                <th width="200">Total Advance Amount</th>
                 <th width="200">Paid Amount</th>
                 <th width="200">Balance Amount</th>
               </tr>
@@ -121,12 +122,13 @@
                 <td> {{mediaDetails['FinalPrice']['advance_percent']}}%</td>
                 <td> {{mediaDetails['FinalPrice']['tax_rate']}}%</td>
                 <td>Rs. {{mediaDetails['FinalPrice']['total_amount']}}</td>
+                <td>Rs. {{advenceamountcal(mediaDetails['FinalPrice']['total_amount'],mediaDetails['FinalPrice']['advance_percent'])}}</td>
                 <td>Rs. {{mediaDetails['FinalPrice']['paid_amount']}}</td>
                 <td>Rs. {{mediaDetails['FinalPrice']['balance_amount']}}</td>
               </tr>
             </tbody>
             <tr class="table-title">
-              <td colspan="8" class="h6">Tax Applicable: {{(mediaDetails['tax_applicable']=='1')?'Yes':'No'}}
+              <td colspan="9" class="h6">Tax Applicable: {{(mediaDetails['tax_applicable']=='1')?'Yes':'No'}}
                 <a href="{{backEndUrl}}{{mediaDetails['payLink']}}" target="_blank" style="float: right;">Pay Link</a>
               </td>
             </tr>
@@ -163,7 +165,7 @@
                 <td>Rs. {{item['tax_amount']}}</td>
                 <td>Rs. {{item['new_total_amount']}}</td>
                 <td> {{item['status']}}</td>
-                <td> {{item['created_on'] | date:'medium'}}</td>
+                <td> {{item['created_on'] | date:'MMM dd, yyyy  hh:mm a'}}</td>
 
               </tr>
             </tbody>
@@ -195,13 +197,13 @@
                 <td>{{item['order_no']}}</td>
                 <td>{{item['payment_txnid']}}</td>
                 <td>Rs. {{item['payment_amount']}}</td>
-                <td> {{item['payment_timestamp'] | date:'medium'}}</td>
+                <td> {{item['payment_timestamp'] | date:'mediumDate'}}</td>
                 <td>
                   <p *ngIf="item['invoice_no'] != null">{{item['invoice_no']}}</p>
                   <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="addPayment(item)"
                     class="btn btn-primary btn-sm mb-1 mr-1" title="Edit Payment"><i class="nav-icon fas fa-edit"></i>
                   </a>
-                  <a href="{{ PDFurl }}{{item['reqId']}}/view" title="Preview Invoice" target="_blank" *ngIf="item['invoice_no'] == null" 
+                  <a href="{{ PDFurl }}{{'generate-pdf/'+item['reqId']}}/view" title="Preview Invoice" target="_blank" *ngIf="item['invoice_no'] == null" 
                     class="btn btn-primary btn-sm"><i class="nav-icon fas fa-eye"></i>
                   </a>
                   <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="generateInvoice(item)"
@@ -210,7 +212,7 @@
                   <a href="javascript:void(0)" *ngIf="item['invoice_no'] != null && item['irn_status'] == 0" (click)="generateIrn(item)"
                   class="btn btn-primary btn-sm mb-1">Generate Irn</a>
 
-                  <a target="_blank"  href="{{ PDFurl }}{{item['invoice_no'].split('/').join('-')}}/preview" *ngIf="item['invoice_no'] != null && item['irn_status'] != 0"  class="btn btn-primary btn-sm mb-1"><i class="nav-icon fas fa-solid fa-file-invoice"></i></a>
+                  <a target="_blank"  href="{{ PDFurl }}view-invoice/{{item['invoice_id']+'/'+item['reqId']}}" *ngIf="item['invoice_no'] != null && item['irn_status'] != 0"  class="btn btn-primary btn-sm mb-1"><i class="nav-icon fas fa-solid fa-file-invoice"></i></a>
 
                 </td>
               </tr>

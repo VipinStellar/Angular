@@ -28,7 +28,7 @@ export class WipingList implements OnInit {
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
     wipingList: MatTableDataSource<Media> = new MatTableDataSource();
-    displayedColumns: string[] = ['job_id', 'customer_id','media_type','stage_name','request_wiping_date','expected_wiping_date','approve_wiping_date','name','action'];
+    displayedColumns: string[] = ['job_id','media_type','stage_name','action'];
     constructor(private mediaService: MediaService,public dialog: MatDialog,private accountService:AccountService){}
     ngOnInit(): void {
       this.user =  this.accountService.userValue;
@@ -61,16 +61,16 @@ export class WipingList implements OnInit {
     this.loadData();
   }
 
-
-  updateWiping(row)
+    IseRequestWiping(ele)
     {
-      const dialogRef = this.dialog.open(WipingEditComponent, {
-        data: row,
-        disableClose: true,
-        autoFocus: true,
-        width: "25rem"
+      this.mediaService.requestWiping(ele['id'],'ISE').subscribe( data => {
+        this.loadData();
       });
-      dialogRef.afterClosed().subscribe(result => {
+    }
+
+    TechRequestWiping(ele)
+    {
+      this.mediaService.requestWiping(ele['id'],'BRANCH').subscribe( data => {
         this.loadData();
       });
     }

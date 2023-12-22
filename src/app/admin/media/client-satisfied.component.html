@@ -1,0 +1,128 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+    <form [formGroup]="client">
+        <div class="row">
+            <div class="col-6">
+                <label class="control-label">Client Satisfied With Data: </label>
+                <select class="form-control form-control-sm" formControlName="dl_status" [ngClass]="{ 'is-invalid': submitted && cf['dl_status'].errors }">
+                    <option value="Yes">Yes</option>                                                     
+                    <option value="No">No</option>                                                            
+                </select>
+                <div *ngIf="submitted && cf['dl_status'].errors" class="invalid-feedback">
+                    <div *ngIf="cf['dl_status'].errors['required']">Client Satisfied With Data required</div>
+                  </div>
+              </div>
+              <ng-container *ngIf="cf['dl_status'].value =='Yes'">
+            <div class="col-6">
+                <label class="control-label">Mode of Data Verification: </label>
+                <select class="form-control form-control-sm" formControlName="data_varification" [ngClass]="{ 'is-invalid': submitted && cf['data_varification'].errors }">
+                    <option value="DL Verification">DL Verification</option>              
+                    <option value="Remote Verification">Remote Verification</option>              
+                    <option value="Stellar's premises Verification">Stellar's premises Verification</option>              
+                </select>
+                <div *ngIf="submitted && cf['data_varification'].errors" class="invalid-feedback">
+                    <div *ngIf="cf['data_varification'].errors['required']">Mode of Data Verification required</div>
+                  </div>
+              </div>
+              <div class="col-6 pt-2">
+                <label class="control-label">Mode of Data verification approval: </label>
+                <select class="form-control form-control-sm" formControlName="data_varification_approval" [ngClass]="{ 'is-invalid': submitted && cf['data_varification_approval'].errors }">
+                    <option value="Email">Email</option>                           
+                    <option value="Data acceptance letter">Data acceptance letter</option>                           
+                    <option value="Data acceptance & Credit facility letter">Data acceptance & Credit facility letter</option>                           
+                </select>
+                <div *ngIf="submitted && cf['data_varification_approval'].errors" class="invalid-feedback">
+                    <div *ngIf="cf['data_varification_approval'].errors['required']">Mode of Data verification approval required</div>
+                  </div>
+              </div>
+              <div class="col-6 pt-2">
+                <label class="control-label">Data Recovery Results: </label>
+                <select class="form-control form-control-sm" formControlName="data_recovery_result" [ngClass]="{ 'is-invalid': submitted && cf['data_recovery_result'].errors }">
+                    <option value="Partial">Partial</option>                                                     
+                    <option value="Complete">Complete</option>                                                     
+                </select>
+                <div *ngIf="submitted && cf['data_recovery_result'].errors" class="invalid-feedback">
+                    <div *ngIf="cf['data_recovery_result'].errors['required']">Data Recovery Results required</div>
+                  </div>
+              </div>
+              
+              <div class="col-6 pt-2">
+                <label class="control-label">Data Delivery Mode: </label>
+                <select class="form-control form-control-sm" formControlName="copyin" [ngClass]="{ 'is-invalid': submitted && cf['copyin'].errors }">
+                    <option value="DCP">DCP</option>                                                     
+                    <option value="Client Media">Client Media</option>                                                     
+                    <option value="Stellar HDD">Stellar HDD</option>                                                     
+                    <option value="CD/DVD">CD/DVD</option>                                                     
+                    <option value="Online Transfer">Online Transfer</option>                                                     
+                </select>
+                <div *ngIf="submitted && cf['copyin'].errors" class="invalid-feedback">
+                    <div *ngIf="cf['copyin'].errors['required']">Data Delivery Mode required</div>
+                  </div>
+              </div>
+              <div class="col-6 pt-2">
+                <label class="control-label">Peripheral Details: </label>
+                <input type="text" formControlName="peripheral_details" class="form-control form-control-sm"   />
+                <div *ngIf="submitted && cf['peripheral_details'].errors" class="invalid-feedback">
+                    <div *ngIf="cf['peripheral_details'].errors['required']">Peripheral Details required</div>
+                  </div>
+              </div>
+            <div class="col-12 pt-2">
+                    <form [formGroup]="copymediaDetails" *ngIf="cf['copyin'].value != null && cf['copyin'].value !='Online Transfer' && cf['copyin'].value !='Stellar HDD'">
+                    <div *ngFor="let test of formDteails.controls; let i = index">
+                      <div class="row text-center" [formGroup]="test">
+                       <div class="form-group col" *ngIf="cf['copyin'].value !='CD/DVD'">
+                          <label class="control-label">Media S/N:</label>
+                          <input type="text" formControlName="media_sn" class="form-control form-control-sm"   />
+                        </div>
+                        <div class="form-group col" *ngIf="cf['copyin'].value =='CD/DVD'" >
+                            <label class="control-label" style="float: inline-start;">CD/DVD Size:</label>
+                            <input type="text" formControlName="cdSize" class="form-control form-control-sm"   />
+                          </div>
+                        <div class="form-group col" *ngIf="cf['copyin'].value !='CD/DVD'">
+                          <label class="control-label">Media Model:</label>
+                          <input type="text" formControlName="media_model" class="form-control form-control-sm"   />
+                        </div>
+                        <div class="form-group col" *ngIf="cf['copyin'].value !='CD/DVD'">
+                          <label class="control-label">Capacity:</label>
+                          <input type="text" formControlName="capacity" class="form-control form-control-sm"   />
+                        </div>
+                        <div class="form-group col" *ngIf="cf['copyin'].value !='CD/DVD'">
+                          <label class="control-label">Media Make:</label>
+                          <input type="text" formControlName="media_make" class="form-control form-control-sm"   />
+                        </div>
+                        <!-- <div class="form-group col">
+                          <label class="control-label">Inventory No:</label>
+                          <input type="text" formControlName="inventry_num" class="form-control form-control-sm"   />
+                        </div> -->
+                      </div>
+                    </div>
+                </form>
+                </div>
+                </ng-container>
+                <ng-container *ngIf="cf['dl_status'].value =='No'">
+                    <div class="col-6">
+                        <label class="control-label">Rework required: </label>
+                        <select class="form-control form-control-sm" formControlName="rework" [ngClass]="{ 'is-invalid': submitted && cf['rework'].errors }">
+                            <option value="Yes">Yes</option>                                                     
+                            <option value="No">No</option>                                                            
+                        </select>
+                        <div *ngIf="submitted && cf['rework'].errors" class="invalid-feedback">
+                            <div *ngIf="cf['rework'].errors['required']">Rework required</div>
+                          </div>
+                      </div>
+                </ng-container>
+                <div class="col-lg-12 col-md-12 pt-2">
+                    <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+                    <textarea class="form-control form-control-sm" formControlName="remarks"
+                      [ngClass]="{ 'is-invalid': submitted && cf['remarks'].errors }" ></textarea>
+                    <div *ngIf="submitted && cf['remarks'].errors" class="invalid-feedback">
+                      <div *ngIf="cf['remarks'].errors['required']">Remarks is required</div>
+                    </div>
+                  </div>
+        </div>
+    </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()" >Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

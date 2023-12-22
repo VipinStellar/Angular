@@ -55,7 +55,7 @@ export class PreInspectionComponenet implements OnInit {
             tampered_status: [],
             service_mode: [''],
             media_interface: [''],
-            media_type: [''],
+            media_type: ['', [Validators.required]],
             media_model: [''],
             media_serial: [''],
             media_capacity: [''],
@@ -159,11 +159,13 @@ export class PreInspectionComponenet implements OnInit {
     }
 
     modeltoForm(media) {
+        let getMedia = AppUtil.getMediaType();
+        let mediatype = getMedia.includes(media.media_type);
         this.appendOption(media.media_make, 'media_make');
         this.appendOption(media.media_capacity, 'capacity');
         this.mediaEdit.setValue({
             id: media.id,
-            media_type: media.media_type,
+            media_type: (mediatype)?media.media_type:'',
             drive_count: media.drive_count,
             media_interface: media.media_interface,
             media_casing: media.media_casing,

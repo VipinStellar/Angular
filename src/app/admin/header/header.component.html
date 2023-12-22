@@ -177,7 +177,7 @@
             </a>
           </li>
           
-          <li class="nav-item" *ngIf="user.role_id != 10">
+          <li class="nav-item" *ngIf="user.role_id == 10">
             <a routerLink="./transfer-media" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-tasks"></i>
             <p>Transfer Media</p>
@@ -189,19 +189,19 @@
               <p>Job Confirmation</p>
               *ngIf="permission.PermissionForAccess('gate-pass')"
             </a> -->
-            <li class="nav-item" *ngIf="user.role_id != 10">
+            <li class="nav-item" *ngIf="user.role_id == 10">
               <a routerLink="./gate-pass" class="nav-link" routerLinkActive="active">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>Gate Pass</p>
               </a>
           </li>
-          <li class="nav-item" *ngIf="user.role_id != 10">
+          <li class="nav-item" >
             <a routerLink="./wiping-list" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-sign-out-alt"></i>
               <p>Wiping List</p>
             </a>
         </li>
-        <li class="nav-item" *ngIf="user.role_id != 10">
+        <li class="nav-item" >
           <a routerLink="./wiping-due-list" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-calendar"></i>
             <p>Wiping Due List</p>

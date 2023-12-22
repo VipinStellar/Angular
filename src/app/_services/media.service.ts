@@ -176,6 +176,11 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'recovery/update-media-dl', data);
     }
 
+    reworkUpdate(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/rework-update', data);
+    }
+
     getMediaOutList(searchParams: any) {
         return this.http.post(environment.apiUrl + 'media/mediaoutlist', searchParams);
     }
@@ -190,6 +195,11 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'recovery/requsetmediaout', data);
     }
 
+    sendMediaToClient(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/send-media-to-client', data);
+    }
+
     responcemediaout(data)
     {
         return this.http.post(environment.apiUrl + 'recovery/responcemediaout', data);
@@ -199,9 +209,9 @@ export class MediaService {
         return this.http.post(environment.apiUrl + 'job/wiping-list', searchParams);
     }
 
-    requestWiping(mediaId)
+    requestWiping(mediaId,type)
     {
-        return this.http.get(environment.apiUrl + 'job/request-wiping/'+mediaId);
+        return this.http.get(environment.apiUrl + 'job/request-wiping/'+mediaId+'/'+type);
     }
 
     updateWipeStatus(data)
@@ -216,6 +226,11 @@ export class MediaService {
     updateStatus(data)
     {
         return this.http.post(environment.apiUrl + 'media/media-status-update', data);
+    }
+
+    sendAttahment(mediaId)
+    {
+        return this.http.get(environment.apiUrl + 'media/send-attachment/'+mediaId);
     }
     
 

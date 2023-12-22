@@ -29,12 +29,13 @@
             </div>            
             <div class="col-6 pt-2" *ngIf="pf['existing_payment'].value !='Credit'">
                 <label class="control-label">Payment Date <sup class="text-danger">*</sup> : </label>
-                <div class="input-group date" id="dateTimeCalendar" data-target-input="nearest" >
+                <input type="date"  class="form-control form-control-sm" formControlName="payment_date" [ngClass]="{ 'is-invalid': submitted && pf['payment_date'].errors }"/>
+                <!-- <div class="input-group date" id="dateTimeCalendar" data-target-input="nearest" >
                     <input type="text"  class="form-control form-control-sm datetimepicker-input" #calRefference  data-target="#dateTimeCalendar" formControlName="payment_date" [ngClass]="{ 'is-invalid': submitted && pf['payment_date'].errors }"/>
                     <div class="input-group-append" data-target="#dateTimeCalendar" data-toggle="datetimepicker">
                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                     </div>
-                </div>
+                </div> -->
                 <div *ngIf="submitted && pf['payment_date'].errors" class="invalid-feedback">
                     <div *ngIf="pf['payment_date'].errors['required']">Payment Date is required</div>
                   </div>
@@ -48,8 +49,8 @@
             <div class="col-6 pt-2">
                 <label class="control-label">Payment Channel <sup class="text-danger">*</sup> : </label>
                 <select  class="form-control form-control-sm" formControlName="payment_channel" [ngClass]="{ 'is-invalid': submitted && pf['payment_channel'].errors }">
-                    <!-- <option value="Online">Online</option> -->
-                    <option value="Offline">Offline</option>
+                       <option value="Offline">Offline</option>
+                       <option value="Online-Admin">Online</option>
                 </select>
                 <div *ngIf="submitted && pf['payment_channel'].errors" class="invalid-feedback">
                  <div *ngIf="pf['payment_channel'].errors['required']">Payment Channel is required</div>
@@ -90,11 +91,11 @@
     <button mat-button class=" btn btn-primary btn-sm"(click)="onSubmit()">Save</button> 
  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
 </mat-dialog-actions>
-<style>
+<!-- <style>
     ::ng-deep .mat-dialog-content {
       overflow: visible !important;
     }
     ::ng-deep  .mat-dialog-container{
         overflow: visible !important;
      }
-</style>
+</style> -->

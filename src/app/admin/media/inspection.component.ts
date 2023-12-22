@@ -484,6 +484,7 @@ export class InspectionComponent implements OnInit {
               formData.append('media_id', this.mediaDetails['id']);
             for (let i = 0; i < this.selectedFiles.length; i++) {
                 formData.append('files', this.selectedFiles[i]);
+                formData.append('type', 'assessment');
                 this.http.post(this.uploadUrl + 'media/upload', formData).subscribe(data => { this.mediaDetails
                     ['fileUpload'] =  data['data'];
                 });

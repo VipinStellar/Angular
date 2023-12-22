@@ -9,7 +9,7 @@
         <div class="row">
           <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
           </div>
-          <div class="col-md-8" *ngIf="(mediaDetails['stage'] == 9 || mediaDetails['stage'] == 22) && user.id == mediaDetails['user_id']">
+          <div class="col-md-8" *ngIf="user.id == mediaDetails['user_id']">
             <form [formGroup]="jobStatus">
 
                 <div class="form-group   ">
@@ -55,7 +55,7 @@
                 </tr>
                 <tr *ngFor="let item of mediaEditHistory; let i = index">
                     <td>{{i+1}}</td>
-                    <td>{{mediaEditHistory[i]['added_on'] | date:'medium'}}</td>
+                    <td>{{mediaEditHistory[i]['added_on'] | date:'MMM dd, yyyy  hh:mm a'}}</td>
                     <td>{{ mediaEditHistory[i]['Username'] }}</td>
                     <td>{{mediaEditHistory[i]['status']}}</td>
                 </tr>

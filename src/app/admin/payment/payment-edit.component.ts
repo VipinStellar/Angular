@@ -3,8 +3,8 @@ import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
 import { PaymentService } from './../../_services/payment.service';
-declare var $: any; // Declare jQuery
 import { DatePipe } from '@angular/common';
+import { formatDate } from "@angular/common";
 @Component({
     selector: 'app-payment-edit',
     templateUrl: './payment-edit.component.html',
@@ -15,7 +15,6 @@ export class PaymentEditComponent implements OnInit {
     submitted: boolean;
     serverError:string = '';
     serverErrorShow:boolean;
-    @ViewChild("calRefference") calRefference: ElementRef;
     pipe = new DatePipe('en-US');
     constructor(private dialogRef: MatDialogRef<PaymentEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any, private formBuilder: FormBuilder,private el: ElementRef,
@@ -23,11 +22,6 @@ export class PaymentEditComponent implements OnInit {
         this.diaTitle = "Pay Payment";
 
     }
-    ngAfterViewInit() {
-        $(this.el.nativeElement).find('#dateTimeCalendar').datetimepicker(
-            {sideBySide: true,allowInputToggle :true, timePicker: true,format: 'DD-MM-YYYY hh:mm A',icons: { time: 'far fa-clock' }       
-        });
-      }
     ngOnInit(): void {
         this.paymnetFrom = this.formBuilder.group({
             media_id: [this.data[0]['id']],
@@ -46,7 +40,7 @@ export class PaymentEditComponent implements OnInit {
             this.modeltofrom();
             this.CreateInvoice(this.pf['existing_payment'].value)
         }
-     
+
     }
 
     modeltofrom() {
@@ -55,7 +49,7 @@ export class PaymentEditComponent implements OnInit {
             txn_no: this.data[1]['payment_txnid'],
             plan_type: this.data[1]['plan_type'],
             reqId: this.data[1]['reqId'],
-            payment_date: (this.data[1]['payment_timestamp'] !=null && this.data[1]['payment_timestamp']!='')?this.pipe.transform(new Date(this.data[1]['payment_timestamp']), 'd-M-yyyy h:mm a'):'',
+            payment_date: (this.data[1]['payment_timestamp'] !=null && this.data[1]['payment_timestamp']!='')?this.formatFormDate(new Date(this.data[1]['payment_timestamp'])):'',
             existing_payment: this.data[1]['existing_payment'],
             payment_channel: this.data[1]['payment_channel'],
             payment_mode: this.data[1]['payment_mode'],
@@ -70,8 +64,7 @@ export class PaymentEditComponent implements OnInit {
         this.dialogRef.close();
     }
 
-    onSubmit() {
-        this.pf['payment_date'].setValue(this.calRefference.nativeElement.value);
+    onSubmit() {       
         this.submitted = true;
         if (this.paymnetFrom.invalid) {
             return false;
@@ -110,6 +103,7 @@ export class PaymentEditComponent implements OnInit {
     CreateInvoice(val) {
         if (val == 'Credit') {
             this.pf['po_number'].setValidators([Validators.required]);
+            this.pf['po_number'].updateValueAndValidity();
             this.pf['payment_mode'].clearValidators();
             this.pf['payment_mode'].updateValueAndValidity();
             this.pf['payment_date'].clearValidators();
@@ -121,8 +115,15 @@ export class PaymentEditComponent implements OnInit {
             this.pf['payment_mode'].setValidators([Validators.required]);
             this.pf['payment_date'].setValidators([Validators.required]);
             this.pf['txn_no'].setValidators([Validators.required]);
+            this.pf['payment_mode'].updateValueAndValidity();
+            this.pf['payment_date'].updateValueAndValidity();
+            this.pf['txn_no'].updateValueAndValidity();
             this.pf['po_number'].clearValidators();
             this.pf['po_number'].updateValueAndValidity();
         }
     }
+
+    formatFormDate(date: Date) {
+        return formatDate(date, 'yyyy-MM-dd', 'en');
+      }
 }

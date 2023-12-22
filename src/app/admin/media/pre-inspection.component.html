@@ -45,10 +45,13 @@
                 </div>
                 <div class="col-4 p-3">
                   <label class="control-label">Media Type : </label>
-                  <mat-select class="form-control form-control-sm" formControlName="media_type" (selectionChange)="mediaTypeChange()">
+                  <mat-select [ngClass]="{ 'is-invalid': submitted && f['media_type'].errors }" class="form-control form-control-sm" formControlName="media_type" (selectionChange)="mediaTypeChange()">
                     <mat-option *ngFor="let type of mediaOption['mediaType']" [value]="type">{{type}}
                     </mat-option>
                   </mat-select>
+                  <div *ngIf="submitted && f['media_type'].errors" class="invalid-feedback">
+                    <div *ngIf="f['media_type'].errors['required']">Media Type is required</div>
+                  </div>
                 </div>
                 <div class="col-4 p-3" *ngIf="f['media_type'].value !='Tape Library'">
                   <label class="control-label">Media Category: </label>

@@ -6,6 +6,7 @@ import { MediaService } from '../../_services/media.service';
 import { ContactService } from '../../_services/contact.service';
 import { MatDialog } from '@angular/material/dialog';
 import { ContactEditComponent } from '../contact/contact-edit.component';
+import { AppUtil } from 'src/app/_helpers/app.util';
 @Component({
     selector: 'app-status-update',
     templateUrl: './status-update.component.html',
@@ -14,7 +15,7 @@ export class StatusUpdateComponent implements OnInit {
     diaTitle: string;
     submitted: boolean;
     statusFrom: FormGroup;
-    stages: [];
+    stages:any [];
     constructor(private formBuilder: FormBuilder,
         private toastrService: ToastrService,
         private mediaService:MediaService,
@@ -25,7 +26,6 @@ export class StatusUpdateComponent implements OnInit {
             this.diaTitle= 'Status Update';
         }
        ngOnInit(): void {
-        this.getStatus();
         this.statusFrom = this.formBuilder.group({ 
             media_id:[this.data['id']],            
             status: ['',[Validators.required]],
@@ -35,6 +35,7 @@ export class StatusUpdateComponent implements OnInit {
             po_date:[''],
             reason: [''],
           });
+          this.stages = AppUtil.getStatus(this.data);
     }
 
     get ts() { return this.statusFrom.controls; }
@@ -70,30 +71,6 @@ export class StatusUpdateComponent implements OnInit {
 
     hide() {
         this.dialogRef.close();
-    }
-
-    getStatus()
-    {
-        if(this.data['stage'] == 1 || this.data['stage'] == 2)
-        {
-            this.stages = [{ id: 15, stage_name: 'Not Interested' }] as any;
-        }
-        else if(this.data['stage'] == 3)
-        {
-            this.stages = [{ id: 4, stage_name: 'Media In' },{ id: 15, stage_name: 'Not Interested' }] as any;
-        }
-        else if(this.data['stage'] == 4 || this.data['stage'] == 5)
-        {
-            this.stages = [{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
-        }
-        else if(this.data['stage'] == 6)
-        {
-            this.stages = [{ id: 8, stage_name: 'Waiting for Confirmation' },{ id: 9, stage_name: 'Confirmed' },{ id: 10, stage_name: 'Not Confirmed' },{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
-        }
-        else if(this.data['stage'] == 9)
-        {
-            this.stages = [{ id: 14, stage_name: 'Not Done' },{ id: 15, stage_name: 'Not Interested' }] as any;
-        }
     }
 
     statusChange(value)

@@ -82,6 +82,10 @@ import { PaymentViewComponent } from './payment/payment-view.component';
 import { PoEditComponent } from './payment/po-edit.component';
 import { HddViewDeatils } from './media/hdd-view.component';
 import { SddViewDeatils} from './media/sdd-view.component';
+import { ClientSatisfiedComponent } from './media/client-satisfied.component';
+import { ReworkComponent } from './media/rework.component';
+import { PreviewData } from './media/preview-data.component';
+import { SendMediaClient } from './media/send-media-client.component';
 
 @NgModule({
   declarations: [
@@ -145,7 +149,11 @@ import { SddViewDeatils} from './media/sdd-view.component';
     PaymentViewComponent,
     PoEditComponent,
     HddViewDeatils,
-    SddViewDeatils    
+    SddViewDeatils,
+    ClientSatisfiedComponent,
+    ReworkComponent,
+    PreviewData,
+    SendMediaClient    
   ],
   imports: [
     CommonModule,

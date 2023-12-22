@@ -27,7 +27,7 @@
               <tbody>
                 <tr mdbTableCol *ngIf="item['module_type'] == 'ASSIGN-CHANGE'">
                   <td class="inc-td"></td>
-                  <td>{{item['added_on'] | date:'medium'}}</td>
+                  <td>{{item['added_on'] | date:'MMM dd, yyyy  hh:mm a'}}</td>
                   <td>{{item['user_name'] ==null ? item['added_by'] :
                     item['user_name'] }}</td>
                   <td [innerHtml]="item['remarks']"></td>

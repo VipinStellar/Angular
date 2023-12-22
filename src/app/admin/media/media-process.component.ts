@@ -15,6 +15,11 @@ import {RequestMediaOutComponenet }  from './request-media-out.component';
 import { ResponceMediaOutComponenet } from './responce-media-out.component';
 import { StatusUpdateComponent } from './status-update.component';
 import { ExtensionUpdateComponent } from './extension-update.component';
+import { ClientSatisfiedComponent } from './client-satisfied.component';
+import { ReworkComponent } from './rework.component';
+import { PreviewData } from './preview-data.component';
+import { SendMediaClient } from './send-media-client.component';
+import { AppUtil } from 'src/app/_helpers/app.util';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -24,6 +29,7 @@ export class MediaJobProcessComponent implements OnInit {
     _history:[];
     user: AuthUser;
     recListShow:boolean = false;
+    showStatusButton:boolean;
     constructor(private mediaService: MediaService, private route: ActivatedRoute,
                 private accountService:AccountService,public dialog: MatDialog) {}
     
@@ -37,11 +43,18 @@ export class MediaJobProcessComponent implements OnInit {
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
+            this.showStatusButtons(this.mediaDetails);
             if(this.mediaDetails['stage'] > 7 )
             this.recListShow = true;
           });                    
     }
 
+    showStatusButtons(data)
+    {
+     let status =  AppUtil.getStatus(data);
+     if(status.length !=0)
+      this.showStatusButton = true
+    }
     loadMediaHistory()
     {
         this.mediaService.mediaHistory(this.route.snapshot.params['id']).subscribe( data => {
@@ -131,8 +144,9 @@ export class MediaJobProcessComponent implements OnInit {
         });
       }
 
-      dataOutRequest(element)
+      dataOutRequest(element,type)
       {
+        element['reqType']= type
         const dialogRef = this.dialog.open(CopyDataComponent, {
           data: element,
           disableClose: true,
@@ -198,19 +212,19 @@ export class MediaJobProcessComponent implements OnInit {
       editButton(type,userId,stage)
       {
         
-        if(type == 'Pre-Inspection' && userId == this.user.id && (stage ==1 || stage == 2))
+        if(type == 'Pre-Inspection' && userId == this.user.id && (stage ==1 || stage == 2) && this.user.role_id != 10)
         {
             return true;
         }
-        else if(type == 'Inspection' && userId == this.user.id && (stage ==4 || stage == 5))
+        else if(type == 'Inspection' && userId == this.user.id && (stage ==4 || stage == 5) && this.user.role_id != 10)
         {
           return true;
         }
-        else if(type == 'Recovery' && userId == this.user.id && (stage ==9 || stage == 22))
+        else if(type == 'Recovery' && userId == this.user.id && (stage ==9 || stage == 22) && this.user.role_id != 10)
         {
           return true;
         }
-        else if(type == 'DLCONFIRM' && userId == this.user.id && stage !=10 && stage !=7 &&  stage != 14 &&  stage != 15)
+        else if(type == 'DLCONFIRM' && userId == this.user.id && stage !=10 && stage !=7 &&  stage != 14 &&  stage != 15 && this.user.role_id != 10)
         {
           return true;
         }
@@ -220,11 +234,62 @@ export class MediaJobProcessComponent implements OnInit {
         }
       }
 
-  wipingRequest()
+
+  clientDataSatisfy()
   {
-    this.mediaService.requestWiping(this.route.snapshot.params['id']).subscribe( data => {
+    const dialogRef = this.dialog.open(ClientSatisfiedComponent, {
+      data: this.mediaDetails,
+      disableClose: true,
+      autoFocus: true,
+      width: "45rem"
+    });
+    dialogRef.afterClosed().subscribe(result => {
       this.loadMediaDetails();
       this.loadMediaHistory();
     });
   }
+
+  reworkEdit()
+  {
+    const dialogRef = this.dialog.open(ReworkComponent, {
+      data: this.mediaDetails['Directory_Listing'],
+      disableClose: true,
+      autoFocus: true,
+      width: "45rem"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadMediaDetails();
+      this.loadMediaHistory();
+    });
+  }
+
+  ViewDlDetails()
+  {
+    const dialogRef = this.dialog.open(PreviewData, {
+      data: this.mediaDetails,
+      disableClose: true,
+      autoFocus: true,
+      width: "65rem"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadMediaDetails();
+      this.loadMediaHistory();
+    });
+
+  }
+
+  mediaOutForClient()
+  {
+    const dialogRef = this.dialog.open(SendMediaClient, {
+      data: this.mediaDetails,
+      disableClose: true,
+      autoFocus: true,
+      width: "45rem"
+    });
+    dialogRef.afterClosed().subscribe(result => {
+      this.loadMediaDetails();
+      this.loadMediaHistory();
+    });
+  }
+
 }

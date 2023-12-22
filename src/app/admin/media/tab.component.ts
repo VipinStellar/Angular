@@ -21,14 +21,20 @@ export class TabComponent implements OnInit {
       this.user =  this.accountService.userValue;
       if(this.user['role_id'] == 10)
       {
-        this.removeTab();
+        let toremove= ["daily-status"];
+        this.removeTab(toremove);
         this.tabItems.push({'name':'Recovery Charges','url':'recovery-charges'});
+      }
+      else if(this.user['role_id'] != 10)
+      {
+        let toremove= ["transfer-media"];
+        this.removeTab(toremove);
       }       
   }
 
-  removeTab()
+  removeTab(toremove)
   { 
-    let toremove= ["daily-status","allot-job","transfer-media"];
+    
     Object.keys(toremove).forEach( (value) => {  
       let indexOfObject=this.tabItems.findIndex((object) => {
         return object.url === toremove[value];

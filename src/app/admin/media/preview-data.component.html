@@ -1,0 +1,94 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content>
+    <table class="table table-striped table-bordered responsive count_table">
+        <tr>
+            <th>Type of Data Recovered</th>
+            <td>{{data['Directory_Listing']['data_recovered']}}</td>
+            <th>Total Number of Files</th>
+            <td>{{data['Directory_Listing']['total_file']}}</td>
+        </tr>
+        <tr>
+            <th>Total Data Size</th>
+            <td>{{data['Directory_Listing']['total_data_size']}}&nbsp;{{data['Directory_Listing']['total_data_size_format']}}
+            </td>
+            <th>Total Mails</th>
+            <td>{{data['Directory_Listing']['total_mail']}}</td>
+        </tr>
+        <tr>
+            <th>Total Mail Size</th>
+            <td>{{data['Directory_Listing']['total_mail_size']}} &nbsp;{{data['Directory_Listing']['total_mail_size_format']}}
+            </td>
+            <th>Mail Data</th>
+            <td>{{data['Directory_Listing']['mail_data']}}</td>
+        </tr>
+        <tr>
+            <th>Data Stored on Media</th>
+            <td>{{data['Directory_Listing']['data_store_media']}}</td>
+            <th>Uplaod Directory Listing</th>
+            <td>{{data['Directory_Listing']['directory_listing']}}</td>
+        </tr>
+        <tr>
+            <th>Data Ready for Delivery</th>
+            <td>{{data['Directory_Listing']['data_delivery']}}</td>
+            <th>Recovered Data Files and Folder’s Structure</th>
+            <td>{{data['Directory_Listing']['recoverable_data']}}</td>
+        </tr>
+        <tr>
+            <th>Email Notification</th>
+            <td>{{(data['Directory_Listing']['email_notification']==1)?'Yes':'No'}}</td>
+            <th>Client Satisfied With Data</th>
+            <td>{{data['Directory_Listing']['dl_status']}}</td>
+        </tr>
+        <tr>
+            <th>Mode of Data Verification</th>
+            <td>{{data['Directory_Listing']['data_varification']}}</td>
+            <th>Mode of Data verification approval</th>
+            <td>{{data['Directory_Listing']['data_varification_approval']}}</td>
+        </tr>
+        <tr>
+            <th>Data Recovery Results</th>
+            <td>{{data['Directory_Listing']['data_recovery_result']}}</td>
+            <th>Data Delivery Mode</th>
+            <td>{{data['Directory_Listing']['copyin']}}</td>
+        </tr>
+        <tr>
+            <th>Peripheral Details</th>
+            <td colspan="3">{{data['Directory_Listing']['peripheral_details']}}</td>
+        </tr>
+        <tr *ngIf="data['fileUpload'] != null">
+            <th>DL Attachment</th>
+            <td colspan="3" >
+                <ng-container *ngFor="let upload of data['fileUpload']">
+                <a target="_blank" class="pl-3" [href]="upload['store_path']" *ngIf="upload['type'] == 'dl'" >{{upload['name']}}</a>
+            </ng-container>
+            </td>
+        </tr>
+        <tr>
+            <th colspan="4" class="text-center">Data Copy Details</th>
+        </tr>
+       
+    </table>
+    <ng-container *ngIf="data['Directory_Listing']['copyin_details'] !=null">
+        <table class="table table-striped table-bordered responsive count_table">
+            <tr>
+                <th>Media S/N</th>
+                <th>Media Model</th>
+                <th>Capacity</th>
+                <th>Media Make</th>
+                <th>CD/DVD Size</th>
+                <th>Inventry Num</th>
+            </tr>
+            <tr>
+                <td>{{copymedia[0]['media_sn']}}</td>
+                <td>{{copymedia[0]['media_model']}}</td>
+                <td>{{copymedia[0]['capacity']}}</td>
+                <td>{{copymedia[0]['media_make']}}</td>
+                <td>{{copymedia[0]['cdSize']}}</td>
+                <td>{{copymedia[0]['inventry_num']}}</td>
+            </tr>
+        </table>
+    </ng-container>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Close</button>
+</mat-dialog-actions>

@@ -255,6 +255,7 @@ export class RecoveryComponent implements OnInit {
               formData.append('media_id', this.data['media_id']);
             for (let i = 0; i < this.selectedFiles.length; i++) {
                 formData.append('files', this.selectedFiles[i]);
+                formData.append('type', 'recovery');
                 this.http.post(this.uploadUrl + 'media/upload', formData).subscribe(data => { this.uploadedFile=  data['data'];
                 });
             }

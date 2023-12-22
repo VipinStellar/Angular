@@ -23,7 +23,7 @@ export class RecoveryChargesComponent implements OnInit {
   QuotationShow: boolean = true;
   paymentAddShow: boolean = true;
   backEndUrl = environment.apiUrl.replace("/api", "") + "payment/";
-  PDFurl = environment.apiUrl.replace("/api", "") + "generate-pdf/";
+  PDFurl = environment.apiUrl.replace("/api", "");
   constructor(private mediaService: MediaService, private paymentService: PaymentService, private route: ActivatedRoute,
     private accountService: AccountService, public dialog: MatDialog, private recoveryService: RecoveryService, private toastrService:ToastrService ) { }
 
@@ -125,11 +125,9 @@ export class RecoveryChargesComponent implements OnInit {
     });
   }
 
-  test(sss:string)
+  advenceamountcal(to,per)
   {
-    let inv = sss;
-    let fi = inv.replace('/','-');
-    console.log(fi);
-      return fi;
+    let percent = Math.round((Number(to)*Number(per))/100);
+    return percent;
   }
 }

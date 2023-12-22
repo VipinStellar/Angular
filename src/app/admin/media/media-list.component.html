@@ -70,7 +70,7 @@
             [dataSource]="mediaList" style="width: 100%;">
 
 
-            <ng-container matColumnDef="deal_id">
+            <ng-container matColumnDef="deal_name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Deal Name</th>
               <td [ngClass]="element.stage_name == 'Pre Inspection Done' ? 'stage green-stage' : 'stage orange-stage'"
                 mat-cell *matCellDef="let element"><a [routerLink]="['./view/', element.id]"
@@ -83,7 +83,11 @@
 
             <ng-container matColumnDef="customer_id">
               <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-              <td mat-cell *matCellDef="let element"><a [routerLink]="'../contact'" [queryParams]="{record:element.zoho_contact_id}">{{element?.customer_name}}</a></td>
+              <td mat-cell *matCellDef="let element">
+                <a *ngIf="user.role_id==10" [routerLink]="'../contact'" [queryParams]="{record:element.zoho_contact_id}">{{element?.customer_name}}</a>
+                <a *ngIf="user.role_id!=10">{{element?.customer_name}}</a>
+              
+              </td>
             </ng-container>
             <ng-container matColumnDef="branch_id">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Base Branch</th>
@@ -104,7 +108,7 @@
             </ng-container>
             <ng-container matColumnDef="created_on">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Added On </th>
-              <td mat-cell *matCellDef="let element"> {{ element?.created_on | date:'medium' }} </td>
+              <td mat-cell *matCellDef="let element"> {{ element?.created_on | date:'MMM dd, yyyy  hh:mm a' }} </td>
             </ng-container>
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
             <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

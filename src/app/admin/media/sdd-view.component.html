@@ -3,8 +3,11 @@
         <div class="row">
             <div class="col-lg-6 col-md-6 mb-3">
                 <label class="control-label">Client Name : </label>
-                <span class="ml-2"><a [routerLink]="'../../../contact'"
-                        [queryParams]="{record:mediaDetails['zoho_contact_id']}">{{mediaDetails['customer_name']}}</a></span>
+                <span class="ml-2">
+                    <a *ngIf="user.role_id == 10" [routerLink]="'../../../contact'"
+                        [queryParams]="{record:mediaDetails['zoho_contact_id']}">{{mediaDetails['customer_name']}}</a>
+                        <a *ngIf="user.role_id != 10">{{mediaDetails['customer_name']}}</a>
+                    </span>
             </div>
             <div class="col-lg-6 col-md-6 mb-3">
                 <label class="control-label">Zoho Record Id : </label>

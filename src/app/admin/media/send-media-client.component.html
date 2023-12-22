@@ -1,0 +1,108 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="mediaout ">
+    <div class="row">
+      <div class="col-6 mb-2">
+          <label class="control-label">Request for Media Out<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="media_out_Type" [ngClass]="{ 'is-invalid': submitted && f['media_out_Type'].errors }">
+              <option value="Client">Client</option>
+           </select>
+           <div *ngIf="submitted && f['media_out_Type'].errors" class="invalid-feedback">
+            <div *ngIf="f['media_out_Type'].errors['required']">Request for Media Out is required</div>
+          </div>
+        </div>
+        <ng-container *ngIf="f['media_out_Type'].value !=null">
+            <div class="col-6 mb-2">
+                <label class="control-label">Mode of Media Out<sup class="text-danger">*</sup> : </label>
+                 <select class="form-control form-control-sm" formControlName="media_out_mode" [ngClass]="{ 'is-invalid': submitted && f['media_out_mode'].errors }">
+                    <option value="Direct to Client">Direct to Client</option>
+                    <option value="On behalf of Client">On behalf of Client</option>
+                    <option value="Courier">Courier</option>
+                    <option value="Through Runner">Through Runner</option>
+                 </select>
+                 <div *ngIf="submitted && f['media_out_mode'].errors" class="invalid-feedback">
+                  <div *ngIf="f['media_out_mode'].errors['required']">Mode of Media Out is required</div>
+                </div>
+              </div>
+              <div class="col-6 mb-2" *ngIf="f['media_out_mode'].value =='Direct to Client' || f['media_out_mode'].value =='On behalf of Client'">
+                <label class="control-label">Ref. Name: </label>
+                <input type="text" class="form-control form-control-sm" formControlName="ref_name"
+                [ngClass]="{ 'is-invalid': submitted && f['ref_name'].errors }">
+                <div *ngIf="submitted && f['ref_name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['ref_name'].errors['required']">Ref. Name required</div>
+                </div>
+              </div>
+              <div class="col-6 mb-2" *ngIf="f['media_out_mode'].value =='Direct to Client' || f['media_out_mode'].value =='On behalf of Client'">
+                <label class="control-label">Ref. Mobile: </label>
+                <input type="text" class="form-control form-control-sm" formControlName="ref_mobile"
+                [ngClass]="{ 'is-invalid': submitted && f['ref_mobile'].errors }">
+                <div *ngIf="submitted && f['ref_mobile'].errors" class="invalid-feedback">
+                  <div *ngIf="f['ref_mobile'].errors['required']">Ref. Mobile required</div>
+                </div>
+              </div>
+              <div class="col-6  mb-2" *ngIf="f['media_out_mode'].value =='On behalf of Client'">
+                <label class="control-label">ID Proof: </label>
+                <select class="form-control form-control-sm" formControlName="id_proof"
+                  [ngClass]="{ 'is-invalid': submitted && f['id_proof'].errors }">
+                  <option value="Pan No.">Pan No.</option>
+                  <option value="Adhar No.">Adhar No.</option>
+                  <option value="Driving License">Driving License</option>
+                  <option value="Authorization letter">Authorization letter</option>
+                  <option value="Voter ID">Voter ID</option>
+                </select>
+                <div *ngIf="submitted && f['id_proof'].errors" class="invalid-feedback">
+                  <div *ngIf="f['id_proof'].errors['required']">ID Proof required</div>
+                </div>
+              </div>
+              <div class="col-6  mb-2" *ngIf="f['media_out_mode'].value =='Courier' || f['media_out_mode'].value =='Through Runner'">
+                <label class="control-label">Ref. Name/No: </label>
+                <input type="text" class="form-control form-control-sm" formControlName="ref_no"
+                [ngClass]="{ 'is-invalid': submitted && f['ref_no'].errors }">
+                <div *ngIf="submitted && f['ref_no'].errors" class="invalid-feedback">
+                  <div *ngIf="f['ref_no'].errors['required']">Ref. Name/No. required</div>
+                </div>
+              </div>
+              <div class="col-6  mb-2" *ngIf="f['media_out_mode'].value =='Courier'">
+                <label class="control-label">Courier Company Name: </label>
+                <input type="text" class="form-control form-control-sm" formControlName="courier_company_name"
+                [ngClass]="{ 'is-invalid': submitted && f['courier_company_name'].errors }">
+                <div *ngIf="submitted && f['courier_company_name'].errors" class="invalid-feedback">
+                  <div *ngIf="f['courier_company_name'].errors['required']">Courier Company Name required</div>
+                </div>
+              </div>
+              <div class="col-6  mb-2" *ngIf="f['media_out_mode'].value =='Courier'">
+                <label class="control-label">Address Same As Media In: </label>
+                <select class="form-control form-control-sm" formControlName="same_as_address"
+                  [ngClass]="{ 'is-invalid': submitted && f['same_as_address'].errors }">
+                  <option value="Yes">Yes</option>
+                  <option value="No">No</option>
+                </select>
+                <div *ngIf="submitted && f['same_as_address'].errors" class="invalid-feedback">
+                  <div *ngIf="f['same_as_address'].errors['required']">Address Same As Media In required</div>
+                </div>
+              </div>
+              <div class="col-6  mb-2" *ngIf="f['media_out_mode'].value =='Courier' && f['same_as_address'].value =='No'">
+                <label class="control-label">Courier Address: </label>
+                <input type="text" class="form-control form-control-sm" formControlName="courier_address"
+                [ngClass]="{ 'is-invalid': submitted && f['courier_address'].errors }">
+                <div *ngIf="submitted && f['courier_address'].errors" class="invalid-feedback">
+                  <div *ngIf="f['courier_address'].errors['required']">Courier Address required</div>
+                </div>
+              </div>
+        </ng-container>
+       
+        <div class="col-12  mb-2">
+          <label class="control-label">Reason<sup class="text-danger">*</sup> : </label>
+          <textarea class="form-control form-control-sm" formControlName="remarks"
+          [ngClass]="{ 'is-invalid': submitted && f['remarks'].errors }"></textarea>
+           <div *ngIf="submitted && f['remarks'].errors" class="invalid-feedback">
+            <div *ngIf="f['remarks'].errors['required']">Reason is required</div>
+          </div>
+        </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

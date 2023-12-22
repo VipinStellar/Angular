@@ -81,11 +81,18 @@ export class DirectoryListComponent implements OnInit {
             data => {
                 this.hide();
                 this.toastrService.success('Details Saved successfully!', 'Success!');
+                if(data['DL']['directory_listing'] == 'Yes')
+                this.sendAttachmentCrm(data['DL']['media_id']);                
             },
             error=>{
                 console.log(error)
             }
         );
+    }
+
+    sendAttachmentCrm(mediaid)
+    {
+        this.mediaService.sendAttahment(mediaid).subscribe( data => {}); 
     }
 
     modeltoForm(dir)
@@ -141,6 +148,7 @@ export class DirectoryListComponent implements OnInit {
               formData.append('media_id', this.data['media_id']);
             for (let i = 0; i < this.selectedFiles.length; i++) {
                 formData.append('files', this.selectedFiles[i]);
+                formData.append('type', 'dl');
                 this.http.post(this.uploadUrl + 'media/upload', formData).subscribe(data => { this.uploadedFile=  data['data'];
                 });
             }

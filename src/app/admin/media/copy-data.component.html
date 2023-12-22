@@ -1,49 +1,173 @@
 <h2 mat-dialog-title>{{diaTitle}}</h2>
-<mat-dialog-content >
-    <form [formGroup]="copydata">
-        <div class="row">
-            <div class="col-12 pt-2">
-                <form [formGroup]="copydata">
-                    <form [formGroup]="dataoutDetails" *ngIf="data['copyin'] !='Online Transfer'">
-                    <div *ngFor="let test of formDteails.controls; let i = index">
-                      <div class="row text-center" [formGroup]="test">
-                       <div class="form-group col">
-                          <label class="control-label">Media S/N:</label>
-                          <input type="text" formControlName="media_sn" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
-                        </div>
-                        <div class="form-group col">
-                          <label class="control-label">Media Model:</label>
-                          <input type="text" formControlName="media_model" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
-                        </div>
-                        <div class="form-group col">
-                          <label class="control-label">Capacity:</label>
-                          <input type="text" formControlName="capacity" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
-                        </div>
-                        <div class="form-group col">
-                          <label class="control-label">Media Make:</label>
-                          <input type="text" formControlName="media_make" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
-                        </div>
-                        <div class="form-group col">
-                          <label class="control-label">Inventory No:</label>
-                          <input type="text" formControlName="inventry_num" class="form-control form-control-sm" [attr.readonly]="disFieldName==true ? true : null" />
-                        </div>
-                      </div>
-                    </div>
-                </form>
-                <div class="col-lg-12 col-md-12 pt-2">
-                    <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
-                    <textarea class="form-control form-control-sm" formControlName="remarks"
-                      [ngClass]="{ 'is-invalid': submitted && copy['remarks'].errors }" ></textarea>
-                    <div *ngIf="submitted && copy['remarks'].errors" class="invalid-feedback">
-                      <div *ngIf="copy['remarks'].errors['required']">Remarks is required</div>
-                    </div>
-                  </div>
-                  </form>
-                </div>
+<mat-dialog-content>
+  <form [formGroup]="copydata">
+    <div class="row">
+      <div class="col-6">
+        <label class="control-label">Data Delivery Mode: </label>
+        <select class="form-control form-control-sm" formControlName="copyin"
+          [ngClass]="{ 'is-invalid': submitted && copy['copyin'].errors }">
+          <option value="DCP">DCP</option>
+          <option value="Client Media">Client Media</option>
+          <option value="Stellar HDD">Stellar HDD</option>
+          <option value="CD/DVD">CD/DVD</option>
+          <option value="Online Transfer">Online Transfer</option>
+        </select>
+        <div *ngIf="submitted && copy['copyin'].errors" class="invalid-feedback">
+          <div *ngIf="copy['copyin'].errors['required']">Data Delivery Mode required</div>
         </div>
-    </form>
+      </div>
+      <div class="col-6">
+        <label class="control-label">Data Copy Done: </label>
+        <select class="form-control form-control-sm" formControlName="data_copy_status"
+          [ngClass]="{ 'is-invalid': submitted && copy['data_copy_status'].errors }">
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
+        </select>
+        <div *ngIf="submitted && copy['data_copy_status'].errors" class="invalid-feedback">
+          <div *ngIf="copy['data_copy_status'].errors['required']">Data Copy Done required</div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-12">
+        <form [formGroup]="dataoutDetails" *ngIf="copy['copyin'].value !='Online Transfer'">
+          <div *ngFor="let test of formDteails.controls; let i = index" class="pt-2">
+            <div class="row text-center" [formGroup]="test">
+              <div class="form-group col" *ngIf="copy['copyin'].value !='CD/DVD'">
+                <label class="control-label">Media S/N:</label>
+                <input type="text" formControlName="media_sn" class="form-control form-control-sm"
+                  [attr.readonly]="disFieldName==true ? true : null" />
+              </div>
+              <div class="form-group col" *ngIf="copy['copyin'].value =='CD/DVD'">
+                <label class="control-label" style="float: inline-start;">CD/DVD Size:</label>
+                <input type="text" formControlName="cdSize" class="form-control form-control-sm"
+                  [attr.readonly]="disFieldName==true ? true : null" />
+              </div>
+              <div class="form-group col" *ngIf="copy['copyin'].value !='CD/DVD'">
+                <label class="control-label">Media Model:</label>
+                <input type="text" formControlName="media_model" class="form-control form-control-sm"
+                  [attr.readonly]="disFieldName==true ? true : null" />
+              </div>
+              <div class="form-group col" *ngIf="copy['copyin'].value !='CD/DVD'">
+                <label class="control-label">Capacity:</label>
+                <input type="text" formControlName="capacity" class="form-control form-control-sm"
+                  [attr.readonly]="disFieldName==true ? true : null" />
+              </div>
+              <div class="form-group col" *ngIf="copy['copyin'].value !='CD/DVD'">
+                <label class="control-label">Media Make:</label>
+                <input type="text" formControlName="media_make" class="form-control form-control-sm"
+                  [attr.readonly]="disFieldName==true ? true : null" />
+              </div>
+              <div class="form-group col" *ngIf="copy['copyin'].value !='CD/DVD'">
+                <label class="control-label">Inventory No:</label>
+                <input type="text" formControlName="inventry_num" class="form-control form-control-sm"
+                  [attr.readonly]="disFieldName==true ? true : null" />
+              </div>
+            </div>
+          </div>
+        </form>        
+      </div>
+    </div>
+    <div class="row">
+      <ng-container *ngIf="disFieldName">
+        <div class="col-6 pt-1">
+          <label class="control-label">Mode of Data Out: </label>
+          <select class="form-control form-control-sm" formControlName="data_out_mode"
+            [ngClass]="{ 'is-invalid': submitted && copy['data_out_mode'].errors }">
+            <option value="Direct to Client">Direct to Client</option>
+            <option value="On behalf of Client">On behalf of Client</option>
+            <option value="Courier">Courier</option>
+            <option value="Through Runner">Through Runner</option>
+            <option value="Online Transfer">Online Transfer</option>
+          </select>
+          <div *ngIf="submitted && copy['data_out_mode'].errors" class="invalid-feedback">
+            <div *ngIf="copy['data_out_mode'].errors['required']">Mode of Data Out required</div>
+          </div>
+        </div>
+        <ng-container *ngIf="copy['data_out_mode'].value !=null && copy['data_out_mode'].value !='' && copy['data_out_mode'].value !='Online Transfer'">
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='Courier'">
+            <label class="control-label">Ref. Name/No: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="ref_no"
+            [ngClass]="{ 'is-invalid': submitted && copy['ref_no'].errors }">
+            <div *ngIf="submitted && copy['ref_no'].errors" class="invalid-feedback">
+              <div *ngIf="copy['ref_no'].errors['required']">Ref. Name/No. required</div>
+            </div>
+          </div>
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='Through Runner' || copy['data_out_mode'].value =='Direct to Client' || copy['data_out_mode'].value =='On behalf of Client'">
+            <label class="control-label">Ref. Name: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="ref_name"
+            [ngClass]="{ 'is-invalid': submitted && copy['ref_name'].errors }">
+            <div *ngIf="submitted && copy['ref_name'].errors" class="invalid-feedback">
+              <div *ngIf="copy['ref_name'].errors['required']">Ref. Name required</div>
+            </div>
+          </div>
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='Direct to Client' || copy['data_out_mode'].value =='On behalf of Client'">
+            <label class="control-label">Ref. Mobile: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="ref_mobile"
+            [ngClass]="{ 'is-invalid': submitted && copy['ref_mobile'].errors }">
+            <div *ngIf="submitted && copy['ref_mobile'].errors" class="invalid-feedback">
+              <div *ngIf="copy['ref_mobile'].errors['required']">Ref. Mobile required</div>
+            </div>
+          </div>
+          
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='On behalf of Client'">
+            <label class="control-label">ID Proof: </label>
+            <select class="form-control form-control-sm" formControlName="id_proof"
+              [ngClass]="{ 'is-invalid': submitted && copy['id_proof'].errors }">
+              <option value="Pan No.">Pan No.</option>
+              <option value="Adhar No.">Adhar No.</option>
+              <option value="Driving License">Driving License</option>
+              <option value="Authorization letter">Authorization letter</option>
+              <option value="Voter ID">Voter ID</option>
+            </select>
+            <div *ngIf="submitted && copy['id_proof'].errors" class="invalid-feedback">
+              <div *ngIf="copy['id_proof'].errors['required']">ID Proof required</div>
+            </div>
+          </div>
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='Courier'">
+            <label class="control-label">Courier Company Name: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="courier_company_name"
+            [ngClass]="{ 'is-invalid': submitted && copy['courier_company_name'].errors }">
+            <div *ngIf="submitted && copy['courier_company_name'].errors" class="invalid-feedback">
+              <div *ngIf="copy['courier_company_name'].errors['required']">Courier Company Name required</div>
+            </div>
+          </div>
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='Courier'">
+            <label class="control-label">Address Same As Media In: </label>
+            <select class="form-control form-control-sm" formControlName="address_same_as_mediain"
+              [ngClass]="{ 'is-invalid': submitted && copy['address_same_as_mediain'].errors }">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+            </select>
+            <div *ngIf="submitted && copy['address_same_as_mediain'].errors" class="invalid-feedback">
+              <div *ngIf="copy['address_same_as_mediain'].errors['required']">Address Same As Media In required</div>
+            </div>
+          </div>
+          <div class="col-6 pt-1" *ngIf="copy['data_out_mode'].value =='Courier' && copy['address_same_as_mediain'].value =='No'">
+            <label class="control-label">Courier Address: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="courier_address"
+            [ngClass]="{ 'is-invalid': submitted && copy['courier_address'].errors }">
+            <div *ngIf="submitted && copy['courier_address'].errors" class="invalid-feedback">
+              <div *ngIf="copy['courier_address'].errors['required']">Courier Address required</div>
+            </div>
+          </div>
+          
+        </ng-container>
+      </ng-container>
+    </div>
+    <div class="row">
+      <div class="col-lg-12 col-md-12 pt-2">
+        <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+        <textarea class="form-control form-control-sm" formControlName="remarks"
+          [ngClass]="{ 'is-invalid': submitted && copy['remarks'].errors }"></textarea>
+        <div *ngIf="submitted && copy['remarks'].errors" class="invalid-feedback">
+          <div *ngIf="copy['remarks'].errors['required']">Remarks is required</div>
+        </div>
+      </div>
+    </div>
+  </form>
 </mat-dialog-content>
 <mat-dialog-actions class="float-right">
-    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()" *ngIf="!disFieldName">Data Out</button>
+  <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()" >Save</button>
   <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
 </mat-dialog-actions>

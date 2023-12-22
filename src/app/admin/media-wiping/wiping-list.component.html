@@ -18,47 +18,24 @@
               <ng-container matColumnDef="job_id">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
                 <td mat-cell *matCellDef="let element">
-                    <a [routerLink]="['../media/job-process/', element.media_id]"
+                    <a [routerLink]="['../media/job-process/', element.id]"
                   title="View Case Details">{{(element.job_id ==null)?element.deal_id:element.job_id}}</a></td>
               </ng-container>
-  
-              <ng-container matColumnDef="customer_id">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Name </th>
-                <td mat-cell *matCellDef="let element"> {{element?.customer_name}} </td>
-              </ng-container>
+             
               <ng-container matColumnDef="media_type">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Media Type</th>
-                <td mat-cell *matCellDef="let element"> {{element?.media_type}} </td>
+                <td mat-cell *matCellDef="let element"> {{(user.role_id == 10 || user.role_id == 1)?element?.media_type:element?.assets_type}} </td>
               </ng-container>
               <ng-container matColumnDef="stage_name">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header> Status </th>
                 <td mat-cell *matCellDef="let element"> {{element.stage_name}}&nbsp;&nbsp; 
               </td>              
               </ng-container>
-              <ng-container matColumnDef="request_wiping_date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Request Wiping Date</th>
-                <td mat-cell *matCellDef="let element"> {{element.request_wiping_date | date}}&nbsp;&nbsp; 
-              </td>              
-              </ng-container>
-              <ng-container matColumnDef="expected_wiping_date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Expected Wiping Date </th>
-                <td mat-cell *matCellDef="let element"> {{element.expected_wiping_date| date}}&nbsp;&nbsp; 
-              </td>              
-              </ng-container>
-              <ng-container matColumnDef="approve_wiping_date">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Wiping Date </th>
-                <td mat-cell *matCellDef="let element"> {{element.approve_wiping_date| date}}&nbsp;&nbsp; 
-              </td>              
-              </ng-container>
-              <ng-container matColumnDef="name">
-                <th mat-header-cell *matHeaderCellDef mat-sort-header>Assigned</th>
-                <td mat-cell *matCellDef="let element"> {{element.name}}&nbsp;&nbsp; 
-              </td>              
-              </ng-container>
               <ng-container matColumnDef="action">
                 <th mat-header-cell *matHeaderCellDef>Action </th>
                 <td mat-cell *matCellDef="let element"> 
-                 <a href="javascript:void(0)" *ngIf="user.id == element.userid" (click)="updateWiping(element)">Update Status</a>
+                 <a href="javascript:void(0)" *ngIf="user.role_id == 10 && user.branch_id == element.branch_id && user.id == element.ise_user_id && (element.balance_amount ==null || element.balance_amount ==0)" (click)="IseRequestWiping(element)">Request For Wiping</a>
+                 <a href="javascript:void(0)" *ngIf="user.branch_id == element.new_branch_id && user.role_id != 10 && user.id == element.user_id" (click)="TechRequestWiping(element)">Request For Wiping</a>
                 </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

@@ -25,6 +25,11 @@ export class RecoveryService {
         return this.http.post(environment.apiUrl + 'recovery/update-directory', data);
     }
 
+    updateClientConformation(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/update-client-data', data);
+    }
+
     updateRecovery(data)
     {
         return this.http.post(environment.apiUrl + 'recovery/update', data);

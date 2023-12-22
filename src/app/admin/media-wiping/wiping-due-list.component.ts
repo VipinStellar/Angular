@@ -7,6 +7,7 @@ import { MediaService  } from './../../_services/media.service';
 import { MatDialog } from '@angular/material/dialog';
 import { AuthUser } from 'src/app/_models/authuser';
 import { AccountService } from './../../_services/account.service';
+import { WipingEditComponent } from './wiping-edit.component';
 
 @Component({
   selector: 'wiping-due-list',
@@ -29,7 +30,7 @@ export class WipingDueList implements OnInit {
     @ViewChild(MatPaginator)
     paginator!: MatPaginator;
     wipingDueList: MatTableDataSource<Media> = new MatTableDataSource();
-    displayedColumns: string[] = ['job_id','assets_type','stage_name','media_in_date','action'];
+    displayedColumns: string[] = ['deal_name','request_wiping_date','expected_wiping_date','approve_wiping_date','wiping_status','requested_to','action'];
     constructor(private mediaService: MediaService,public dialog: MatDialog,private accountService:AccountService){}
     ngOnInit(): void {
       this.user =  this.accountService.userValue;
@@ -61,19 +62,19 @@ export class WipingDueList implements OnInit {
     this.sortOrder = sort.direction == '' ? 'asc' : sort.direction;
     this.loadData();
   }
+
+  
+  updateWiping(row)
+    {
+      const dialogRef = this.dialog.open(WipingEditComponent, {
+        data: row,
+        disableClose: true,
+        autoFocus: true,
+        width: "25rem"
+      });
+      dialogRef.afterClosed().subscribe(result => {
+        this.loadData();
+      });
+    }
  
-  addDate(date:Date)
-  {
-    let result = new Date(date);
-    result.setDate(result.getDate() + 7);
-    return result;
-  }
-
-  wipingRequest(media_id)
-  {
-    this.mediaService.requestWiping(media_id).subscribe( data => {
-      this.loadData();
-    });
-  }
-
 }

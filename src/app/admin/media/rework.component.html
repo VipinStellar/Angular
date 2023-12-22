@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+  <form [formGroup]="directory">
+    <div class="row">
+      <div class="col-12 pt-2">
+          <label class="control-label">Rework Possible<sup class="text-danger">*</sup> : </label>
+           <select class="form-control form-control-sm" formControlName="rework_possible" [ngClass]="{ 'is-invalid': submitted && tm['rework_possible'].errors }">
+              <option value="Yes">Yes</option>
+              <option value="No">No</option>
+           </select>
+           <div *ngIf="submitted && tm['rework_possible'].errors" class="invalid-feedback">
+            <div *ngIf="tm['rework_possible'].errors['required']">Rework Possible is required</div>
+          </div>
+        </div>
+       <div class="col-lg-12 col-md-12 pt-2">
+            <label class="control-label">Add Your Remarks <sup class="text-danger">*</sup>:</label><br>
+            <textarea class="form-control form-control-sm" formControlName="remarks"
+              [ngClass]="{ 'is-invalid': submitted && tm['remarks'].errors }"></textarea>
+            <div *ngIf="submitted && tm['remarks'].errors" class="invalid-feedback">
+              <div *ngIf="tm['remarks'].errors['required']">Remarks is required</div>
+            </div>
+          </div>
+      </div>
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

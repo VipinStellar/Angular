@@ -24,7 +24,7 @@ pageSizeOptions: number[] = [10, 25, 100];
 sortOrder = 'desc';
 sortField = 'transPrimaryId';
 pageTitle = "Transfer Media";
-displayedColumns: string[] = ['transPrimaryId','deal_id','job_id', 'customer_id', 'branch_id','new_branch_id','media_type','assets_type','stage_name','media_in_date','action'];
+displayedColumns: string[] = ['transPrimaryId','deal_id', 'branch_id','new_branch_id','assets_type','stage_name','media_in_date','action'];
 mediaInList: MatTableDataSource<Media> = new MatTableDataSource();
 @ViewChild(MatSort) sort: MatSort;
 @ViewChild(MatPaginator)

@@ -4,8 +4,10 @@
         <app-tab [mediaDetails]="mediaDetails" ></app-tab>
         <div class="row mb-2" >
           <div class="col-xl-9 col-sm-9">
-            <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['deal_id']}} &nbsp;&nbsp;&nbsp;<span
-                *ngIf="mediaDetails['job_id'] !=null">Job Id : {{mediaDetails['job_id']}}</span></h2>
+            <h2 class="m-0 text-dark">{{pageTitle +" : "+mediaDetails['deal_id']}} <span class="pl-3"
+                *ngIf="mediaDetails['job_id'] !=null">Job Id : {{mediaDetails['job_id']}}</span></h2><br>
+                <h3 class="m-0 text-dark"><strong>Current ISE : {{mediaDetails['CurrentISE']}}</strong></h3><br>
+                <h3 class="m-0 text-dark"><strong>Current Technician : {{mediaDetails['CurrentTech']}}</strong></h3>
           </div>
         </div>
       </div>

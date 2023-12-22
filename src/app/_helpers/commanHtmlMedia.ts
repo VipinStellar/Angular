@@ -1,14 +1,24 @@
 import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
-
+import { AccountService } from './../_services/account.service';
+import { AuthUser } from 'src/app/_models/authuser';
 @Pipe({ name: 'mediaTable'})
 
 export class mediaTable implements PipeTransform  {
   pipe = new DatePipe('en-US');
-  constructor(private _sanitizer:DomSanitizer) { }
+  user: AuthUser;
+  constructor(private _sanitizer:DomSanitizer,private accountService:AccountService) { 
+    this.user =  this.accountService.userValue;
+  }
 
   transform(media):SafeHtml {
+      let contactlink = '';
+      if(this.user['role_id'] == 10)
+      contactlink = '<a href="/admin/contact?record='+media['zoho_contact_id']+'">'+media['customer_name']+'</a>';
+      else
+      contactlink = media['customer_name'];
+
     let title = 'Deal Id';
     let dueTitle = 'Recovery Due Date';
     let due_date = (media['due_date'] == null)?'': this.pipe.transform(new Date(media['due_date']), 'mediumDate');
@@ -30,7 +40,7 @@ export class mediaTable implements PipeTransform  {
 
    let html ='<table class="table table-striped table-bordered responsive " style="background-color: #fff !important;">'+
             '<tr style="background-color: #f2f2f2 !important;"><th>Client Name</th><th>'+title+'</th><th>Media Type</th><th>Current Status</th><th>'+dueTitle+'</th></tr>'+
-            '<tr><td><a href="/admin/contact?record='+media['zoho_contact_id']+'">'+media['customer_name']+'</a></td><td>'+media['deal_id']+'</td><td>'+media['media_type']+'</td><td>'+media['stageName']+'</td><td>'+due_date+'</td></tr></table>';
+            '<tr><td>'+contactlink+'</td><td>'+media['deal_id']+'</td><td>'+media['media_type']+'</td><td>'+media['stageName']+'</td><td>'+due_date+'</td></tr></table>';
     return this._sanitizer.bypassSecurityTrustHtml(html);
   }
   

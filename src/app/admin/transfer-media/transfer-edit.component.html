@@ -9,8 +9,7 @@
       <div class="row">
         <div class="col-12" [innerHtml]="mediaDetails|mediaTable">          
         </div>
-        <div class="col-md-8" *ngIf="this.user.id == mediaDetails['user_id'] && 
-        mediaDetails['stage'] != 17 && mediaDetails['stage'] != 18 && mediaDetails['stage'] != 19 && mediaDetails['stage'] != 20 && mediaDetails['stage'] != 21">
+        <div class="col-md-8">
           <form [formGroup]="media">
             <div class="form-group">
                 <label >Transfer to:<sup class="text-danger">*</sup></label>
@@ -117,7 +116,7 @@
             <tbody>
             <tr mdbTableCol *ngIf="item['module_type'] == 'TRANSFER-MEDIA';">
               <td class="inc-td"></td>
-              <td>{{item['added_on'] | date:'medium'}}</td>
+              <td>{{item['added_on'] | date:'MMM dd, yyyy  hh:mm a'}}</td>
               <td>{{item['user_name'] ==null ? item['added_by'] :item['user_name'] }}</td>
               <td>{{item['remarks']}}</td>
             </tr>
