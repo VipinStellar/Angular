@@ -78,7 +78,7 @@
             </ng-container>
             <ng-container matColumnDef="job_id">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Job Id</th>
-              <td mat-cell *matCellDef="let element">{{element?.job_id}}</td>
+              <td mat-cell *matCellDef="let element"><a [routerLink]="['./view/', element.id]">{{element?.job_id}}</a></td>
             </ng-container>
 
             <ng-container matColumnDef="customer_id">

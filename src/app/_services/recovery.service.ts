@@ -70,4 +70,9 @@ export class RecoveryService {
         return this.http.post(environment.apiUrl + 'recovery/add-quotation', data);
     }
 
+    notifyTech(data)
+    {
+        return this.http.post(environment.apiUrl + 'recovery/notify-tech', data);
+    }
+
 }

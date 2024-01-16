@@ -1,0 +1,135 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row ">
+                <div class="col-12">
+                    <form [formGroup]="receiptForm">
+                        <div class="row">
+                            <div class="col-4">
+                                <label class="control-label">Job ID: </label>
+                                <input type="text"  class="form-control form-control-sm" formControlName="job_id" readonly [ngClass]="{ 'is-invalid': submitted && fr['job_id'].errors }">
+                                <div *ngIf="submitted && fr['job_id'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['job_id'].errors['required']">Job ID is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4">
+                                <label class="control-label">Invoice Number: </label>
+                                <input type="text"  class="form-control form-control-sm" formControlName="invoice_no" readonly [ngClass]="{ 'is-invalid': submitted && fr['invoice_no'].errors }">
+                                <div *ngIf="submitted && fr['invoice_no'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['invoice_no'].errors['required']">Invoice Number is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4">
+                                <label class="control-label">Invoice Date: </label>
+                                <input type="text"  class="form-control form-control-sm" formControlName="invoice_date" readonly [ngClass]="{ 'is-invalid': submitted && fr['invoice_date'].errors }">
+                                <div *ngIf="submitted && fr['invoice_date'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['invoice_date'].errors['required']">Invoice Date is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Invoice Total Amount: </label>
+                                <input type="text"  class="form-control form-control-sm" formControlName="invoice_total_amount" readonly [ngClass]="{ 'is-invalid': submitted && fr['invoice_total_amount'].errors }">
+                                <div *ngIf="submitted && fr['invoice_total_amount'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['invoice_total_amount'].errors['required']">Invoice Total Amount is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Received Amount: </label>
+                                <input type="number" (change)="receiptTotal()"  [min]="0" [max]="999999" minMax  class="form-control form-control-sm" formControlName="received_amount"  [ngClass]="{ 'is-invalid': submitted && fr['received_amount'].errors }">
+                                <div *ngIf="submitted && fr['received_amount'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['received_amount'].errors['required']">Received Amount is required</div>
+                                    <div *ngIf="fr['received_amount'].errors['message']">{{ fr['received_amount'].errors['message'] }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">TDS Amount: </label>
+                                <input type="number" (change)="receiptTotal()"  [min]="0" [max]="999999" minMax  class="form-control form-control-sm" formControlName="tds_amount"  [ngClass]="{ 'is-invalid': submitted && fr['tds_amount'].errors }">
+                                <div *ngIf="submitted && fr['tds_amount'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['tds_amount'].errors['required']">TDS Amount is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Total Receipt Amount: </label>
+                                <input type="text"   class="form-control form-control-sm" formControlName="paid_amount" readonly [ngClass]="{ 'is-invalid': submitted && fr['paid_amount'].errors }">
+                                <div *ngIf="submitted && fr['paid_amount'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['paid_amount'].errors['required']">Invoice Total Amount is required</div>
+                                    <div *ngIf="fr['paid_amount'].errors['message']">{{ fr['paid_amount'].errors['message'] }}</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Payment Mode: </label>
+                                <select class="form-control form-control-sm" formControlName="payment_mode"  [ngClass]="{ 'is-invalid': submitted && fr['payment_mode'].errors }">
+                                    <option value="PAYU">PAYU</option>
+                                    <option value="NEFT">NEFT</option>
+                                    <option value="POS">POS</option>
+                                    <option value="Cash">Cash</option>
+                                    <option value="Cash Submitted by Client">Cash Submitted by Client</option>
+                                    <option value="Cheque">Cheque</option>
+                                    <option value="Draft">Draft</option>
+                                    <option value="TDS">TDS</option>
+                                </select>
+                                <div *ngIf="submitted && fr['payment_mode'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['payment_mode'].errors['required']">Payment Mode is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Transaction ID/ Cheque/ DD No./RRN NO. : </label>
+                                <input type="text"  class="form-control form-control-sm" formControlName="transaction_id"  [ngClass]="{ 'is-invalid': submitted && fr['transaction_id'].errors }">
+                                <div *ngIf="submitted && fr['transaction_id'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['transaction_id'].errors['required']">Transaction ID/ Cheque/ DD No./RRN NO. is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2" *ngIf="fr['payment_mode'].value == 'Cheque' || fr['payment_mode'].value == 'Draft' ">
+                                <label class="control-label">Cheque/ DD No Location : </label>
+                                <input type="text"  class="form-control form-control-sm" formControlName="cheque_dd"  [ngClass]="{ 'is-invalid': submitted && fr['cheque_dd'].errors }">
+                                <div *ngIf="submitted && fr['cheque_dd'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['cheque_dd'].errors['required']">Cheque/ DD No Location is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Transaction Date : </label>
+                                <input type="date"  class="form-control form-control-sm" formControlName="transaction_date"  [ngClass]="{ 'is-invalid': submitted && fr['transaction_date'].errors }">
+                                <div *ngIf="submitted && fr['transaction_date'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['transaction_date'].errors['required']">Transaction Date is required</div>
+                                  </div>
+                              </div>
+                              <div class="col-4 p-2">
+                                <label class="control-label">Payment Received date : </label>
+                                <input type="date"  class="form-control form-control-sm" formControlName="payment_received_date"  [ngClass]="{ 'is-invalid': submitted && fr['payment_received_date'].errors }">
+                                <div *ngIf="submitted && fr['payment_received_date'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['payment_received_date'].errors['required']">Payment Received date is required</div>
+                                  </div>
+                              </div>
+                              <!-- <div class="col-4 p-2">
+                                <label class="control-label">Charges Type: </label>
+                                <select class="form-control form-control-sm" formControlName="charge_type"  [ngClass]="{ 'is-invalid': submitted && fr['charge_type'].errors }">
+                                    <option value="Analysis">Analysis</option>
+                                    <option value="Tampered Charges">Tampered Charges</option>
+                                    <option value="Attempt Charges">Attempt Charges</option>
+                                    <option value="Advance for Recovery">Advance for Recovery</option>
+                                    <option value="Final for Recovery">Final for Recovery</option>
+                                </select>
+                                <div *ngIf="submitted && fr['charge_type'].errors" class="invalid-feedback">
+                                    <div *ngIf="fr['charge_type'].errors['required']">Charges Type is required</div>
+                                  </div>
+                              </div> -->
+                        </div>
+                        <div class="col-12 text-right">
+                            <button class="btn btn-default" (click)="hide();">Close</button>&nbsp;
+                            <button [disabled]="loading" type="buttun" class="btn btn-primary" (click)="onSubmit()">Save</button>
+                          </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>

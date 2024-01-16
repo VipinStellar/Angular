@@ -17,7 +17,7 @@
                     [ngClass]="{ 'is-invalid': submitted && f['branch_id'].errors }" class="form-control">
                     <mat-option *ngFor="let ban of branchList" [value]="ban['id']">{{ban['branch_name']}}
                     </mat-option>
-                    <mat-option value="Client">Client</mat-option>
+                    <mat-option value="Client" *ngIf="originalMedia">Client</mat-option>
                 </mat-select>
                 <div *ngIf="submitted && f['branch_id'].errors" class="invalid-feedback">
                     <div *ngIf="f['branch_id'].errors['required']">Transfer to is required</div>

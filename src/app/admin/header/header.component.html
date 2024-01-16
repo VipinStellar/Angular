@@ -164,20 +164,20 @@
               <p>Media List</p>
             </a>
           </li>
-          <li class="nav-item"  *ngIf="user.role_id == 10">
+          <li class="nav-item"  *ngIf="user.role_id == 10 || user.role_id == 1">
             <a routerLink="./company" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-building"></i>
               <p>Company</p>
             </a>
           </li>
-          <li class="nav-item"  *ngIf="user.role_id == 10">
+          <li class="nav-item"  *ngIf="user.role_id == 10 || user.role_id == 1">
             <a routerLink="./contact" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-address-book"></i>
               <p>Contact</p>
             </a>
           </li>
           
-          <li class="nav-item" *ngIf="user.role_id == 10">
+          <li class="nav-item" *ngIf="user.role_id == 10 || user.role_id == 1">
             <a routerLink="./transfer-media" class="nav-link" routerLinkActive="active">
               <i class="nav-icon fas fa-tasks"></i>
             <p>Transfer Media</p>
@@ -189,7 +189,7 @@
               <p>Job Confirmation</p>
               *ngIf="permission.PermissionForAccess('gate-pass')"
             </a> -->
-            <li class="nav-item" *ngIf="user.role_id == 10">
+            <li class="nav-item" *ngIf="user.role_id == 10 || user.role_id == 1">
               <a routerLink="./gate-pass" class="nav-link" routerLinkActive="active">
                 <i class="nav-icon fas fa-envelope"></i>
                 <p>Gate Pass</p>
@@ -220,10 +220,22 @@
               <p>Inventory</p>
             </a>
         </li>
-        <li class="nav-item" *ngIf="user.role_id == 10">
+        <li class="nav-item" *ngIf="user.role_id == 10 || user.role_id == 1">
           <a routerLink="./payment-list" class="nav-link" routerLinkActive="active">
             <i class="nav-icon fas fa-rupee-sign"></i>
             <p>Payment List</p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="user.role_id == 10 || user.role_id == 1">
+          <a routerLink="./receipt" class="nav-link" routerLinkActive="active">
+            <i class="nav-icon fas fa-receipt"></i>
+            <p>Receipt List</p>
+          </a>
+        </li>
+        <li class="nav-item" *ngIf="user.role_id == 1">
+          <a routerLink="./email-template" class="nav-link" routerLinkActive="active">
+            <i class="nav-icon fas fa-envelope"></i>
+            <p>Email Template</p>
           </a>
         </li>
         </ul>

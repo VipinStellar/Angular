@@ -1,0 +1,62 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+      <div class="container-fluid">
+        <div class="row">
+          <div class="col-xl-4 col-sm-4">
+            <h2 class="m-0 text-dark">{{ pageTitle }}</h2>
+          </div>
+        </div>
+      </div>
+    </div>
+    <section class="content">
+      <div class="container-fluid">
+        <div class="row pb-4">
+           <div class="col-12">
+                <form [formGroup]="templateFrom">
+                    <div class="row">
+                        <div class="col-12 pt-2">
+                            <label class="control-label">Template Status <sup class="text-danger">*</sup> : </label>
+                            <select type="text" class="form-control form-control-sm" formControlName="status" [ngClass]="{ 'is-invalid': submitted && etf['status'].errors }">
+                                <option value="0">Inactive</option>
+                                <option value="1">Active</option>
+                            </select>
+                            <div *ngIf="submitted && etf['status'].errors" class="invalid-feedback">
+                                <div *ngIf="etf['status'].errors['required']">Email Status is required</div>
+                            </div>
+                            <!-- <input type ="hidden" formControlName="id"> -->
+                        </div>
+                        <div class="col-12 pt-2">
+                            <label class="control-label">Email Subject <sup class="text-danger">*</sup> : </label>
+                            <input type="text" class="form-control form-control-sm" formControlName="subject" [ngClass]="{ 'is-invalid': submitted && etf['subject'].errors }">
+                            <div *ngIf="submitted && etf['subject'].errors" class="invalid-feedback">
+                            <div *ngIf="etf['subject'].errors['required']">Email Subject is required</div>
+                        </div>
+                        </div>
+                        
+                        <div class="col-12 pt-2">
+                            <label class="control-label">Email Templates <sup class="text-danger">*</sup> : </label>
+                            <!-- <input type="text" class="form-control form-control-sm" formControlName="template" [ngClass]="{ 'is-invalid': submitted && etf['template'].errors }"> -->
+                            <textarea class="form-control form-control-sm" id="summernote" formControlName="template" #calRefference [ngClass]="{ 'is-invalid': submitted && etf['template'].errors }"></textarea>
+                            <div *ngIf="submitted && etf['template'].errors" class="invalid-feedback">
+                            <div *ngIf="etf['template'].errors['required']">Email Templates is required</div>
+                        </div>
+                        </div>            
+                        
+                        <div class="col-12 mt-3" *ngIf="serverErrorShow">
+                            <div class="alert alert-danger py-2" style="font-size: 12px;">
+                                <div>{{serverError}}</div>
+                            </div>
+                        </div>
+                        <div class="col-12">
+                            <div class="float-right">
+                                <button class="mt-2 btn btn-primary" (click)="save()">Save</button>
+                                <button class="mt-2 ml-2 btn btn-default" (click)="reset()">Reset</button>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>

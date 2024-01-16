@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl:"http://localhost/mims/mims-api-new/api/"
+  //apiUrl:"http://localhost/mimszohoapi/api/"
+   apiUrl:"https://www.stellardrs.com/TestCode/back/api/"
 };
 
 /*

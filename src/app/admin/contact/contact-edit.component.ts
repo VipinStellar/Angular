@@ -14,6 +14,7 @@ export class ContactEditComponent implements OnInit {
     contactFrom: FormGroup;
     submitted: boolean;
     stateList;
+    serverError:boolean;
     constructor( private dialogRef: MatDialogRef<ContactEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder,
         private toastrService: ToastrService,private contactService:ContactService,private stateService:StateService) {
@@ -32,7 +33,7 @@ export class ContactEditComponent implements OnInit {
             mailing_region:[this.data['mailing_region']],
             mailing_city:[this.data['mailing_city']],
             mailing_state_code:[this.data['mailing_state_code']],
-            mailing_country:[this.data['mailing_country']],
+            mailing_country:[(this.data['mailing_country'] !=null && this.data['mailing_country'] !='')?this.data['mailing_country']:'India'],
             mailing_state_ut:[this.data['mailing_state_ut']],
             mailing_zip:[this.data['mailing_zip']],
             use_billing_address:[this.data['use_billing_address'], [Validators.required]],
@@ -45,7 +46,7 @@ export class ContactEditComponent implements OnInit {
             billing_state_code:[this.data['billing_state_code']],
             billing_zip:[this.data['billing_zip']],
             billing_landmark:[this.data['billing_landmark']],
-            billing_country:[this.data['billing_country']],
+            billing_country:[(this.data['billing_country'] !=null && this.data['billing_country'] !='')?this.data['billing_country']:'India'],
             gst_number:[this.data['gst_number']],
             com_id:[this.data['com_id']],
             com_billing_street:[this.data['com_billing_street']],
@@ -55,7 +56,7 @@ export class ContactEditComponent implements OnInit {
             com_billing_state_ut:[this.data['com_billing_state_ut']],
             com_billing_state_code:[this.data['com_billing_state_code']],
             com_billing_code:[this.data['com_billing_code']],
-            com_billing_country:[this.data['com_billing_country']],
+            com_billing_country:[(this.data['com_billing_country'] !=null && this.data['com_billing_country'] !='')?this.data['com_billing_country']:'India'],
             com_gst_number:[this.data['com_gst_number']],
           });
           this.contactAddressChange();
@@ -68,27 +69,32 @@ export class ContactEditComponent implements OnInit {
     }
 
     onSubmit() {
-        this.submitted = true;
+         this.submitted = true;
         if (this.contactFrom.invalid) {
             return false;
         }
+        this.serverError = false;
         let address =  this.tc['use_billing_address'].value;
         if(address == 'Same as Contact Mailing Address')
         {
+            let gst = null;
             let Statecode =  this.tc['mailing_state_code'].value;
-            let gst =  this.tc['gst_number'].value.slice(0, 2);
+            if(this.tc['gst_number'].value !=null && this.tc['gst_number'].value !='')
+              gst =  this.tc['gst_number'].value.slice(0, 2);
             if(gst !=null && gst !='' && Statecode !=gst)
             {
-                this.tc['gst_number'].setErrors({ 'gstInvalid':  "Invalid GST number"});
+                this.tc["gst_number"].setErrors({ 'message': "Invalid GST number" });
                 return false;
             }
         }else if(address == 'Same as Account Billing Address')
         {
             let Statecode =  this.tc['com_billing_state_code'].value;
-            let gst =  this.tc['com_gst_number'].value.slice(0, 2);
-            if(Statecode !=gst)
+            let gsts = null;
+            if(this.tc['com_gst_number'].value !=null && this.tc['com_gst_number'].value !='')
+             gsts =  this.tc['com_gst_number'].value.slice(0, 2);
+            if(Statecode !=gsts)
             {
-                this.tc['com_gst_number'].setErrors({ 'gstInvalid':  "Invalid GST number"});
+                this.tc["com_gst_number"].setErrors({ 'message': "Invalid GST number" });
                 return false;
             }
         }
@@ -100,11 +106,14 @@ export class ContactEditComponent implements OnInit {
                 this.toastrService.success('Details Saved successfully!', 'Success!');
             },
             error=>{
-                let Add = this.tc['use_billing_address'].value;
-                if(Add == 'Same as Account Billing Address')
-                this.tc['com_gst_number'].setErrors({ 'gstInvalid':  error.error});  
-                 else if(Add == 'Same as Contact Mailing Address')
-                 this.tc['gst_number'].setErrors({ 'gstInvalid':  error.error});  
+                this.serverError = true;
+                let serverResponse = error.error;
+                for (var key in serverResponse) {
+                    if (serverResponse[key] === "Unauthorized")
+                        this.toastrService.error('Bad Credentials!', 'Error!');
+                    else
+                        this.tc[key].setErrors({ 'message': serverResponse[key] });
+                }
             }
         );
     }
@@ -117,6 +126,9 @@ export class ContactEditComponent implements OnInit {
 
     stateChange(val,type)
     {
+        this.tc['billing_zip'].setValue(this.tc['billing_zip'].value);
+        this.tc['com_billing_code'].setValue(this.tc['com_billing_code'].value);
+        this.tc['mailing_zip'].setValue(this.tc['mailing_zip'].value);
         this.tc['gst_number'].setValue(this.tc['gst_number'].value);
         this.tc['com_gst_number'].setValue(this.tc['com_gst_number'].value);
         let index = this.stateList.findIndex(obj => obj['state_name'] === val);
@@ -132,7 +144,7 @@ export class ContactEditComponent implements OnInit {
      addRequiredValidator(name) {
         //GstValidator.validate()
         if(name == 'com_gst_number')
-        this.contactFrom.get(name)?.setValidators([Validators.required,GstValidator.validate()]);
+        this.contactFrom.get(name)?.setValidators([Validators.required]);
         else
         this.contactFrom.get(name)?.setValidators([Validators.required]);
         this.contactFrom.get(name)?.updateValueAndValidity();

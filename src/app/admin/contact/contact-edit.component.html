@@ -52,10 +52,11 @@
         <div class="col-6 pt-2">
           <label class="control-label">Gst Number : </label>&nbsp;<a target="_blank" href="https://services.gst.gov.in/services/searchtp">Click Here To Authenticate GSTIN</a>
           <input type="text" class="form-control form-control-sm" formControlName="com_gst_number"
-            [ngClass]="{ 'is-invalid': submitted && tc['com_gst_number'].errors }">
+            [ngClass]="{ 'is-invalid': submitted && tc['com_gst_number'].errors }" maxlength="15">
           <div *ngIf="submitted && tc['com_gst_number'].errors" class="invalid-feedback">
             <div *ngIf="tc['com_gst_number'].errors['required']">Gst Number is required</div>
-            <div *ngIf="tc['com_gst_number'].errors['gstInvalid']">{{tc['com_gst_number'].errors['gstInvalid']}} </div>
+            <small class="p-error"
+             *ngIf="tc['com_gst_number'].errors['message']">{{tc['com_gst_number'].errors['message']}}</small>
           </div>
         </div>
         <div class="col-6 pt-2">
@@ -103,9 +104,11 @@
         <div class="col-6 pt-2">
           <label class="control-label">Billing Zip Code : </label>
           <input type="text" class="form-control form-control-sm" formControlName="com_billing_code"
-            [ngClass]="{ 'is-invalid': submitted && tc['com_billing_code'].errors }">
+            [ngClass]="{ 'is-invalid': submitted && tc['com_billing_code'].errors }" maxlength="6">
           <div *ngIf="submitted && tc['com_billing_code'].errors" class="invalid-feedback">
             <div *ngIf="tc['com_billing_code'].errors['required']">Billing Zip Code is required</div>
+            <small class="p-error"
+             *ngIf="tc['com_billing_code'].errors['message']">{{tc['com_billing_code'].errors['message']}}</small>
           </div>
         </div>
         <div class="col-6 pt-2">
@@ -121,10 +124,11 @@
       <div class="col-6 pt-2">
         <label class="control-label">Gst Number : </label>&nbsp;<a target="_blank" href="https://services.gst.gov.in/services/searchtp">Click Here To Authenticate GSTIN</a>
         <input type="text" class="form-control form-control-sm" formControlName="gst_number"
-          [ngClass]="{ 'is-invalid': submitted && tc['gst_number'].errors }">
+          [ngClass]="{ 'is-invalid': submitted && tc['gst_number'].errors }" maxlength="15">
         <div *ngIf="submitted && tc['gst_number'].errors" class="invalid-feedback">
           <div *ngIf="tc['gst_number'].errors['required']">Gst Number is required</div>
-          <div *ngIf="tc['gst_number'].errors['gstInvalid']">{{tc['gst_number'].errors['gstInvalid']}} </div>
+           <small class="p-error"
+             *ngIf="tc['gst_number'].errors['message']">{{tc['gst_number'].errors['message']}}</small>
         </div>
       </div>
       <div class="col-6 pt-2">
@@ -181,9 +185,11 @@
       <div class="col-6 pt-2">
         <label class="control-label">Mailing Zip : </label>
         <input type="text" class="form-control form-control-sm" formControlName="mailing_zip"
-          [ngClass]="{ 'is-invalid': submitted && tc['mailing_zip'].errors }">
+          [ngClass]="{ 'is-invalid': submitted && tc['mailing_zip'].errors }" maxlength="6">
         <div *ngIf="submitted && tc['mailing_zip'].errors" class="invalid-feedback">
           <div *ngIf="tc['mailing_zip'].errors['required']">Mailing Zip is required</div>
+          <small class="p-error"
+          *ngIf="tc['mailing_zip'].errors['message']">{{tc['mailing_zip'].errors['message']}}</small>
         </div>
       </div>
     </div>
@@ -257,9 +263,11 @@
       <div class="col-6 pt-2">
         <label class="control-label">Billing Zip : </label>
         <input type="text" class="form-control form-control-sm" formControlName="billing_zip"
-          [ngClass]="{ 'is-invalid': submitted && tc['billing_zip'].errors }">
+          [ngClass]="{ 'is-invalid': submitted && tc['billing_zip'].errors }"  maxlength="6">
         <div *ngIf="submitted && tc['billing_zip'].errors" class="invalid-feedback">
           <div *ngIf="tc['billing_zip'].errors['required']">Billing Zip is required</div>
+          <small class="p-error"
+          *ngIf="tc['billing_zip'].errors['message']">{{tc['billing_zip'].errors['message']}}</small>
         </div>
       </div>
       <div class="col-6 pt-2">
@@ -277,4 +285,7 @@
 <mat-dialog-actions class="float-right">
   <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">{{data['ButtonName']}}</button>
   <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>
+<mat-dialog-actions class="float-left" *ngIf="serverError">
+  <div  class="text-danger">Please check all fields for error and try again</div>
 </mat-dialog-actions>

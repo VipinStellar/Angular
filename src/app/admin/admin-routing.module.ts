@@ -34,6 +34,10 @@ import { CompanyComponent } from './company/company.component';
 import { ContactComponent } from './contact/contact.component';
 import { RecoveryChargesComponent } from './media/recovery-charges.component';
 import { PaymentListComponent } from './payment/payment-list.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { ReceiptAddComponenet } from './receipt/receipt-add.component';
+import { EmailTemplatesListComponent } from './email-templates/email-templates-list.component';
+import { EmailTemplatesAddComponent } from './email-templates/email-templates-add.component';
 const routes: Routes = [
   {
     path: '',
@@ -100,6 +104,13 @@ const routes: Routes = [
       },
 	  { path: 'contact', component: ContactComponent},
     { path: 'payment-list', component: PaymentListComponent},
+    { path: 'receipt', component: ReceiptComponent},
+    { path: 'receipt/add/:id', component: ReceiptAddComponenet},
+    { path: 'receipt/edit/:id', component: ReceiptAddComponenet},
+    { path: 'email-template', component: EmailTemplatesListComponent},
+    { path: 'email-template/add', component: EmailTemplatesAddComponent },
+    { path: 'email-template/edit/:id', component: EmailTemplatesAddComponent }
+
     ],
   },
 ];

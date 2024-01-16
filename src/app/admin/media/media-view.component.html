@@ -13,8 +13,28 @@
       </div>
     </div>
     <hdd-view-details [hddDetails]='mediaDetails' *ngIf="isLoading && mediaDetails['media_type'] =='Hard Drive' || mediaDetails['media_type'] =='External Hard Drive'"></hdd-view-details>
-    <sdd-view-details [sddDetails]='mediaDetails' *ngIf="isLoading && mediaDetails['media_type'] =='Solid State Drive' || mediaDetails['media_type'] =='External Solid State Drive'"></sdd-view-details>
-    
+    <sdd-view-details [sddDetails]='mediaDetails' *ngIf="isLoading && mediaDetails['media_type'] =='Solid State Drive' || mediaDetails['media_type'] =='External Solid State Drive'"></sdd-view-details> 
+    <flash-view-details [flashDetails]='mediaDetails' *ngIf="isLoading && mediaDetails['media_type'] =='Flash Media'"></flash-view-details> 
+    <section class="content mb-3" *ngIf="mediaDetails['job_id'] !==null">
+      <div class="container-fluid">
+          <div class="row ">
+              <div class="col-12">
+                  <table class="table table-striped responsive count_table">
+                      <thead>
+                          <tr class="table-title">
+                            <th colspan="2" class="h6">Mail & Print</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr><th>Media In</th><td><a target="_blank" href="{{ Printurl }}{{'document/print-mediain/'+mediaDetails['id']}}">Print</a></td></tr>
+                          <tr><th>Data Out</th><td><a target="_blank" href="{{ Printurl }}{{'document/print-dataout/'+mediaDetails['id']}}">Print</a></td></tr>
+                          <tr><th>Media Out</th><td><a target="_blank" href="{{ Printurl }}{{'document/print-mediaout/'+mediaDetails['id']}}">Print</a></td></tr>
+                        </tbody>
+                  </table>
+              </div>
+          </div>
+      </div>
+  </section>
   </div>
   
   

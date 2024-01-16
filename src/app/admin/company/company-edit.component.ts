@@ -13,6 +13,7 @@ export class CompanyEditComponent implements OnInit {
     companyFrom: FormGroup;
     submitted: boolean;
     stateData:[];
+    serverError:boolean;
     constructor( private dialogRef: MatDialogRef<CompanyEditComponent>,
         @Inject(MAT_DIALOG_DATA) public data: any,private formBuilder: FormBuilder,
         private toastrService: ToastrService,private companyService:CompanyService) {
@@ -24,7 +25,8 @@ export class CompanyEditComponent implements OnInit {
         this.companyFrom = this.formBuilder.group({ 
             id:[this.data[0]['id']],            
             company_name: [this.data[0]['company_name'],[Validators.required]],
-            gst_number: [this.data[0]['gst_number'],[Validators.required,GstValidator.validate()]],
+            //gst_number: [this.data[0]['gst_number'],[Validators.required,GstValidator.validate()]],
+            gst_number: [this.data[0]['gst_number'],[Validators.required]],
             billing_street:[this.data[0]['billing_street'], [Validators.required]],
             shipping_street:[this.data[0]['shipping_street']],
             billing_landmark:[this.data[0]['billing_landmark']],
@@ -37,13 +39,14 @@ export class CompanyEditComponent implements OnInit {
             shipping_state_code:[this.data[0]['shipping_state_code']],
             billing_code:[this.data[0]['billing_code'], [Validators.required]],
             shipping_code:[this.data[0]['shipping_code']],
-            billing_country:[this.data[0]['billing_country']],
-            shipping_country:[this.data[0]['shipping_country']],
+            billing_country:[(this.data[0]['billing_country']!=null && this.data[0]['billing_country']!='')?this.data[0]['billing_country']:'India'],
+            shipping_country:[(this.data[0]['shipping_country']!=null && this.data[0]['shipping_country']!='' )?this.data[0]['shipping_country']:'India'],
           });
     }
 
     onSubmit() {
         this.submitted = true;
+        this.serverError = true;
         if (this.companyFrom.invalid) {
             return false;
         }
@@ -51,7 +54,7 @@ export class CompanyEditComponent implements OnInit {
        let statecode =  this.tc['billing_state_code'].value;
        if(gstpos != statecode)
        {
-        this.tc['gst_number'].setErrors({ 'gstInvalid':  "Invalid GST number"});
+        this.tc['gst_number'].setErrors({ 'message':  "Invalid GST number"});
         return false;
        }
          let apiToCall: any;
@@ -62,7 +65,15 @@ export class CompanyEditComponent implements OnInit {
                 this.toastrService.success('Details Saved successfully!', 'Success!');
             },
             error=>{
-                this.tc['gst_number'].setErrors({ 'gstInvalid':  error.error});              
+                this.serverError = true;
+                let serverResponse = error.error;
+                for (var key in serverResponse) {
+                    if (serverResponse[key] === "Unauthorized")
+                        this.toastrService.error('Bad Credentials!', 'Error!');
+                    else
+                        this.tc[key].setErrors({ 'message': serverResponse[key] });
+                }
+                  
             }
         );
     }
@@ -75,6 +86,8 @@ export class CompanyEditComponent implements OnInit {
 
     stateChange(val,type)
     {
+        this.tc['shipping_code'].setValue(this.tc['shipping_code'].value);
+        this.tc['billing_code'].setValue(this.tc['billing_code'].value);
         this.tc['gst_number'].setValue(this.tc['gst_number'].value);
         let index = this.stateData.findIndex(obj => obj['state_name'] === val);
         let stateCode  = this.stateData[index]['state_code'];

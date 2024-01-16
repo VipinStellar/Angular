@@ -86,6 +86,12 @@ import { ClientSatisfiedComponent } from './media/client-satisfied.component';
 import { ReworkComponent } from './media/rework.component';
 import { PreviewData } from './media/preview-data.component';
 import { SendMediaClient } from './media/send-media-client.component';
+import { NotityTechnicianComponent } from './media/notify-technician.component';
+import { ReceiptComponent } from './receipt/receipt.component';
+import { ReceiptAddComponenet } from './receipt/receipt-add.component';
+import { EmailTemplatesListComponent } from './email-templates/email-templates-list.component';
+import { EmailTemplatesAddComponent } from './email-templates/email-templates-add.component';
+import { flashViewDeatils } from './media/flash-view.component';
 
 @NgModule({
   declarations: [
@@ -153,7 +159,13 @@ import { SendMediaClient } from './media/send-media-client.component';
     ClientSatisfiedComponent,
     ReworkComponent,
     PreviewData,
-    SendMediaClient    
+    SendMediaClient,
+    NotityTechnicianComponent,
+    ReceiptComponent,
+    ReceiptAddComponenet,
+    EmailTemplatesListComponent,
+    EmailTemplatesAddComponent,
+    flashViewDeatils    
   ],
   imports: [
     CommonModule,

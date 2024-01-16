@@ -55,7 +55,7 @@
             <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)" matSortDirection="asc"
               [dataSource]="paymentList" style="width: 100%;">
               <ng-container matColumnDef="sr_no">
-                <th mat-header-cell *matHeaderCellDef>sr no</th>
+                <th mat-header-cell *matHeaderCellDef>Sr. No.</th>
                 <td mat-cell *matCellDef="let element; let i = index;">{{ (paginator.pageIndex * paginator.pageSize) + (i + 1) }}</td>
               </ng-container>
               <ng-container matColumnDef="job_id">
@@ -83,10 +83,17 @@
               <ng-container matColumnDef="invoice_no">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Invoice No</th>  
                 <td mat-cell *matCellDef="let element"><a href="javascript:void(0)" (click)="viewTxnDetails(element)">{{ element?.invoice_no }} </a></td>
-              </ng-container>
+              </ng-container>    
               <ng-container matColumnDef="payment_timestamp">
                 <th mat-header-cell *matHeaderCellDef mat-sort-header>Payment On</th>
-                <td mat-cell *matCellDef="let element"> {{ element?.payment_timestamp | date:'MMM dd, yyyy  hh:mm a' }} </td>
+                <td mat-cell *matCellDef="let element"> {{element?.payment_timestamp | date:'MMM dd, yyyy  hh:mm a' }} </td>
+              </ng-container>
+              <ng-container matColumnDef="action">
+                <th mat-header-cell *matHeaderCellDef>Action</th>
+                <td mat-cell *matCellDef="let element"> 
+                  <a class=" btn-danger"  href="javascript:void(0)" *ngIf="element['invoice_no'] != null && element['irn_status'] == 0" (click)="generateIrn(element)"
+                  >Generate Irn</a>
+                </td>
               </ng-container>
               <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
               <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>

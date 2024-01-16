@@ -1,0 +1,26 @@
+<h2 mat-dialog-title>{{diaTitle}}</h2>
+<mat-dialog-content >
+    <form [formGroup]="notify">
+        <div class="row">
+          <div class="col-12">
+            <label class="control-label">Title: </label>
+            <input type="text" class="form-control form-control-sm" formControlName="title" [ngClass]="{ 'is-invalid': submitted && nt['title'].errors }">
+            <div *ngIf="submitted && nt['title'].errors" class="invalid-feedback">
+                <div *ngIf="nt['title'].errors['required']">Title is required</div>
+              </div>
+          </div>
+          <div class="col-lg-12 col-md-12 pt-2">
+            <label class="control-label">Add Your Remarks<sup class="text-danger">*</sup>:</label><br>
+            <textarea class="form-control form-control-sm" formControlName="remarks"
+              [ngClass]="{ 'is-invalid': submitted && nt['remarks'].errors }"></textarea>
+            <div *ngIf="submitted && nt['remarks'].errors" class="invalid-feedback">
+              <div *ngIf="nt['remarks'].errors['required']">Remarks is required</div>
+            </div>
+          </div>
+        </div>      
+  </form>
+</mat-dialog-content>
+<mat-dialog-actions class="float-right">
+    <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button>
+  <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>

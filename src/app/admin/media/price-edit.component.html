@@ -75,7 +75,13 @@
     <div class="row">
       <div class="form-group col" >
         <label>Tax Applicable</label>   
-            <mat-checkbox formControlName="tax" class="form-control-sm mat-primary"></mat-checkbox>
+        <ng-container *ngIf="((data['use_billing_address'] =='Same as Contact Mailing Address' && data['sez_unit_contact']==1) ||(data['use_billing_address'] =='Same as Account Billing Address' && data['sez_unit_company']==1) )">
+          <mat-checkbox formControlName="tax" class="form-control-sm mat-primary"></mat-checkbox>
+        </ng-container>
+        <ng-container *ngIf="((data['use_billing_address'] =='Same as Contact Mailing Address' && data['sez_unit_contact']!=1) ||(data['use_billing_address'] =='Same as Account Billing Address' && data['sez_unit_company']!=1) || (data['use_billing_address'] =='Custom Billing Address'))"  >
+          <label class="ml-1"> : Yes</label>
+        </ng-container>
+            
       </div>
     </div>
       </form>

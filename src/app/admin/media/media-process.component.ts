@@ -20,6 +20,7 @@ import { ReworkComponent } from './rework.component';
 import { PreviewData } from './preview-data.component';
 import { SendMediaClient } from './send-media-client.component';
 import { AppUtil } from 'src/app/_helpers/app.util';
+import { NotityTechnicianComponent } from './notify-technician.component';
 @Component({
     selector: 'app-media-process',
     templateUrl: './media-process.component.html',
@@ -101,6 +102,19 @@ export class MediaJobProcessComponent implements OnInit {
             this.loadMediaHistory();
             this.loadMediaDetails();
         });  
+      }
+
+      notifyTech()
+      {
+        const dialogRef = this.dialog.open(NotityTechnicianComponent, {
+          data: this.mediaDetails,
+          disableClose: true,
+          autoFocus: true,
+          width: "30rem"
+        });
+        dialogRef.afterClosed().subscribe(result => {
+            this.loadMediaHistory();
+        });
       }
 
       updateExtension(type)
@@ -227,6 +241,10 @@ export class MediaJobProcessComponent implements OnInit {
         else if(type == 'DLCONFIRM' && userId == this.user.id && stage !=10 && stage !=7 &&  stage != 14 &&  stage != 15 && this.user.role_id != 10)
         {
           return true;
+        }
+        else if(type == 'MEDIAOUT' && userId == this.user.id && this.user.role_id == 10 && this.mediaDetails['MediaClientOut'] ==null && (stage == 7 || stage == 10 || stage == 14 || stage == 15 || stage == 16 || stage == 22) )
+        {
+            return true;
         }
         else
         {

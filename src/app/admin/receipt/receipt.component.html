@@ -1,0 +1,87 @@
+<div class="content-wrapper">
+    <div class="content-header" style="margin-top: 57px;">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-10">
+                    <h1 class="m-0 text-dark">{{pageTitle}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <fieldset class="scheduler-border">
+                        <legend class="scheduler-border">Advance Search</legend>
+                        <div class="row">
+                          <div class="col-sm-3"> 
+                            <mat-select [(value)]="selectedType" (selectionChange)="selectOnChange($event)" class="mt-2 table-search form-control form-control-sm" placeholder="Search For">
+                              <mat-option *ngFor="let search of searchField" [value]="search.value">
+                                {{search.name}}
+                              </mat-option>
+                            </mat-select>
+                          </div>
+                          <div class="col-sm-3" *ngIf="searchfieldName !=null && searchfieldName !='' &&  searchfieldName !='branch_id'">
+                            <input [(ngModel)]="term" type="text" class="mt-2 form-control-sm table-search form-control" />
+                          </div><br><br>
+                          
+                          <div class="col-sm-3">
+                            <button class="mt-2 btn btn-primary btn-sm" (click)="_search()">Search</button>&nbsp;
+                            <button class="mt-2 btn btn-default btn-sm" (click)="reset()">Reset</button>&nbsp;
+                          </div>
+                        </div>
+                      </fieldset>
+                  </div>
+                <div class="col-12">
+                    <mat-progress-bar mode="indeterminate" *ngIf="isLoading"></mat-progress-bar>
+                    <table mat-table class="mat-elevation-z8" matSort (matSortChange)="sortData($event)"
+                        matSortActive="id" matSortDirection="desc" [dataSource]="recieptList" style="width: 100%;">
+                        <ng-container matColumnDef="job_id">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Job Id </th>
+                            <td mat-cell *matCellDef="let element"><a [routerLink]="['../media/view/', element.media_id]">{{element?.job_id}} </a></td>
+                        </ng-container>
+                        <ng-container matColumnDef="receipt_num">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >Receipt No.</th>
+                            <td mat-cell *matCellDef="let element"> {{element?.receipt_num}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="branch_name">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header> Branch Name </th>
+                            <td mat-cell *matCellDef="let element"> {{element?.branch_name}} </td>
+                        </ng-container> 
+                        <ng-container matColumnDef="invoice_no">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >Invoice No</th>
+                            <td mat-cell *matCellDef="let element"> {{element?.invoice_no}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="received_amount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >Received Amount</th>
+                            <td mat-cell *matCellDef="let element"> {{element?.received_amount}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="tds_amount">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >TDS Amount</th>
+                            <td mat-cell *matCellDef="let element"> {{element?.tds_amount}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="payment_mode">
+                            <th mat-header-cell *matHeaderCellDef mat-sort-header >Payment Mode</th>
+                            <td mat-cell *matCellDef="let element"> {{element?.payment_mode}} </td>
+                        </ng-container>
+                        <ng-container matColumnDef="action">
+                            <th mat-header-cell *matHeaderCellDef> Action </th>
+                            <td mat-cell *matCellDef="let element">
+                                <a [routerLink]="['./edit/', element.id]">Edit</a>
+                            </td>
+                          </ng-container>                     
+                        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+                    </table>
+
+                    <mat-paginator #paginator [length]="totalRows" [pageIndex]="currentPage" [pageSize]="pageSize"
+                        [pageSizeOptions]="pageSizeOptions" (page)="pageChanged($event)" aria-label="Select page">
+                    </mat-paginator>
+
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+

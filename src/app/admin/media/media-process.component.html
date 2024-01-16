@@ -50,12 +50,12 @@ table thead tr.table-title{
              </thead>
               <ng-container *ngFor="let item of _history; let i = index" >
                 <tbody>
-                <tr *ngIf="item['module_type'] == 'STATUS-UPDATE'">
+                <tr *ngIf="item['module_type'] == 'STATUS-UPDATE' || item['module_type'] == 'NOTIFY-TECH'">
                   <td class="inc-td"></td>
                   <td>{{item['added_on'] | date:'MMM dd, yyyy  hh:mm a'}}</td>
                   <td>{{item['user_name'] ==null ? item['added_by'] :
                     item['user_name'] }}</td>
-                  <td>{{item['remarks']}}</td>
+                  <td [innerHtml]="item['remarks']"></td>
                 </tr>
               </tbody>
               </ng-container>
@@ -154,7 +154,7 @@ table thead tr.table-title{
               </ng-container>
             </table>
           </div>
-          <div class="col-12" *ngIf="recListShow">
+          <div class="col-12" *ngIf="recListShow && mediaDetails['media_type'] !='Flash Media'">
             <table class="table table-striped table-bordered responsive count_table">
               <thead>
               <tr class="table-title">
@@ -321,7 +321,7 @@ table thead tr.table-title{
                   <th  colspan="4" class="h6">Data Out    
                     <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'],'Tech')" class="btn btn-primary btn-sm" *ngIf="mediaDetails['stage']==12 && mediaDetails['Directory_Listing']['dl_status']== 'Yes' && user.id == mediaDetails['user_id'] && mediaDetails['Directory_Listing']['data_copy_status'] != 'Yes'">Data out</a>        
                     <a style="float:right" href="javascript:void(0)" (click)="dataOutRequest(mediaDetails['Directory_Listing'],'ISE')" class="btn btn-primary btn-sm" *ngIf="mediaDetails['stage']==12 && mediaDetails['Directory_Listing']['dl_status'] == 'Yes' && user.id == mediaDetails['ise_user_id'] && mediaDetails['Directory_Listing']['data_out_mode'] ==null && mediaDetails['Directory_Listing']['data_copy_status'] == 'Yes' && (mediaDetails['balance_amount'] == 0 || mediaDetails['balance_amount'] ==null)">Data out</a>        
-                    <a style="float:right" href="javascript:void(0)" class="btn btn-danger btn-sm" *ngIf="mediaDetails['stage']==12 && mediaDetails['Directory_Listing']['dl_status'] == 'Yes' && user.id == mediaDetails['ise_user_id'] && mediaDetails['Directory_Listing']['data_out_mode'] ==null && mediaDetails['Directory_Listing']['data_copy_status'] == 'Yes' && (mediaDetails['balance_amount'] != 0 || mediaDetails['balance_amount'] !=null)">Please collect full recovery fee for Data Out</a>        
+                    <a style="float:right" href="javascript:void(0)" class="btn btn-danger btn-sm" *ngIf="mediaDetails['stage']==12 && mediaDetails['Directory_Listing']['dl_status'] == 'Yes' && user.id == mediaDetails['ise_user_id'] && mediaDetails['Directory_Listing']['data_out_mode'] ==null && mediaDetails['Directory_Listing']['data_copy_status'] == 'Yes' && (mediaDetails['balance_amount'] != 0)">Please collect full recovery fee for Data Out</a>        
                 </th>
                 </tr>
                 <tr>
@@ -348,8 +348,8 @@ table thead tr.table-title{
               <thead>
               <tr class="table-title">
                 <th  colspan="7" class="h6">Media Out
-                  <a style="float:right" class="pl-3" href="javascript:void(0)" *ngIf="user.role_id == 10 && user.id == mediaDetails['ise_user_id'] && mediaDetails['MediaClientOut']==null" (click)="mediaOutRequest()">Request for Media Out</a>
-                  <a style="float:right" href="javascript:void(0)" *ngIf="user.role_id == 10 && user.id == mediaDetails['ise_user_id'] && mediaDetails['MediaClientOut']==null && (mediaDetails['balance_amount'] == 0 || mediaDetails['balance_amount'] ==null)" (click)="mediaOutForClient()">Media Out for Client</a>
+                  <a style="float:right" class="pl-3" href="javascript:void(0)" *ngIf="editButton('MEDIAOUT',mediaDetails['ise_user_id'],mediaDetails['stage'])" (click)="mediaOutRequest()">Request for Media Out</a>
+                  <a style="float:right" href="javascript:void(0)" *ngIf="editButton('MEDIAOUT',mediaDetails['ise_user_id'],mediaDetails['stage']) && (mediaDetails['balance_amount'] == 0 || mediaDetails['balance_amount'] ==null)" (click)="mediaOutForClient()">Media Out for Client</a>
                 </th>
               </tr>
               <tr>

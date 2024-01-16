@@ -7,9 +7,8 @@ import { PaymentService  } from '../../_services/payment.service';
 import { MediaService } from 'src/app/_services/media.service';
 import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
-import { DataService } from '../../_services/data.service';
 import { PaymentViewComponent } from './payment-view.component';
-
+import { ToastrService } from 'ngx-toastr';
 @Component({
   selector: 'app-payment-list',
   templateUrl: './payment-list.component.html',
@@ -25,8 +24,8 @@ export class PaymentListComponent implements OnInit {
   sortOrder = 'desc';
   sortField = 'id';
   pageTitle = "Payment List";
-  displayedColumns: string[] = ['sr_no','job_id', 'firstname','phone','payment_amount','order_no','invoice_no','payment_timestamp'];
-  searchField = [{ value: 'job_id', name: 'Job ID' }, {value: 'email', name: 'Email'}, {value: 'phone', name: 'Phone'}, {value: 'payment_txnid', name: 'Txn ID'},{value: 'order_no', name: 'Order NO'},{value: 'invoice_no', name: 'Invoice No'},{ value: 'branch_id', name: 'Branch name' }];
+  displayedColumns: string[] = ['sr_no','job_id', 'firstname','phone','payment_amount','order_no','invoice_no','payment_timestamp','action'];
+  searchField = [{value:'firstname',name:'Client Name'},{ value: 'job_id', name: 'Job ID' }, {value: 'email', name: 'Email'}, {value: 'phone', name: 'Phone'}, {value: 'payment_txnid', name: 'Txn ID'},{value: 'order_no', name: 'Order NO'},{value: 'invoice_no', name: 'Invoice No'},{ value: 'branch_id', name: 'Branch name' }];
   term: string;
   searchfieldName: string;
   paymentList: MatTableDataSource<Payment> = new MatTableDataSource();
@@ -40,7 +39,7 @@ export class PaymentListComponent implements OnInit {
   branchList:[];
   selectedType :string;
   selectedBranch  =null;
-  constructor(private dataService:DataService, private mediaService:MediaService, private paymentService:PaymentService, public dialog: MatDialog){}
+  constructor(private toastrService:ToastrService,private mediaService:MediaService, private paymentService:PaymentService, public dialog: MatDialog){}
   ngOnInit(): void {
     this.mediaService.getAllBranch().subscribe( data => {
       this.branchList = data as any;
@@ -103,6 +102,18 @@ export class PaymentListComponent implements OnInit {
       disableClose: true,
       autoFocus: true,
       width: "700px"
+    });
+  }
+
+  generateIrn(item){
+    this.paymentService.generateIrn(item['invoiceId']).subscribe(data => {
+      let result = data as any; 
+      if(result['irn_status']==1)
+        this.toastrService.success(result['irn_msg'], 'Success!');
+      else
+        this.toastrService.error(result['irn_msg'], 'Error!');
+
+        this.loadData();
     });
   }
 }

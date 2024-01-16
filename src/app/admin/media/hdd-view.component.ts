@@ -10,6 +10,8 @@ export class HddViewDeatils implements OnInit {
     constructor(private accountService:AccountService) {}
     @Input('hddDetails') mediaDetails: any;
     ngOnInit(): void {
+        if(this.mediaDetails['Directory_Listing'] !=null)
+        this.mediaDetails['Directory_Listing']['data_recovered'] = JSON.parse(this.mediaDetails['Directory_Listing']['data_recovered']);
         this.user =  this.accountService.userValue;
     }
 }

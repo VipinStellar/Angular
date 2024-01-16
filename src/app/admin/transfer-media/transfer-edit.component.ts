@@ -28,7 +28,7 @@ export class TransferEditComponent implements OnInit {
         this.mediaService.gettransferbranch().subscribe( data => {
             this.branchList = data as any;
             this.loadMediaDetails();
-            this.loadOriginalMedia();
+          //  this.loadOriginalMedia();
             this.loadTransferHistory();
         });
         this.loadFrom();
@@ -54,18 +54,22 @@ export class TransferEditComponent implements OnInit {
         this.media.reset();
     }
 
-    loadOriginalMedia()
-    {
-        this.mediaService.getOriginalMedia(this.route.snapshot.params['id']).subscribe( data => {
-            this.originalMedia = data as any;
-        }); 
-    }
+    // loadOriginalMedia()
+    // {
+    //     this.mediaService.getOriginalMedia(this.route.snapshot.params['id']).subscribe( data => {
+    //         this.originalMedia = data as any;
+    //     }); 
+    // }
 
     loadMediaDetails()
     {
         this.mediaService.getMedia(this.route.snapshot.params['id']).subscribe( data => {
             this.mediaDetails = data as any;
             this.loading = false;
+            if(this.user.role_id == 10 && this.user.branch_id == this.mediaDetails['branch_id'] && (this.mediaDetails['balance_amount'] == null || this.mediaDetails['balance_amount'] == 0))
+            {
+                this.originalMedia = true;
+            }
             for(var i = 0; i < this.branchList.length; i++) {
                 if(this.mediaDetails['new_branch_id'] != null && this.branchList[i]['id'] === this.mediaDetails['new_branch_id'])
                    this.branchList.splice(i, 1);
@@ -96,7 +100,7 @@ export class TransferEditComponent implements OnInit {
         apiToCall.subscribe(
             data => {
                 this.cancle();
-                this.loadOriginalMedia();
+                // this.loadOriginalMedia();
                 this.loadTransferHistory();
                 this.loadMediaDetails();
                 this.toastrService.success('Details Saved successfully!', 'Success!');

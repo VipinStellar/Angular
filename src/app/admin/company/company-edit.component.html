@@ -11,11 +11,12 @@
         </div>   
         <div class="col-6 pt-2">
             <label class="control-label">GST Number <sup class="text-danger">*</sup> : </label>&nbsp;<a target="_blank" href="https://services.gst.gov.in/services/searchtp">Click Here To Authenticate GSTIN</a>
-            <input type="text" class="form-control form-control-sm uppercase"  formControlName="gst_number" [ngClass]="{ 'is-invalid': submitted && tc['gst_number'].errors }">
+            <input type="text" maxlength="15" class="form-control form-control-sm uppercase"  formControlName="gst_number" [ngClass]="{ 'is-invalid': submitted && tc['gst_number'].errors }">
             <div *ngIf="submitted && tc['gst_number'].errors" class="invalid-feedback">
              <div *ngIf="tc['gst_number'].errors['required']">GST Number is required</div>
-             <div *ngIf="tc['gst_number'].errors['gstInvalid']">{{tc['gst_number'].errors['gstInvalid']}} </div>
-           </div>
+             <small class="p-error"
+             *ngIf="tc['gst_number'].errors['message']">{{tc['gst_number'].errors['message']}}</small>
+            </div>
         </div> 
         <div class="col-6 pt-2">
             <label class="control-label">Billing Street <sup class="text-danger">*</sup> : </label>
@@ -93,16 +94,20 @@
         </div>
                <div class="col-6 pt-2">
             <label class="control-label">Billing Zip Code <sup class="text-danger">*</sup> : </label>
-            <input type="text" class="form-control form-control-sm" formControlName="billing_code" [ngClass]="{ 'is-invalid': submitted && tc['billing_code'].errors }">
+            <input type="text" maxlength="6" class="form-control form-control-sm" formControlName="billing_code" [ngClass]="{ 'is-invalid': submitted && tc['billing_code'].errors }">
             <div *ngIf="submitted && tc['billing_code'].errors" class="invalid-feedback">
              <div *ngIf="tc['billing_code'].errors['required']">Billing Code is required</div>
+             <small class="p-error"
+             *ngIf="tc['billing_code'].errors['message']">{{tc['billing_code'].errors['message']}}</small>
            </div>
         </div>
         <div class="col-6 pt-2">
             <label class="control-label">Shipping Zip Code : </label>
-            <input type="text" class="form-control form-control-sm" formControlName="shipping_code" [ngClass]="{ 'is-invalid': submitted && tc['shipping_code'].errors }">
+            <input type="text" maxlength="6" class="form-control form-control-sm" formControlName="shipping_code" [ngClass]="{ 'is-invalid': submitted && tc['shipping_code'].errors }">
             <div *ngIf="submitted && tc['shipping_code'].errors" class="invalid-feedback">
              <div *ngIf="tc['shipping_code'].errors['required']">Shipping Code is required</div>
+             <small class="p-error"
+             *ngIf="tc['shipping_code'].errors['message']">{{tc['shipping_code'].errors['message']}}</small>
            </div>
         </div>
         <div class="col-6 pt-2">
@@ -125,6 +130,9 @@
 <mat-dialog-actions class="float-right">
      <button mat-button class=" btn btn-primary btn-sm" (click)="onSubmit()">Save</button> 
   <button mat-button mat-dialog-close class=" btn btn-danger btn-sm" (click)="hide()">Cancel</button>
+</mat-dialog-actions>
+<mat-dialog-actions class="float-left" *ngIf="serverError">
+  <div  class="text-danger">Please check all fields for error and try again</div>
 </mat-dialog-actions>
 <style>
   .uppercase{

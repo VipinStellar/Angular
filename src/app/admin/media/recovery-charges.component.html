@@ -174,7 +174,7 @@
             *ngIf="mediaDetails['FinalPrice'] != null">
             <thead>
               <tr class="table-title">
-                <th colspan="6" class="h6">Payment Details</th>
+                <th colspan="7" class="h6">Payment Details</th>
                 <th><a style="float:right" href="javascript:void(0)" (click)="addPayment(1)"
                     class="btn btn-primary btn-sm"
                     *ngIf="mediaDetails['FinalPrice']['balance_amount'] != null && mediaDetails['FinalPrice']['balance_amount'] !=0 && paymentAddShow">Add
@@ -182,12 +182,13 @@
               </tr>
               <tr>
                 <th width="10">S.No</th>
-                <th width="200">Channel</th>
-                <th width="200">Order No.</th>
-                <th width="200">Payment Txnid/Ref.No.</th>
-                <th width="200">Payment Amount</th>
-                <th width="200">Payment Date</th>
-                <th width="200">Action</th>
+                <th width="10">Channel</th>
+                <th width="50">Order No.</th>
+                <th width="50">Payment Txnid/Ref.No.</th>
+                <th width="50">Payment Amount</th>
+                <th width="20">Payment Date</th>
+                <th width="20">Invoice No.</th>
+                <th width="5">Action</th>
               </tr>
             </thead>
             <tbody>
@@ -198,26 +199,56 @@
                 <td>{{item['payment_txnid']}}</td>
                 <td>Rs. {{item['payment_amount']}}</td>
                 <td> {{item['payment_timestamp'] | date:'mediumDate'}}</td>
+                <td> <p *ngIf="item['invoice_no'] != null">{{item['invoice_no']}}</p> </td>
                 <td>
-                  <p *ngIf="item['invoice_no'] != null">{{item['invoice_no']}}</p>
-                  <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="addPayment(item)"
-                    class="btn btn-primary btn-sm mb-1 mr-1" title="Edit Payment"><i class="nav-icon fas fa-edit"></i>
-                  </a>
-                  <a href="{{ PDFurl }}{{'generate-pdf/'+item['reqId']}}/view" title="Preview Invoice" target="_blank" *ngIf="item['invoice_no'] == null" 
-                    class="btn btn-primary btn-sm"><i class="nav-icon fas fa-eye"></i>
-                  </a>
-                  <a href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="generateInvoice(item)"
-                    class="btn btn-primary btn-sm">Generate Invoice</a>
-                
-                  <a href="javascript:void(0)" *ngIf="item['invoice_no'] != null && item['irn_status'] == 0" (click)="generateIrn(item)"
-                  class="btn btn-primary btn-sm mb-1">Generate Irn</a>
-
-                  <a target="_blank"  href="{{ PDFurl }}view-invoice/{{item['invoice_id']+'/'+item['reqId']}}" *ngIf="item['invoice_no'] != null && item['irn_status'] != 0"  class="btn btn-primary btn-sm mb-1"><i class="nav-icon fas fa-solid fa-file-invoice"></i></a>
-
+                  <ul class="navbar-nav mr-auto">
+	
+                    <li class="nav-item" routerLinkActive="active" >
+                      <a class="nav-link" #createPlanmenuTrigger="matMenuTrigger" [matMenuTriggerFor]="createPlan"><mat-icon>more_vert</mat-icon></a>
+                      <mat-menu #createPlan="matMenu">
+                        <a class="btn" mat-menu-item href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="addPayment(item)"
+                          >Edit Payment </a>
+                          <a class="btn" mat-menu-item href="{{ PDFurl }}{{'generate-pdf/'+item['reqId']}}/view" target="_blank" *ngIf="item['invoice_no'] == null" 
+                             >Preview Invoice</a>
+                        <a class="btn" mat-menu-item href="javascript:void(0)" *ngIf="item['invoice_no'] == null" (click)="generateInvoice(item)"
+                          >Generate Invoice</a>                
+                        <a class="btn" mat-menu-item href="javascript:void(0)" *ngIf="item['invoice_no'] != null && item['irn_status'] == 0" (click)="generateIrn(item)"
+                        >Generate Irn</a>
+                        <a class="btn" mat-menu-item target="_blank"  href="{{ PDFurl }}view-invoice/{{item['invoice_id']+'/'+item['reqId']+'?show=all'}}" *ngIf="item['invoice_no'] != null && item['irn_status'] != 0" >Download Invoice</a>
+                        <a class="btn" [routerLink]="['../../../receipt/add', item['invoice_id']]" mat-menu-item    *ngIf="item['invoice_no'] != null && item['irn_status'] != 0" >Add Receipt</a>
+                      </mat-menu>
+                    </li></ul>
                 </td>
               </tr>
             </tbody>
           </table>
+          <table class="table table-striped table-bordered responsive count_table"  *ngIf="mediaDetails['AllReceipt'].length > 0">
+            <thead>
+              <tr class="table-title">
+                <th colspan="7" class="h6">Receipts</th>              
+              </tr>
+              <tr>
+                <th width="10">S.No</th>
+                <th width="10">Receipt No.</th>
+                <th width="10">Invoice No</th>
+                <th width="10">Received Amount</th>
+                <th width="10">TDS Amount</th>
+                <th width="10">Payment Mode</th>
+                <th width="5">Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let item of mediaDetails['AllReceipt']; let i = index">
+                <td class="inc-td"></td>
+                <td>{{item['receipt_num']}}</td>
+                <td>{{item['invoice_no']}}</td>
+                <td>{{item['received_amount']}}</td>
+                <td>{{item['tds_amount']}}</td>
+                <td>{{item['payment_mode']}}</td>
+                <td><a  [routerLink]="['../../../receipt/edit', item['id']]">Edit</a></td>
+                </tr>
+              </tbody>
+        </table>
 
         </div>
 

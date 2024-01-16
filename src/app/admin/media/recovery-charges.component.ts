@@ -13,6 +13,8 @@ import { environment } from 'src/environments/environment';
 import { PaymentEditComponent } from '../payment/payment-edit.component';
 import { PoEditComponent } from '../payment/po-edit.component';
 import { ToastrService } from 'ngx-toastr';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-recovery-charges',
   templateUrl: './recovery-charges.component.html',
@@ -53,11 +55,31 @@ export class RecoveryChargesComponent implements OnInit {
   }
 
   generateInvoice(item) {
-    this.paymentService.generateInvoice(item['reqId']).subscribe(data => {
-      this.toastrService.success('Invoice Generated', 'Success!');
-      this.loadMediaDetails();
+    Swal.fire({
+      title: 'Are you sure want to generate invoice ',
+      icon: 'warning',
+      allowOutsideClick: false,
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think',
+    }).then((result) => {
+      if (result.value) {
+        this.paymentService.generateInvoice(item['reqId']).subscribe(data => {
+          this.toastrService.success('Invoice Generated', 'Success!');
+          this.loadMediaDetails();
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+      }
     });
   }
+
+  // generateInvoice(item) {
+  //   this.paymentService.generateInvoice(item['reqId']).subscribe(data => {
+  //     this.toastrService.success('Invoice Generated', 'Success!');
+  //     this.loadMediaDetails();
+  //   });
+  // }
 
   generateIrn(item){
     this.paymentService.generateIrn(item['invoice_id']).subscribe(data => {
