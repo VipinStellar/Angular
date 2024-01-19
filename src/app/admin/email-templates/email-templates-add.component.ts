@@ -16,9 +16,7 @@ export class EmailTemplatesAddComponent implements OnInit{
     pageTitle:string = "Add Email Templates";
     templateFrom: FormGroup;
     submitted: boolean;
-    serverError:string = '';
     @ViewChild("calRefference") calRefference: ElementRef;
-    serverErrorShow:boolean;
     branchList=[];
     isEdit:boolean = false;
     constructor( private formBuilder: FormBuilder, private el: ElementRef,
@@ -51,6 +49,7 @@ export class EmailTemplatesAddComponent implements OnInit{
     loadForm(){
         this.templateFrom = this.formBuilder.group({
             id: [],
+            name: ['', [Validators.required]],
             status: ['', [Validators.required]],
             subject: ['', [Validators.required]],
             template: ['', [Validators.required]]
@@ -61,6 +60,7 @@ export class EmailTemplatesAddComponent implements OnInit{
     { 
         this.templateFrom.setValue({
             id: data.id,
+            name:data.name,
             status:data.status,
             subject:data.subject,
             template:''
@@ -78,8 +78,7 @@ export class EmailTemplatesAddComponent implements OnInit{
         if (this.templateFrom.invalid) {
             return false;
         }
-        let apiToCall: any;
-        apiToCall = this.templatesService.addTemplate(this.templateFrom.value);
+        let apiToCall: any = this.templatesService.addTemplate(this.templateFrom.value);
         apiToCall.subscribe( data => {
                 this.toastrService.success(data.message, 'Success!');
                 this.router.navigate(['admin/email-template']);
@@ -97,7 +96,7 @@ export class EmailTemplatesAddComponent implements OnInit{
             });
     }
 
-    reset(){
+    cancel(){
         this._location.back();
     }
 }

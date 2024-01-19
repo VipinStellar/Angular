@@ -74,13 +74,6 @@ export class RecoveryChargesComponent implements OnInit {
     });
   }
 
-  // generateInvoice(item) {
-  //   this.paymentService.generateInvoice(item['reqId']).subscribe(data => {
-  //     this.toastrService.success('Invoice Generated', 'Success!');
-  //     this.loadMediaDetails();
-  //   });
-  // }
-
   generateIrn(item){
     this.paymentService.generateIrn(item['invoice_id']).subscribe(data => {
       let result = data as any; 

@@ -72,8 +72,7 @@
 
             <ng-container matColumnDef="deal_name">
               <th mat-header-cell *matHeaderCellDef mat-sort-header>Deal Name</th>
-              <td [ngClass]="element.stage_name == 'Pre Inspection Done' ? 'stage green-stage' : 'stage orange-stage'"
-                mat-cell *matCellDef="let element"><a [routerLink]="['./view/', element.id]"
+              <td mat-cell *matCellDef="let element"><a [routerLink]="['./view/', element.id]"
                   title="View Case Details">{{element?.deal_name}}<br> <small class="text-muted">{{element?.deal_id}}</small></a></td>
             </ng-container>
             <ng-container matColumnDef="job_id">

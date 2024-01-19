@@ -9,12 +9,16 @@ import { MatDialog } from '@angular/material/dialog';
 import { FormControl, FormGroup } from '@angular/forms';
 import { PaymentViewComponent } from './payment-view.component';
 import { ToastrService } from 'ngx-toastr';
+import { environment } from 'src/environments/environment';
+import Swal from 'sweetalert2';
+
 @Component({
   selector: 'app-payment-list',
   templateUrl: './payment-list.component.html',
   styleUrls: ['./payment-list.component.sass']
 })
 export class PaymentListComponent implements OnInit {
+  PDFurl = environment.apiUrl.replace("/api", "");
   ELEMENT_DATA: Payment[] = [];
   selected: Payment;
   totalRows = 0;
@@ -114,6 +118,26 @@ export class PaymentListComponent implements OnInit {
         this.toastrService.error(result['irn_msg'], 'Error!');
 
         this.loadData();
+    });
+  }
+
+  generateInvoice(item) {
+    Swal.fire({
+      title: 'Are you sure want to generate invoice ',
+      icon: 'warning',
+      allowOutsideClick: false,
+      showCancelButton: true,
+      confirmButtonText: 'Yes, go ahead.',
+      cancelButtonText: 'No, let me think',
+    }).then((result) => {
+      if (result.value) {
+        this.paymentService.generateInvoice(item['id']).subscribe(data => {
+          this.toastrService.success('Invoice Generated', 'Success!');
+          this.loadData();
+        });
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+
+      }
     });
   }
 }

@@ -56,7 +56,7 @@ export class ReceiptAddComponenet implements OnInit {
             payment_mode: ['', [Validators.required]],
             cheque_dd: [''],
             transaction_id: ['', [Validators.required]],
-            transaction_date: ['', [Validators.required]],
+           // transaction_date: ['', [Validators.required]],
             payment_received_date: ['', [Validators.required]],
            // media_type: ['', [Validators.required]],
         });      
@@ -122,7 +122,7 @@ export class ReceiptAddComponenet implements OnInit {
                 cheque_dd:receipt['cheque_dd'],
                 transaction_id:receipt['transaction_id'],
                 paid_amount:'',
-                transaction_date:this.formatFormDate(new Date(receipt['transaction_date'])),
+               // transaction_date:this.formatFormDate(new Date(receipt['transaction_date'])),
                 payment_received_date:this.formatFormDate(new Date(receipt['payment_received_date'])),
              
             });

@@ -3,7 +3,6 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort, Sort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
-import { Router } from '@angular/router';
 import { Template } from '../../_models/template';
 import { ToastrService } from "ngx-toastr";
 import Swal from 'sweetalert2';
@@ -23,13 +22,13 @@ export class EmailTemplatesListComponent implements OnInit {
   sortOrder = 'desc';
   sortField = 'id';
   pageTitle = "Email Templates";
-  displayedColumns: string[] = ['sr_no','subject', 'status','action'];
+  displayedColumns: string[] = ['sr_no','name', 'status', 'created_at','action'];
   templateList: MatTableDataSource<Template> = new MatTableDataSource();
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild(MatPaginator)
   paginator!: MatPaginator;
-  subjectData:string='';
-  constructor( private templatesService:TemplatesService, private toastrService: ToastrService, private router:Router, public dialog: MatDialog){}
+  nameData:string='';
+  constructor( private templatesService:TemplatesService, private toastrService: ToastrService, public dialog: MatDialog){}
   ngOnInit(): void { 
     this.loadData();
   }
@@ -39,7 +38,7 @@ export class EmailTemplatesListComponent implements OnInit {
     searchParams['pageSize'] = this.pageSize;
     searchParams['order'] = this.sortOrder;
     searchParams['orderBy'] = this.sortField;
-    searchParams['subjectData'] = this.subjectData;
+    searchParams['nameData'] = this.nameData;
     this.templatesService.getTemplates(searchParams).subscribe(
       data => {
         let res = data as any;
@@ -63,10 +62,10 @@ export class EmailTemplatesListComponent implements OnInit {
   }
   reset()
   {
-    this.subjectData = '';
+    this.nameData = '';
     this.loadData();
   }
-
+  
   deleteTemplate(template) {
     Swal.fire({
       title: 'Are you sure want to Delete? ' + template.subject,

@@ -95,13 +95,13 @@
                                     <div *ngIf="fr['cheque_dd'].errors['required']">Cheque/ DD No Location is required</div>
                                   </div>
                               </div>
-                              <div class="col-4 p-2">
+                              <!-- <div class="col-4 p-2">
                                 <label class="control-label">Transaction Date : </label>
                                 <input type="date"  class="form-control form-control-sm" formControlName="transaction_date"  [ngClass]="{ 'is-invalid': submitted && fr['transaction_date'].errors }">
                                 <div *ngIf="submitted && fr['transaction_date'].errors" class="invalid-feedback">
                                     <div *ngIf="fr['transaction_date'].errors['required']">Transaction Date is required</div>
                                   </div>
-                              </div>
+                              </div> -->
                               <div class="col-4 p-2">
                                 <label class="control-label">Payment Received date : </label>
                                 <input type="date"  class="form-control form-control-sm" formControlName="payment_received_date"  [ngClass]="{ 'is-invalid': submitted && fr['payment_received_date'].errors }">

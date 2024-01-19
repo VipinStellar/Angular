@@ -215,7 +215,7 @@
                         <a class="btn" mat-menu-item href="javascript:void(0)" *ngIf="item['invoice_no'] != null && item['irn_status'] == 0" (click)="generateIrn(item)"
                         >Generate Irn</a>
                         <a class="btn" mat-menu-item target="_blank"  href="{{ PDFurl }}view-invoice/{{item['invoice_id']+'/'+item['reqId']+'?show=all'}}" *ngIf="item['invoice_no'] != null && item['irn_status'] != 0" >Download Invoice</a>
-                        <a class="btn" [routerLink]="['../../../receipt/add', item['invoice_id']]" mat-menu-item    *ngIf="item['invoice_no'] != null && item['irn_status'] != 0" >Add Receipt</a>
+                        <a class="btn" [routerLink]="['../../../receipt/add', item['invoice_id']]" mat-menu-item    *ngIf="item['invoice_no'] != null && item['existing_payment'] == 'Credit'" >Add Receipt</a>
                       </mat-menu>
                     </li></ul>
                 </td>
