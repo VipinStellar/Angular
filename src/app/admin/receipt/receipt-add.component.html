@@ -68,9 +68,12 @@
                               <div class="col-4 p-2">
                                 <label class="control-label">Payment Mode: </label>
                                 <select class="form-control form-control-sm" formControlName="payment_mode"  [ngClass]="{ 'is-invalid': submitted && fr['payment_mode'].errors }">
-                                    <option value="PAYU">PAYU</option>
+                                    <option value="Payu">Payu</option>
+                                    <option value="Paytm">Paytm</option>
+                                    <option value="RTGS">RTGS</option>
                                     <option value="NEFT">NEFT</option>
                                     <option value="POS">POS</option>
+                                    <option value="UPI">UPI</option>
                                     <option value="Cash">Cash</option>
                                     <option value="Cash Submitted by Client">Cash Submitted by Client</option>
                                     <option value="Cheque">Cheque</option>

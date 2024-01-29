@@ -75,16 +75,16 @@
                 <th>Media Model</th>
                 <th>Capacity</th>
                 <th>Media Make</th>
-                <th>CD/DVD Size</th>
-                <th>Inventry Num</th>
+                <th *ngIf="copymedia[0]['cdSize'] !=null">CD/DVD Size</th>
+                <th *ngIf="copymedia[0]['inventry_num'] !=null">Inventry Num</th>
             </tr>
             <tr>
                 <td>{{copymedia[0]['media_sn']}}</td>
                 <td>{{copymedia[0]['media_model']}}</td>
                 <td>{{copymedia[0]['capacity']}}</td>
                 <td>{{copymedia[0]['media_make']}}</td>
-                <td>{{copymedia[0]['cdSize']}}</td>
-                <td>{{copymedia[0]['inventry_num']}}</td>
+                <td *ngIf="copymedia[0]['cdSize'] !=null">{{copymedia[0]['cdSize']}}</td>
+                <td *ngIf="copymedia[0]['inventry_num'] !=null">{{copymedia[0]['inventry_num']}}</td>
             </tr>
         </table>
     </ng-container>

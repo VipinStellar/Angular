@@ -109,6 +109,10 @@ export class PreInspectionComponenet implements OnInit {
     get t() { return this.fd['tatalDrive'] as FormArray; }
 
     onSubmit() {
+        const pattern = /^\d+(\.\d+)?\s*(GB|TB|KB|MB)$/i;
+        let mediacapacity= (this.f['media_capacity_other'].value).replace(/\s+/g, ' ').trim();
+        if(this.f['media_capacity'].value == 'Others' && !pattern.test(mediacapacity))
+        this.mediaEdit.controls['media_capacity_other'].setErrors({invalid:true});
         this.submitted = true;
         if (this.mediaEdit.invalid) {
             return false;
@@ -120,7 +124,7 @@ export class PreInspectionComponenet implements OnInit {
             this.f['media_make'].setValue(this.f['media_make_other'].value)
         }
         if (this.f['media_capacity'].value == 'Others') {
-            this.f['media_capacity'].setValue(this.f['media_capacity_other'].value)
+            this.f['media_capacity'].setValue(mediacapacity)
         }
         if (this.f['media_category'].value == 'Others') {
             this.f['media_category'].setValue(this.f['media_cat_other'].value)
@@ -135,7 +139,7 @@ export class PreInspectionComponenet implements OnInit {
         if (this.f['media_status'].value == 'Non Working' && this.f['media_condition'].value != 'Non Tampered') {
             this.f['tampered_status'].setValue('Tampered')
         }
-
+//console.log(this.mediaEdit.value);return false
         apiToCall = this.mediaService.updatePreAnalysis(this.mediaEdit.value);
         apiToCall.subscribe(
             data => {

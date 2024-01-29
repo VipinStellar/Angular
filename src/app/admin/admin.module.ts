@@ -92,6 +92,7 @@ import { ReceiptAddComponenet } from './receipt/receipt-add.component';
 import { EmailTemplatesListComponent } from './email-templates/email-templates-list.component';
 import { EmailTemplatesAddComponent } from './email-templates/email-templates-add.component';
 import { flashViewDeatils } from './media/flash-view.component';
+import { CreditAddComponenet } from './credit-note/credit-add.component';
 
 @NgModule({
   declarations: [
@@ -165,7 +166,8 @@ import { flashViewDeatils } from './media/flash-view.component';
     ReceiptAddComponenet,
     EmailTemplatesListComponent,
     EmailTemplatesAddComponent,
-    flashViewDeatils    
+    flashViewDeatils,
+    CreditAddComponenet    
   ],
   imports: [
     CommonModule,
